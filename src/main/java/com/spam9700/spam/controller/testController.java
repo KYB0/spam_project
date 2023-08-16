@@ -11,8 +11,10 @@ public class testController {
         return "test";
     }
  
-    @GetMapping("/")
+    @GetMapping("/login")
     public String hi(){
-        return "hi";
+        return "login";
     }
+
+
 }

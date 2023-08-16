@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naver Local Search</title>
+</head>
+<body>
+    <h1>Naver Local Search</h1>
+    <form id="search-form">
+        <label>Search:</label>
+        <input type="checkbox" name="query" value="카페"> 카페
+        <input type="checkbox" name="query" value="레스토랑"> 레스토랑
+        <input type="checkbox" name="query" value="서점"> 서점
+        <button type="submit">Search</button>
+    </form>
+    <div id="results"></div>
+
+    <script>
+        document.getElementById("search-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            const checkedQueries = Array.from(document.querySelectorAll('input[name="query"]:checked'))
+                                       .map(input => input.value);
+            searchLocal(checkedQueries);
+        });
+
+        function searchLocal(queries) {
+            const clientId = "YOUR_CLIENT_ID";
+            const clientSecret = "YOUR_CLIENT_SECRET";
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "";
+
+            queries.forEach(query => {
+                const apiUrl = `https://openapi.naver.com/v1/search/local.json?query=${encodeURIComponent(query)}`;
+
+                fetch(apiUrl, {
+                    method: "GET",
+                    headers: {
+                        "X-Naver-Client-Id": clientId,
+                        "X-Naver-Client-Secret": clientSecret,
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const title = document.createElement("h2");
+                    title.textContent = query;
+                    resultsDiv.appendChild(title);
+
+                    data.items.forEach(item => {
+                        const name = document.createElement("h3");
+                        name.textContent = item.title;
+                        const address = document.createElement("p");
+                        address.textContent = item.address;
+                        resultsDiv.appendChild(name);
+                        resultsDiv.appendChild(address);
+                    });
+                })
+                .catch(error => {
+                    console.error("API 호출 실패:", error);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
