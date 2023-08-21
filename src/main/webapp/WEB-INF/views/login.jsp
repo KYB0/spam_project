@@ -12,27 +12,26 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <link rel="stylesheet" href="/src/css/style.css">
+    <!-- <link rel="stylesheet" href="/spam/css/style.css"> -->
 </head>
 
 <body>
-    <div id="header"></div>
+    <%@ include file="header.jsp" %>
 
     <section class="login-form">
         <h1>LOGIN</h1>
-        <form action="">
+        <form action="/spam/member/login" method="post">
             <div class="int-area-login">
                 <a href="#">개인 로그인</a>
                 <a href="#">기업 로그인</a>
-                <a href="#">회원가입</a>
             </div>
             <div class="int-area">
-                <input type="text" name="id" id="id" autofocus autocomplete="off" required>
+                <input type="text" name="customer_id" id="id" autofocus autocomplete="off" required>
                 <label for="id">ID</label>
             </div>
 
             <div class="int-area">
-                <input type="password" name="pw" id="pw" autocomplete="off" required>
+                <input type="password" name="customer_pwd" id="pw" autocomplete="off" required>
                 <label for="pw">PASSWORD</label>
             </div>
             <div class="btn-area">
@@ -42,15 +41,11 @@
         <div class="caption">
             <a href="">아이디 찾기</a>
             <a href="">비밀번호 찾기</a>
+            <a href="#">회원가입</a>
         </div>
     </section>
 
     <script>
-        // 헤더 푸터 
-        $(function () {
-            $('#header').load('header.html');
-        });
-
         let id = $('#id');
         let pw = $('#pw');
         let btn = $('#btn');
