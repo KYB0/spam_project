@@ -50,6 +50,14 @@
             }
         }
 
+
+
+
+
+      
+
+       
+
         .bi {
             vertical-align: -.125em;
             fill: currentColor;
@@ -95,7 +103,7 @@
         }
 
         .offcanvas {
-            background-color: #322A31 !important;
+            background-color: #322A31;
             /* 어두운 배경색으로 변경 */
         }
 
@@ -113,7 +121,9 @@
             color: #DCE682 !important;
         }
 
-        
+        .mr-2{
+            color: #DCE682;
+        }
         
     </style>
 
@@ -154,8 +164,8 @@
                 <a class="navbar-brand" href="#">SPAM</a>
 
                 <div class="d-flex justify-content-end align-items-center">
-                    <button class="btn btn-outline-light mx-2 btn-login" type="button">로그인</button>
-                    <button class="btn btn-light mx-2 btn-signup" type="button">회원가입</button>
+                    <span class="mr-2">테스트님</span>
+                    <button class="btn btn-outline-light mx-2 btn-login" type="button">로그아웃</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
                         aria-label="Toggle navigation">
@@ -175,16 +185,16 @@
 
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="http://localhost:8000/spam/main">Home</a>
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="${pageContext.request.contextPath}/search">독서실 검색</a>
+                                <a class="nav-link" href="#">독서실 검색</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="${pageContext.request.contextPath}/member/i_mypage">마이페이지</a>
+                                <a class="nav-link " href="#">마이페이지</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="${pageContext.request.contextPath}/qna_list">Q&A</a>
+                                <a class="nav-link " href="#">Q&A</a>
                             </li>
                         </ul>
                         <br>
