@@ -1,4 +1,4 @@
-﻿package com.spam9700.spam.controller;
+package com.spam9700.spam.controller;
 
 import java.util.List;
 
@@ -95,5 +95,22 @@ public class MemberController {
             model.addAttribute("notFound", true);
         }
         return "findIdResult"; // 아이디 찾기 결과를 보여주는 뷰 페이지 이름
+    }
+
+    @GetMapping("/find/pwd")
+    public String findPwdForm() {
+        return "findPwd"; 
+    }
+
+    @PostMapping("/find/pwd")
+    public String findPwd(@RequestParam String customer_id, @RequestParam String customer_email, Model model) {
+        String foundPwd = memberService.findPwd(customer_id, customer_email);
+
+        if (foundPwd != null) {
+            model.addAttribute("foundPwd", foundPwd);
+        } else {
+            model.addAttribute("notFound", true);
+        }
+        return "findPwdResult";
     }
 }

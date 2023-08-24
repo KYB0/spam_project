@@ -1,4 +1,4 @@
-﻿package com.spam9700.spam.dao;
+package com.spam9700.spam.dao;
 
 import java.util.List;
 
@@ -16,5 +16,7 @@ public interface MemberDao {
     boolean idCheck(String customer_id);
 
     List<String> findId(String customer_name, String customer_email);
+
+    String findPwd(String customer_id, String customer_email);
 
 }

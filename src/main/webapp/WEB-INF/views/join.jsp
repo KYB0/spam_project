@@ -13,6 +13,7 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="/spam/js/join.js"></script>
 </head>
 
 <body>
@@ -65,7 +66,7 @@
     <footer>
         <%@ include file="footer.jsp" %>
     </footer>
-    <script>
+    <!-- <script>
         $(document).ready(function () {
             let isIdAvailable = false;
             $("#customer_birth").keyup(function () {
@@ -209,7 +210,7 @@
                     .replace(/(\-{1,2})$/g, "");
             };
         });
-    </script>
+    </script> -->
 
 </body>
 

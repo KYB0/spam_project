@@ -1,4 +1,5 @@
 ﻿$(document).ready(function () {
+    let isIdAvailable = false;
     $("#customer_birth").keyup(function () {
         let birth = $(this).val();
         let birthPattern = /^[0-9]{4}[0-9]{2}[0-9]{2}$/;
@@ -27,30 +28,78 @@
             $(this).val(birth.substring(0, 8));
         }
     });
+
     // 아이디 중복 확인 버튼 클릭 시
     $("#id_check").click(function () {
         let customer_id = $("#customer_id").val();
         let idCheckMsg = $("#id_check_msg");
 
-        $.ajax({
-            url: "/spam/member/check/id", // 아이디 중복 확인 주소로 변경
-            type: "GET",
-            data: {
-                customer_id: customer_id
-            },
-            success: function (response) {
-                if (response === "exists") {
-                    idCheckMsg.html("이미 사용 중인 아이디입니다.");
-                } else {
-                    idCheckMsg.html(
-                        "<span style='color: blue;'>사용 가능한 아이디 입니다.</span>");
+        // 아이디 유효성 검사
+        let idPattern = /^[a-z][a-z0-9]{4,11}$/;
+
+        if (!idPattern.test(customer_id)) {
+            idCheckMsg.html(
+                "아이디는 영문 소문자로 시작하고, 영문 소문자와 숫자로만 구성되어야 합니다. 길이는 5자 이상 12자 이하여야 합니다."
+            );
+        } else {
+            // 유효한 아이디인 경우, 중복 확인 AJAX 요청 보내기
+            $.ajax({
+                url: "/spam/member/check/id", // 아이디 중복 확인 주소로 변경
+                type: "GET",
+                data: {
+                    customer_id: customer_id
+                },
+                success: function (response) {
+                    if (response === "exists") {
+                        idCheckMsg.html("이미 사용 중인 아이디입니다.");
+                        isIdAvailable = false;
+                    } else {
+                        idCheckMsg.html(
+                            "<span style='color: blue;'>사용 가능한 아이디 입니다.</span>"
+                        );
+                        isIdAvailable = true;
+                    }
+                },
+                error: function () {
+                    idCheckMsg.html("아이디 중복 확인 중 오류가 발생했습니다.");
+                    isIdAvailable = false;
                 }
-            },
-            error: function () {
-                idCheckMsg.html("아이디 중복 확인 중 오류가 발생했습니다.");
-            }
-        });
+            });
+        }
     });
+
+    // 가입하기 버튼 클릭 시
+    $("button[type='submit']").click(function (event) {
+        if (!isIdAvailable) {
+            event.preventDefault();
+            alert("아이디 중복 확인을 먼저 해주세요.");
+        } else {
+            let password = $("#customer_pwd").val();
+            let confirmPassword = $("#customer_pwd_re").val();
+            let passwordErrorMsg = $("#password_mismatch_msg");
+
+            if (password !== confirmPassword) {
+                passwordErrorMsg.html("비밀번호가 일치하지 않습니다.");
+                event.preventDefault();
+            } else {
+                passwordErrorMsg.html(""); // 비밀번호 불일치 메시지 초기화
+
+                // 비밀번호 유효성 검사 추가
+                let passwordPattern =
+                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+                if (!passwordPattern.test(password)) {
+                    passwordErrorMsg.html(
+                        "비밀번호는 대문자, 소문자, 숫자, 특수문자를 혼합하여 8자 이상으로 설정해야 합니다."
+                    );
+                    event.preventDefault();
+                } else {
+                    // 여기에 폼을 서버로 제출하는 로직을 추가할 수 있습니다.
+                }
+            }
+        }
+    });
+
 
     // 비밀번호 확인 입력란 값 변경 시
     $("#customer_pwd_re").keyup(function () {

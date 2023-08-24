@@ -1,4 +1,4 @@
-﻿package com.spam9700.spam.service;
+package com.spam9700.spam.service;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -30,6 +30,10 @@ public class MemberService {
 
     public List<String> findId(String customer_name, String customer_email) {
         return memberDao.findId(customer_name, customer_email);
+    }
+
+    public String findPwd(String customer_id, String customer_email) {
+        return memberDao.findPwd(customer_id, customer_email);
     }
 
 }
