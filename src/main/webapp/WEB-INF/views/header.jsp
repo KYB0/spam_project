@@ -33,7 +33,7 @@
         }
 
         body {
-            font-family: 'TheJamsil5Bold', sans-serif;
+            font-family: 'TheJamsil5Bold', sans-serif !important;
         }
 
         .bd-placeholder-img {
@@ -151,11 +151,11 @@
     <main>
         <nav class="navbar navbar-dark bg-dark" aria-label="Dark offcanvas navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">SPAM</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/main">SPAM</a>
 
                 <div class="d-flex justify-content-end align-items-center">
-                    <button class="btn btn-outline-light mx-2 btn-login" type="button">로그인</button>
-                    <button class="btn btn-light mx-2 btn-signup" type="button">회원가입</button>
+                    <button class="btn btn-outline-light mx-2 btn-login" type="button" onclick="location.href='${pageContext.request.contextPath}/member/i_login'">로그인</button>
+                    <button class="btn btn-light mx-2 btn-signup" type="button" onclick="location.href='${pageContext.request.contextPath}/member/joinfrm'">회원가입</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
                         aria-label="Toggle navigation">
@@ -175,23 +175,23 @@
 
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="http://localhost:8000/spam/main">Home</a>
+                                <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/main">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="${pageContext.request.contextPath}/search">독서실 검색</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="${pageContext.request.contextPath}/member/i_mypage">마이페이지</a>
+                                <a class="nav-link " href="${pageContext.request.contextPath}/member/i_mypage" onclick="return checkLogin()">마이페이지</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link " href="${pageContext.request.contextPath}/qna_list">Q&A</a>
                             </li>
                         </ul>
                         <br>
-                        <form class="d-flex mt-3" role="search">
+                        <!-- <form class="d-flex mt-3" role="search">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
+                        </form> -->
                     </div>
                 </div>
             </div>

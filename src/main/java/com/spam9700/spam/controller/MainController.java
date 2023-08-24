@@ -19,11 +19,21 @@ public class MainController {
 
     @GetMapping("/search")
     public String search(){
-        return "/search";
+        return "search";
     }
 
     @GetMapping("/qna_list")
     public String qnaboard(){
         return "qnaBoard";
+    }
+
+    @GetMapping("/member/i_login")
+    public String iLogin(){
+        return "login";
+    }
+
+    @GetMapping("/member/joinfrm")
+    public String ijoin(){
+        return "join";
     }
 }
