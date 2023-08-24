@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>카카오톡 스타일 챗봇 예시</title>
+</head>
+
+<body>
+    <div id="chat-container">
+        <div id="chat-output"></div>
+        <div id="user-input">
+            <input type="text" id="input-message" placeholder="메시지 입력">
+            <button onclick="sendMessage()">전송</button>
+        </div>
+    </div>
+
+    <style>
+        #chat-container {
+            width: 300px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 400px;
+        }
+
+        #chat-output {
+            overflow-y: auto;
+        }
+
+        .message-container {
+            display: flex;
+
+            justify-content: $ {
+                direction
+            }
+
+            ;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .user-message,
+        .bot-message {
+            background-color: #f1f0f0;
+            border-radius: 8px;
+            padding: 5px 10px;
+            max-width: 70%;
+        }
+
+        .user-message {
+            align-self: $ {
+                alignSelf
+            }
+
+            ;
+            background-color: #d6f5d6;
+        }
+
+        .bot-message {
+            align-self: $ {
+                alignSelf
+            }
+
+            ;
+            background-color: #f1f0f0;
+        }
+
+        #user-input {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 5px;
+            border-radius: 5px 0 0 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+
+    <script>
+        const chatOutput = document.getElementById('chat-output');
+        const inputMessage = document.getElementById('input-message');
+        let direction = 'flex-start';
+        let alignSelf = 'flex-start';
+
+        function sendMessage() {
+            const userMessage = inputMessage.value;
+            if (userMessage.trim() !== '') {
+                const userMessageContainer = createMessageContainer('user', userMessage);
+                chatOutput.appendChild(userMessageContainer);
+                inputMessage.value = '';
+
+                const botResponse = generateResponse(userMessage);
+                const botMessageContainer = createMessageContainer('bot', botResponse);
+                setTimeout(function () {
+                    chatOutput.appendChild(botMessageContainer);
+                    chatOutput.scrollTop = chatOutput.scrollHeight; // 스크롤 아래로 이동
+                }, 500);
+            }
+        }
+
+        function generateResponse(userMessage) {
+            if (userMessage.includes('안녕')) {
+                return '안녕하세요! 반갑습니다.';
+            } else if (userMessage.includes('날씨')) {
+                return '오늘 날씨는 맑습니다.';
+            } else if (userMessage.includes('시간')) {
+                const currentTime = new Date().toLocaleTimeString();
+                return `현재 시간은 ${currentTime}입니다.`;
+            } else {
+                return '죄송합니다. 이해할 수 없는 메시지입니다.';
+            }
+        }
+
+        function createMessageContainer(sender, message) {
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'message-container';
+
+            if (sender === 'user') {
+                direction = 'flex-end';
+                alignSelf = 'flex-end';
+            } else {
+                direction = 'flex-start';
+                alignSelf = 'flex-start';
+            }
+
+            const messageBubble = document.createElement('div');
+            messageBubble.className = sender + '-message';
+            messageBubble.textContent = message;
+
+            messageContainer.appendChild(messageBubble);
+
+            return messageContainer;
+        }
+    </script>
+</body>
+
+</html>

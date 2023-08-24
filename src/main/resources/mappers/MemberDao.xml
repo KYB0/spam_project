@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.MemberDao">
+    
+    <insert id="join" parameterType="com.spam9700.spam.dto.CustomerMemberDto">
+        INSERT INTO customer_member (customer_id, customer_pwd, customer_name, customer_email, customer_birth, customer_phone)
+        VALUES (#{customer_id}, #{customer_pwd}, #{customer_name}, #{customer_email}, #{customer_birth}, #{customer_phone})
+    </insert>
+
+    
+
+    <!-- login --> 
+
+    <select id="login" resultType="boolean">
+        SELECT COUNT(*) FROM customer_member
+        WHERE customer_id = #{customer_id} AND customer_pwd = #{customer_pwd}
+    </select>
+
+    <!-- idCheck --> 
+
+     <select id="idCheck" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM customer_member
+        WHERE customer_id = #{customer_id}
+    </select>
+
+    <!-- findId --> 
+
+    <select id="findId" parameterType="map">
+        SELECT customer_id
+        FROM customer_member
+        WHERE customer_name = #{customer_name}
+        AND customer_email = #{customer_email}
+    </select>    
+    </mapper>

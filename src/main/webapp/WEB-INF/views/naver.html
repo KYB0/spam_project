@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Kakao Map Search</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Kakao Map Search</h1>
+    <div>
+        <label for="category">Category:</label>
+        <select id="category">
+            <option value="MT1">대형마트</option>
+            <!-- 다른 카테고리 옵션들도 추가 가능 -->
+        </select>
+    </div>
+    <div>
+        <label for="location">Location:</label>
+        <input type="text" id="location" placeholder="Enter location">
+        <button id="searchButton">Search</button>
+    </div>
+    <div id="results"></div>
+
+    <script>
+        const apiKey = 'YOUR_KAKAO_API_KEY';
+
+        $('#searchButton').on('click', function () {
+            const category = $('#category').val();
+            const location = $('#location').val();
+
+            if (location) {
+                const apiUrl = `https://dapi.kakao.com/v2/local/search/category.json` +
+                    `?category_group_code=${category}` +
+                    `&query=${location}`;
+
+                $.ajax({
+                    url: apiUrl,
+                    type: 'GET',
+                    headers: {
+                        'Authorization': `KakaoAK ${apiKey}`
+                    },
+                    success: function (data) {
+                        const resultsDiv = $('#results');
+                        resultsDiv.empty();
+
+                        data.documents.forEach(place => {
+                            const placeName = place.place_name;
+                            const address = place.address_name;
+
+                            const resultItem =
+                                `<p><strong>${placeName}</strong><br>${address}</p>`;
+                            resultsDiv.append(resultItem);
+                        });
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
