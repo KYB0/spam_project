@@ -27,13 +27,19 @@ public class MemberController {
     @Autowired
     private final MemberService memberService;
 
-    @GetMapping("/join")
+    @GetMapping("/joinfrm")
     public String joinForm() {
-        log.info("회원가입 화면");
+        log.info("회원가입 선택 화면");
+        return "joinFrm";
+    }
+
+    @GetMapping("/i_join")
+    public String iJoinForm() {
+        log.info("개인 회원가입 화면");
         return "join";
     }
 
-    @PostMapping("/join")
+    @PostMapping("/i_join")
     public String join(CustomerMemberDto customerMemberDto, Model model, RedirectAttributes rttr) {
         model.addAttribute("cusmb", customerMemberDto);
         log.info("회원가입 처리");
@@ -49,23 +55,44 @@ public class MemberController {
         }
     }
 
-    @GetMapping("/login")
-    public String loginForm() {
-        log.info("로그인 화면");
-        return "login";
+    @GetMapping("/i_login")
+    public String iLoginForm() {
+        log.info("개인로그인 화면");
+        return "i_login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String customer_id, @RequestParam String customer_pwd) {
-        log.info("로그인 처리");
+    @GetMapping("/c_login")
+    public String cLoginForm() {
+        log.info("기업로그인 화면");
+        return "c_login";
+    }
+
+    @PostMapping("/i_login")
+    public String iLogin(@RequestParam String customer_id, @RequestParam String customer_pwd) {
+        log.info("개인로그인 처리");
         log.info("id:{}, pwd:{}", customer_id, customer_pwd);
-        boolean result = memberService.login(customer_id, customer_pwd);
+        boolean result = memberService.iLogin(customer_id, customer_pwd);
         if (result) {
-            log.info("로그인 성공");
+            log.info("개인로그인 성공");
             return "home";
         } else {
             log.info("로그인 실패");
-            return "login";
+            return "i_login";
+        }
+    }
+
+    @PostMapping("/c_login")
+    public String cLogin(@RequestParam String company_id, @RequestParam String company_pwd,
+            @RequestParam String company_businessnum) {
+        log.info("기업로그인 처리");
+        log.info("id:{}, pwd:{}, businessnum:{}", company_id, company_pwd, company_businessnum);
+        boolean result = memberService.cLogin(company_id, company_pwd, company_businessnum);
+        if (result) {
+            log.info("기업로그인 성공");
+            return "home";
+        } else {
+            log.info("로그인 실패");
+            return "c_login";
         }
     }
 
@@ -99,7 +126,7 @@ public class MemberController {
 
     @GetMapping("/find/pwd")
     public String findPwdForm() {
-        return "findPwd"; 
+        return "findPwd";
     }
 
     @PostMapping("/find/pwd")
@@ -113,4 +140,5 @@ public class MemberController {
         }
         return "findPwdResult";
     }
+
 }

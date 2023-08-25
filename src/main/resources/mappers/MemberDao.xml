@@ -11,9 +11,14 @@
 
     <!-- login -->
 
-    <select id="login" resultType="boolean">
+    <select id="iLogin" resultType="boolean">
         SELECT COUNT(*) FROM customer_member
         WHERE customer_id = #{customer_id} AND customer_pwd = #{customer_pwd}
+    </select>
+
+    <select id="cLogin" resultType="boolean">
+         SELECT COUNT(*) FROM company_member
+         WHERE company_id = #{company_id} AND company_pwd = #{company_pwd} AND company_businessnum = #{company_businessnum}
     </select>
 
     <!-- idCheck -->
@@ -41,5 +46,7 @@
         WHERE customer_id = #{customer_id}
         AND customer_email = #{customer_email}
     </select>
+
+    <!-- cLogin -->
 
 </mapper>

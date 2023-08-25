@@ -213,11 +213,11 @@
 <script>
     function redirectToLoginPage() {
         // Change the URL to the login page URL
-        window.location.href = "/spam/member/login"; // Replace with the actual login page JSP file
+        window.location.href = "/spam/member/i_login"; // Replace with the actual login page JSP file
     }
 
     function redirectToJoinPage() {
         // Change the URL to the login page URL
-        window.location.href = "/spam/member/join"; // Replace with the actual login page JSP file
+        window.location.href = "/spam/member/joinfrm"; // Replace with the actual login page JSP file
     }
 </script>

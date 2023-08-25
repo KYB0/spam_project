@@ -20,8 +20,12 @@ public class MemberService {
         return memberDao.join(customerMemberDto);
     }
 
-    public boolean login(String customer_id, String customer_pwd) {
-        return memberDao.login(customer_id, customer_pwd);
+    public boolean iLogin(String customer_id, String customer_pwd) {
+        return memberDao.iLogin(customer_id, customer_pwd);
+    }
+
+    public boolean cLogin(String company_id, String company_pwd, String company_businessnum) {
+        return memberDao.cLogin(company_id, company_pwd, company_businessnum);
     }
 
     public boolean idCheck(String customer_id) {

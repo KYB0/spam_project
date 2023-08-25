@@ -18,7 +18,7 @@
     <c:if test="${notFound != true}">
         <p>Your password is: ${foundPwd}</p>
     </c:if>
-    <a href="/spam/member/find/pwd">Go back to find password</a>
+    <a href="/spam/member/i_login">로그인 하러 가기</a>
 </body>
 
 </html>

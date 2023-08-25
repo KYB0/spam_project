@@ -11,7 +11,9 @@ public interface MemberDao {
 
     boolean join(CustomerMemberDto customerMemberDto);
 
-    boolean login(String customer_id, String customer_pwd);
+    boolean iLogin(String customer_id, String customer_pwd);
+
+    boolean cLogin(String company_id, String company_pwd, String company_businessnum);
 
     boolean idCheck(String customer_id);
 
