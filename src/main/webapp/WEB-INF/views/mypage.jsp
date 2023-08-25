@@ -1,25 +1,39 @@
 ﻿<!DOCTYPE html>
-<%@ include file="header.jsp" %>
+<%@ include file="Cheader.jsp" %>
 <%@ include file="footer.jsp" %>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="/js/jquery-3.7.0.min.js"></script>
+    <title>마이 페이지</title>
 </head>
-
 <body>
-    <script>
-        function checkLogin() {
-            if (sessionStorage.getItem('loggedIn') !== 'true') {
-                alert('로그인이 필요합니다.');
-                window.location.href = "${pageContext.request.contextPath}/member/i_login"; // 로그인 페이지 URL로 변경
-                return false; // 링크 클릭 동작 중지
-            }
-            return true; // 링크 클릭 동작 계속 진행
-        }
-    </script>
+   <br> <div>
+        <p><label for="name">이름:</label>
+        <input type="text" id="name" /> </p>
+    </div>
+    <div>
+        <p><label for="id">아이디:</label>
+        <input type="text" id="id" /></p>
+    </div>
+    <div>
+        <p><label for="pw">패스워드:</label>
+        <input type="password" id="pw" /></p>
+    </div>
+    <div>
+        <p><label for="pwc">패스워드 확인:</label>
+        <input type="password" id="pwc" /></p>
+    </div>
+    <div>
+        <p><label for="pNum">휴대전화:</label>
+        <input type="text" id="pNum" /></p>
+    </div>
+    <div>
+        <p><label for="email">이메일:</label>
+        <input type="text" id="email" /></p>
+    </div>
+    <!-- 나머지 필드들도 동일한 방식으로 추가 -->
+    
+    <button id="resignButton">회원 탈퇴</button>
+    <button id="updateButton">수정 완료</button>
+    <script src="mypage.js"></script>
 </body>
 </html>

@@ -12,7 +12,7 @@
     <h1>회원가입 화면</h1>
     <script>
         function redirectToLogin() {
-            window.location.href = "/join"; // 로그인 페이지의 URL로 변경
+            window.location.href = "/join"; // 회원가입 페이지의 URL로 변경
         }
         </script>
 </body>

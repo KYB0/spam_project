@@ -22,7 +22,7 @@
         <h1>LOGIN</h1>
         <form action="/spam/member/login" method="post">
             <div class="int-area-login">
-                <a href="/spam/member/login">개인 로그인</a>
+                <a href="/spam/member/i_login">개인 로그인</a>
                 <a href="#">기업 로그인</a>
             </div>
             <div class="int-area">
@@ -39,9 +39,9 @@
             </div>
         </form>
         <div class="caption">
-            <a href="/spam/member/find/id">아이디 찾기</a>
-            <a href="/spam/member/find/pwd">비밀번호 찾기</a>
-            <a href="/spam/member/join">회원가입</a>
+            <a href="/spam/member/findid">아이디 찾기</a>
+            <a href="/spam/member/findpw">비밀번호 찾기</a>
+            <a href="/spam/member/joinfrm">회원가입</a>
         </div>
     </section>
 
