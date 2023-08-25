@@ -11,8 +11,15 @@ public class testController {
         return "payment";
     }
  
-    @GetMapping("/")
+    @GetMapping("/return")
     public String hi(){
-        return "hi";
+        return "return";
     }
+
+    
+    @GetMapping("/bot")
+    public String chat(){
+        return "bot";
+    }
+
 }
