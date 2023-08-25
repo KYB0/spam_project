@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+<%@ include file="header.jsp" %>
 <html lang="UTF-8">
 
 <head>
@@ -16,13 +17,12 @@
 </head>
 
 <body>
-    <%@ include file="header.jsp" %>
 
     <section class="login-form">
         <h1>LOGIN</h1>
         <form action="/spam/member/login" method="post">
             <div class="int-area-login">
-                <a href="#">개인 로그인</a>
+                <a href="/spam/member/i_login">개인 로그인</a>
                 <a href="#">기업 로그인</a>
             </div>
             <div class="int-area">
@@ -39,9 +39,9 @@
             </div>
         </form>
         <div class="caption">
-            <a href="">아이디 찾기</a>
-            <a href="">비밀번호 찾기</a>
-            <a href="#">회원가입</a>
+            <a href="/spam/member/findid">아이디 찾기</a>
+            <a href="/spam/member/findpw">비밀번호 찾기</a>
+            <a href="/spam/member/joinfrm">회원가입</a>
         </div>
     </section>
 
@@ -68,7 +68,9 @@
         })
     </script>
 
-
+<footer>
+    <%@ include file="footer.jsp" %>
+</footer>
 </body>
 
 </html>

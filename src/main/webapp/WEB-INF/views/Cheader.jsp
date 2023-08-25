@@ -33,7 +33,7 @@
         }
 
         body {
-            font-family: 'TheJamsil5Bold', sans-serif !important;
+            font-family: 'TheJamsil5Bold', sans-serif;
         }
 
         .bd-placeholder-img {
@@ -49,6 +49,14 @@
                 font-size: 3.5rem;
             }
         }
+
+
+
+
+
+      
+
+       
 
         .bi {
             vertical-align: -.125em;
@@ -95,7 +103,7 @@
         }
 
         .offcanvas {
-            background-color: #322A31 !important;
+            background-color: #322A31;
             /* 어두운 배경색으로 변경 */
         }
 
@@ -113,7 +121,9 @@
             color: #DCE682 !important;
         }
 
-        
+        .mr-2{
+            color: #DCE682;
+        }
         
     </style>
 
@@ -154,8 +164,8 @@
                 <a class="navbar-brand" href="${pageContext.request.contextPath}/main">SPAM</a>
 
                 <div class="d-flex justify-content-end align-items-center">
-                    <button class="btn btn-outline-light mx-2 btn-login" type="button" onclick="location.href='${pageContext.request.contextPath}/member/i_login'">로그인</button>
-                    <button class="btn btn-light mx-2 btn-signup" type="button" onclick="location.href='${pageContext.request.contextPath}/member/joinfrm'">회원가입</button>
+                    <span class="mr-2">테스트님</span>
+                    <button class="btn btn-outline-light mx-2 btn-login" type="button" href="${pageContext.request.contextPath}/main">로그아웃</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
                         aria-label="Toggle navigation">
@@ -181,7 +191,7 @@
                                 <a class="nav-link" href="${pageContext.request.contextPath}/search">독서실 검색</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link " href="${pageContext.request.contextPath}/member/i_mypage" onclick="return checkLogin()">마이페이지</a>
+                                <a class="nav-link " href="${pageContext.request.contextPath}/member/i_mypage">마이페이지</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link " href="${pageContext.request.contextPath}/qna_list">Q&A</a>
