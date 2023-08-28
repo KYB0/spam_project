@@ -1,0 +1,11 @@
+﻿package com.spam9700.spam.dto;
+
+import lombok.Data;
+
+@Data
+public class companyListDto {
+    private int usage_id;
+    private int year;
+    private int month;
+    private int user_count;
+}

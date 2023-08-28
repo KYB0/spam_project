@@ -11,9 +11,10 @@ public class TestController {
     //     return "main";
     // }
 
-//    @GetMapping("/test")
- //       public String test(){
- //           return "132";
- //       }
+   @GetMapping("/test")
+       public String test(){
+           return "chart_test";
+       }
+
 
 }
