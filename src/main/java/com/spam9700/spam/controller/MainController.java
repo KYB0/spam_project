@@ -47,19 +47,19 @@ public class MainController {
         return "login";
     }
 
-    @PostMapping("/member/i_login")
-    public String iLogin(@RequestParam String customer_id, @RequestParam String customer_pwd) {
-        log.info("개인 로그인");
-        log.info("id:{}, pw:{}", customer_id, customer_pwd);
-        boolean result = memberService.iLogin(customer_id, customer_pwd);
-            if(result){
-                log.info("개인 회원 로그인 성공");
-                return "main";
-            }else{
-                log.info("로그인 실패");
-                return "login";
-            }
-    }
+    // @PostMapping("/member/i_login")
+    // public String iLogin(@RequestParam String customer_id, @RequestParam String customer_pwd) {
+    //     log.info("개인 로그인");
+    //     log.info("id:{}, pw:{}", customer_id, customer_pwd);
+    //     boolean result = memberService.iLogin(customer_id, customer_pwd);
+    //         if(result){
+    //             log.info("개인 회원 로그인 성공");
+    //             return "main";
+    //         }else{
+    //             log.info("로그인 실패");
+    //             return "login";
+    //         }
+    // }
 
     @GetMapping("/member/joinfrm")
     public String joinForm() {

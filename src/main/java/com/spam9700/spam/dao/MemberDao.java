@@ -1,10 +1,10 @@
 ﻿package com.spam9700.spam.dao;
 
-import org.apache.catalina.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.spam9700.spam.dto.CustomerDto;
+import com.spam9700.spam.dto.MypageDto;
+
 
 @Mapper
 public interface MemberDao {
@@ -12,6 +12,7 @@ public interface MemberDao {
 
     int checkCredentials(@Param("customer_id") String customer_id, @Param("customer_pwd") String customer_pwd);
 
-    CustomerDto getCustomerByUsername(String customer_id);
+    MypageDto getUserById(String customer_id);
 
+    void updateUser(MypageDto user);
 }

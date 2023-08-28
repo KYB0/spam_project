@@ -15,9 +15,4 @@ public class CustomerDto {
 
     private String customer_phone;
 
-    private String accountType;
-
-    public String getAccountType(){
-        return accountType;
-    }
 }
