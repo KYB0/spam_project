@@ -15,16 +15,19 @@
         <img src="/spam/img/botbot.png" alt="챗봇 아이콘" class="chatbot-icon">
     </button>
     
-<!-- 모달 창 -->
-<div id="chatbotModal" class="modal" onclick="closeModal()">
+  <!-- 모달 창 -->
+  <div id="chatbotModal" class="modal" onclick="closeModal()">
     <div class="modal-content" onclick="stopPropagation(event)">
         <span class="close" onclick="closeChatbot()">&times;</span>
-        <button class="chat-button" onclick="sendMessage('로그인 관련')">로그인 관련</button>
-        <button class="chat-button" onclick="sendMessage('리뷰 남기기')">리뷰 남기기</button>
-        <button class="chat-button" onclick="sendMessage('비품 관련')">비품 관련</button>
+        
+        <button class="chat-button" onclick="showOptions(['회원가입', '로그인', '아이디찾기'])">로그인 관련</button>
+        <button class="chat-button" onclick="showOptions(['리뷰는 어디에 남기나요?', '리뷰페이지', '내가 작성한 리뷰 페이지를 보고싶어요'])">리뷰 관련</button>
+        <button class="chat-button" onclick="showOptions(['비품대여 방법을 알고싶어요', '내가 대여한 비품', '대여가능한 비품 종류'])">비품 관련</button>
+        
     </div>
-</div>
 
+</div>
+    
      
     </body>
     </html> 
