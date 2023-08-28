@@ -8,5 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MypageController {
 
-    // private UserData userData
+    // @GetMapping("/member/i_mypage")
+    // public String show
 }

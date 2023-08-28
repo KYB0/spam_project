@@ -1,11 +1,14 @@
 package com.spam9700.spam.controller;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 
 import com.spam9700.spam.service.MemberService;
 
@@ -23,10 +26,10 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("/member/i_mypage")
-    public String mypage() {
-        return "mypage";
-    }
+    // @GetMapping("/member/i_mypage")
+    // public String mypage() {
+    //     return "mypage";
+    // }
 
     @GetMapping("/search")
     public String search() {
@@ -56,7 +59,6 @@ public class MainController {
                 log.info("로그인 실패");
                 return "login";
             }
-       
     }
 
     @GetMapping("/member/joinfrm")
@@ -65,4 +67,13 @@ public class MainController {
         return "join";
     }
 
+    @RequestMapping("/member/i_mypage")
+    public String iMypage(Model model){
+        return "iMypage";
+    }
+
+    @RequestMapping("/member/c_mypage")
+    public String cMypage(Model model){
+        return "cMypage";
+    }
 }

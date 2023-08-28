@@ -14,4 +14,10 @@ public class CustomerDto {
     // private LocalDate customer_birth;
 
     private String customer_phone;
+
+    private String accountType;
+
+    public String getAccountType(){
+        return accountType;
+    }
 }

@@ -4,7 +4,7 @@
     updateButton.addEventListener('click', async function() {
         const name = document.getElementById('name').value;
         const id = document.getElementById('id').value;
-        const pw = document.getElementById('pw').value;
+        const pwd = document.getElementById('pwd').value;
         const pwc = document.getElementById('pwc').value;
         const pNum = document.getElementById('pNum').value;
         const email = document.getElementById('email').value;
@@ -13,7 +13,7 @@
         const userData = {
             name: name,
             id: id,
-            pw: pw,
+            pw: pwd,
             pwc: pwc,
             pNum: pNum,
             email: email
