@@ -86,11 +86,11 @@
 
                 // 비밀번호 유효성 검사 추가
                 let passwordPattern =
-                    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                    /^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
                 if (!passwordPattern.test(password)) {
                     passwordErrorMsg.html(
-                        "비밀번호는 대문자, 소문자, 숫자, 특수문자를 혼합하여 8자 이상으로 설정해야 합니다."
+                        "비밀번호는 소문자, 숫자, 특수문자를 혼합하여 8자 이상으로 설정해야 합니다."
                     );
                     event.preventDefault();
                 } else {

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spam9700.spam.dto.CustomerMemberDto;
 import com.spam9700.spam.service.MemberService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,7 +37,13 @@ public class MemberController {
     @GetMapping("/i_join")
     public String iJoinForm() {
         log.info("개인 회원가입 화면");
-        return "join";
+        return "i_join";
+    }
+
+    @GetMapping("/c_join")
+    public String cJoinForm() {
+        log.info("기업 회원가입 화면");
+        return "c_join";
     }
 
     @PostMapping("/i_join")
@@ -48,10 +55,10 @@ public class MemberController {
         if (result) {
             model.addAttribute("msg", "가입성공");
             rttr.addFlashAttribute("msg", "가입성공");
-            return "redirect:/member/login";
+            return "redirect:/member/i_login";
         } else {
             model.addAttribute("msg", "가입실패");
-            return "join";
+            return "i_join";
         }
     }
 
@@ -67,14 +74,15 @@ public class MemberController {
         return "c_login";
     }
 
-    @PostMapping("/i_login")
-    public String iLogin(@RequestParam String customer_id, @RequestParam String customer_pwd) {
+    @PostMapping("/i_login") 
+    public String iLogin(@RequestParam String customer_id, @RequestParam String customer_pwd, HttpSession session) {
         log.info("개인로그인 처리");
         log.info("id:{}, pwd:{}", customer_id, customer_pwd);
         boolean result = memberService.iLogin(customer_id, customer_pwd);
         if (result) {
             log.info("개인로그인 성공");
-            return "home";
+            session.setAttribute("loggedInUser", customer_id);
+            return "redirect:/"; // 로그인 성공 시 홈 화면으로 이동
         } else {
             log.info("로그인 실패");
             return "i_login";
@@ -89,7 +97,7 @@ public class MemberController {
         boolean result = memberService.cLogin(company_id, company_pwd, company_businessnum);
         if (result) {
             log.info("기업로그인 성공");
-            return "home";
+            return "redirect:/";
         } else {
             log.info("로그인 실패");
             return "c_login";
@@ -106,6 +114,8 @@ public class MemberController {
             return ResponseEntity.ok("available");
         }
     }
+
+    
 
     @GetMapping("/find/id")
     public String findIdForm() {
@@ -140,5 +150,12 @@ public class MemberController {
         }
         return "findPwdResult";
     }
+
+    // @RequestMapping("/logout")
+    // public String logout(HttpSession session) {
+    //     // Remove the loggedInUser attribute from the session
+    //     session.removeAttribute("loggedInUser");
+    //     return "redirect:/"; // 로그아웃 후 홈 화면으로 이동
+    // }
 
 }

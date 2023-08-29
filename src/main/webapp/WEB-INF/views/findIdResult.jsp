@@ -23,7 +23,7 @@ pageEncoding="UTF-8"%>
             </c:forEach>
         </ul>
     </c:if>
-    <a href="/spam/member/find/i_login">로그인 하러 가기</a>
+    <a href="/spam/member/i_login">로그인 하러 가기</a>
     <a href="/spam/member/find/pwd">비밀번호 찾기</a>
 </body>
 

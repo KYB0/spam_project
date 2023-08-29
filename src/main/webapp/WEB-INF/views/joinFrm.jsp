@@ -125,16 +125,6 @@
     <div id="content_nav">
         <div class="area">
             <section class="container">
-
-
-
-
-
-
-
-
-
-
                 <!-------------------- 본문 -------------------->
                 <div class="contents join" id="container_id">
                     <h3 class="no_line">회원가입 유형 선택</h3>

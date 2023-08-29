@@ -29,8 +29,9 @@ public class MemberService {
     }
 
     public boolean idCheck(String customer_id) {
-        return memberDao.idCheck(customer_id);
+    return memberDao.idCheck(customer_id);
     }
+
 
     public List<String> findId(String customer_name, String customer_email) {
         return memberDao.findId(customer_name, customer_email);

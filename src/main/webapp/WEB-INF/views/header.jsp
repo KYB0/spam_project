@@ -2,7 +2,7 @@
 <html lang="en" data-bs-theme="auto">
 
 <head>
-    <script src="js/color-modes.js"></script>
+    <script src="/spam/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-    <link href="css/bootstrap.min.css" rel="stylesheet"
+    <link href="/spam/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
     <style>
@@ -124,7 +124,7 @@
 
 
     <!-- Custom styles for this template -->
-    <link href="navbars-offcanvas.css" rel="stylesheet">
+    <link href="/spam/css/navbars-offcanvas.css" rel="stylesheet">
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
 
 </head>
@@ -159,15 +159,23 @@
             <a class="navbar-brand" href="/spam">SPAM</a>
 
             <div class="d-flex justify-content-end align-items-center">
-                <button class="btn btn-outline-light mx-2 btn-login" type="button"
-                    onclick="redirectToLoginPage()">로그인</button>
-                <button class="btn btn-light mx-2 btn-signup" type="button" onclick="redirectToJoinPage()">회원가입</button>
+                <div id="navbarButtonsBeforeLogin" style="display: none;">
+                    <button class="btn btn-outline-light mx-2 btn-login" type="button"
+                        onclick="redirectToLoginPage()">로그인</button>
+                    <button class="btn btn-light mx-2 btn-signup" type="button"
+                        onclick="redirectToJoinPage()">회원가입</button>
+                </div>
+                <div id="navbarButtonsAfterLogin" style="display: none;">
+                    <p>안녕하세요, <span id="loggedInUsername"></span>님!</p>
+                    <button class="btn btn-light mx-2 btn-signup" type="button" onclick="performLogout()">로그아웃</button>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             </div>
+
             <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbarDark"
                 aria-labelledby="offcanvasNavbarDarkLabel">
 
@@ -207,17 +215,29 @@
 
 
 </main>
-<script src="js/bootstrap.bundle.min.js"
+<script src="/spam/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
 </script>
 <script>
+    // Check if the user is logged in and update the header accordingly
+    const loggedInUser = sessionStorage.getItem("loggedInUser");
+    if (loggedInUser) {
+        document.getElementById("navbarButtonsAfterLogin").style.display = "block";
+        document.getElementById("loggedInUsername").textContent = loggedInUser;
+    } else {
+        document.getElementById("navbarButtonsBeforeLogin").style.display = "block";
+    }
+
     function redirectToLoginPage() {
-        // Change the URL to the login page URL
-        window.location.href = "/spam/member/i_login"; // Replace with the actual login page JSP file
+        window.location.href = "/spam/member/i_login";
     }
 
     function redirectToJoinPage() {
-        // Change the URL to the login page URL
-        window.location.href = "/spam/member/joinfrm"; // Replace with the actual login page JSP file
+        window.location.href = "/spam/member/joinfrm";
+    }
+
+    function performLogout() {
+        // Change the URL to the logout endpoint
+        window.location.href = "/spam/member/logout";
     }
 </script>

@@ -13,7 +13,7 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="/spam/js/join.js"></script>
+    <script src="/spam/js/c_join.js"></script>
 </head>
 
 <body>
@@ -23,37 +23,39 @@
     <section class="join-form">
         <form action="" method="post">
             <div class="join-area">
-                <label for="customer_id">아이디:</label>
-                <input type="text" id="customer_id" name="customer_id" required>
+                <label for="company_id">아이디:</label>
+                <input type="text" id="company_id" name="company_id" required>
                 <input type="button" id="id_check" value="중복확인"></input>
                 <span id="id_check_msg" style="color: red;"></span>
                 <br><br>
             </div>
             <div class="join-area">
-                <label for="customer_pwd">비밀번호:</label>
-                <input type="password" id="customer_pwd" name="customer_pwd" required><br><br>
+                <label for="company_pwd">비밀번호:</label>
+                <input type="password" id="company_pwd" name="company_pwd" required><br><br>
             </div>
             <div class="join-area">
-                <label for="customer_pwd">비밀번호 확인:</label>
-                <input type="password" id="customer_pwd_re" name="customer_pwd_re" required>
+                <label for="company_pwd">비밀번호 확인:</label>
+                <input type="password" id="company_pwd_re" name="company_pwd_re" required>
                 <span id="password_mismatch_msg" style="color: red;"></span>
                 <br><br>
             </div>
             <div class="join-area">
-                <label for="customer_name">이름:</label>
-                <input type="text" id="customer_name" name="customer_name" required><br><br>
+                <label for="company_name">이름:</label>
+                <input type="text" id="company_name" name="company_name" required><br><br>
             </div>
             <div class="join-area">
-                <label for="customer_email">이메일:</label>
-                <input type="email" id="customer_email" name="customer_email" required><br><br>
+                <label for="company_email">이메일:</label>
+                <input type="email" id="company_email" name="company_email" required><br><br>
             </div>
             <div class="join-area">
                 <label for="company_businessnum">사업자번호:</label>
-                <input type="text" id="company_businessnum" name="company_businessnum" required><br><br>
+                <input type="text" id="company_businessnum" name="company_businessnum" required maxlength="12">
+                <span id="business_error_msg" style="color: red;"></span>
+                <br><br>
             </div>
             <div class="join-area">
-                <label for="customer_phone">전화번호:</label>
-                <input type="tel" id="customer_phone" name="customer_phone" required maxlength="13"
+                <label for="company_phone">전화번호:</label>
+                <input type="tel" id="company_phone" name="company_phone" required maxlength="13"
                     pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" title="전화번호 형식에 맞게 입력해주세요 (010-1234-5678)">
                 <span id="phone_error_msg" style="color: red;"></span><br><br>
             </div>
@@ -68,7 +70,7 @@
     <!-- <script>
         $(document).ready(function () {
             let isIdAvailable = false;
-            $("#customer_birth").keyup(function () {
+            $("#company_birth").keyup(function () {
                 let birth = $(this).val();
                 let birthPattern = /^[0-9]{4}[0-9]{2}[0-9]{2}$/;
 
@@ -99,13 +101,13 @@
             
             // 아이디 중복 확인 버튼 클릭 시
             $("#id_check").click(function () {
-                let customer_id = $("#customer_id").val();
+                let company_id = $("#company_id").val();
                 let idCheckMsg = $("#id_check_msg");
 
                 // 아이디 유효성 검사
                 let idPattern = /^[a-z][a-z0-9]{4,11}$/;
 
-                if (!idPattern.test(customer_id)) {
+                if (!idPattern.test(company_id)) {
                     idCheckMsg.html(
                         "아이디는 영문 소문자로 시작하고, 영문 소문자와 숫자로만 구성되어야 합니다. 길이는 5자 이상 12자 이하여야 합니다."
                     );
@@ -115,7 +117,7 @@
                         url: "/spam/member/check/id", // 아이디 중복 확인 주소로 변경
                         type: "GET",
                         data: {
-                            customer_id: customer_id
+                            company_id: company_id
                         },
                         success: function (response) {
                             if (response === "exists") {
@@ -142,8 +144,8 @@
                     event.preventDefault();
                     alert("아이디 중복 확인을 먼저 해주세요.");
                 } else {
-                    let password = $("#customer_pwd").val();
-                    let confirmPassword = $("#customer_pwd_re").val();
+                    let password = $("#company_pwd").val();
+                    let confirmPassword = $("#company_pwd_re").val();
                     let passwordErrorMsg = $("#password_mismatch_msg");
 
                     if (password !== confirmPassword) {
@@ -170,8 +172,8 @@
 
 
             // 비밀번호 확인 입력란 값 변경 시
-            $("#customer_pwd_re").keyup(function () {
-                let password = $("#customer_pwd").val();
+            $("#company_pwd_re").keyup(function () {
+                let password = $("#company_pwd").val();
                 let confirmPassword = $(this).val();
                 let mismatchMsg = $("#password_mismatch_msg");
 
@@ -182,7 +184,7 @@
                 }
             });
             // 전화번호 입력 필드에 자동으로 하이픈 추가 및 유효성 검사
-            $("#customer_phone").keyup(function () {
+            $("#company_phone").keyup(function () {
                 autoHyphen(this);
 
                 let phoneNumber = $(this).val();
