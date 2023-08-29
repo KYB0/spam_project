@@ -20,7 +20,7 @@
 
     <section class="login-form">
         <h1>LOGIN</h1>
-        <form action="/spam/member/login" method="post">
+        <form action="/spam/member/i_login" method="post">
             <div class="int-area-login">
                 <a href="/spam/member/i_login">개인 로그인</a>
                 <a href="#">기업 로그인</a>
