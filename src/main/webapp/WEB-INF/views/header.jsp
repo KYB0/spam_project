@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
+=======
+﻿<!doctype html>
+>>>>>>> lghh
 <html lang="en" data-bs-theme="auto">
 
 <head>
@@ -15,7 +19,11 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+<<<<<<< HEAD
         </script>
+=======
+    </script>
+>>>>>>> lghh
     <link rel="canonical" href="https://getbootstrap.kr/docs/5.3/examples/navbars-offcanvas/">
 
 
@@ -34,7 +42,11 @@
         }
 
         body {
+<<<<<<< HEAD
             font-family: 'TheJamsil5Bold', sans-serif !important;
+=======
+            font-family: 'TheJamsil5Bold', sans-serif;
+>>>>>>> lghh
         }
 
         .bd-placeholder-img {
@@ -51,6 +63,17 @@
             }
         }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+      
+
+       
+
+>>>>>>> lghh
         .bi {
             vertical-align: -.125em;
             fill: currentColor;
