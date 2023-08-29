@@ -15,7 +15,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-        </script>
+    </script>
     <link rel="canonical" href="https://getbootstrap.kr/docs/5.3/examples/navbars-offcanvas/">
 
 
@@ -123,6 +123,7 @@
 </head>
 
 
+
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
     <symbol id="check2" viewBox="0 0 16 16">
         <path
@@ -153,19 +154,20 @@
 
             <div class="d-flex justify-content-end align-items-center">
 
-                    <!-- 로그인 상태 확인 후 표시 여부 결정 -->
-                    <c:choose>
-                        <c:when test = "${not empty sessionScope.customer_id}">
-                            <span class="mx-2 text-light">환영합니다, ${sessionScope.customer_id} 님</span>
-                            <a class="btn btn-outline-light mx-2 btn-logout" type="button" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
-                        </c:when>
-                        <c:otherwise>
-                <button class="btn btn-outline-light mx-2 btn-login" type="button"
-                    onclick="location.href='${pageContext.request.contextPath}/member/i_login'">로그인</button>
-                <button class="btn btn-light mx-2 btn-signup" type="button"
-                    onclick="location.href='${pageContext.request.contextPath}/member/joinfrm'">회원가입</button>
-                </c:otherwise>
-            </c:choose>
+                <!-- 로그인 상태 확인 후 표시 여부 결정 -->
+                <c:choose>
+                    <c:when test="${not empty sessionScope.customer_id}">
+                        <span class="mx-2 text-light">환영합니다, ${sessionScope.customer_id} 님</span>
+                        <a class="btn btn-outline-light mx-2 btn-logout" type="button"
+                            href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="btn btn-outline-light mx-2 btn-login" type="button"
+                            onclick="location.href='${pageContext.request.contextPath}/member/i_login'">로그인</button>
+                        <button class="btn btn-light mx-2 btn-signup" type="button"
+                            onclick="location.href='${pageContext.request.contextPath}/member/joinfrm'">회원가입</button>
+                    </c:otherwise>
+                </c:choose>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
@@ -213,7 +215,7 @@
 
 
 
-    </main>
-    <script src="js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-    </script>
+</main>
+<script src="js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+</script>
