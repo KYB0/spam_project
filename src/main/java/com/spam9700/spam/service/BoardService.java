@@ -12,13 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spam9700.Common.FileManager;
+import com.spam9700.spam.Common.FileManager;
+import com.spam9700.spam.dao.BoardDao;
 // import com.spam9700.board.common.Paging;
-import com.spam9700.boardDao.BoardDao;
 import com.spam9700.spam.dto.BFile;
 import com.spam9700.spam.dto.BoardDto;
 import com.spam9700.spam.dto.SearchDto;
-import com.spam9700.Exception.DBException;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;

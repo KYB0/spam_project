@@ -1,4 +1,4 @@
-﻿package com.spam9700.boardDao;
+package com.spam9700.spam.dao;
 
 import java.util.List;
 
