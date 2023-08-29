@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-﻿package com.spam9700.spam.controller;
-=======
 package com.spam9700.spam.controller;
 
 import java.util.List;
->>>>>>> yongbin
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spam9700.spam.dto.CustomerMemberDto;
 import com.spam9700.spam.service.MemberService;
 
-<<<<<<< HEAD
-=======
 import jakarta.servlet.http.HttpSession;
->>>>>>> yongbin
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,17 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 
     @Autowired
-<<<<<<< HEAD
-    private MemberService memberService;
-
-    @GetMapping("/join")
-    public String joinForm() {
-        log.info("회원가입 화면");
-        return "join";
-    }
-
-    @PostMapping("/join")
-=======
     private final MemberService memberService;
 
     @GetMapping("/joinfrm")
@@ -65,7 +47,6 @@ public class MemberController {
     }
 
     @PostMapping("/i_join")
->>>>>>> yongbin
     public String join(CustomerMemberDto customerMemberDto, Model model, RedirectAttributes rttr) {
         model.addAttribute("cusmb", customerMemberDto);
         log.info("회원가입 처리");
@@ -74,32 +55,6 @@ public class MemberController {
         if (result) {
             model.addAttribute("msg", "가입성공");
             rttr.addFlashAttribute("msg", "가입성공");
-<<<<<<< HEAD
-            return "redirect:/member/login";
-        } else {
-            model.addAttribute("msg", "가입실패");
-            return " join";
-        }
-    }
-
-    @GetMapping("/login")
-    public String loginForm() {
-        log.info("로그인 화면");
-        return "login";
-    }
-
-    @PostMapping("/login")
-    public String login(@RequestParam String customer_id, @RequestParam String customer_pwd) {
-        log.info("로그인 처리");
-        log.info("id:{}, pwd:{}", customer_id, customer_pwd);
-        boolean result = memberService.login(customer_id, customer_pwd);
-        if (result) {
-            log.info("로그인 성공");
-            return "home";
-        } else {
-            log.info("로그인 실패");
-            return "login";
-=======
             return "redirect:/member/i_login";
         } else {
             model.addAttribute("msg", "가입실패");
@@ -126,8 +81,8 @@ public class MemberController {
         boolean result = memberService.iLogin(customer_id, customer_pwd);
         if (result) {
             log.info("개인로그인 성공");
-            session.setAttribute("loggedInUser", customer_id);
-            return "redirect:/"; // 로그인 성공 시 홈 화면으로 이동
+            session.setAttribute("customer_id", customer_id);
+            return "redirect:/main"; // 로그인 성공 시 홈 화면으로 이동
         } else {
             log.info("로그인 실패");
             return "i_login";
@@ -146,7 +101,6 @@ public class MemberController {
         } else {
             log.info("로그인 실패");
             return "c_login";
->>>>>>> yongbin
         }
     }
 
@@ -160,8 +114,6 @@ public class MemberController {
             return ResponseEntity.ok("available");
         }
     }
-<<<<<<< HEAD
-=======
 
     
 
@@ -206,5 +158,4 @@ public class MemberController {
     //     return "redirect:/"; // 로그아웃 후 홈 화면으로 이동
     // }
 
->>>>>>> yongbin
 }
