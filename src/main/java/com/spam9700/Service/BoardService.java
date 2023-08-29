@@ -18,7 +18,6 @@ import com.spam9700.boardDao.BoardDao;
 // import com.spam9700.boardDao.MemberDao;
 import com.spam9700.boardDto.BoardDto;
 import com.spam9700.boardDto.BFile;
-import com.spam9700.boardDto.MemberDto;
 // import com.spam9700.boardDto.ReplyDto;
 import com.spam9700.boardDto.SearchDto;
 import com.spam9700.Exception.DBException;
@@ -29,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class BoardService {
+
 @Autowired
 private BoardDao bDao;
 
@@ -38,34 +38,32 @@ private FileManager fm;
 public boolean write(BoardDto bod, List<MultipartFile> attachments,
     HttpSession session) {
     boolean result=bDao.boardWriteKey(bod); 
-    // log.info("새글 글번호:{}",bod.getB_num());
     if(result) {
-    //파일 업로드
-    // if(attachments.get(0).getSize()!=0) {
-    // if(fm.fileUpload(attachments,session,bod.getB_num())) {
-    // log.info("upload Ok");
+    if(attachments.get(0).getSize()!=0) {
+    if(fm.fileUpload(attachments,session,bod.getRegistration_date())) {
+    log.info("upload Ok");
         return true; //글쓰기+첨부파일 성공
-    //  }
-    // }
+     }
+    }
     }
     return false;
 }
 
-    // public boolean Bupdate(BoardDto bod, List<MultipartFile> att, HttpSession session) {
-    //     return false;
-    //     }
+    public boolean Bupdate(BoardDto bod, List<MultipartFile> att, HttpSession session) {
+        return false;
+        }
 
-    //     public BoardDto getDetail(Integer b_num) {
-    //     return bDao.getDetail;
-    //     }
+        public BoardDto getDetail(Integer b_num) {
+        return bDao.getDetail;
+        }
 
-    //     public List<BFile> getFileList(Integer b_num) {
-    //         List<BFile> fList = bDao.getFileList(b_num);
-    //         return fList;
-    //     }
+        public List<BFile> getFileList(Integer b_num) {
+            List<BFile> fList = bDao.getFileList(b_num);
+            return fList;
+        }
 
-    //     public void boardDelete(Integer b_num, HttpSession session) {
-    //     }
+        public void boardDelete(Integer b_num, HttpSession session) {
+        }
 
         public boolean write(BoardDto bod) {
             return false;

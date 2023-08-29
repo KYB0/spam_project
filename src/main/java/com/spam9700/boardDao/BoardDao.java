@@ -14,6 +14,6 @@ public interface BoardDao {
 
     boolean boardWriteKey(BoardDto board);
 
-    List<BFile> getFileList(Integer b_num);
+    List<BFile> getFileList(Integer registration_date);
     
 }
