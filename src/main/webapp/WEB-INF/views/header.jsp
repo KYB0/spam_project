@@ -119,6 +119,7 @@
     <!-- Custom styles for this template -->
     <link href="navbars-offcanvas.css" rel="stylesheet">
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
+    
 
 </head>
 

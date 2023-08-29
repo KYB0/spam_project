@@ -11,7 +11,7 @@ public class TestController {
     //     return "main";
     // }
 
-   @GetMapping("/test")
+   @GetMapping("/tt")
        public String test(){
            return "seat";
        }

@@ -22,9 +22,9 @@ transform: translate(-20%, 100%); /* 화면 중앙 정렬을 위한 transform �
 
 .c_monthlist {
     position: absolute;
-left: 30%;
+left: 50%;
 top: calc(20% + 250px); /* c_mypage 하단에서 100px 아래로 이동 */
-transform: translate(-30%, -20%);
+transform: translate(-50%, -20%);
 height: 250px; /* 높이 설정, 원하는 높이로 조정하세요 */
 
 }

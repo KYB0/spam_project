@@ -154,7 +154,7 @@ public class MemberController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         // Remove the loggedInUser attribute from the session
-        session.removeAttribute("customer_id");
+        session.invalidate(); //세션 무효화
         return "redirect:/main"; // 로그아웃 후 홈 화면으로 이동
     }
 

@@ -7,8 +7,6 @@
         VALUES (#{customer_id}, #{customer_pwd}, #{customer_name}, #{customer_email}, #{customer_birth}, #{customer_phone})
     </insert>
 
-
-
     <!-- login -->
 
     <select id="iLogin" resultType="boolean">
