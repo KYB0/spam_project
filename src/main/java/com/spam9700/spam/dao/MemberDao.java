@@ -1,18 +1,25 @@
-﻿package com.spam9700.spam.dao;
+package com.spam9700.spam.dao;
+
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.spam9700.spam.dto.MypageDto;
-
+import com.spam9700.spam.dto.CustomerMemberDto;
 
 @Mapper
 public interface MemberDao {
+
+    boolean join(CustomerMemberDto customerMemberDto);
+
     boolean iLogin(String customer_id, String customer_pwd);
 
-    int checkCredentials(@Param("customer_id") String customer_id, @Param("customer_pwd") String customer_pwd);
+    boolean cLogin(String company_id, String company_pwd, String company_businessnum);
 
-    MypageDto getUserById(String customer_id);
+    boolean idCheck(String customer_id);
 
-    void updateUser(MypageDto user);
+    List<String> findId(String customer_name, String customer_email);
+
+    String findPwd(String customer_id, String customer_email);
+
 }

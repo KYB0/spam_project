@@ -2,12 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spam9700.spam.dao.MemberDao">
 
-<!--  iLogin -->
+    <insert id="join" parameterType="com.spam9700.spam.dto.CustomerMemberDto">
+        INSERT INTO customer_member (customer_id, customer_pwd, customer_name, customer_email, customer_birth, customer_phone)
+        VALUES (#{customer_id}, #{customer_pwd}, #{customer_name}, #{customer_email}, #{customer_birth}, #{customer_phone})
+    </insert>
 
-<select id="checkCredentials" resultType="int">
-    select count(*) from customer_member
-    where customer_id = #{customer_id} and customer_pwd = #{customer_pwd};
-</select>
 
+
+    <!-- login -->
+
+    <select id="iLogin" resultType="boolean">
+        SELECT COUNT(*) FROM customer_member
+        WHERE customer_id = #{customer_id} AND customer_pwd = #{customer_pwd}
+    </select>
+
+    <select id="cLogin" resultType="boolean">
+         SELECT COUNT(*) FROM company_member
+         WHERE company_id = #{company_id} AND company_pwd = #{company_pwd} AND company_businessnum = #{company_businessnum}
+    </select>
+
+    <!-- idCheck -->
+
+    <select id="idCheck" resultType="boolean">
+        SELECT COUNT(*) > 0
+        FROM customer_member
+        WHERE customer_id = #{customer_id}
+    </select>
+
+
+    <!-- findId -->
+
+    <select id="findId" parameterType="map">
+        SELECT customer_id
+        FROM customer_member
+        WHERE customer_name = #{customer_name}
+        AND customer_email = #{customer_email}
+    </select>
+
+    <!-- findPwd -->
+
+    <select id="findPwd">
+        SELECT customer_pwd
+        FROM customer_member
+        WHERE customer_id = #{customer_id}
+        AND customer_email = #{customer_email}
+    </select>
+
+    <!-- cLogin -->
 
 </mapper>
