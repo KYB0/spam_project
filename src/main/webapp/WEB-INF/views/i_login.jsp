@@ -13,7 +13,7 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <!-- <link rel="stylesheet" href="/spam/css/style.css"> -->
+    <link rel="stylesheet" href="/spam/css/style.css">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
     <section class="login-form">
         <h1>LOGIN</h1>
         <form action="/spam/member/i_login" method="post">
-            <div class="int-area-login">
+            <div class="caption-top">
                 <a href="/spam/member/i_login">개인 로그인</a>
                 <a href="/spam/member/c_login">기업 로그인</a>
             </div>
@@ -32,7 +32,7 @@
 
             <div class="int-area">
                 <input type="password" name="customer_pwd" id="pw" autocomplete="off" required>
-                <label for="pw">PASSWORD</label>
+                <label for="pw">Password</label>
             </div>
             <div class="btn-area">
                 <button id="btn" type="submit">LOGIN</button>
