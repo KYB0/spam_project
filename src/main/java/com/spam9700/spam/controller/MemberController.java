@@ -78,6 +78,7 @@ public class MemberController {
     public String iLogin(@RequestParam String customer_id, @RequestParam String customer_pwd, HttpSession session) {
         log.info("개인로그인 처리");
         log.info("id:{}, pwd:{}", customer_id, customer_pwd);
+
         boolean result = memberService.iLogin(customer_id, customer_pwd);
         if (result) {
             log.info("개인로그인 성공");
@@ -97,7 +98,7 @@ public class MemberController {
         boolean result = memberService.cLogin(company_id, company_pwd, company_businessnum);
         if (result) {
             log.info("기업로그인 성공");
-            return "redirect:/";
+            return "redirect:/main";
         } else {
             log.info("로그인 실패");
             return "c_login";
@@ -154,7 +155,7 @@ public class MemberController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         // Remove the loggedInUser attribute from the session
-        session.removeAttribute("customer_id");
+        session.invalidate(); // 세션 무효화
         return "redirect:/main"; // 로그아웃 후 홈 화면으로 이동
     }
 
