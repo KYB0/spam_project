@@ -151,11 +151,11 @@ public class MemberController {
         return "findPwdResult";
     }
 
-    // @RequestMapping("/logout")
-    // public String logout(HttpSession session) {
-    //     // Remove the loggedInUser attribute from the session
-    //     session.removeAttribute("loggedInUser");
-    //     return "redirect:/"; // 로그아웃 후 홈 화면으로 이동
-    // }
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        // Remove the loggedInUser attribute from the session
+        session.removeAttribute("customer_id");
+        return "redirect:/main"; // 로그아웃 후 홈 화면으로 이동
+    }
 
 }
