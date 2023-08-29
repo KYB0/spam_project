@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!doctype html>
 <html lang="en" data-bs-theme="auto">
 
 <head>
@@ -151,10 +152,21 @@
             <a class="navbar-brand" href="${pageContext.request.contextPath}/main">SPAM</a>
 
             <div class="d-flex justify-content-end align-items-center">
+
+                    <!-- 로그인 상태 확인 후 표시 여부 결정 -->
+                    <c:choose>
+                        <c:when test = "${not empty sessionScope.customer_id}">
+                            <span class="mx-2 text-light">환영합니다, ${sessionScope.customer_id} 님</span>
+                            <a class="btn btn-outline-light mx-2 btn-logout" type="button" href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
+                        </c:when>
+                        <c:otherwise>
                 <button class="btn btn-outline-light mx-2 btn-login" type="button"
                     onclick="location.href='${pageContext.request.contextPath}/member/i_login'">로그인</button>
                 <button class="btn btn-light mx-2 btn-signup" type="button"
                     onclick="location.href='${pageContext.request.contextPath}/member/joinfrm'">회원가입</button>
+                </c:otherwise>
+            </c:choose>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
                     aria-label="Toggle navigation">
@@ -201,24 +213,7 @@
 
 
 
-</main>
-<script src="js/bootstrap.bundle.min.js"
-    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-
-        function checkLogin() {
-            // 여기에 로그인 상태를 확인하는 코드를 작성합니다.
-            // 예를 들어, 로그인된 사용자인지 확인하는 조건문을 사용하면 됩니다.
-            // 이 예제에서는 사용자가 로그인하지 않은 것으로 가정하고 경고 창을 표시합니다.
-
-            var isLoggedIn = false; // 사용자가 로그인한 상태인지 여부를 판단하는 변수
-
-            if (!isLoggedIn) {
-                // 사용자가 로그인하지 않은 경우 경고 창을 표시합니다.
-                alert("로그인이 필요합니다.");
-                return false; // 링크를 클릭하여 페이지로 이동하지 않도록 false를 반환합니다.
-            }
-
-            // 사용자가 로그인한 경우에는 해당 페이지로 이동합니다.
-            return true;
-        }
+    </main>
+    <script src="js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
     </script>
