@@ -22,16 +22,41 @@ function sendMessage(message) {
         responseMessage.textContent = '회원가입을 원하시면 아래 링크를 클릭해주세요.';
         
         const link = document.createElement('a');
-        link.href = '/your-registration-page'; // 여기에 실제 링크 주소를 넣어주세요
+        link.href = "/spam/member/joinfrm" // 여기에 실제 링크 주소를 넣어주세요
         link.textContent = '회원가입 페이지로 이동하기';
         responseMessage.appendChild(document.createElement('br'));
         responseMessage.appendChild(link);
 
         modalContent.appendChild(responseMessage);
-    } else if (message === '로그인 창') {
+
+    } else if (message === '로그인') {
+        const responseMessage = document.createElement('div');
+        responseMessage.className = 'chat-message bot';
+        responseMessage.textContent = '로그인을 원하시면 아래 링크를 클릭해주세요';
         // 로그인 창 관련 메시지와 링크 추가 처리
-    } else if (message === '아이디 찾기') {
+
+        const link = document.createElement('a');
+        link.href = "/spam/member/i_login"
+        link.textContent = '로그인 페이지로 이동하기';
+        responseMessage.appendChild(document.createElement('br'));
+        responseMessage.appendChild(link);
+
+        modalContent.appendChild(responseMessage);
+
+    } else if (message === '아이디찾기') {
+        const responseMessage = document.createElement('div');
+        responseMessage.className = 'chat-message bot';
+        responseMessage.textContent = '아이디 찾기를 원하시면 아래 링크를 클릭해주세요';
         // 아이디 찾기 관련 메시지와 링크 추가 처리
+
+        const link = document.createElement('a');
+        link.href =
+        link.textContent = '아이디 찾기 페이지로 이동하기';
+        responseMessage.appendChild(document.createElement('br'));
+        responseMessage.appendChild(link);
+
+        modalContent.appendChild(responseMessage);
+
     } else {
         // 기타 메시지 처리
     }

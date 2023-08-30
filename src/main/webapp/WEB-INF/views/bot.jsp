@@ -11,8 +11,8 @@
 </head>
 <body>
     <%@ include file="header.jsp" %>
-    <button type="button" class="btn_bot" onclick="showChatbot()">
-        <img src="/spam/img/botbot.png" alt="챗봇 아이콘" class="chatbot-icon">
+    <button type="button" style="border:0" class="btn_bot" onclick="showChatbot()">
+        <img src="/spam/img/bot.png" alt="챗봇 아이콘" class="chatbot-icon">
     </button>
     
   <!-- 모달 창 -->
