@@ -57,6 +57,36 @@ function sendMessage(message) {
 
         modalContent.appendChild(responseMessage);
 
+
+    } else if (message === '리뷰는 어디에 남기나요?') {
+        const responseMessage = document.createElement('div');
+        responseMessage.className = 'chat-message bot';
+        responseMessage.textContent = '리뷰 남기기를 원하시면 아래 링크를 클릭해주세요';
+        
+        const link = document.createElement('a');
+        link.href =
+        link.textContent = '리뷰 페이지로 이동하기';
+        responseMessage.appendChild(document.createElement('br'));
+        responseMessage.appendChild(link);
+
+        modalContent.appendChild(responseMessage);
+        
+
+    } else if (message === '리뷰는 어디에 남기나요?') {
+        const responseMessage = document.createElement('div');
+        responseMessage.className = 'chat-message bot';
+        responseMessage.textContent = '리뷰 남기기를 원하시면 아래 링크를 클릭해주세요';
+        
+        const link = document.createElement('a');
+        link.href =
+        link.textContent = '리뷰 페이지로 이동하기';
+        responseMessage.appendChild(document.createElement('br'));
+        responseMessage.appendChild(link);
+
+        modalContent.appendChild(responseMessage);
+
+
+
     } else {
         // 기타 메시지 처리
     }
