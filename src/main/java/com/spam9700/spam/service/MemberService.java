@@ -3,6 +3,7 @@ package com.spam9700.spam.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Service;
 
 import com.spam9700.spam.dao.MemberDao;
@@ -39,5 +40,13 @@ public class MemberService {
     public String findPwd(String customer_id, String customer_email) {
         return memberDao.findPwd(customer_id, customer_email);
     }
+
+    public String updateMember(CustomerMemberDto updateMember) {
+        memberDao.updateMember(updateMember);
+
+        return "redirect:/member/i_mypage"; // 리다이렉트 경로 반환
+    }
+
+    
 
 }

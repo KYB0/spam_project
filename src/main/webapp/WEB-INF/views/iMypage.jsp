@@ -8,30 +8,29 @@
     <title>마이 페이지</title>
 </head>
 <body>
-    <h1>마이 페이지</h1>
-    <form action="${pageContext.request.contextPath}/member/i_mypage" method="post">
-        <input type="hidden" name="userId" value="${user.userId}" />
-        <p> <label for="username">이름:</label>
-        <input type="text" id="username" name="username" value="${user.username}" /><br></p>
+    <h1>Edit My Page</h1>
+    <form action="/member/i_mypage" method="post">
+        <label for="customer_name">이름:</label>
+        <input type="text" id="customer_name" name="customer_name" value="${member.customer_name}" required><br>
 
-        <p> <label for="userID">아이디:</label>
-        <input type="text" id="userID" name="userID" value="${user.userID}" /><br></p>
+        <label for="customer_id">아이디:</label>
+        <input type="text" id="customer_id" name="customer_id" value="${member.customer_id}" required><br>
 
-        <p> <label for="userID">패스워드:</label>
-        <input type="password" id="userPw" name="userPw" value="${user.userPw}" /><br></p>
+        <label for="customer_pwd">비밀번호:</label>
+        <input type="password" id="customer_pwd" name="customer_pwd" value="${member.customer_pwd}" required><br>
 
-        <p> <label for="userID">패스워드 확인:</label>
-        <input type="password" id="userPwc" name="userPwc" value="${user.userpWc}" /><br></p>
+        <label for="customer_pwc">비밀번호 확인:</label>
+        <input type="password" id="customer_pwc" name="customer_pwc" value="${member.customer_pwd}" required><br>
 
-        <p> <label for="userID">휴대전화:</label>
-        <input type="text" id="userpNum" name="userpNum" value="${user.userpNum}" /><br></p>
+        <label for="customer_email">이메일:</label>
+        <input type="email" id="customer_email" name="customer_email" value="${member.customer_email}" required><br>
 
-        <p> <label for="email">이메일:</label>
-        <input type="text" id="userEmail" name="userEmail" value="${user.userEmail}" /><br></p>
-        <!-- 필요한 정보 수정 필드 추가 -->
+        <label for="customer_phone">전화번호:</label>
+        <input type="text" id="customer_phone" name="customer_phone" value="${member.customer_phone}" required><br>
+        <!-- 다른 필드들도 동일하게 작성 -->
 
-        <input type="submit" value="회원 탈퇴" />
-        <input type="submit" value="정보 수정" />
+        <button type="submit">회원 탈퇴</button>
+        <button type="submit">수정 완료</button>
     </form>
 </body>
 </html>
