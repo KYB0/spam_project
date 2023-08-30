@@ -3,7 +3,7 @@
 import lombok.Data;
 
 @Data
-public class companyListDto {
+public class CompanyListDto {
     private int usage_id;
     private int year;
     private int month;
