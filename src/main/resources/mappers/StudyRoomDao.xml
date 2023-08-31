@@ -5,6 +5,11 @@
     <!-- room_name을 사용하여 스터디 룸 조회 -->
     <select id="getStudyRoomByRoomName" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
     SELECT * FROM study_room WHERE room_name = #{room_name}
-    
     </select>
+    
+    <!--room_description을 사용하여 스터디 카페 이용시간 조회  -->
+    <select id="getOpenTimeByStudyRoom" parameterType="String" resultType="String">
+        SELECT room_description FROM study_room WHERE room_name = #{room_name}
+    </select>
+
 </mapper>

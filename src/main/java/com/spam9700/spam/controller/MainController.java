@@ -44,11 +44,18 @@ public class MainController {
 
     @GetMapping("/{room_name}")
     public String detailPage(@PathVariable("room_name") String room_name, Model model){
-       DetailPageDto studyRoom = detailPageService.getStudyRoomByRoomName(room_name);
-       model.addAttribute("studyRoom", studyRoom);
+        DetailPageDto studyRoom = detailPageService.getStudyRoomByRoomName(room_name);
+    
+        if (studyRoom != null) {
+            String roomDescription = detailPageService.getOpenTimeByStudyRoom(studyRoom.getRoom_description());
+            studyRoom.setRoom_description(roomDescription);
+            model.addAttribute("studyRoom", studyRoom);
+        } else {
+            System.out.println("오류");
+        }
+    
         return "detailPage";
     }
-
     @GetMapping("/qna_list")
     public String qnaboard() {
         return "qnaBoard";

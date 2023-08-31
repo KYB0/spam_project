@@ -21,9 +21,7 @@ public class DetailPageService {
         return detailPageDao.getStudyRoomByRoomName(room_name);
     }
 
-    public String detailPageById(String room_name) {
-        return null;
+    public String getOpenTimeByStudyRoom(String room_name){
+        return detailPageDao.getOpenTimeByStudyRoom(room_name);
     }
-
-
 }
