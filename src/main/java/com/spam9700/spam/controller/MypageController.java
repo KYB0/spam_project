@@ -1,39 +1,37 @@
-﻿// package com.spam9700.spam.controller;
+package com.spam9700.spam.controller;
 
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Controller;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.ModelAttribute;
-// import org.springframework.web.bind.annotation.PathVariable;
-// import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-// import com.spam9700.spam.dto.MypageDto;
-// import com.spam9700.spam.service.MypageService;
+import com.spam9700.spam.service.StudycafeService;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+@Controller
+@RequestMapping("/i_mypage")
+public class MypageController {
+    
+    @Autowired
+    private StudycafeService studycafeService;
 
-// @Controller
-// @RequestMapping("/member")
-// public class MypageController {
+    @GetMapping("/review")
+    public String review() {
+        log.info("이용 후기 페이지");
+        return "review";
+    }
 
-//     @Autowired
-//     private MypageService mypageService;
+    @GetMapping("/list")
+    public String mylist() {
+        log.info("예약 및 리뷰내역 페이지");
+        return "myList";
+    }
 
-//     @GetMapping("/i_mypage/{customer_id}")
-//     public String showMyPage(@PathVariable String customer_id, Model model){
-//         MypageDto user = mypageService.getUserInfo(customer_id);
-//         model.addAttribute("user", user);
-
-//         return "i_mypage";
-//     }
-
-//     @PostMapping("/i_mypage/{customer_id}")
-//     public String updateUserInfo(@ModelAttribute MypageDto user){
-//         mypageService.updateUserInfo(user);
-
-//         return "redirect:/i_mypage/" + user.getcustomer_id();
-//     }
- 
-// }
+    @GetMapping("/myqna")
+    public String qnaList() {
+        log.info("나의 문의 내역 페이지");
+        return "myQna";
+    }
+}

@@ -13,11 +13,11 @@
 
 <body>
 
-    <h4><div class="sidebar">
-        <a href="${pageContext.request.contextPath}/member/i_mypage" class="active">마이 페이지</a>
-        <a href="#">이용 후기</a>
-        <a href="#">예약 및 리뷰 내역</a>
-        <a href="#">나의 문의 내역</a></h4>
+    <div class="sidebar">
+        <h4><a href="${pageContext.request.contextPath}/member/i_mypage" class="active">마이 페이지</a>
+        <a href="${pageContext.request.contextPath}/i_mypage/review">이용 후기</a>
+        <a href="${pageContext.request.contextPath}/i_mypage/list">예약 및 리뷰 내역</a>
+        <a href="${pageContext.request.contextPath}/i_mypage/myqna">나의 문의 내역</a></h4>
         <!-- 원하는 메뉴 항목들을 추가할 수 있습니다. -->
     </div>
 

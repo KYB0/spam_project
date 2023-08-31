@@ -1,4 +1,4 @@
-﻿package com.spam9700.spam.Common;
+﻿package com.spam9700.spam.common;
 
 import java.util.List;
 
