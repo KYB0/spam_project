@@ -27,20 +27,20 @@
             </div>
             <div class="int-area">
                 <input type="text" name="company_id" id="id" autofocus autocomplete="off" required>
-                <label for="id">ID</label>
+                <label for="id">아이디</label>
             </div>
 
             <div class="int-area">
                 <input type="text" name="company_businessnum" id="businessnum" autofocus autocomplete="off" required>
-                <label for="id">Business Number</label>
+                <label for="id">사업자번호</label>
             </div>
 
             <div class="int-area">
                 <input type="password" name="company_pwd" id="pw" autocomplete="off" required>
-                <label for="pw">Password</label>
+                <label for="pw">비밀번호</label>
             </div>
             <div class="btn-area">
-                <button id="btn" type="submit">LOGIN</button>
+                <button id="btn" type="submit">로그인</button>
             </div>
         </form>
         <div class="caption">

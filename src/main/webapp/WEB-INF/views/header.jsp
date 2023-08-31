@@ -84,7 +84,7 @@
             --bs-btn-active-color: #000 !important;
             --bs-btn-active-bg: #f8f9fa !important;
             --bs-btn-active-border-color: #f8f9fa !important;
-            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
             --bs-btn-disabled-color: #f8f9fa !important;
             --bs-btn-disabled-bg: transparent !important;
             --bs-btn-disabled-border-color: #f8f9fa !important;
@@ -102,7 +102,7 @@
             --bs-btn-active-color: #000 !important;
             --bs-btn-active-bg: #f8f9fa !important;
             --bs-btn-active-border-color: #f8f9fa !important;
-            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) ;
             --bs-btn-disabled-color: #f8f9fa !important;
             --bs-btn-disabled-bg: transparent !important;
             --bs-btn-disabled-border-color: #f8f9fa !important;

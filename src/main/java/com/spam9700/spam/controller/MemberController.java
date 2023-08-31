@@ -74,7 +74,7 @@ public class MemberController {
         return "c_login";
     }
 
-    @PostMapping("/i_login") 
+    @PostMapping("/i_login")
     public String iLogin(@RequestParam String customer_id, @RequestParam String customer_pwd, HttpSession session) {
         log.info("개인로그인 처리");
         log.info("id:{}, pwd:{}", customer_id, customer_pwd);
@@ -115,8 +115,6 @@ public class MemberController {
         }
     }
 
-    
-
     @GetMapping("/find/id")
     public String findIdForm() {
         return "findId"; // 아이디 찾기 뷰 페이지 이름
@@ -156,6 +154,11 @@ public class MemberController {
         // Remove the loggedInUser attribute from the session
         session.removeAttribute("customer_id");
         return "redirect:/main"; // 로그아웃 후 홈 화면으로 이동
+    }
+
+    @GetMapping("/res")
+    public String tert() {
+        return "res";
     }
 
 }

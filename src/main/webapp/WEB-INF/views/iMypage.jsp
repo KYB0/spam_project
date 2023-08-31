@@ -10,7 +10,7 @@
 <body>
     <h1>마이 페이지</h1>
     <form action="${pageContext.request.contextPath}/member/i_mypage" method="post">
-        <input type="hidden" name="userId" value="${user.userId}" />
+        <input type="hidden" name="userId" value="${member.customer_id}" />
         <p> <label for="username">이름:</label>
         <input type="text" id="username" name="username" value="${user.username}" /><br></p>
 

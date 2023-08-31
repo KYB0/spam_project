@@ -21,4 +21,6 @@ public interface MemberDao {
 
     String findPwd(String customer_id, String customer_email);
 
+    CustomerMemberDto getMemberInfo(String customerId);
+
 }

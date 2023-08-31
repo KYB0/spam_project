@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spam9700.spam.dto.CustomerMemberDto;
 import com.spam9700.spam.service.MemberService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -37,7 +39,7 @@ public class MainController {
     }
 
     @RequestMapping("/member/i_mypage")
-    public String iMypage(Model model) {
+    public String iMypage(Model model, HttpSession session) {
         return "iMypage";
     }
 
