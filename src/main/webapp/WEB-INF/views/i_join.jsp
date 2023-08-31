@@ -21,7 +21,7 @@
     </header>
     <h1>JOIN</h1>
     <section class="join-form">
-        <form action="/spam/member/i_login" method="post">
+        <form action="/spam/member/i_join" method="post">
             <div class="join-area">
                 <label for="customer_id">아이디:</label>
                 <input type="text" id="customer_id" name="customer_id" required>

@@ -1,0 +1,35 @@
+﻿
+/* 세로 메뉴바 스타일 */
+.sidebar {
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #ffffff;
+    color: white;
+    padding: 20px;
+}
+
+/* 메뉴 항목 스타일 */
+    .sidebar a {
+        display: block;
+        padding: 10px 0;
+        text-decoration: none;
+        color: black;
+    }
+
+/* 선택된 메뉴 항목 스타일 
+    .active {
+        background-color: #555;
+    }*/
+
+.mpContent {
+    margin-left: 1050px;
+    margin-bottom: 100px;
+    padding: 50px;
+}
+
+.favoriteRooms {
+    
+}

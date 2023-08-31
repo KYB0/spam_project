@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.spam9700.spam.dao.MemberDao;
 import com.spam9700.spam.dto.CustomerMemberDto;
 
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Service
 public class MemberService {
     @Autowired
@@ -47,6 +49,8 @@ public class MemberService {
         return "redirect:/member/i_mypage"; // 리다이렉트 경로 반환
     }
 
-    
+    public CustomerMemberDto getCustomerInfoById(String customer_id) {
+        return memberDao.getCustomerInfoById(customer_id);
+    }
 
 }

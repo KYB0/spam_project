@@ -23,5 +23,5 @@ public interface MemberDao {
 
     void updateMember(CustomerMemberDto updatedMember);
 
-
+    CustomerMemberDto getCustomerInfoById(String customer_id);
 }

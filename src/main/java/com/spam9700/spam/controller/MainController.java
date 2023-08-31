@@ -1,13 +1,10 @@
 package com.spam9700.spam.controller;
 
-import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spam9700.spam.dto.CustomerMemberDto;
 import com.spam9700.spam.service.MemberService;
@@ -39,28 +36,19 @@ public class MainController {
         return "qnaBoard";
     }
 
-  @GetMapping("/member/i_mypage")
-    public String editMember(Model model, HttpSession session) {
-        CustomerMemberDto member = (CustomerMemberDto) session.getAttribute("member");
-        model.addAttribute("member", member);
-        return "iMypage";
-    }
 
-    @PostMapping("/member/i_mypage")
-    public String updateMember(@ModelAttribute("member") CustomerMemberDto updatedMember, HttpSession session) {
-        CustomerMemberDto member = (CustomerMemberDto) session.getAttribute("member");
-        // 업데이트 로직 수행 (예: 서비스를 통한 DB 업데이트)
-        // ...
+    @RequestMapping("/member/i_mypage")
+    public String iMypage(HttpSession session, Model model) {
+        log.info("마이페이지");
 
-        // 세션에 업데이트된 정보 반영
-        member.setCustomer_name(updatedMember.getCustomer_name());
-        member.setCustomer_email(updatedMember.getCustomer_email());
-        member.setCustomer_phone(updatedMember.getCustomer_phone());
+        // 세션에서 저장된 회원 ID 가져오기
+        String customer_id = (String) session.getAttribute("customer_id");
 
-        memberService.updateMember(member); //데이터베이스 업데이트 수행
+        CustomerMemberDto customerMemberDto = memberService.getCustomerInfoById(customer_id);
 
-        session.setAttribute("member", member); //세션에 업데이트된 정보반영
+        session.setAttribute("customerMemberDto", customerMemberDto);
 
-        return "redirect:/member/i_mypage";
+        return "iMypage"; // 마이페이지로 이동
+
     }
 }
