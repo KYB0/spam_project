@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spam9700.spam.dao.MemberDao;
 import com.spam9700.spam.dto.CustomerMemberDto;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
@@ -43,14 +44,14 @@ public class MemberService {
         return memberDao.findPwd(customer_id, customer_email);
     }
 
-    public String updateMember(CustomerMemberDto updateMember) {
-        memberDao.updateMember(updateMember);
-
-        return "redirect:/member/i_mypage"; // 리다이렉트 경로 반환
-    }
-
     public CustomerMemberDto getCustomerInfoById(String customer_id) {
         return memberDao.getCustomerInfoById(customer_id);
     }
+
+    public boolean updateMypage(CustomerMemberDto customerMemberDto) {
+        return memberDao.updateMypage(customerMemberDto);
+    }
+
+ 
 
 }

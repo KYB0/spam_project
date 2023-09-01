@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spam9700.spam.dto.CustomerMemberDto;
 import com.spam9700.spam.service.MemberService;
@@ -36,19 +39,31 @@ public class MainController {
         return "qnaBoard";
     }
 
-
-    @RequestMapping("/member/i_mypage")
+    @GetMapping("/member/i_mypage")
     public String iMypage(HttpSession session, Model model) {
-        log.info("마이페이지");
-
+        log.info("get 마이페이지");
+        
         // 세션에서 저장된 회원 ID 가져오기
         String customer_id = (String) session.getAttribute("customer_id");
 
         CustomerMemberDto customerMemberDto = memberService.getCustomerInfoById(customer_id);
-
         session.setAttribute("customerMemberDto", customerMemberDto);
+        model.addAttribute("customerMemberDto", customerMemberDto);
 
-        return "iMypage"; // 마이페이지로 이동
-
+        return "iMypage";
     }
+
+    @PostMapping("/member/i_mypage")
+    public String updateMypage(CustomerMemberDto customerMemberDto, HttpSession session){
+        log.info("customerMemberDto:{}", customerMemberDto);
+
+        boolean result = memberService.updateMypage(customerMemberDto);
+        if(result){
+            log.info("업데이트 성공");
+            return "redirect:/member/i_mypage";
+        }
+        log.info("업데이트 실패");
+        return "redirect:/member/i_mypage";
+    }
+
 }

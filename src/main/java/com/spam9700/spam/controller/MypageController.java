@@ -11,27 +11,48 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/i_mypage")
 public class MypageController {
     
     @Autowired
     private StudycafeService studycafeService;
 
-    @GetMapping("/review")
+    @GetMapping("/c_mypage")
+    public String companyMypage(){
+        return "companyMypage";
+    }
+
+    @GetMapping("/c_mypage/list")
+    public String  cMypageList(){
+        return "companyList";
+    }
+
+    @GetMapping("/c_mypage/insert")
+    public String  cMypageInsert(){
+        return "companyInsert";
+    }
+
+    @GetMapping("/c_mypage/resign")
+    public String  cMypageResign(){
+        return "companyResign";
+    }   
+
+    @GetMapping("/i_mypage/review")
     public String review() {
         log.info("이용 후기 페이지");
         return "review";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/i_mypage/list")
     public String mylist() {
         log.info("예약 및 리뷰내역 페이지");
         return "myList";
     }
 
-    @GetMapping("/myqna")
+    @GetMapping("i_mypage/myqna")
     public String qnaList() {
         log.info("나의 문의 내역 페이지");
         return "myQna";
     }
+
+    
 }

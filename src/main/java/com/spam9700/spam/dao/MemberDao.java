@@ -21,7 +21,8 @@ public interface MemberDao {
 
     String findPwd(String customer_id, String customer_email);
 
-    void updateMember(CustomerMemberDto updatedMember);
-
     CustomerMemberDto getCustomerInfoById(String customer_id);
+
+    boolean updateMypage(CustomerMemberDto customerMemberDto);
+
 }
