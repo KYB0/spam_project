@@ -45,4 +45,9 @@ public class MainController {
     public String cMypage(Model model) {
         return "cMypage";
     }
+     @GetMapping("/res")
+    public String resPage() {
+        log.info("res 페이지");
+        return "res";
+    }
 }

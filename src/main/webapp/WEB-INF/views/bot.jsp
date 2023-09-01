@@ -24,8 +24,8 @@
 
             <button class="chat-button" onclick="showOptions(['가입/탈퇴', '로그인', '정보변경', '민원처리신청'])">개인정보</button>
             <button class="chat-button" onclick="showOptions(['예약상품 결제', '단체예약/장소대관', '비품대여'])">독서실</button>
-            <button class="chat-button" onclick="showOptions(['등록/입점', '퇴점신청', '탈퇴', '가격/정보변경'])">사업자 등록</button>
-            <button class="chat-button" onclick="showOptions(['칭찬/불만사항 작성', '스팸/광고/제휴 문의'])">기타상담</button>
+            <button class="chat-button" onclick="showOptions(['등록/입점', '퇴점신청', '독서실 사업자 회원 탈퇴', '가격/정보변경'])">사업자 등록</button>
+            <button class="chat-button" onclick="showOptions(['칭찬/불만사항 작성', '스팸광고/제휴 문의'])">기타상담</button>
 
         </div>
 

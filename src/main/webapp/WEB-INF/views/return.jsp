@@ -6,6 +6,7 @@
     <title>비품 반납 페이지</title>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <link rel="stylesheet" href="/spam/css/return.css">
 </head>
 <body>
     <%@ include file="header.jsp" %>
