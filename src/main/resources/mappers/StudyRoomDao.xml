@@ -12,4 +12,8 @@
         SELECT room_description FROM study_room WHERE room_name = #{room_name}
     </select>
 
+    <select id="getAllRooms" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room;
+    </select>
+
 </mapper>

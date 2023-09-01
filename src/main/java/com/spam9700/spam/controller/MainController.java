@@ -56,6 +56,10 @@ public class MainController {
     
         return "detailPage";
     }
+
+    
+
+
     @GetMapping("/qna_list")
     public String qnaboard() {
         return "qnaBoard";

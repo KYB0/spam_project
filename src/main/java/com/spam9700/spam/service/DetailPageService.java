@@ -1,5 +1,7 @@
 ﻿package com.spam9700.spam.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,21 @@ public class DetailPageService {
 
     public String getOpenTimeByStudyRoom(String room_name){
         return detailPageDao.getOpenTimeByStudyRoom(room_name);
+    }
+
+        public List<DetailPageDto>getAllRooms(){
+        return detailPageDao.getAllRooms();
+    }
+
+    public DetailPageDto getRomById(int room_id){
+        return detailPageDao.getRoomById(room_id);
+    }
+
+    public List<DetailPageDto> getRoomsByCategory(int category_id){
+        return detailPageDao.getRoomsByCategory(category_id);
+    }
+
+    public List<DetailPageDto> getRoomsByComapny(String company_id){
+        return detailPageDao.getRoomsByCompany(company_id);
     }
 }

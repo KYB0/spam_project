@@ -188,7 +188,8 @@ li{
 
 </style>
 <body>
-    <div id="container">
+
+    <section id="container">
         <div class="TableContainer">
             <label for="movie">
                 자리를 선택해 주세요
@@ -280,8 +281,28 @@ li{
         </div>
         <br>
         <a href="#" class="myButton">선택완료</a>
-    </div>
+    </section>
 
 </body>
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+    const seats = document.querySelectorAll(".seat"); // 모든 좌석 요소 선택
+    let selectedSeat = null; // 선택된 좌석을 저장하는 변수
 
+    seats.forEach((seat) => {
+        seat.addEventListener("click", function () {
+            if (!seat.classList.contains("occupiedSeat")) {
+                // 좌석이 비어 있을 때만 선택 가능
+                if (selectedSeat !== null) {
+                    // 이미 선택된 좌석이 있을 경우, 선택 취소
+                    selectedSeat.classList.remove("selectedSeat");
+                }
+
+                seat.classList.add("selectedSeat"); // 새로운 좌석 선택
+                selectedSeat = seat; // 선택된 좌석 업데이트
+            }
+        });
+    });
+});
+</script>
 </html>
