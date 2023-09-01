@@ -232,7 +232,7 @@
 
     </section>
     <!-- 예약하기 버튼 -->
-    <button class="reservation-button"><a href="/spam/{room_name}/reservation">예약하기</a></button>
+    <button class="reservation-button" id="reservation-button">예약하기</button>
 
 
     <%@ include file="footer.jsp" %>
@@ -251,6 +251,20 @@
         }
         isClicked = !isClicked; // 클릭 상태를 반전
     });
+
+    $(document).ready(function() {
+    // 예약하기 버튼을 클릭했을 때의 동작을 정의합니다.
+    $("#reservation-button").click(function() {
+        // room_name을 동적으로 가져오거나 설정합니다.
+        var room_name = "${room_name}"; // 여기에 실제 데이터 값을 설정하세요.
+
+        // 동적으로 생성된 URL을 만듭니다.
+        var reservationURL = "/spam/" + room_name + "/reservation";
+
+        // 사용자를 해당 URL로 이동시킵니다.
+        window.location.href = reservationURL;
+    });
+});
 
 </script>
 
