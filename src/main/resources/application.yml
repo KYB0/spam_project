@@ -40,3 +40,45 @@ mybatis:
   mapper-locations: classpath:/mappers/*.xml
   configuration:
     map-underscore-to-camel-case: true
+    
+logging:
+  level:
+    root: info
+  
+log4jdbc:
+  spylogdelegator:
+    name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+  dump:
+    sql:
+      maxlinelength: 0
+  drivers: com.mysql.cj.jdbc.Driver
+  auto:
+    load:
+      popular:
+        drivers: false
+
+# Logback Extensions 기능
+# logback-spring.xml 파일에서만 사용가능
+# <springProfiles></springProfiles> 태그 활용 가능
+# <configuration scan="true" scanPeriod="30 seconds"> 사용 불가
+appender:
+  console:
+    name: console
+    class: ch.qos.logback.core.ConsoleAppender
+    encoder:
+      pattern: "%d{HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+logger:
+  com.icia.board:
+    level: info
+  jdbc.resultsettable:
+    level: trace
+  jdbc.resultset:
+    level: trace
+  jdbc.sqlonly:
+    level: trace
+
+root:
+  level: info
+  appender-ref:
+    ref: console

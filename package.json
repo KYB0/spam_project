@@ -1,0 +1,22 @@
+{
+  "name": "spam",
+  "version": "1.0.0",
+  "description": "cal",
+  "main": "index.js",
+  "scripts": {
+    "test": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KYB0/spam_project.git#yongbin"
+  },
+  "author": "yongbin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KYB0/spam_project/issues"
+  },
+  "homepage": "https://github.com/KYB0/spam_project/tree/yongbin#readme",
+  "dependencies": {
+    "react-calendar": "^4.6.0"
+  }
+}
