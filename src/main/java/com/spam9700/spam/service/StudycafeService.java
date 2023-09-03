@@ -10,4 +10,7 @@ public class StudycafeService {
     
     @Autowired
     private MemberDao memberDao;
+
+    public void saveReviewWithoutCreatingReviewObject(String reviewContent) {
+    }
 }

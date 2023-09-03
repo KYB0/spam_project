@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spam9700.spam.dao.MemberDao;
 import com.spam9700.spam.dto.CustomerMemberDto;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
+
 @Slf4j
 @Service
 public class MemberService {
@@ -35,7 +37,6 @@ public class MemberService {
     return memberDao.idCheck(customer_id);
     }
 
-
     public List<String> findId(String customer_name, String customer_email) {
         return memberDao.findId(customer_name, customer_email);
     }
@@ -52,6 +53,10 @@ public class MemberService {
         return memberDao.updateMypage(customerMemberDto);
     }
 
- 
+    @Transactional
+    public void resign(String customer_id) {
+        memberDao.deleteMemberInfo(customer_id);
+    }
 
+   
 }

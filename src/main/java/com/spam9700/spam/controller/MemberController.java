@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spam9700.spam.dto.CustomerMemberDto;
 import com.spam9700.spam.service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -74,7 +75,7 @@ public class MemberController {
         return "c_login";
     }
 
-    @PostMapping("/i_login") 
+    @PostMapping("/i_login")
     public String iLogin(@RequestParam String customer_id, @RequestParam String customer_pwd, HttpSession session) {
         log.info("개인로그인 처리");
         log.info("id:{}, pwd:{}", customer_id, customer_pwd);
@@ -116,8 +117,6 @@ public class MemberController {
         }
     }
 
-    
-
     @GetMapping("/find/id")
     public String findIdForm() {
         return "findId"; // 아이디 찾기 뷰 페이지 이름
@@ -155,8 +154,23 @@ public class MemberController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         // Remove the loggedInUser attribute from the session
-        session.invalidate(); // 세션 무효화
+        session.removeAttribute("customer_id");; // 세션 무효화
         return "redirect:/main"; // 로그아웃 후 홈 화면으로 이동
     }
+
+    @PostMapping("/i_mypage/resign")
+    public String resign(HttpSession session) {
+
+    String customer_id = (String) session.getAttribute("customer_id");
+
+    memberService.resign(customer_id);
+    log.info("회원탈퇴1");
+    session.invalidate();
+    log.info("세션 무효화");
+
+    return "redirect:/main";
+    }
+    
+
 
 }

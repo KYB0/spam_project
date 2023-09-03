@@ -25,4 +25,8 @@ public interface MemberDao {
 
     boolean updateMypage(CustomerMemberDto customerMemberDto);
 
+    void deleteMemberInfo(String customer_id);
+
+
+
 }

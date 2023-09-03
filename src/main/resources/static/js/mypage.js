@@ -51,3 +51,30 @@
             return false;
         }
     }
+
+    function resignAlert() {
+        // 사용자에게 확인 메시지를 표시하고 확인 눌렀을 때 true 반환
+        const confirmResign = confirm("정말로 회원을 탈퇴하시겠습니까?");
+
+        if (confirmResign) {
+            // 사용자가 확인을 눌렀을 경우 탈퇴 로직 수행
+            $.ajax({
+                type: "POST",
+                url: "/spam/member/i_mypage/resign",
+                data: $("#resignForm").serialize(), // 폼 데이터를 직렬화하여 전송합니다. // 필요한 데이터를 추가해야 합니다.
+                success: function (response) {
+                    if (response.success) {
+                        alert("회원 탈퇴가 완료되었습니다.");
+                        window.location.href = "${pageContext.request.contextPath}/main";
+                    } else {
+                        alert("회원 탈퇴 실패");
+                        window.location.href = "${pageContext.request.contextPath}/member/i_mypage";
+                    }
+                }
+            });
+        }
+
+        // 사용자가 확인을 누르지 않은 경우 false 반환
+        return confirmResign;
+    }
+

@@ -60,17 +60,23 @@
         WHERE customer_id = #{customer_id}
     </update> -->
 
-  <update id="updateMypage" parameterType="CustomerMemberDto">
-    UPDATE customer_member
-    SET
-    customer_name = #{customer_name},
-    customer_email = #{customer_email},
-    customer_phone = #{customer_phone}
-    WHERE customer_id = #{customer_id}
-</update>
+    <update id="updateMypage" parameterType="CustomerMemberDto">
+        UPDATE customer_member
+        SET
+        customer_name = #{customer_name},
+        customer_email = #{customer_email},
+        customer_phone = #{customer_phone}
+        WHERE customer_id = #{customer_id}
+    </update>
 
     <select id="getCustomerInfoById"  resultType="CustomerMemberDto">
         SELECT * FROM customer_member 
         WHERE customer_id = #{customer_id}
     </select>
+
+    <delete id="deleteMemberInfo" parameterType="String">
+        DELETE FROM customer_member
+        WHERE customer_id = #{customer_id}
+    </delete>
+
 </mapper>
