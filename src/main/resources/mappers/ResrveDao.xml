@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spam9700.spam.dao.ReservationDao">
+
+    <!-- 모든 예약 정보 조회 -->
+    <select id="getAllReservations" resultType="com.spam9700.spam.dto.ReservationDTO">
+        SELECT * FROM reservation;
+    </select>
+
+    <!-- 새로운 예약 정보 생성 -->
+    <insert id="createReservation" parameterType="com.spam9700.spam.dto.ReservationDTO">
+        INSERT INTO reservation (customer_id, seat_number, reservation_time)
+        VALUES (#{customerId}, #{seatNumber}, #{reservationTime});
+    </insert>
+
+    <!-- 특정 예약 정보 조회 -->
+    <select id="getReservationById" resultType="com.spam9700.spam.dto.ReservationDTO">
+        SELECT * FROM reservation WHERE reservation_id = #{reservationId};
+    </select>
+
+    <!-- 예약 정보 업데이트 -->
+    <update id="updateReservation" parameterType="com.spam9700.spam.dto.ReservationDTO">
+        UPDATE reservation
+        SET customer_id = #{customerId}, seat_number = #{seatNumber}, reservation_time = #{reservationTime}
+        WHERE reservation_id = #{reservationId};
+    </update>
+
+    <!-- 예약 정보 삭제 -->
+    <delete id="deleteReservation" parameterType="java.lang.Long">
+        DELETE FROM reservation WHERE reservation_id = #{reservationId};
+    </delete>
+
+</mapper>
