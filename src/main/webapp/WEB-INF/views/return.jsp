@@ -31,19 +31,8 @@
         <button type="button" id="returnButton">반납하기</button>
     </form>
 
-    <div id="returnMessage" style="display: none;">
-        반납 오나료!
-    </div>
-
-    <script>
-        document.getElementById("returnButton").addEventListener("click", function() {
-            // 반납 처리 로직
-            // 
-            
-            // 알림 메시지 표시
-            document.getElementById("returnMessage").style.display = "block";
-        });
-    </script>
+  
+    
     <%@ include file="footer.jsp" %>
 </body>
 </html>

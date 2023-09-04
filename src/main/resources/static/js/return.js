@@ -17,14 +17,15 @@
                     document.getElementById("returnTime").value = data.returnTime;
 
                     // 반납 메시지 표시
-                    document.getElementById("returnMessage").style.display = "block";
+                    alert("반납이 완료되었습니다.")
+                    // document.getElementById("returnMessage").style.display = "block";
                 },
                 error: function() {
                     console.log("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
                 }
             });
-        });
+        })
     });
 
-    
+
 </script>
