@@ -1,17 +1,17 @@
-package com.spam9700.spam.dao;
+// package com.spam9700.spam.dao;
 
-import java.util.List;
+// import java.util.List;
 
-import org.apache.ibatis.annotations.Mapper;
+// import org.apache.ibatis.annotations.Mapper;
 
-import com.spam9700.spam.dto.ReservationDTO;
+// import com.spam9700.spam.dto.ReservationDTO;
 
-@Mapper
-public interface ReservationDao {
+// @Mapper
+// public interface ReservationDao {
 
-    List<ReservationDTO> getReservationsBySeat(Long seatId);
+//     List<ReservationDTO> getReservationsBySeat(Long seatId);
 
-    // ReservationDTO createReservation(ReservationDTO reservationDTO);
-    void createReservation(ReservationDTO reservationDTO);
+//     // ReservationDTO createReservation(ReservationDTO reservationDTO);
+//     void createReservation(ReservationDTO reservationDTO);
 
-}
+// }
