@@ -1,0 +1,12 @@
+﻿
+<mapper namespace="EquipmentDAO">
+    <select id="getEquipmentById" resultType="EquipmentDTO">
+        SELECT * FROM Equipment WHERE id = #{id}
+    </select>
+    <update id="updateEquipment">
+        UPDATE Equipment
+        SET available_quantity = #{availableQuantity}
+        WHERE id = #{id}
+    </update>
+    <!-- ... (Other queries) -->
+</mapper>

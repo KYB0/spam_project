@@ -22,7 +22,7 @@
                 <p class="name"><strong>스터디룸 이름</strong><br><%= roomName %></p>
                 <p><strong>좌석타입/기간</strong><br><%= seatTypeAndDuration %></p>
                 <p><strong>체크인</strong><%= checkInTime %></p>
-                <p><strong>체크아웃</strong><%= checkOutTime %></p>
+                <p><strong>체크아웃</strong><%= checkOutTime %></p>   <!--DB 변수이름 -->>
             </p></section>
              <section class="total_price_pc"><p><strong><b>총 결제 금액</b>(VAT포함)</strong>
                 <span class="in_price">495,000원</span></p> <ul><li>해당 가격은 세금, 봉사료가 포함된 금액입니다</li>
@@ -30,7 +30,7 @@
                 <span>체크인</span> 하시면 됩니다
               </li></ul></section>
                 <!-- 인포 완-->
-              
+
                  <!-- 결제수단 -->
               <section class="pay_select"><h3>결제수단 선택</h3> <select id="payment-select" class="select_type_1" >
             <option selected="selected" value="KAKAO">

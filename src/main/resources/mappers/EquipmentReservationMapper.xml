@@ -1,0 +1,11 @@
+﻿
+<mapper namespace="EquipmentReservationDAO">
+    <insert id="insertReservation">
+        INSERT INTO EquipmentReservation (equipment_id)
+        VALUES (#{equipmentId})
+    </insert>
+    <delete id="deleteReservation">
+        DELETE FROM EquipmentReservation WHERE id = #{reservationId}
+    </delete>
+    <!-- ... (Other queries) -->
+</mapper>
