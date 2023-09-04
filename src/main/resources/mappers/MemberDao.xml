@@ -3,6 +3,7 @@
 <mapper namespace="com.spam9700.spam.dao.MemberDao">
     
     
+    <!-- join -->
     <insert id="join" parameterType="com.spam9700.spam.dto.CustomerMemberDto">
         INSERT INTO customer_member (customer_id, customer_pwd, customer_name, customer_email, customer_birth, customer_phone)
         VALUES (#{customer_id}, #{customer_pwd}, #{customer_name}, #{customer_email}, #{customer_birth}, #{customer_phone})

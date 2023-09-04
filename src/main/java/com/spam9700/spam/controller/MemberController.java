@@ -29,6 +29,10 @@ public class MemberController {
     @Autowired
     private final MemberService memberService;
 
+    private void invalidateSession(HttpSession session){
+        session.invalidate();;
+    }
+
     @GetMapping("/joinfrm")
     public String joinForm() {
         log.info("회원가입 선택 화면");
@@ -154,7 +158,7 @@ public class MemberController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         // Remove the loggedInUser attribute from the session
-        session.removeAttribute("customer_id");; // 세션 무효화
+        invalidateSession(session); //세션 무효화
         return "redirect:/main"; // 로그아웃 후 홈 화면으로 이동
     }
 
@@ -165,11 +169,12 @@ public class MemberController {
 
     memberService.resign(customer_id);
     log.info("회원탈퇴1");
-    session.invalidate();
-    log.info("세션 무효화");
+    
+    invalidateSession(session); //세션 무효화
 
     return "redirect:/main";
     }
+    
     
 
 

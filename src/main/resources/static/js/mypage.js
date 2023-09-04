@@ -46,7 +46,7 @@
 
         if (updateSuccess) {
             alert("회원 정보 수정 완료");
-            return true; // 폼을 제출합니다.
+            document.getElementById("memberInfo").submit(); // 폼을 제출합니다.
         } else {
             return false;
         }
@@ -57,24 +57,28 @@
         const confirmResign = confirm("정말로 회원을 탈퇴하시겠습니까?");
 
         if (confirmResign) {
+            
             // 사용자가 확인을 눌렀을 경우 탈퇴 로직 수행
             $.ajax({
                 type: "POST",
                 url: "/spam/member/i_mypage/resign",
-                data: $("#resignForm").serialize(), // 폼 데이터를 직렬화하여 전송합니다. // 필요한 데이터를 추가해야 합니다.
+                data: $("#memberInfo").serialize(), // 폼 데이터를 직렬화하여 전송합니다. // 필요한 데이터를 추가해야 합니다.
                 success: function (response) {
                     if (response.success) {
-                        alert("회원 탈퇴가 완료되었습니다.");
-                        window.location.href = "${pageContext.request.contextPath}/main";
-                    } else {
                         alert("회원 탈퇴 실패");
-                        window.location.href = "${pageContext.request.contextPath}/member/i_mypage";
+                        // window.location.href = "http://localhost:8000/spam/main";
+                        window.location.href = "http://localhost:8000/spam/member/i_mypage";
+                    } else {
+                        alert("회원 탈퇴가 완료되었습니다.");
+                        // window.location.href = "http://localhost:8000/spam/member/i_mypage";
+                        window.location.href = "http://localhost:8000/spam/main";
                     }
                 }
             });
+            return true;
         }
 
         // 사용자가 확인을 누르지 않은 경우 false 반환
-        return confirmResign;
+        return false;
     }
 

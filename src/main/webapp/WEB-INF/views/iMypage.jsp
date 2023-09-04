@@ -33,7 +33,7 @@
 
     <div class="mpContent">
         <h2>Edit My Page
-            <form id="updateInfo" action="/spam/member/i_mypage" method="post" onsubmit="return updateAlert();">
+            <form id="memberInfo" method="post">
                 <div>
                     <label for="name">이름:</label>
                     <input type="text" id="customer_name" name="customer_name"
@@ -64,14 +64,14 @@
                         value="${customerMemberDto.customer_email}">
                 </div>
 
-                <button type="submit" name="updateButton">수정 완료</button>
-            </form>
-
-            <!-- "회원 탈퇴" 버튼에 대한 별도의 폼 -->
-            <form id="resignForm" action="/spam/member/i_mypage/resign" method="POST" onsubmit="return resignAlert();">
-                <button type="submit" name="resignButton">회원 탈퇴</button>
+                <button type="submit" onclick="return resignAlert();" name="resignButton" >회원 탈퇴</button>
+                <button type="submit" onclick="return updateAlert();" name="updateButton">수정 완료</button>
         </h2>
         </form>
+
+        <!-- "회원 탈퇴" 버튼에 대한 별도의 폼 -->
+        <!-- <form id="resignForm" action="/spam/member/i_mypage/resign" method="POST" onsubmit="return resignAlert();">
+        </form> -->
     </div>
 
 </body>
