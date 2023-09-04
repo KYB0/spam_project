@@ -69,9 +69,6 @@
         </h2>
         </form>
 
-        <!-- "회원 탈퇴" 버튼에 대한 별도의 폼 -->
-        <!-- <form id="resignForm" action="/spam/member/i_mypage/resign" method="POST" onsubmit="return resignAlert();">
-        </form> -->
     </div>
 
 </body>

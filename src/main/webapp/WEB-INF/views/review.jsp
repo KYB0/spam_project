@@ -25,7 +25,8 @@
     </form>
 
 
-
+<div class="starRating">
+    <h2>rating&review</h2>
     <form class="mb-3" name="myform" id="myform" method="post">
         <fieldset>
             <span class="text-bold">별점을 선택해주세요</span>
@@ -38,10 +39,10 @@
         <div>
             <textarea class="col-auto form-control" type="text" id="reviewContents"
                 placeholder="이용 후기를 작성해주세요."></textarea>
-            <button type="submit" name="reviewEnter">작성 완료</button>
+            <button type="submit" onclick="return ratingNreview();" name="reviewButton">작성 완료</button>
         </div>
     </form>
-
+</div>
 </body>
 
 </html>

@@ -1,37 +1,24 @@
-$(document).ready(function () {
-    // 폼 제출 시 이벤트 핸들러
-    $("#myform").submit(function (event) {
-        event.preventDefault(); // 폼의 기본 동작을 막습니다.
+// 작성 완료 버튼을 클릭했을 때 실행될 함수
+function ratingNreview(event) {
+    // 평점 선택 확인
+    var selectedRating = document.querySelector('input[name="reviewStar"]:checked');
+    if (!selectedRating) {
+        alert("별점을 선택해주세요.");
+        return false; // 평점이 선택되지 않으면 제출을 중단합니다.
+    }
 
-        var libraryId = $("#libraryList li.selected").data("library-id"); // 선택한 독서실 ID
-        var reviewStar = $("input[name='reviewStar']:checked").val(); // 선택한 별점
-        var reviewContents = $("#reviewContents").val(); // 후기 내용
+    // 리뷰 내용 확인
+    var reviewContents = document.getElementById('reviewContents').value;
+    if (reviewContents.trim() === "") {
+        alert("이용 후기를 작성해주세요.");
+        return false; // 리뷰 내용이 비어있으면 제출을 중단합니다.
+    }
 
-        // 폼 데이터를 서버로 전송합니다.
-        $.ajax({
-            type: "POST",
-            url: "/spam/i_mypage/review/button", // 이 부분은 실제 서버 엔드포인트로 수정해야 합니다.
-            data: {
-                Id: libraryId,
-                reviewStar: reviewStar,
-                reviewContents: reviewContents
-            },
-            success: function (response) {
-                // 성공 시 작업을 수행합니다.
-                console.log("리뷰가 성공적으로 제출되었습니다.");
-                // 여기에 필요한 작업을 추가할 수 있습니다.
-            },
-            error: function (xhr, status, error) {
-                // 오류 시 작업을 수행합니다.
-                console.error("리뷰 제출 중 오류 발생:", error);
-                // 오류 처리 코드를 추가할 수 있습니다.
-            }
-        });
-    });
+    // 선택한 별점과 리뷰 내용을 어딘가에 전달하거나 처리할 수 있습니다.
+    // 여기서는 간단하게 alert로 보여줍니다.
+    alert("선택한 별점: " + selectedRating.value + "\n리뷰 내용: " + reviewContents);
 
-    // 독서실 선택 시 이벤트 핸들러
-    $("#libraryList li").click(function () {
-        $("#libraryList li").removeClass("selected");
-        $(this).addClass("selected");
-    });
-});
+    // 폼 제출을 중단합니다.
+    event.preventDefault();
+    return false;
+}

@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReviewDto {
+public class RatingDto {
+    private int rating_id;
+    private int value;
     private int review_id;
-    private String review_content;
-    private int rating;
-    private String customer_id;
-    private int room_id;
 }
