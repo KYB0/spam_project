@@ -30,7 +30,7 @@
                 <span>체크인</span> 하시면 됩니다
               </li></ul></section>
                 <!-- 인포 완-->
-
+              
                  <!-- 결제수단 -->
               <section class="pay_select"><h3>결제수단 선택</h3> <select id="payment-select" class="select_type_1" >
             <option selected="selected" value="KAKAO">
