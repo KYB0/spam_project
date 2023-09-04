@@ -161,4 +161,9 @@ public class MemberController {
         return "res";
     }
 
+    @GetMapping("/res1")
+    public String stert() {
+        return "res1";
+    }
+
 }

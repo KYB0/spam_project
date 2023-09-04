@@ -9,13 +9,9 @@ import com.spam9700.spam.dto.ReservationDTO;
 @Mapper
 public interface ReservationDao {
 
-    List<ReservationDTO> getAllReservations();
+    List<ReservationDTO> getReservationsBySeat(Long seatId);
 
+    // ReservationDTO createReservation(ReservationDTO reservationDTO);
     void createReservation(ReservationDTO reservationDTO);
 
-    ReservationDTO getReservationById(Long reservationId);
-
-    void updateReservation(ReservationDTO reservationDTO);
-
-    void deleteReservation(Long reservationId);
 }

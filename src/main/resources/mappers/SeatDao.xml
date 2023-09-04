@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.SeatDao">
+
+    <!-- 좌석 조회 -->
+    <select id="getSeat" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT * FROM seat WHERE seat_id = #{id}
+    </select>
+
+    <!-- 모든 좌석 조회 -->
+    <select id="getAllSeats" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT * FROM seat
+    </select>
+
+</mapper>
