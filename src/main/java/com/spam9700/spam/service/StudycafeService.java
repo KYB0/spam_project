@@ -10,7 +10,6 @@ import com.spam9700.spam.dao.MypageDao;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,10 +18,6 @@ public class StudycafeService {
 
     @Autowired
     MypageDao mypageDao;
-
-    // public boolean submitReview(ReviewDto reviewDto) {
-   
-    // }
 
     public List<ReservationDto> getReservationListByCustomerId(String customer_id) {
         return mypageDao.getReservationListByCustomerId(customer_id);

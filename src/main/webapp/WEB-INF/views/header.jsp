@@ -148,15 +148,13 @@
         .navbar-brand {
             color: #DCE682 !important;
         }
-
-        
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="navbars-offcanvas.css" rel="stylesheet">
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
-    
+
 
 </head>
 
@@ -196,7 +194,7 @@
                 <c:choose>
                     <c:when test="${not empty sessionScope.customer_id or not empty sessionScope.company_id}">
                         <span class="mx-2 text-light">
-                            환영합니다,
+                            환영합니다, 
                             <c:choose>
                                 <c:when test="${not empty sessionScope.customer_id}">
                                     ${sessionScope.customer_id} 님
@@ -246,8 +244,17 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/search">독서실 검색</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link " href="${pageContext.request.contextPath}/member/i_mypage"
-                                onclick="return checkLogin()">마이페이지</a>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.customer_id}">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/member/i_mypage">마이페이지</a>
+                                </c:when>
+                                <c:when test="${not empty sessionScope.company_id}">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/member/c_mypage">마이페이지</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/member/i_login" onclick="loginAlert()">마이페이지</a>
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link " href="${pageContext.request.contextPath}/qna_list">Q&A</a>
@@ -269,4 +276,11 @@
 </main>
 <script src="js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+</script>
+<script>
+    function loginAlert() {
+        alert("로그인 후 이용 가능한 서비스입니다.");
+        window.location.href = "${pageContext.request.contextPath}/member/i_login";
+        return false;
+    }
 </script>

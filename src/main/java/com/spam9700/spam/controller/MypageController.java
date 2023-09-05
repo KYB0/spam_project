@@ -3,19 +3,14 @@ package com.spam9700.spam.controller;
 
 import java.util.List;
 
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
-import com.spam9700.spam.service.BoardService;
-import com.spam9700.spam.service.MemberService;
 import com.spam9700.spam.service.StudycafeService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,9 +24,9 @@ public class MypageController {
     private StudycafeService studycafeService;
 
 
-    @GetMapping("/c_mypage")
+    @GetMapping("/member/c_mypage")
     public String companyMypage() {
-        return "companyMypage";
+        return "cMypage";
     }
 
     @GetMapping("/c_mypage/list")
@@ -90,7 +85,7 @@ public class MypageController {
 
     @GetMapping("/i_mypage/list")
     public String myListfrm(Model model, HttpSession session) {
-        log.info("예약 및 리뷰내역 페이지");
+        log.info("예약 내역 페이지");
 
         String customer_id = (String) session.getAttribute("customer_id");
 
@@ -117,7 +112,7 @@ public class MypageController {
 
         String customer_id = (String) session.getAttribute("customer_id");
 
-        //customer_id를 이용하여 내가 작성한 리뷰 리스트를 가져오는 메서드를 boardService에서 호출
+        //customer_id를 이용하여 내가 작성한 리뷰 리스트를 가져오는 메서드를 studycafeService에서 호출
         List<ReviewDto> reviewList = studycafeService.getReviewListByCustomerId(customer_id);
 
         //모델에 리뷰 리스트를 추가

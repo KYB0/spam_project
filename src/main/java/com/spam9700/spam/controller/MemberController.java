@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spam9700.spam.dto.CustomerMemberDto;
 import com.spam9700.spam.service.MemberService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +29,7 @@ public class MemberController {
     private final MemberService memberService;
 
     private void invalidateSession(HttpSession session){
-        session.invalidate();;
+        session.invalidate();
     }
 
     @GetMapping("/joinfrm")
@@ -98,12 +97,14 @@ public class MemberController {
 
     @PostMapping("/c_login")
     public String cLogin(@RequestParam String company_id, @RequestParam String company_pwd,
-            @RequestParam String company_businessnum) {
+            @RequestParam String company_businessnum, HttpSession session) {
         log.info("기업로그인 처리");
         log.info("id:{}, pwd:{}, businessnum:{}", company_id, company_pwd, company_businessnum);
+
         boolean result = memberService.cLogin(company_id, company_pwd, company_businessnum);
         if (result) {
             log.info("기업로그인 성공");
+            session.setAttribute("company_id", company_id);
             return "redirect:/main";
         } else {
             log.info("로그인 실패");
