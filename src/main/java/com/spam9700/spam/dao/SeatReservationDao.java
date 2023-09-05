@@ -13,4 +13,5 @@ public interface SeatReservationDao {
 
     void createSeatReservation(SeatReservationDto seatReservationDto);
 
+    List<SeatReservationDto> getSeatReservationsBySeatNumber(String seatNumber);
 }

@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 public class RoomReservationDto {
     private Long id;
-    private String customerName;
-    private LocalDate reservationDate;
-    private LocalTime startTime;
-    private LocalTime endTime;
+    private String customer_name;
+    private LocalDate reservation_date;
+    private LocalTime start_time;
+    private LocalTime end_time;
 }

@@ -2,19 +2,17 @@ package com.spam9700.spam.dto;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import lombok.Data;
 
 @Data
 public class SeatReservationDto {
-    private int reservationId;
+    private int reservation_id;
 
-    private String customerId;
+    private String customer_id;
 
-    private int seatId;
+    private String seat_number;
 
-    private LocalDateTime startTime;
+    private LocalDateTime start_time;
 
-    private LocalDateTime endTime;
+    private LocalDateTime end_time;
 }

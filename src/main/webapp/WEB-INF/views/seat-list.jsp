@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>좌석 예약 목록</title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
+
 <body>
     <h1>좌석 예약 목록</h1>
     <table border="1">
@@ -26,4 +30,5 @@
         </c:forEach>
     </table>
 </body>
+
 </html>
