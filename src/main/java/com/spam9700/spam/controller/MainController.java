@@ -28,7 +28,7 @@ public class MainController {
     @GetMapping("/search")
     public String search() {
         log.info("검색창");
-        return "search";
+        return "searchList";
     }
 
     @GetMapping("/qna_list")

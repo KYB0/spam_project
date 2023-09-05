@@ -1,0 +1,18 @@
+﻿package com.example.readingroom.dao;
+
+import com.example.readingroom.model.ReadingRoom;
+import org.springframework.stereotype.Repository;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class ReadingRoomDao {
+
+    public List<ReadingRoom> findByKeyword(String keyword) {
+        List<ReadingRoom> readingRooms = new ArrayList<>();
+        // 여기에 JDBC 코드를 작성하거나 JPA 쿼리를 사용
+        return readingRooms;
+    }
+}
