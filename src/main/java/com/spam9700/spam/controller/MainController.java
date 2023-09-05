@@ -51,7 +51,7 @@ public class MainController {
             studyRoom.setRoom_description(roomDescription);
             model.addAttribute("studyRoom", studyRoom);
         } else {
-            System.out.println("오류");
+            System.out.println("studyRoom null값 오류");
         }
     
         return "detailPage";
