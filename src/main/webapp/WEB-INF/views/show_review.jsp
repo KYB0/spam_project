@@ -17,14 +17,31 @@
 </head>
 <body>
     <section class="list-form">
-    <h1> 예약 및 리뷰 내역 </h1>
-    <form id="myList" action="/spam/i_mypage/list" method="POST">
-        <div class="reserv_N_review">
-            <a href="/spam/i_mypage/list">예약 내역</a>
-            <a href="/spam/i_mypage/list/review_list">내가 작성한 리뷰</a>
-        </div>
-
-    </form>
-</section>
+        <h1>예약 및 리뷰 내역</h1>
+        <a href="/spam/i_mypage/list">예약 내역</a>
+        <a href="/spam/i_mypage/list/review_list">내가 작성한 리뷰</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">리뷰 ID</th>
+                    <th scope="col">리뷰 내용</th>
+                    <th scope="col">별점</th>
+                    <th scope="col">고객 ID</th>
+                    <th scope="col">업체 코드</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${reviewList}" var="review">
+                    <tr>
+                        <td>${review.review_id}</td>
+                        <td>${review.review_content}</td>
+                        <td>${review.rating}</td>
+                        <td>${review.customer_id}</td>
+                        <td>${review.room_id}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+    </section>
 </body>
 </html>

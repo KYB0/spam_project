@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewDto {
+    
     private int review_id;
     private String review_content;
     private int rating;

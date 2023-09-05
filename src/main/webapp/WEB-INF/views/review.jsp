@@ -38,7 +38,7 @@
         </fieldset>
         <div>
             <textarea class="col-auto form-control" type="text" id="reviewContents"
-                placeholder="이용 후기를 작성해주세요."></textarea>
+              name="review_content"  placeholder="이용 후기를 작성해주세요."></textarea>
             <button type="submit" onclick="return ratingNreview();" name="reviewButton">작성 완료</button>
         </div>
     </form>

@@ -7,8 +7,14 @@
         VALUES (#{review_content},#{rating},#{customer_id},#{room_id});
     </insert>
 
-    <insert id="insertReview" parameterType="map">
-        INSERT INTO rating (value, review_id)
-        VALUES (#{value}, LAST_INSERT_ID()); <!--LAST_INSERT_ID() 함수를 사용하여 리뷰 테이블에 삽입한 마지막 리뷰의 ID를 가져옵니다.-->
-    </insert>
+   <select id="getReservationListByCustomerId" resultType="com.spam9700.spam.dto.ReservationDto">
+        SELECT * FROM seat_reservations 
+        WHERE customer_id = #{customer_id}
+    </select>
+
+    <select id="getReviewListByCustomerId" resultType="com.spam9700.spam.dto.ReviewDto">
+        SELECT * FROM review
+        WHERE customer_id = #{customer_id}
+    </select>
+
 </mapper>

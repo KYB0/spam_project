@@ -156,8 +156,19 @@
 
                 <!-- 로그인 상태 확인 후 표시 여부 결정 -->
                 <c:choose>
-                    <c:when test="${not empty sessionScope.customer_id}">
-                        <span class="mx-2 text-light">환영합니다, ${sessionScope.customer_id} 님</span>
+                    <c:when test="${not empty sessionScope.customer_id or not empty sessionScope.company_id}">
+                        <span class="mx-2 text-light">
+                            환영합니다,
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.customer_id}">
+                                    ${sessionScope.customer_id} 님
+                                </c:when>
+                                <c:otherwise>
+                                    ${sessionScope.company_id} 님
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
+                        <!-- 로그아웃 버튼 -->
                         <a class="btn btn-outline-light mx-2 btn-logout" type="button"
                             href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
                     </c:when>
@@ -168,6 +179,7 @@
                             onclick="location.href='${pageContext.request.contextPath}/member/joinfrm'">회원가입</button>
                     </c:otherwise>
                 </c:choose>
+
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"

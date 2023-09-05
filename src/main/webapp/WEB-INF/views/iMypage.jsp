@@ -27,6 +27,8 @@
     <div class="favoriteRooms">
         <h2>찜한 독서실 목록</h2>
         <!-- 여기에 찜한 독서실 목록을 표시하는 내용을 추가하세요. -->
+
+
     </div>
 
 
@@ -35,7 +37,7 @@
         <h2>Edit My Page
             <form id="memberInfo" method="post">
                 <div>
-                    <label for="name">이름:</label>
+                    <label for="name">이름:</label> 
                     <input type="text" id="customer_name" name="customer_name"
                         value="${customerMemberDto.customer_name}" readonly>
                 </div>

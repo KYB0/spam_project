@@ -87,6 +87,7 @@ public class MemberController {
         boolean result = memberService.iLogin(customer_id, customer_pwd);
         if (result) {
             log.info("개인로그인 성공");
+            session.setAttribute("loggedIn", true);
             session.setAttribute("customer_id", customer_id);
             return "redirect:/main"; // 로그인 성공 시 홈 화면으로 이동
         } else {

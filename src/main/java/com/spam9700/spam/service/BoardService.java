@@ -11,6 +11,7 @@ import com.spam9700.spam.dao.BoardDao;
 // import com.spam9700.board.common.Paging;
 import com.spam9700.spam.dto.BFile;
 import com.spam9700.spam.dto.BoardDto;
+import com.spam9700.spam.dto.ReviewDto;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -59,4 +60,5 @@ public class BoardService {
         return false;
     }
 
+    
 }
