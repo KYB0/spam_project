@@ -195,8 +195,8 @@
                 </button>
             </div><br>
             <div class="info">
-                <h4>영업 시간 </h4> <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
-                <h4>가격 <p>
+                <h4 class="r-description">영업 시간 ${room_description}</h4> <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
+                <h4 class="r-time">가격 <p>
                         <h5>시간당 : 1일당: </h5>
                     </p>
                 </h4> <!-- jquery로 db에서 데이터를 가져온다-->
@@ -263,6 +263,51 @@
 
         // 사용자를 해당 URL로 이동시킵니다.
         window.location.href = reservationURL;
+    });
+});
+var room_name = "${room_name}";
+
+$(document).ready(function() {
+    // 서버에서 room_description 데이터를 가져오는 Ajax 요청
+    $.ajax({
+        type: "GET",
+        url: "/spam/" + room_name, // 실제 서버 엔드포인트 경로로 대체해야 합니다.
+        success: function(data) {
+            // 성공적으로 데이터를 가져왔을 때
+            // 가져온 데이터를 room_description 변수에 할당
+            var room_description = data.room_description;
+
+            // room_description을 사용하여 필요한 작업 수행
+            // 예: 영업 시간을 표시
+            $(".r-description").text("영업 시간 " + room_description);
+            console.log(data);
+        },
+        error: function() {
+            // 데이터 가져오기에 실패한 경우에 대한 처리
+            console.error("데이터 가져오기 실패");
+        }
+    });
+});
+
+$(document).ready(function() {
+    // 서버에서 room_description 데이터를 가져오는 Ajax 요청
+    $.ajax({
+        type: "GET",
+        url: "/spam/" + room_name, // 실제 서버 엔드포인트 경로로 대체해야 합니다.
+        success: function(data) {
+            // 성공적으로 데이터를 가져왔을 때
+            // 가져온 데이터를 room_description 변수에 할당
+            var room_description = data.room_description;
+
+            // room_description을 사용하여 필요한 작업 수행
+            // 예: 영업 시간을 표시
+            $(".r-description").text("영업 시간 " + room_description);
+            console.log(data);
+        },
+        error: function() {
+            // 데이터 가져오기에 실패한 경우에 대한 처리
+            console.error("데이터 가져오기 실패");
+        }
     });
 });
 
