@@ -5,6 +5,9 @@ public class EquipmentReservationDTO {
     private int equipmentId;
     public void setEquipmentId(int equipmentId2) {
     }
+    public int getEquipmentId() {
+        return 0;
+    }
 
     // getter, setter
 }

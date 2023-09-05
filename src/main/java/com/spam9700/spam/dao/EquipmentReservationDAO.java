@@ -6,4 +6,5 @@ public interface EquipmentReservationDAO {
     void insertReservation(EquipmentReservationDTO reservation);
     void deleteReservation(int reservationId);
     // ... (Other methods)
+    EquipmentReservationDTO getReservationById(int reservationId);
 }

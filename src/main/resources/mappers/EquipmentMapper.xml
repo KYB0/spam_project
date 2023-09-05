@@ -1,11 +1,17 @@
 ﻿
-<mapper namespace="EquipmentDAO">
-    <select id="getEquipmentById" resultType="EquipmentDTO">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.EquipmentMapper">
+    
+    <select id="getEquipmentById" parameterType="int" resultType="com.spam9700.spam.dto.EquipmentDTO">
         SELECT * FROM Equipment WHERE id = #{id}
     </select>
-    <update id="updateEquipment">
+
+    <update id="updateEquipment" parameterType="com.spam9700.spam.dto.EquipmentDTO">
         UPDATE Equipment
-        SET available_quantity = #{availableQuantity}
+        SET
+         availableQuantity = #{availableQuantity}
         WHERE id = #{id}
     </update>
     <!-- ... (Other queries) -->

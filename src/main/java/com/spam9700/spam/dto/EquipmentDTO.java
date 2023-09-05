@@ -5,11 +5,14 @@ public class EquipmentDTO {
     private String name;
     private int totalQuantity;
     private int availableQuantity;
+
     public int getAvailableQuantity() {
-        return 0;
-    }
-    public void setAvailableQuantity(int i) {
+        return availableQuantity;
     }
 
-    // getter, setter
+    public void setAvailableQuantity(int availableQuantity) {
+        this.availableQuantity = availableQuantity;
+    }
+
+    // Other getters and setters
 }
