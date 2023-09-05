@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <%@ include file="header.jsp" %>
-<%@ include file="footer.jsp" %>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,5 +9,8 @@
 </head>
 <body>
     <h1>독서실 검색창</h1>
+
 </body>
+
+<%@ include file="footer.jsp" %>
 </html>
