@@ -40,10 +40,4 @@ mybatis:
   type-aliases-package: com.spam9700.spam.dto
   mapper-locations: classpath:/mappers/*.xml
   # configuration:
-    # map-underscore-to-camel-case: true
-  
-
-  
-  
-  
-    
+  #   map-underscore-to-camel-case: true

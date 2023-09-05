@@ -74,6 +74,41 @@
             -webkit-overflow-scrolling: touch;
         }
 
+        .btn-outline-light {
+            --bs-btn-color: #DCE682 !important;
+            --bs-btn-border-color: #f8f9fa !important;
+            --bs-btn-hover-color: #e5ff00 !important;
+            --bs-btn-hover-bg: #000000 !important;
+            --bs-btn-hover-border-color: #f8f9fa !important;
+            --bs-btn-focus-shadow-rgb: 248, 249, 250 !important;
+            --bs-btn-active-color: #000 !important;
+            --bs-btn-active-bg: #f8f9fa !important;
+            --bs-btn-active-border-color: #f8f9fa !important;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+            --bs-btn-disabled-color: #f8f9fa !important;
+            --bs-btn-disabled-bg: transparent !important;
+            --bs-btn-disabled-border-color: #f8f9fa !important;
+            --bs-gradient: none !important;
+        }
+
+        .btn-light {
+            --bs-btn-color: #DCE682 !important;
+            --bs-btn-bg: #322A31 !important;
+            --bs-btn-border-color: #f8f9fa;
+            --bs-btn-hover-color: #e5ff00 !important;
+            --bs-btn-hover-bg: #000000 !important;
+            --bs-btn-hover-border-color: #f8f9fa !important;
+            --bs-btn-focus-shadow-rgb: 248, 249, 250 !important;
+            --bs-btn-active-color: #000 !important;
+            --bs-btn-active-bg: #f8f9fa !important;
+            --bs-btn-active-border-color: #f8f9fa !important;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+            --bs-btn-disabled-color: #f8f9fa !important;
+            --bs-btn-disabled-bg: transparent !important;
+            --bs-btn-disabled-border-color: #f8f9fa !important;
+            --bs-gradient: none !important;
+        }
+
         .btn-bd-primary {
             --bd-violet-bg: #712cf9;
             --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
@@ -113,12 +148,15 @@
         .navbar-brand {
             color: #DCE682 !important;
         }
+
+        
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="navbars-offcanvas.css" rel="stylesheet">
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
+    
 
 </head>
 
@@ -170,7 +208,7 @@
                         </span>
                         <!-- 로그아웃 버튼 -->
                         <a class="btn btn-outline-light mx-2 btn-logout" type="button"
-                            href="${pageContext.request.contextPath}/member/logout">로그아웃</a>
+                            href="${pageContext.request.contextPath}/member/logout" id="btn-logout">로그아웃</a>
                     </c:when>
                     <c:otherwise>
                         <button class="btn btn-outline-light mx-2 btn-login" type="button"
@@ -196,6 +234,7 @@
                         aria-label="Close"></button>
 
                 </div>
+
                 <div class="offcanvas-body">
 
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">

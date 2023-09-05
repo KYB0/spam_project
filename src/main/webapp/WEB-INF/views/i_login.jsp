@@ -13,7 +13,7 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <!-- <link rel="stylesheet" href="/spam/css/style.css"> -->
+    <link rel="stylesheet" href="/spam/css/style.css">
 </head>
 
 <body>
