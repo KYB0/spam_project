@@ -23,8 +23,12 @@ public class DetailPageService {
         return detailPageDao.getStudyRoomByRoomName(room_name);
     }
 
-    public String getOpenTimeByStudyRoom(String room_name){
-        return detailPageDao.getOpenTimeByStudyRoom(room_name);
+    public String getOpenTimeByStudyRoom(String room_name) {
+        // 여기서 데이터베이스에서 room_description 값을 조회하는 로직을 추가하세요.
+        String room_description = detailPageDao.getOpenTimeByStudyRoom(room_name);
+    
+        // 조회한 room_description 값을 반환합니다.
+        return room_description;
     }
 
         public List<DetailPageDto>getAllRooms(){

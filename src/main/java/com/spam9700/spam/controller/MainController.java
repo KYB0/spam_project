@@ -48,11 +48,18 @@ public class MainController {
     
         if (studyRoom != null) {
             String roomDescription = detailPageService.getOpenTimeByStudyRoom(studyRoom.getRoom_description());
-            studyRoom.setRoom_description(roomDescription);
-            model.addAttribute("studyRoom", studyRoom);
+            if (roomDescription != null) {
+                studyRoom.setRoom_description(roomDescription);
+                model.addAttribute("studyRoom", studyRoom);
+            } else {
+                // roomDescription이 null인 경우에 대한 처리
+                model.addAttribute("error", "Study room description not found.");
+            }
         } else {
-            System.out.println("studyRoom null값 오류");
+            // studyRoom이 null인 경우에 대한 처리
+            model.addAttribute("error", "Study room not found.");
         }
+    
     
         return "detailPage";
     }
