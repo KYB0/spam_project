@@ -34,10 +34,20 @@ public class StudycafeService {
     }
 
     public List<DetailPageDto> searchRooms(String region, String searchKeyword) {
-        // 검색 로직 구현
-        return detailPageDao.getAllRooms();
+        if ((region == null || region.isEmpty() || region.equals("전체")) && (searchKeyword == null || searchKeyword.isEmpty())) {
+            // 검색 키워드와 지역이 모두 없거나 지역이 "전체"인 경우 모든 독서실 목록을 반환
+            return detailPageDao.getAllRooms();
+        } else if (searchKeyword == null || searchKeyword.isEmpty()) {
+            // 검색 키워드는 없지만 지역이 있는 경우 해당 지역의 독서실 목록을 반환
+            return detailPageDao.getRoomsByRegion(region);
+        } else if (region == null || region.isEmpty() || region.equals("전체")) {
+            // 지역은 없지만 검색 키워드가 있는 경우 해당 키워드를 포함하는 독서실 목록을 반환
+            return detailPageDao.getRoomsByKeyword(searchKeyword);
+        } else {
+            // 지역과 검색 키워드 둘 다 있는 경우 해당 지역에 위치하면서 키워드를 포함하는 독서실 목록을 반환
+            return detailPageDao.getRoomsByRegionAndKeyword(region, searchKeyword);
+        }
     }
-
 
 
     //  기존 코드

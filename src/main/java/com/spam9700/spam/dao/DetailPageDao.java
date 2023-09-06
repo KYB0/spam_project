@@ -24,4 +24,12 @@ public interface DetailPageDao {
 
     List<DetailPageDto> searchRoomsByKeyword(@Param("keyword") String keyword);
 
-}
+     // 지역  검색
+     List<DetailPageDto> getRoomsByRegion(@Param("region") String region);
+
+     // 키워드  검색
+     List<DetailPageDto> getRoomsByKeyword(@Param("keyword") String keyword);
+ 
+     // 지역 and 키워드 검색
+     List<DetailPageDto> getRoomsByRegionAndKeyword(@Param("region") String region, @Param("keyword") String keyword);
+ }
