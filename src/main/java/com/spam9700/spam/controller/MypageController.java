@@ -24,9 +24,9 @@ public class MypageController {
     private StudycafeService studycafeService;
 
 
-    @GetMapping("/member/c_mypage")
+    @GetMapping("/c_mypage")
     public String companyMypage() {
-        return "cMypage";
+        return "companyMypage";
     }
 
     @GetMapping("/c_mypage/list")
