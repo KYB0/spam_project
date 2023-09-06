@@ -1,4 +1,5 @@
 ﻿<%@ include file="header.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,30 +31,24 @@
             </div>
         </div>
         
+          
         <div class="bg"></div>
-        
-        <section class="section_search" id="ska_info">
-            <div id="ska_info_list">
-                <div class="content">
-                    <div class="item_ska">
-                        <div class="area_ska_info">
-                            <h2 class="info_tit">
-                                <a target="_blank" title="인천 학익 작살난 독서실" onclick="try{s_trackApply(this, 'search', 'generic')}catch(e){};" rel="" class="data_layer" href="/zf_user/jobs/???"><span>인천 학익 작살난 독서실</span></a>
-                            </h2>
-                        </div>
-                    </div>                
-                </div>
-            </div>
-        </section>
-        
+
         <section class="list-form">
             <ul>
-                <c:forEach var="readingRoom" items="${readingRooms}">
-                    <li>${readingRoom.name} - ${readingRoom.region}</li>
+                <c:forEach var="detailPageDto" items="${detailPageDtos}">
+                    <li>
+                        <strong>독서실 이름:</strong> ${detailPageDto.room_name} <br>
+                        <strong>지역:</strong> ${detailPageDto.region} <br>
+                        <strong>시간당 가격:</strong> ${detailPageDto.time_price} <br>
+                        <strong>하루 가격:</strong> ${detailPageDto.day_price} <br>
+                        <strong>설명:</strong> ${detailPageDto.room_description}
+                    </li>
                 </c:forEach>
             </ul>
         </section>
     </div>
+
     <%@ include file="footer.jsp" %>
 </body>
 </html>

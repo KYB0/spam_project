@@ -25,11 +25,11 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("/search")
-    public String search() {
-        log.info("검색창");
-        return "searchList";
-    }
+    // @GetMapping("/search")
+    // public String search() {
+    //     log.info("검색창");
+    //     return "searchList";
+    // }
 
     @GetMapping("/qna_list")
     public String qnaboard() {

@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DetailPageDto {
     private int room_id;
-    private int category_id;
     private String company_id;
     private String room_name;
     private String room_description;
-    private Time reservation_period;
+    private String region;
     private int time_price;
     private int day_price;
 }

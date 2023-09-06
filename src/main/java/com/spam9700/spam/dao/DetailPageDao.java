@@ -20,7 +20,8 @@ public interface DetailPageDao {
 
     DetailPageDto getRoomById(int room_id);
 
-    List<DetailPageDto> getRoomsByCategory(int category_id);
-
     List<DetailPageDto> getRoomsByCompany(String company_id);
+
+    List<DetailPageDto> searchRoomsByKeyword(@Param("keyword") String keyword);
+
 }
