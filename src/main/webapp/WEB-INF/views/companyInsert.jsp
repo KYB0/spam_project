@@ -20,6 +20,22 @@ top: -100%; /* 위에서 20% */
 transform: translate(-20%, 100%); /* 화면 중앙 정렬을 위한 transform 사용 */
 }
 
+.std-button {
+            /* 스타일을 원하는 대로 설정 */
+            padding: 10px 20px;
+            background-color: #E6E6FA;
+            color: #B19CD9;
+            border: none;
+            cursor: pointer;
+            width: 120px;
+            max-width: 200px;
+            height: 50px;
+            border-radius: 30px; /* 모서리 둥글게 설정 */
+            position: relative;
+            left: 75%;
+            top: 650px;
+        }
+
 .c_menu {
 display: flex; /* Flexbox 사용 */
 flex-direction: column; /* 세로로 정렬 */
@@ -33,6 +49,7 @@ top: 30%; /* 위에서 20% 여백 */
 display: flex;
 flex-direction: column; /* 세로로 정렬 */
 gap: 10px; /* 버튼 사이의 간격 조절 */
+width: 100%;
 }
 
 .btn_cmenu button {
@@ -43,16 +60,20 @@ color: #DCE682;
 border: none;
 cursor: pointer;
 width: 120px; /* 버튼 상자 너비 설정 */
+max-width: 200px; /* 최대 가로 너비 설정 (원하는 크기로 조정 가능) */
 height: 50px; /* 버튼 상자 높이 설정 */
 }
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
+    <script src="js/code.jquery.com_jquery-3.7.0.min.js"></script>
 </head>
 <body>
     <%@ include file="header.jsp" %>
     <section class="c_insert">
         <h1>등록 및 수정</h1>
-        
+    </section>
+    <section class="std-insert">
+        <a href="/spam/c_mypage/insert/write"><button class="std-button">등록</button></a>
     </section>
     <section class="c_menu">
         <div class="btn_cmenu">

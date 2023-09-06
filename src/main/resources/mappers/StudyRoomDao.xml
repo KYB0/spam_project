@@ -16,4 +16,9 @@
         SELECT * FROM study_room;
     </select>
 
+<insert id="insertRoom" parameterType="com.spam9700.spam.dto.DetailPageDto">
+    insert into study_room (room_id, company_id, room_name, room_description, time_price, day_price, region)
+    values (room_id_seq.nextval, #{company_id}, #{room_name}, #{room_description}, #{time_price}, #{day_price}, #{region})
+</insert>
+
 </mapper>

@@ -7,8 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spam9700.spam.dto.CompanyMemberDto;
+import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.service.StudycafeService;
@@ -37,6 +42,33 @@ public class MypageController {
     @GetMapping("/c_mypage/insert")
     public String cMypageInsert() {
         return "companyInsert";
+    }
+
+
+    @GetMapping("/c_mypage/insert/write")
+    public ModelAndView showStudyRoomWritePage(HttpSession session) {
+        // 세션에서 로그인 정보를 가져옴
+        CompanyMemberDto loggedInUser = (CompanyMemberDto) session.getAttribute("loggedInUser");
+
+        // 로그인한 사용자의 회사 아이디를 가져옴
+        String companyId = loggedInUser.getCompany_id();
+
+        // ModelAndView를 이용하여 뷰 이름과 함께 데이터 전달
+        ModelAndView modelAndView = new ModelAndView("studyRoomWrite"); // studyRoomWrite는 입력 페이지의 뷰 이름
+        modelAndView.addObject("companyId", companyId); // 모델에 회사 아이디를 추가
+        return modelAndView;
+    }
+
+    @PostMapping("/c_mypage/insert/write")
+    public String processStudyRoomWrite(@ModelAttribute DetailPageDto detailPageDto, RedirectAttributes redirectAttributes){
+        try {
+            studycafeService.insertRoom(detailPageDto);
+            redirectAttributes.addFlashAttribute("success", true); // 입력 성공 메시지를 전달
+        } catch (Exception e) {
+            e.printStackTrace();
+            redirectAttributes.addFlashAttribute("success", false); // 입력 실패 메시지를 전달
+        }
+        return "redirect:/spam/c_mypage/insert/write";
     }
 
     @GetMapping("/c_mypage/resign")

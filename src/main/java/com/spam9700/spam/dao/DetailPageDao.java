@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 
 
 import com.spam9700.spam.dto.DetailPageDto;
+import com.spam9700.spam.dto.ReservationDto;
+import com.spam9700.spam.dto.ReviewDto;
 
 @Mapper
 public interface DetailPageDao {
@@ -23,4 +25,10 @@ public interface DetailPageDao {
     List<DetailPageDto> getRoomsByCategory(int category_id);
 
     List<DetailPageDto> getRoomsByCompany(String company_id);
+
+    void insertRoom(DetailPageDto detailPageDto);
+
+    List<ReservationDto> getReservationListByCustomerId(String customer_id);
+
+    List<ReviewDto> getReviewListByCustomerId(String customer_id);
 }
