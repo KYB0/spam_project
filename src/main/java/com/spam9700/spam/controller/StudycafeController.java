@@ -5,8 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import com.spam9700.spam.dao.ReviewDao;
 import com.spam9700.spam.dto.DetailPageDto;
+import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.service.DetailPageService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,5 +46,12 @@ public class StudycafeController {
         return "detailPage";
     }
 
+    @PostMapping("/{room_name}/review")
     
+    public String review(@RequestBody ReviewDto reviewDto) {
+
+        return detailPageService.addComment(reviewDto);
+
+    }
+
 }

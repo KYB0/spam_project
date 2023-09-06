@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.spam9700.spam.dao.DetailPageDao;
 import com.spam9700.spam.dto.DetailPageDto;
+import com.spam9700.spam.dto.ReviewDto;
 
 
 
@@ -44,5 +45,9 @@ public class DetailPageService {
 
     public List<DetailPageDto> getRoomsByComapny(String company_id){
         return detailPageDao.getRoomsByCompany(company_id);
+    }
+
+    public String addComment(ReviewDto reviewDto) {
+        return detailPageDao.addComment(reviewDto);
     }
 }

@@ -1,7 +1,7 @@
-<%@ page pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <%@ include file="header.jsp" %>
 <%@ include file="footer.jsp" %>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/spam/css/mypage.css">
 </head>
 <body>
+
     <section class="i_menu">
         <div class="btn_i_menu">
             <a href="${pageContext.request.contextPath}/i_mypage" class="active"><button id="i_myp">마이페이지</button></a>
@@ -19,5 +20,6 @@
             <!-- 원하는 메뉴 항목들을 추가할 수 있습니다. -->
         </div>
     </section>
+
 </body>
 </html>
