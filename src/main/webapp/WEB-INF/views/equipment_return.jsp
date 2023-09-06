@@ -6,6 +6,7 @@
     <title>비품 반납 페이지</title>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <link rel="stylesheet" href="/spam/css/return.css">
 </head>
 <body>
     <%@ include file="header.jsp" %>
@@ -30,19 +31,8 @@
         <button type="button" id="returnButton">반납하기</button>
     </form>
 
-    <div id="returnMessage" style="display: none;">
-        반납 오나료!
-    </div>
-
-    <script>
-        document.getElementById("returnButton").addEventListener("click", function() {
-            // 반납 처리 로직
-            // 
-            
-            // 알림 메시지 표시
-            document.getElementById("returnMessage").style.display = "block";
-        });
-    </script>
+  
+    
     <%@ include file="footer.jsp" %>
 </body>
 </html>

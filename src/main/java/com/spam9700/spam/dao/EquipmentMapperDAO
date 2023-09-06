@@ -1,0 +1,8 @@
+﻿package com.spam9700.spam.dao;
+
+import com.spam9700.spam.dto.EquipmentDTO;
+
+public interface EquipmentMapper {
+    EquipmentDTO getEquipmentById(int id);
+    void updateEquipment(EquipmentDTO equipment);
+}

@@ -28,7 +28,7 @@ public class MainController {
     @GetMapping("/search")
     public String search() {
         log.info("검색창");
-        return "search";
+        return "searchList";
     }
 
     @GetMapping("/qna_list")
@@ -62,5 +62,9 @@ public class MainController {
         log.info("업데이트 실패");
         return "redirect:/member/i_mypage";
     }
-
+     @GetMapping("/res")
+    public String resPage() {
+        log.info("res 페이지");
+        return "res";
+    }
 }

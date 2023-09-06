@@ -1,28 +1,61 @@
-﻿// package com.spam9700.spam.service;
+﻿package com.spam9700.spam.service;
 
-// import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import com.spam9700.spam.dao.EquipmentDAO;
+import com.spam9700.spam.dao.EquipmentReservationDAO;
+import com.spam9700.spam.dto.EquipmentDTO;
+import com.spam9700.spam.dto.EquipmentReservationDTO;
 
-// @Service
-// public class EquipmentService {
+public class EquipmentService {    
+    
+    private final EquipmentDAO equipmentDAO;  // DB 접근 
+    private final EquipmentReservationDAO equipmentReservationDAO; //DB 접근 
 
-//     // 여기에 실제 DB 조회 로직을 구현해야 합니다.
-//     public String getRoomName() {
-//         // DB에서 독서실 이름을 조회하여 반환
-//         return "예시 독서실";
-//     }
+    @Autowired
+    public EquipmentService(EquipmentDAO equipmentDAO, EquipmentReservationDAO equipmentReservationDAO) {
+        this.equipmentDAO = equipmentDAO;
+        this.equipmentReservationDAO = equipmentReservationDAO;
+    }
 
-//     public String getEquipmentName() {
-//         // DB에서 비품 이름을 조회하여 반환
-//         return "예시 비품";
-//     }
+    @Transactional
+    public void reserveEquipment(int equipmentId) {  
+        // equipmentId를 파라미터로 받아 해당 비품의 available_quantity 1 감소 시키고,
+        // 새로운 예약을 EquipmentReservation 테이블에 추가하는 메서드 
 
-//     public LocalDateTime getStartTime() {
-//         // DB에서 대여 시작 시간을 조회하여 반환
-//         return LocalDateTime.now(); // 현재 시간을 예시로 표시
-//     }
+        EquipmentDTO equipment = equipmentDAO.getEquipmentById(equipmentId);
+        
+        if (equipment != null && equipment.getAvailableQuantity() > 0) {
+            equipment.setAvailableQuantity(equipment.getAvailableQuantity() - 1);
+            equipmentDAO.updateEquipment(equipment);
+            
+            EquipmentReservationDTO reservation = new EquipmentReservationDTO();
+            reservation.setEquipmentId(equipmentId);
+            equipmentReservationDAO.insertReservation(reservation);
+        } else {
+            throw new IllegalStateException("No available equipment");
+        }
+    }
 
-//     public LocalDateTime getReturnTime() {
-//         // DB에서 반납 예정 시간을 조회하여 반환
-//         return LocalDateTime.now(); // 현재 시간을 예시로 표시
-//     }
-// }
+    @Transactional
+    public void returnEquipment(int reservationId) { 
+        //  reservationId 를 파라미터로 받아 해당 예약 삭제, available_quantity 1 증가
+        EquipmentReservationDTO reservation = equipmentReservationDAO.getReservationById(reservationId);
+        
+        if (reservation == null) {
+            throw new IllegalStateException("Invalid reservation");
+        }
+        
+        int equipmentId = reservation.getEquipmentId();
+        EquipmentDTO equipment = equipmentDAO.getEquipmentById(equipmentId);
+        
+        if (equipment != null) {
+            equipment.setAvailableQuantity(equipment.getAvailableQuantity() + 1);
+            equipmentDAO.updateEquipment(equipment);
+            
+            equipmentReservationDAO.deleteReservation(reservationId);
+        } else {
+            throw new IllegalStateException("Invalid equipment");
+        }
+    }
+}
