@@ -26,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/member")
 public class MemberController {
 
-    private static final Object companyMemberDto = null;
     @Autowired
     private final MemberService memberService;
 

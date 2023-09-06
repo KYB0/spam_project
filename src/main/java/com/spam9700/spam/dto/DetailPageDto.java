@@ -16,4 +16,5 @@ public class DetailPageDto {
     private int time_price;
     private int day_price;
     private String region;
+    private String companyId;
 }

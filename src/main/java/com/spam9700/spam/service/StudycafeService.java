@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StudycafeService {
 
     @Autowired
-    DetailPageDao detailPageDao;
+    private DetailPageDao detailPageDao;
 
     public List<ReservationDto> getReservationListByCustomerId(String customer_id) {
         return detailPageDao.getReservationListByCustomerId(customer_id);
@@ -29,10 +29,15 @@ public class StudycafeService {
         return detailPageDao.getReviewListByCustomerId(customer_id);
     }
 
-    public void insertRoom(DetailPageDto detailPageDto) {
-        detailPageDao.insertRoom(detailPageDto);
+
+    // 스터디 룸 정보를 DB에 삽입하는 메서드 추가
+    public int insertStudyRoom(DetailPageDto detailPageDto) {
+        return detailPageDao.insertStudyRoom(detailPageDto);
     }
 
+    public String getCompanyIdFromCompanyMember(String company_id) {
+        return detailPageDao.getCompanyIdFromCompanyMember(company_id);
+    }
     
     
 

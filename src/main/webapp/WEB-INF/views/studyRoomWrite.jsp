@@ -159,7 +159,7 @@ input:-webkit-autofill:focus {
                 return;
             }
 
-            document.stdForm1.action = "spam/c_mypage/insert"; //insert 페이지로 std-form1에 저장된 자료를 전송함
+            document.stdForm1.action = "/spam/c_mypage/insert"; //insert 페이지로 std-form1에 저장된 자료를 전송함
             document.stdForm1.submit();
         }
     </script>

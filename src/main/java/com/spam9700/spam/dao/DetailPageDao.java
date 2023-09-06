@@ -26,9 +26,13 @@ public interface DetailPageDao {
 
     List<DetailPageDto> getRoomsByCompany(String company_id);
 
-    void insertRoom(DetailPageDto detailPageDto);
+    // 스터디 룸 정보를 DB에 삽입하는 메서드 추가
+    int insertStudyRoom(DetailPageDto detailPageDto);
 
     List<ReservationDto> getReservationListByCustomerId(String customer_id);
 
     List<ReviewDto> getReviewListByCustomerId(String customer_id);
+
+    // company_id 가져오기
+    String getCompanyIdFromCompanyMember(@Param("company_id") String company_id);
 }

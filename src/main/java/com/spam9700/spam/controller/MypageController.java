@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -44,15 +46,41 @@ public class MypageController {
         return "companyInsert";
     }
 
+    @PostMapping("/c_mypage/insert")
+        public String processStudyRoomInsert(@ModelAttribute DetailPageDto detailPageDto, RedirectAttributes redirectAttributes) {
+            try {
+                // 스터디 룸 정보를 DB에 삽입
+                studycafeService.insertStudyRoom(detailPageDto);
+    
+                // 입력 성공 시 메시지 설정
+                redirectAttributes.addFlashAttribute("success", true);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // 입력 실패 시 메시지 설정
+                redirectAttributes.addFlashAttribute("success", false);
+                log.error("스터디 룸 등록 실패: " + e.getMessage());
+            }
+            // 입력 결과에 관계없이 등록 페이지로 리다이렉트
+            return "redirect:/c_mypage/insert";
+        }
+    
+
 
     @GetMapping("/c_mypage/insert/write")
     public ModelAndView showStudyRoomWritePage(HttpSession session) {
         // 세션에서 로그인 정보를 가져옴
         CompanyMemberDto loggedInUser = (CompanyMemberDto) session.getAttribute("loggedInUser");
-
-        // 로그인한 사용자의 회사 아이디를 가져옴
+    
+        if (loggedInUser == null) {
+            // 로그인되지 않았을 경우 로그인 페이지로 리다이렉트 또는 메시지 표시
+            ModelAndView modelAndView = new ModelAndView("c_login"); // 로그인 페이지로 리다이렉트
+            modelAndView.addObject("message", "로그인이 필요합니다.");
+            return modelAndView;
+        }
+    
+        // 이미 로그인한 사용자의 회사 아이디를 가져옴
         String companyId = loggedInUser.getCompany_id();
-
+    
         // ModelAndView를 이용하여 뷰 이름과 함께 데이터 전달
         ModelAndView modelAndView = new ModelAndView("studyRoomWrite"); // studyRoomWrite는 입력 페이지의 뷰 이름
         modelAndView.addObject("companyId", companyId); // 모델에 회사 아이디를 추가
@@ -60,16 +88,30 @@ public class MypageController {
     }
 
     @PostMapping("/c_mypage/insert/write")
-    public String processStudyRoomWrite(@ModelAttribute DetailPageDto detailPageDto, RedirectAttributes redirectAttributes){
-        try {
-            studycafeService.insertRoom(detailPageDto);
-            redirectAttributes.addFlashAttribute("success", true); // 입력 성공 메시지를 전달
-        } catch (Exception e) {
-            e.printStackTrace();
-            redirectAttributes.addFlashAttribute("success", false); // 입력 실패 메시지를 전달
+    public String insertStudyRoomWritePage(@RequestParam("company_id") String company_id, @RequestParam("room_name") String room_name, @RequestParam("room_description") String room_description, @RequestParam("time_price") int time_price, @RequestParam("day_price") int day_price, @RequestParam("region") String region, RedirectAttributes redirectAttributes){
+       
+        // DetailPageDto 객체 생성 및 company_id 설정
+        DetailPageDto detailPageDto = new DetailPageDto();
+       
+        detailPageDto.setCompany_id(company_id);
+        detailPageDto.setRoom_name(room_name);
+        detailPageDto.setRoom_description(room_description);
+        detailPageDto.setTime_price(time_price);
+        detailPageDto.setDay_price(day_price);
+        detailPageDto.setRegion(region);
+
+        // 서비스로 DetailPageDto 전달
+        int result = studycafeService.insertStudyRoom(detailPageDto);
+
+        if(result > 0){
+            // 등록 성공 시 처리
+            return "/c_mypage/insert"; // 등록 페이지로 이동
+        }else{
+            redirectAttributes.addFlashAttribute("errorAlert", "등록에 실패했습니다.");
+            return "redirect:/spam/c_mypage/insert";
         }
-        return "redirect:/spam/c_mypage/insert/write";
     }
+
 
     @GetMapping("/c_mypage/resign")
     public String cMypageResign() {
