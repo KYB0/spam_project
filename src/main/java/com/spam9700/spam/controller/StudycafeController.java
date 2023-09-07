@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spam9700.spam.service.StudycafeService;
 import com.spam9700.spam.service.DetailPageService;
@@ -25,6 +26,7 @@ public class StudycafeController {
 
     @Autowired
     private StudycafeService studycafeService;
+    @Autowired
     private DetailPageService detailPageService;
      // 상세 페이지 뷰
 
@@ -57,4 +59,12 @@ public class StudycafeController {
         model.addAttribute("detailPageDtos", searchResults);  // "readingRooms" 대신 "detailPageDtos"를 사용
         return "searchList";
     }
+
+ // Ajax 요청을 처리하는 메서드
+  @GetMapping("/spam/searchRooms")
+  @ResponseBody
+  public List<DetailPageDto> searchRoomsAjax(@RequestParam(name = "region", required = false) String region,
+                                   @RequestParam(name = "searchKeyword", required = false) String searchKeyword) {
+    return studycafeService.searchRooms(region, searchKeyword);
+  }
 }
