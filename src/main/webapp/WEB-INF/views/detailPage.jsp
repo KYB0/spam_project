@@ -223,7 +223,7 @@
         <div class="star">
             <h2>평점</h2>
 
-            <form class="mb-3" name="myform" id="myform" method="GET">
+            <form class="mb-3" name="myform" id="myform" method="POST">
                 <fieldset>
                     <span class="text-bold">별점을 선택해주세요</span>
                     <input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
@@ -240,11 +240,7 @@
                     <button type="submit" class="btn btn-primary">평점 남기기</button>
                 </div>
             </form>
-            <div id="comments"></div>
-
-
-        </div>
-
+     
     </section>
     <!-- 예약하기 버튼 -->
     <button class="reservation-button" id="reservation-button">예약하기</button>
@@ -326,77 +322,6 @@
         });
     });
 
-    // 댓글로 리뷰 및 평점 남기기
-    // $(document).ready(function() {
-    //     // 클라이언트 평점 남기기 버튼 클릭 이벤트
-    //     $("#myform").submit(function(e) {
-    //         e.preventDefault();
-    //         console.log("1");
-
-    //         // 사용자 입력 데이터 가져오기
-    //         var rating = $("input[name='reviewStar']:checked").val();
-    //         var reviewContent = $("#reviewContents").val();
-    //         console.log("2");
-    //         // 데이터 유효성 검사 (필요에 따라 추가 구현)
-    //         // Ajax 요청 보내기
-    //         $.ajax({
-    //             type: "POST",
-    //             url: "/spam/{room_name}/review", // 서버 API 엔드포인트 URL
-    //             data: JSON.stringify({ rating: rating, reviewContent: reviewContent }),
-    //             contentType: "application/json; charset=utf-8",
-    //             dataType: "json",
-    //             success: function(response) {
-    //                 // 서버에서 응답을 받으면, 화면에 댓글 형식으로 데이터 표시
-    //                 var newComment = $("<div>").text("평점: " + rating + " / 후기: " + reviewContent);
-    //                 $("#comments").append(newComment);
-    //                 console.log("3");
-    //                 // 입력 폼 초기화
-    //                 $("input[name='reviewStar']").prop("checked", false);
-    //                 $("#reviewContents").val("");
-    //             },
-    //             error: function(xhr, status, error) {
-    //                 alert("후기 작성 중 오류가 발생했습니다.");
-    //                 console.error(error);
-    //             }
-    //         });
-    //     });
-    // });
-    $(document).ready(function () {
-        // 클라이언트 평점 남기기 버튼 클릭 이벤트
-        $("#myform").submit(function (e) {
-            e.preventDefault();
-
-            // 사용자 입력 데이터 가져오기
-            var rating = $("input[name='reviewStar']:checked").val();
-            var reviewContent = $("#reviewContents").val();
-
-            // Ajax 요청 보내기
-            $.ajax({
-                type: "POST",
-                url: "/spam/{room_name}/review", // 서버 API 엔드포인트 URL
-                data: JSON.stringify({
-                    rating: rating,
-                    reviewContent: reviewContent
-                }),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    // 서버에서 응답을 받으면, 화면에 댓글 형식으로 데이터 표시
-                    var newComment = $("<div>").text("평점: " + rating + " / 후기: " +
-                        reviewContent);
-                    $("#comments").append(newComment);
-
-                    // 입력 폼 초기화
-                    $("input[name='reviewStar']").prop("checked", false);
-                    $("#reviewContents").val("");
-                },
-                error: function (xhr, status, error) {
-                    alert("후기 작성 중 오류가 발생했습니다.");
-                    console.error(error);
-                }
-            });
-        });
-    });
 </script>
 
 </html>

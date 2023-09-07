@@ -11,4 +11,5 @@ public class ReviewDto {
     private int rating;
     private String customer_id;
     private int room_id;
+    private String room_name;
 }

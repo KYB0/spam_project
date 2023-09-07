@@ -1,14 +1,14 @@
 package com.spam9700.spam.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spam9700.spam.dao.ReviewDao;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.service.DetailPageService;
@@ -24,9 +24,9 @@ public class StudycafeController {
     private DetailPageService detailPageService;
 
     @GetMapping("/{room_name}")
-    public String detailPage(@PathVariable("room_name") String room_name, Model model){
+    public String detailPage(@PathVariable("room_name") String room_name, Model model) {
         DetailPageDto studyRoom = detailPageService.getStudyRoomByRoomName(room_name);
-        
+
         if (studyRoom != null) {
             String roomDescription = detailPageService.getOpenTimeByStudyRoom(studyRoom.getRoom_description());
 
@@ -46,12 +46,26 @@ public class StudycafeController {
         return "detailPage";
     }
 
-    @PostMapping("/{room_name}/review")
-    
-    public String review(@RequestBody ReviewDto reviewDto) {
 
-        return detailPageService.addComment(reviewDto);
+    @PostMapping("/review")
+    public String review(ReviewDto reviewDto, Model model) {
+        model.addAttribute("reviewDto", reviewDto);
+        boolean result = detailPageService.reviewInsert(reviewDto);
+
+        if (result) {
+            log.info("댓글 쓰기 성공");
+            return "redirect:/{room_name}";
+        }
+        log.info("댓글 작성 실패");
+        return null;
 
     }
+
+    // @RequestMapping("/{room_name}/review")
+    // public String review() {
+
+
+    //     return "redirect:/{room_name}";
+    // }
 
 }

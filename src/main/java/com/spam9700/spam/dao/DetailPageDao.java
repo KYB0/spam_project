@@ -15,15 +15,16 @@ public interface DetailPageDao {
 
     String getOpenTimeByStudyRoom(@Param("room_name") String room_name);
 
-
-
-    List<DetailPageDto> getAllRooms();
+    List < DetailPageDto > getAllRooms();
 
     DetailPageDto getRoomById(int room_id);
 
-    List<DetailPageDto> getRoomsByCategory(int category_id);
+    List < DetailPageDto > getRoomsByCategory(int category_id);
 
-    List<DetailPageDto> getRoomsByCompany(String company_id);
+    List < DetailPageDto > getRoomsByCompany(String company_id);
 
-    String addComment(ReviewDto reviewDto);
+    public int addReply(ReviewDto reviewDto);
+
+    boolean reviewInsert(ReviewDto reviewDto);
+
 }
