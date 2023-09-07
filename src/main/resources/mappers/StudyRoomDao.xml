@@ -17,8 +17,8 @@
     </select>
 
     <!-- CompanyMemberDto에서 company_id를 가져오는 SQL -->
-    <select id="getCompanyIdFromCompanyMember" resultType="String">
-        SELECT company_id FROM company_member WHERE company_id = #{company_id}
+    <select id="getCompanyIdFromCompanyMember" resultType="DetailPageDto">
+        SELECT * FROM company_member WHERE company_id = #{company_id}
     </select>
 
     <insert id="insertStudyRoom" parameterType="com.spam9700.spam.dto.DetailPageDto">
@@ -26,4 +26,14 @@
         VALUES (#{company_id}, #{room_name}, #{room_description}, #{time_price}, #{day_price}, #{region})
     </insert>
 
+    <select id="getSeatsByRoomId" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT *
+        FROM study_room
+        WHERE room_id = #{room_id}
+    </select>
+
+    <insert id="insertSeat" parameterType="com.spam9700.spam.dto.SeatDto">
+        INSERT INTO seats (room_id, seat_number, is_reserved)
+        VALUES (#{room_id}, #{seat_number}, #{is_reserved})
+    </insert>
 </mapper>

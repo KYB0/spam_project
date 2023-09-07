@@ -34,5 +34,5 @@ public interface DetailPageDao {
     List<ReviewDto> getReviewListByCustomerId(String customer_id);
 
     // company_id 가져오기
-    String getCompanyIdFromCompanyMember(@Param("company_id") String company_id);
+    DetailPageDto getCompanyIdFromCompanyMember(String company_id);
 }

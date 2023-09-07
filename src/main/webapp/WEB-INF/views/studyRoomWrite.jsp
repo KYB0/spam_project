@@ -101,6 +101,7 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px #E6E6FA inset;
   transition: background-color 5000s ease-in-out 0s;
 }
+
         
         #stdB {
     display: block;
@@ -123,6 +124,7 @@ input:-webkit-autofill:focus {
     color: white;
     border: 1px solid #B19CD9;
 }
+
 
     </style>
     <script>
@@ -159,7 +161,7 @@ input:-webkit-autofill:focus {
                 return;
             }
 
-            document.stdForm1.action = "/spam/c_mypage/insert"; //insert 페이지로 std-form1에 저장된 자료를 전송함
+            document.stdForm1.action = "/spam/c_mypage/insert/write"; //insert 페이지로 std-form1에 저장된 자료를 전송함
             document.stdForm1.submit();
         }
     </script>
@@ -209,14 +211,15 @@ input:-webkit-autofill:focus {
                 <td><input name="stdRRegion"></td>
             </tr>
             <tr>
-            <td><input type="button" id="stdB" value="등록" onclick="std_write()">
+                
+                <td><input type="button" id="stdB" value="등록" onclick="std_write()">
             </td> 
             </tr>
             <!-- 등록 버튼을 누르면 위쪽에 있는 스크립트문에서 std_write() 함수가 호출되서 실행되어 insert 페이지로 자료를 전송한다. -->
         </table>
 
     </form>
-    
     <%@ include file="footer.jsp" %>
 </body>
+
 </html>
