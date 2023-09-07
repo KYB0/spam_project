@@ -8,9 +8,10 @@ import com.spam9700.spam.dto.SeatDto;
 
 @Mapper
 public interface SeatDao {
-
-    SeatDto getSeat(Long id);
-
     List<SeatDto> getAllSeats();
+
+    List<SeatDto> getSeatsByRoomId(int room_id);
+
+    SeatDto reserveSeat(int seat_id);
 
 }

@@ -18,13 +18,19 @@ public class SeatService {
         this.seatDao = seatDao;
     }
 
-    public SeatDto getSeat(Long id) {
-        // DAO를 통해 해당 좌석 정보를 데이터베이스에서 조회
-        return seatDao.getSeat(id);
-    }
-
     public List<SeatDto> getAllSeats() {
         // DAO를 통해 모든 좌석 정보를 데이터베이스에서 조회
         return seatDao.getAllSeats();
+    }
+
+    public List<SeatDto> getSeatsByRoomId(int room_id) {
+        // DAO를 통해 특정 방의 좌석 정보를 데이터베이스에서 조회
+        return seatDao.getSeatsByRoomId(room_id);
+    }
+
+    public SeatDto reserveSeat(int seat_id) {
+        // DAO를 통해 좌석 예약 로직 구현
+        // 좌석 예약 상태를 변경하고 예약된 좌석 정보를 반환
+        return seatDao.reserveSeat(seat_id);
     }
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- resources/mappers/SeatMapper.xml -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spam9700.spam.dao.SeatDao">
+    <!-- 모든 좌석 정보를 가져오는 쿼리 -->
+    <select id="getAllSeats" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT * FROM seats;
+    </select>
+
+    <!-- 방 ID로 좌석 정보를 가져오는 쿼리 -->
+    <select id="getSeatsByRoomId" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT * FROM seats WHERE room_id = #{room_id}
+    </select>
+
+    <!-- 좌석을 예약하는 쿼리 -->
+    <update id="reserveSeat">
+        UPDATE seats SET is_reserved = 1 WHERE seat_id = #{seat_id}
+    </update>
+</mapper>

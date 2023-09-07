@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.QnaBoardDao">
+    <!-- getAllQnaBoard 쿼리 추가 -->
+    <select id="getAllQnaBoard" resultType="com.spam9700.spam.dto.QnaBoardDto">
+     SELECT
+    board_id,
+    IFNULL(customer_id, company_id) AS writer_id,
+    CASE 
+        WHEN customer_id IS NOT NULL THEN '고객' 
+        ELSE '기업' 
+    END AS writer_type,
+    board_title,
+    board_content,
+    board_date
+FROM
+    board
+WHERE
+    customer_id IS NOT NULL
+    OR company_id IS NOT NULL
+ORDER BY
+    board_date DESC
+
+    </select>
+    <!-- 필요에 따라 다른 SQL 매핑을 추가할 수 있습니다. -->
+</mapper>

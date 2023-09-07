@@ -1,23 +1,21 @@
 package com.spam9700.spam.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
 import com.spam9700.spam.dto.SeatDto;
 import com.spam9700.spam.service.SeatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/seats")
+@RequestMapping("/backend/seats")
 public class SeatController {
+    private final SeatService seatService;
 
     @Autowired
-    private SeatService seatService;
-
-    @GetMapping("/{id}")
-    public SeatDto getSeat(@PathVariable Long id) {
-        return seatService.getSeat(id);
+    public SeatController(SeatService seatService) {
+        this.seatService = seatService;
     }
 
     @GetMapping
@@ -25,4 +23,18 @@ public class SeatController {
         return seatService.getAllSeats();
     }
 
+    @GetMapping("/{room_id}")
+    public List<SeatDto> getSeatsByRoomId(@PathVariable int room_id) {
+        return seatService.getSeatsByRoomId(room_id);
+    }
+
+    @PostMapping("/reserve/{seat_id}")
+    public ResponseEntity<String> reserveSeat(@PathVariable int seat_id) {
+        SeatDto reservedSeat = seatService.reserveSeat(seat_id);
+        if (reservedSeat != null) {
+            return ResponseEntity.ok("Seat reserved successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Seat is already reserved or does not exist.");
+        }
+    }
 }

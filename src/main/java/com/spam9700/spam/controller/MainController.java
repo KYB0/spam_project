@@ -33,11 +33,6 @@ public class MainController {
         return "search";
     }
 
-    @GetMapping("/qna_list")
-    public String qnaboard() {
-        return "qnaBoard";
-    }
-
     @RequestMapping("/member/i_mypage")
     public String iMypage(Model model, HttpSession session) {
         return "iMypage";
