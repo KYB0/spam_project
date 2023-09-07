@@ -20,6 +20,7 @@ import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.service.StudycafeService;
 
+import jakarta.mail.Session;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,6 +49,7 @@ public class MypageController {
 
     @PostMapping("/c_mypage/insert")
         public String processStudyRoomInsert(@ModelAttribute DetailPageDto detailPageDto, RedirectAttributes redirectAttributes) {
+            // System.out.println("========================="+((String)s.getAttribute));
             try {
                 // 스터디 룸 정보를 DB에 삽입
                 studycafeService.insertStudyRoom(detailPageDto);
@@ -67,32 +69,25 @@ public class MypageController {
 
 
     @GetMapping("/c_mypage/insert/write")
-    public ModelAndView showStudyRoomWritePage(HttpSession session) {
+    public String showStudyRoomWritePage(HttpSession session, Model model) {
         // 세션에서 로그인 정보를 가져옴
-        CompanyMemberDto loggedInUser = (CompanyMemberDto) session.getAttribute("loggedInUser");
+        // CompanyMemberDto loggedInUser = (CompanyMemberDto) session.getAttribute("loggedInUser");
+        // DetailPageDto loggedInUser = (DetailPageDto)session.getAttribute("loggedInUser");
+
+        String company_id = (String)session.getAttribute("company_id");
     
-        if (loggedInUser == null) {
-            // 로그인되지 않았을 경우 로그인 페이지로 리다이렉트 또는 메시지 표시
-            ModelAndView modelAndView = new ModelAndView("c_login"); // 로그인 페이지로 리다이렉트
-            modelAndView.addObject("message", "로그인이 필요합니다.");
-            return modelAndView;
-        }
-    
-        // 이미 로그인한 사용자의 회사 아이디를 가져옴
-        String companyId = loggedInUser.getCompany_id();
-    
-        // ModelAndView를 이용하여 뷰 이름과 함께 데이터 전달
-        ModelAndView modelAndView = new ModelAndView("studyRoomWrite"); // studyRoomWrite는 입력 페이지의 뷰 이름
-        modelAndView.addObject("companyId", companyId); // 모델에 회사 아이디를 추가
-        return modelAndView;
+        DetailPageDto  detailPageDto = studycafeService.getCompanyIdFromCompanyMember(company_id);
+        session.setAttribute("detailPageDto", detailPageDto);
+        model.addAttribute("detailPageDto", detailPageDto);
+
+        return "studyRoomWrite";
     }
 
     @PostMapping("/c_mypage/insert/write")
-    public String insertStudyRoomWritePage(@RequestParam("company_id") String company_id, @RequestParam("room_name") String room_name, @RequestParam("room_description") String room_description, @RequestParam("time_price") int time_price, @RequestParam("day_price") int day_price, @RequestParam("region") String region, RedirectAttributes redirectAttributes){
-       
+    public String insertStudyRoomWritePage(@RequestParam("stdRName") String room_name, @RequestParam("stdRDescription") String room_description, @RequestParam("stdRTPrice") int time_price, @RequestParam("stdRDPrice") int day_price, @RequestParam("stdRRegion") String region, RedirectAttributes redirectAttributes, HttpSession session){
         // DetailPageDto 객체 생성 및 company_id 설정
         DetailPageDto detailPageDto = new DetailPageDto();
-       
+       String company_id = (String)session.getAttribute("company_id");
         detailPageDto.setCompany_id(company_id);
         detailPageDto.setRoom_name(room_name);
         detailPageDto.setRoom_description(room_description);
@@ -102,15 +97,21 @@ public class MypageController {
 
         // 서비스로 DetailPageDto 전달
         int result = studycafeService.insertStudyRoom(detailPageDto);
-
+        System.out.println("++++++++++++++++"+result);
         if(result > 0){
             // 등록 성공 시 처리
-            return "/c_mypage/insert"; // 등록 페이지로 이동
+            return "redirect:/c_mypage/insert"; // 등록 페이지로 이동
         }else{
             redirectAttributes.addFlashAttribute("errorAlert", "등록에 실패했습니다.");
             return "redirect:/spam/c_mypage/insert";
         }
     }
+
+    @GetMapping("/c_mypage/seatInsert")
+        public String seatInsert(){
+            return "seatChoice";
+        }
+    
 
 
     @GetMapping("/c_mypage/resign")

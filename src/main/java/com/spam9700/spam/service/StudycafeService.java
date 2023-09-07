@@ -35,10 +35,11 @@ public class StudycafeService {
         return detailPageDao.insertStudyRoom(detailPageDto);
     }
 
-    public String getCompanyIdFromCompanyMember(String company_id) {
+    public DetailPageDto getCompanyIdFromCompanyMember(String company_id) {
         return detailPageDao.getCompanyIdFromCompanyMember(company_id);
     }
     
+
     
 
 }
