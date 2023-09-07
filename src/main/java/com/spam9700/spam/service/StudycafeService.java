@@ -38,6 +38,10 @@ public class StudycafeService {
     public DetailPageDto getCompanyIdFromCompanyMember(String company_id) {
         return detailPageDao.getCompanyIdFromCompanyMember(company_id);
     }
+
+    public List<DetailPageDto> getAllRooms() {
+        return detailPageDao.getAllRooms();
+    }
     
 
     

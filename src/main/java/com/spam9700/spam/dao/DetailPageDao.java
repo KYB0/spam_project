@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
@@ -17,8 +17,6 @@ public interface DetailPageDao {
     String getOpenTimeByStudyRoom(@Param("room_name") String room_name);
 
 
-
-    List<DetailPageDto> getAllRooms();
 
     DetailPageDto getRoomById(int room_id);
 
@@ -35,4 +33,9 @@ public interface DetailPageDao {
 
     // company_id 가져오기
     DetailPageDto getCompanyIdFromCompanyMember(String company_id);
+
+
+
+    List<DetailPageDto> getAllRooms();
+
 }

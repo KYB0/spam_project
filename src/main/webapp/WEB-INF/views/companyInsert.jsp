@@ -1,28 +1,39 @@
-﻿<!DOCTYPE html>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM : 기업:등록 및 수정</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
-       .c_insert{
-    position: relative; /* 상대 위치 지정 */
-    left: 20%;
-    top: 20%;
-    transform: translate(-20%, -20%); /* 화면 중앙 정렬을 위한 transform 사용 */
-}
+        .c_insert {
+            position: relative;
+            /* 상대 위치 지정 */
+            left: 20%;
+            top: 20%;
+            transform: translate(-20%, -20%);
+            /* 화면 중앙 정렬을 위한 transform 사용 */
+        }
 
-.c_insert  h1{
-position: fixed; /* 고정 위치 지정 */
-left: 20%; /* 왼쪽에서 20% */
-top: -100%; /* 위에서 20% */
-transform: translate(-20%, 100%); /* 화면 중앙 정렬을 위한 transform 사용 */
-}
+        .c_insert h1 {
+            position: fixed;
+            /* 고정 위치 지정 */
+            left: 20%;
+            /* 왼쪽에서 20% */
+            top: -100%;
+            /* 위에서 20% */
+            transform: translate(-20%, 100%);
+            /* 화면 중앙 정렬을 위한 transform 사용 */
+        }
 
-.std-button {
+        .std-button {
             /* 스타일을 원하는 대로 설정 */
             padding: 10px 20px;
             background-color: #E6E6FA;
@@ -32,210 +43,260 @@ transform: translate(-20%, 100%); /* 화면 중앙 정렬을 위한 transform �
             width: 120px;
             max-width: 200px;
             height: 50px;
-            border-radius: 30px; /* 모서리 둥글게 설정 */
+            border-radius: 30px;
+            /* 모서리 둥글게 설정 */
             position: relative;
             left: 75%;
             top: 90px;
         }
 
-.c_menu {
-display: flex; /* Flexbox 사용 */
-flex-direction: column; /* 세로로 정렬 */
-align-items: center; /* 가운데 정렬 */
-position: absolute;
-left: 5%; /* 왼쪽에서 10% 여백 */
-top: 30%; /* 위에서 20% 여백 */
-}
+        .c_menu {
+            display: flex;
+            /* Flexbox 사용 */
+            flex-direction: column;
+            /* 세로로 정렬 */
+            align-items: center;
+            /* 가운데 정렬 */
+            position: absolute;
+            left: 5%;
+            /* 왼쪽에서 10% 여백 */
+            top: 30%;
+            /* 위에서 20% 여백 */
+        }
 
-.btn_cmenu {
-display: flex;
-flex-direction: column; /* 세로로 정렬 */
-gap: 10px; /* 버튼 사이의 간격 조절 */
-width: 100%;
-}
+        .btn_cmenu {
+            display: flex;
+            flex-direction: column;
+            /* 세로로 정렬 */
+            gap: 10px;
+            /* 버튼 사이의 간격 조절 */
+            width: 100%;
+        }
 
-.btn_cmenu button {
-/* 버튼 스타일 */
-padding: 10px 20px;
-background-color: #322A31;
-color: #DCE682;
-border: none;
-cursor: pointer;
-width: 120px; /* 버튼 상자 너비 설정 */
-max-width: 200px; /* 최대 가로 너비 설정 (원하는 크기로 조정 가능) */
-height: 50px; /* 버튼 상자 높이 설정 */
-}
+        .btn_cmenu button {
+            /* 버튼 스타일 */
+            padding: 10px 20px;
+            background-color: #322A31;
+            color: #DCE682;
+            border: none;
+            cursor: pointer;
+            width: 120px;
+            /* 버튼 상자 너비 설정 */
+            max-width: 200px;
+            /* 최대 가로 너비 설정 (원하는 크기로 조정 가능) */
+            height: 50px;
+            /* 버튼 상자 높이 설정 */
+        }
 
-.container {
-    margin-top: 180px; /* 또는 padding-top: 20px; */
-    
-}
+        .container {
+            margin-top: 180px;
+            /* 또는 padding-top: 20px; */
 
-.panel{
-    background: linear-gradient(to right, #E6E6FA, #B19CD9);
-    padding: 0;
-    border-radius: 10px;
-    border: none;
-    box-shadow: 0 0 0 5px rgba(0,0,0,0.05),0 0 0 10px rgba(0,0,0,0.05);
-}
-.panel .panel-heading{
-    padding: 20px 15px;
-    border-radius: 10px 10px 0 0;
-    margin: 0;
-}
-.panel .panel-heading .title{
-    color: #fff;
-    font-size: 28px;
-    font-weight: 500;
-    text-transform: capitalize;
-    line-height: 40px;
-    margin: 0;
-}
-.panel .panel-heading .btn{
-    color: rgba(255,255,255,0.5);
-    background: transparent;
-    font-size: 16px;
-    text-transform: capitalize;
-    border: 2px solid #fff;
-    border-radius: 50px;
-    transition: all 0.3s ease 0s;
-}
-.panel .panel-heading .btn:hover{
-    color: #fff;
-    text-shadow: 3px 3px rgba(255,255,255,0.2);
-}
-.panel .panel-heading .form-control{
-    color: #fff;
-    background-color: transparent;
-    width: 35%;
-    height: 40px;
-    border: 2px solid #fff;
-    border-radius: 20px;
-    display: inline-block;
-    transition: all 0.3s ease 0s;
-}
-.panel .panel-heading .form-control:focus{
-    background-color: rgba(255,255,255,0.2);
-    box-shadow: none;
-    outline: none;
-}
-.panel .panel-heading .form-control::placeholder{
-    color: rgba(255,255,255,0.5);
-    font-size: 15px;
-    font-weight: 500;
-}
-.panel .panel-body{ padding: 0; }
-.panel .panel-body .table thead tr th{
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.2);
-    font-size: 16px;
-    font-weight: 500;
-    text-transform: uppercase;
-    padding: 12px;
-    border: none;
-}
-.panel .panel-body .table tbody tr td{
-    color: #fff;
-    font-size: 15px;
-    padding: 10px 12px;
-    vertical-align: middle;
-    border: none;
-}
-.panel .panel-body .table tbody tr:nth-child(even){ background-color: rgba(255,255,255,0.05); }
-.panel .panel-body .table tbody .action-list{
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
-.panel .panel-body .table tbody .action-list li{
-    display: inline-block;
-    margin: 0 5px;
-}
-.panel .panel-body .table tbody .action-list li a{
-    color: #fff;
-    font-size: 15px;
-    position: relative;
-    z-index: 1;
-    transition: all 0.3s ease 0s;
-}
-.panel .panel-body .table tbody .action-list li a:hover{ text-shadow: 3px 3px 0 rgba(255,255,255,0.3); }
-.panel .panel-body .table tbody .action-list li a:before,
-.panel .panel-body .table tbody .action-list li a:after{
-    content: attr(data-tip);
-    color: #fff;
-    background-color: #111;
-    font-size: 12px;
-    padding: 5px 7px;
-    border-radius: 4px;
-    text-transform: capitalize;
-    display: none;
-    transform: translateX(-50%);
-    position: absolute;
-    left: 50%;
-    top: -32px;
-    transition: all 0.3s ease 0s;
-}
-.panel .panel-body .table tbody .action-list li a:after{
-    content: '';
-    height: 15px;
-    width: 15px;
-    padding: 0;
-    border-radius: 0;
-    transform: translateX(-50%) rotate(45deg);
-    top: -18px;
-    z-index: -1;
-}
-.panel .panel-body .table tbody .action-list li a:hover:before,
-.panel .panel-body .table tbody .action-list li a:hover:after{
-    display: block;
-}
-.panel .panel-footer{
-    color: #fff;
-    background-color: transparent;
-    padding: 15px;
-    border: none;
-}
-.panel .panel-footer .col{ line-height: 35px; }
-.pagination{ margin: 0; }
-.pagination li a{
-    color: #fff;
-    background-color: transparent;
-    border: 2px solid transparent;
-    font-size: 18px;
-    font-weight: 500;
-    text-align: center;
-    line-height: 31px;
-    width: 35px;
-    height: 35px;
-    padding: 0;
-    margin: 0 3px;
-    border-radius: 50px;
-    transition: all 0.3s ease 0s;
-}
-.pagination li a:hover{
-    color: #fff;
-    background-color: transparent;
-    border-color: rgba(255,255,255,0.2);
-}
-.pagination li a:focus,
-.pagination li.active a,
-.pagination li.active a:hover{
-    color: #fff;
-    background-color: transparent;
-    border-color: #fff;
-}
-.pagination li:first-child a,
-.pagination li:last-child a{
-    border-radius: 50%;
-}
-@media only screen and (max-width:767px){
-    .panel .panel-heading .title{
-        text-align: center;
-        margin: 0 0 10px;
-    }
-    .panel .panel-heading .btn_group{ text-align: center; }
-}
+        }
 
+        .panel {
+            background: linear-gradient(to right, #E6E6FA, #B19CD9);
+            padding: 0;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.05), 0 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .panel .panel-heading {
+            padding: 20px 15px;
+            border-radius: 10px 10px 0 0;
+            margin: 0;
+        }
+
+        .panel .panel-heading .title {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 500;
+            text-transform: capitalize;
+            line-height: 40px;
+            margin: 0;
+        }
+
+        .panel .panel-heading .btn {
+            color: rgba(255, 255, 255, 0.5);
+            background: transparent;
+            font-size: 16px;
+            text-transform: capitalize;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            transition: all 0.3s ease 0s;
+        }
+
+        .panel .panel-heading .btn:hover {
+            color: #fff;
+            text-shadow: 3px 3px rgba(255, 255, 255, 0.2);
+        }
+
+        .panel .panel-heading .form-control {
+            color: #fff;
+            background-color: transparent;
+            width: 35%;
+            height: 40px;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            display: inline-block;
+            transition: all 0.3s ease 0s;
+        }
+
+        .panel .panel-heading .form-control:focus {
+            background-color: rgba(255, 255, 255, 0.2);
+            box-shadow: none;
+            outline: none;
+        }
+
+        .panel .panel-heading .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .panel .panel-body {
+            padding: 0;
+        }
+
+        .panel .panel-body .table thead tr th {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+            font-size: 16px;
+            font-weight: 500;
+            text-transform: uppercase;
+            padding: 12px;
+            border: none;
+        }
+
+        .panel .panel-body .table tbody tr td {
+            color: #fff;
+            font-size: 15px;
+            padding: 10px 12px;
+            vertical-align: middle;
+            border: none;
+        }
+
+        .panel .panel-body .table tbody tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .panel .panel-body .table tbody .action-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .panel .panel-body .table tbody .action-list li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .panel .panel-body .table tbody .action-list li a {
+            color: #fff;
+            font-size: 15px;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease 0s;
+        }
+
+        .panel .panel-body .table tbody .action-list li a:hover {
+            text-shadow: 3px 3px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .panel .panel-body .table tbody .action-list li a:before,
+        .panel .panel-body .table tbody .action-list li a:after {
+            content: attr(data-tip);
+            color: #fff;
+            background-color: #111;
+            font-size: 12px;
+            padding: 5px 7px;
+            border-radius: 4px;
+            text-transform: capitalize;
+            display: none;
+            transform: translateX(-50%);
+            position: absolute;
+            left: 50%;
+            top: -32px;
+            transition: all 0.3s ease 0s;
+        }
+
+        .panel .panel-body .table tbody .action-list li a:after {
+            content: '';
+            height: 15px;
+            width: 15px;
+            padding: 0;
+            border-radius: 0;
+            transform: translateX(-50%) rotate(45deg);
+            top: -18px;
+            z-index: -1;
+        }
+
+        .panel .panel-body .table tbody .action-list li a:hover:before,
+        .panel .panel-body .table tbody .action-list li a:hover:after {
+            display: block;
+        }
+
+        .panel .panel-footer {
+            color: #fff;
+            background-color: transparent;
+            padding: 15px;
+            border: none;
+        }
+
+        .panel .panel-footer .col {
+            line-height: 35px;
+        }
+
+        .pagination {
+            margin: 0;
+        }
+
+        .pagination li a {
+            color: #fff;
+            background-color: transparent;
+            border: 2px solid transparent;
+            font-size: 18px;
+            font-weight: 500;
+            text-align: center;
+            line-height: 31px;
+            width: 35px;
+            height: 35px;
+            padding: 0;
+            margin: 0 3px;
+            border-radius: 50px;
+            transition: all 0.3s ease 0s;
+        }
+
+        .pagination li a:hover {
+            color: #fff;
+            background-color: transparent;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .pagination li a:focus,
+        .pagination li.active a,
+        .pagination li.active a:hover {
+            color: #fff;
+            background-color: transparent;
+            border-color: #fff;
+        }
+
+        .pagination li:first-child a,
+        .pagination li:last-child a {
+            border-radius: 50%;
+        }
+
+        @media only screen and (max-width:767px) {
+            .panel .panel-heading .title {
+                text-align: center;
+                margin: 0 0 10px;
+            }
+
+            .panel .panel-heading .btn_group {
+                text-align: center;
+            }
+        }
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="js/code.jquery.com_jquery-3.7.0.min.js"></script>
@@ -244,8 +305,8 @@ height: 50px; /* 버튼 상자 높이 설정 */
 </head>
 <body>
     <%@ include file="header.jsp" %>
-    <section class="c_insert">
-        <h1>등록 및 수정</h1>
+    <section class=" c_insert">
+    <h1>등록 및 수정</h1>
     </section>
     <div class="container" style="margin-left: 450px;">
         <div class="row">
@@ -259,7 +320,7 @@ height: 50px; /* 버튼 상자 높이 설정 */
                         </div>
                     </div>
                     <div class="panel-body table-responsive">
-                        <table class="table">
+                        <table class="table" id="roomTable">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -268,22 +329,25 @@ height: 50px; /* 버튼 상자 높이 설정 */
                                     <th>시간별 가격</th>
                                     <th>일별 가격</th>
                                     <th>지역</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>${room_id}</td>
-                                    <td>Vincent Williamson</td>
-                                    <td>31</td>
-                                    <td>iOS Developer</td>
-                                    <td>Sinaai-Waas</td>
-                                    <td>
-                                        <ul class="action-list">
-                                            <li><a href="#" data-tip="edit"><i class="fa fa-edit"></i></a></li>
-                                            <li><a href="#" data-tip="delete"><i class="fa fa-trash"></i></a></li>
-                                        </ul>
-                                    </td>
-                                </tr>
+                                <c:forEach items="${roomDataList}" var="room">
+                                    <tr>
+                                        <td>${room.room_id}</td>
+                                        <td>${room.room_name}</td>
+                                        <td>${room.room_description}</td>
+                                        <td>${room.time_price}</td>
+                                        <td>${room.day_price}</td>
+                                        <td>${room.region}</td>
+                                        <td>
+                                            <ul class="action-list">
+                                                <li><a href="/spam/c_mypage/seatInsert" data-tip="좌석 등록">좌석 등록</a></li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 <tr>
                                     <td>2</td>
                                     <td>Taylor Reyes</td>
@@ -340,24 +404,6 @@ height: 50px; /* 버튼 상자 높이 설정 */
                         </table>
                     </div>
                     <div class="panel-footer">
-                        <div class="row">
-                            <div class="col col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
-                            <div class="col-sm-6 col-xs-6">
-                                <ul class="pagination hidden-xs pull-right">
-                                    <li><a href="#"><</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">></a></li>
-                                </ul>
-                                <ul class="pagination visible-xs pull-right">
-                                    <li><a href="#"><</a></li>
-                                    <li><a href="#">></a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -375,5 +421,48 @@ height: 50px; /* 버튼 상자 높이 설정 */
         </div>
     </section>
     <%@ include file="footer.jsp" %>
-</body>
+    </body>
+    <!-- <script>
+    // 서버에서 데이터 가져오는 함수
+    async function fetchRoomData(){
+        try{
+            const response = await fetch('/api/getRoomData');
+            if (!response.ok){
+                throw new Error('데이터를 불러오는데 실패했습니다.');
+            }
+            const data = await response.json();
+            return data;
+        }catch(error){
+            console.error('데이터 가져오기 오류:', error);
+            return [];
+        }
+    }
+
+
+    // 데이터를 HTML 테이블에 추가하는 함수
+    async function populateTable(){
+        const roomTable = document.getElementById('roomTable');
+        const tbody = roomTable.querySelector('tbody');
+
+        const roomData = await fetchRoomData();
+
+        roomData.forEach((room) =>{
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${room.room_id}</td>
+                <td>${room.room_name}</td>
+                <td>${room.room_description}</td>
+                <td>${room.time_price}</td>
+                <td>${room.day_price}</td>
+                <td>${room.region}</td>
+                <td><a href="/spam/c_mypage/seatInsert?room_id=${room.room_id}" data-tip="좌석 등록"><i class="fa fa-chair"></i></a></td>
+            `;
+
+            tbody.appendChild(row);
+        })
+    }
+    // 페이지 로드 시 데이터를 테이블에 채우기
+    populateTable();
+</script> -->
+
 </html>

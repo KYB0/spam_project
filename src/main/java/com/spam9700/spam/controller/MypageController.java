@@ -43,7 +43,13 @@ public class MypageController {
     }
 
     @GetMapping("/c_mypage/insert")
-    public String cMypageInsert() {
+    public String cMypageInsert(Model model) {
+        List<DetailPageDto> roomDataList = studycafeService.getAllRooms();
+
+        for(DetailPageDto rd : roomDataList){
+            System.out.println(rd);
+        }
+        model.addAttribute("roomDataList", roomDataList);
         return "companyInsert";
     }
 
