@@ -38,4 +38,7 @@ public interface DetailPageDao {
 
     List<DetailPageDto> getAllRooms();
 
+    List<DetailPageDto> getRoomsByPage(int offset, int limit);
+    int getTotalRoomCount();
+
 }

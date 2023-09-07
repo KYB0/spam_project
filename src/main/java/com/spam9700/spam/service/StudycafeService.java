@@ -3,6 +3,8 @@ package com.spam9700.spam.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.spam9700.spam.dao.MypageDao;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
+import com.spam9700.spam.dto.RoomPageDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +23,10 @@ public class StudycafeService {
 
     @Autowired
     private DetailPageDao detailPageDao;
+    private SqlSessionFactory sqlSessionFactory;
+    public StudycafeService(SqlSessionFactory sqlSessionFactory){
+        this.sqlSessionFactory = sqlSessionFactory;
+    }
 
     public List<ReservationDto> getReservationListByCustomerId(String customer_id) {
         return detailPageDao.getReservationListByCustomerId(customer_id);
@@ -42,8 +49,27 @@ public class StudycafeService {
     public List<DetailPageDto> getAllRooms() {
         return detailPageDao.getAllRooms();
     }
-    
 
+    public RoomPageDto getRoomsByPage(int page, int size) {
+        try(SqlSession sqlSession = sqlSessionFactory.openSession()){
+            DetailPageDao detailPageDao = sqlSession.getMapper(DetailPageDao.class);
+
+            int offset = (page - 1) * size;
+            List<DetailPageDto> roomDataPage = detailPageDao.getRoomsByPage(offset, size);
+            int totalRooms = detailPageDao.getTotalRoomCount();
+
+            int totalPages = (int) Math.ceil((double) totalRooms / size);
+
+            RoomPageDto roomPageDto = new RoomPageDto();
+            roomPageDto.setRoomDataPage(roomDataPage);
+            roomPageDto.setCurrentPage(page);
+            roomPageDto.setTotalPages(totalPages);
+
+            return roomPageDto;
+        }
+
+        
+    }
     
 
 }

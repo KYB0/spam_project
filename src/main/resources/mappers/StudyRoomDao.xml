@@ -36,4 +36,15 @@
         INSERT INTO seats (room_id, seat_number, is_reserved)
         VALUES (#{room_id}, #{seat_number}, #{is_reserved})
     </insert>
+
+    <!-- 페이징을 적용한 독서실 목록 조회 -->
+    <select id="getRoomsByPage" parameterType="map" resultType="com.spam9700.spam.dto.DetailPageDto">
+        select * from study_room LIMIT #{offset}, #{limit}
+    </select>
+
+    <!-- 전체 독서실 개수 조회 -->
+    <select id="getTotalRoomCount" resultType="int">
+        select count(*) from study_room
+    </select>
+
 </mapper>

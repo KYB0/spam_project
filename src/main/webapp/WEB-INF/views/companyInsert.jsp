@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM : 기업:등록 및 수정</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -47,7 +47,7 @@
             /* 모서리 둥글게 설정 */
             position: relative;
             left: 75%;
-            top: 90px;
+            top: 75%;
         }
 
         .c_menu {
@@ -89,7 +89,7 @@
         }
 
         .container {
-            margin-top: 180px;
+            margin-top: 10%;
             /* 또는 padding-top: 20px; */
 
         }
@@ -248,6 +248,18 @@
             line-height: 35px;
         }
 
+        .panel-footer ul.pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left:120%; /* 오른쪽으로 20% 이동 */
+    }
+
+    .panel-footer ul.pagination li {
+        display: inline-block;
+        margin: 0 5px; /* 각 li 요소 사이의 간격 조절 */
+    }
+
         .pagination {
             margin: 0;
         }
@@ -300,7 +312,7 @@
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="js/code.jquery.com_jquery-3.7.0.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 </head>
 <body>
@@ -308,7 +320,7 @@
     <section class=" c_insert">
     <h1>등록 및 수정</h1>
     </section>
-    <div class="container" style="margin-left: 450px;">
+    <div class="container" style="margin-left: 30%;">
         <div class="row">
             <div class="col-md-offset-1 col-md-10">
                 <div class="panel">
@@ -353,21 +365,20 @@
                     </div>
                     <div class="panel-footer">
                         <div class="row">
-                            <div class="col col-sm-6 col-xs-6">showing <b>5</b> out of <b>25</b> entries</div>
                             <div class="col-sm-6 col-xs-6">
-                                <ul class="pagination hidden-xs pull-right">
-                                    <li><a href="#"><</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">></a></li>
+                                <ul class="pagination hidden-xs pull-right" id="pagination">
+                                    <li class="<c:if test="${currentPage eq 1}">disabled</c:if>">
+                                        <a href="/spam/c_mypage/insert?page=${currentPage - 1}&size=${size}">&laquo; </a>
+                                    </li>
+                                    <c:forEach begin="1" end="${totalPages}" var="page">
+                                        <li class="<c:if test="${currentPage eq page}">active</c:if>">
+                                            <a href="/spam/c_mypage/insert?page=${page}&size=${size}">${page}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <li class="<c:if test="${currentPage eq totalPages}">disabled</c:if>">
+                                        <a href="/spam/c_mypage/insert?page=${currentPage + 1}&size=${size}">&raquo;</a>
+                                    </li>
                                 </ul>
-                                <!-- <ul class="pagination visible-xs pull-right">
-                                    <li><a href="#"><</a></li>
-                                    <li><a href="#">></a></li>
-                                </ul> -->
                             </div>
                         </div>
                     </div>
@@ -388,47 +399,66 @@
     </section>
     <%@ include file="footer.jsp" %>
     </body>
-    <!-- <script>
-    // 서버에서 데이터 가져오는 함수
-    async function fetchRoomData(){
-        try{
-            const response = await fetch('/api/getRoomData');
-            if (!response.ok){
-                throw new Error('데이터를 불러오는데 실패했습니다.');
+    <script>
+       // 페이지 번호 클릭 이벤트 핸들러
+$(document).on('click', '#pagination a', function(e){
+    e.preventDefault();
+    const page = $(this).data('page');
+    
+    // 새로운 size 값을 설정 (예: 20)
+    size = 20; // 원하는 크기로 변경
+    
+    // AJAX 요청을 보내는 부분
+    $.ajax({
+        url: `/spam/c_mypage/insert?page=${page}&size=${size}`, // 서버 URL 수정
+        method: 'GET',
+        success: function(data){
+            // 페이지 데이터를 가져와서 독서실 목록 업데이트하는 함수
+            function updateRoomList(data){
+                const roomTable = document.getElementById('roomTable');
+                const tbody = roomTable.querySelector('tbody');
+
+                // 이전에 표시된 데이터 삭제
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+
+                // 서버에서 받은 데이터로 테이블 업데이트
+                data.roomDataPage.forEach((room)=>{
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${room.room_id}</td>
+                        <td>${room.room_name}</td>
+                        <td>${room.room_description}</td>
+                        <td>${room.time_price}</td>
+                        <td>${room.day_price}</td>
+                        <td>${room.region}</td>
+                        <td><a href="/spam/c_mypage/seatInsert?room_id=${room.room_id}" data-tip="좌석 등록"><i class="fa fa-chair"></i></a></td>
+                    `;
+                    
+                    tbody.appendChild(row);
+                });
+
+                // 페이지 번호 업데이트
+                const pagination = document.getElementById('pagination');
+                pagination.innerHTML = '';
+
+                for(let i=1; i<=data.totalPages; i++){
+                    const li = document.createElement('li');
+                    li.className = data.currentPage === i ? 'active' : '';
+                    li.innerHTML = `<a href="#" data-page="${i}">${i}</a>`;
+                    pagination.appendChild(li);
+                }
             }
-            const data = await response.json();
-            return data;
-        }catch(error){
-            console.error('데이터 가져오기 오류:', error);
-            return [];
+
+            // 페이지 데이터 업데이트
+            updateRoomList(data);
+        },
+        error: function () {
+            console.error('데이터를 불러오는데 실패했습니다.');
         }
-    }
-
-
-    // 데이터를 HTML 테이블에 추가하는 함수
-    async function populateTable(){
-        const roomTable = document.getElementById('roomTable');
-        const tbody = roomTable.querySelector('tbody');
-
-        const roomData = await fetchRoomData();
-
-        roomData.forEach((room) =>{
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${room.room_id}</td>
-                <td>${room.room_name}</td>
-                <td>${room.room_description}</td>
-                <td>${room.time_price}</td>
-                <td>${room.day_price}</td>
-                <td>${room.region}</td>
-                <td><a href="/spam/c_mypage/seatInsert?room_id=${room.room_id}" data-tip="좌석 등록"><i class="fa fa-chair"></i></a></td>
-            `;
-
-            tbody.appendChild(row);
-        })
-    }
-    // 페이지 로드 시 데이터를 테이블에 채우기
-    populateTable();
-</script> -->
+    });
+});
+    </script>
 
 </html>

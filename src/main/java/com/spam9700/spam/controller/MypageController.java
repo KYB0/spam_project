@@ -18,6 +18,7 @@ import com.spam9700.spam.dto.CompanyMemberDto;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
+import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.service.StudycafeService;
 
 import jakarta.mail.Session;
@@ -43,12 +44,19 @@ public class MypageController {
     }
 
     @GetMapping("/c_mypage/insert")
-    public String cMypageInsert(Model model) {
+    public String cMypageInsert(Model model, @RequestParam(name="page", defaultValue = "1") int page, @RequestParam(name = "size", defaultValue = "5") int size) {
         List<DetailPageDto> roomDataList = studycafeService.getAllRooms();
+        RoomPageDto roomPageDto = studycafeService.getRoomsByPage(page, size);
+        // System.out.println("++++++++++++++++++++++++"+page+"+++++++++++++++++++++++++");
+        // System.out.println("--------------------------"+size+"----------------------------");
+    
+        model.addAttribute("roomDataPage", roomPageDto.getRoomDataPage());
+        model.addAttribute("currentPage", roomPageDto.getCurrentPage());
+        model.addAttribute("totalPages", roomPageDto.getTotalPages());
 
-        for(DetailPageDto rd : roomDataList){
-            System.out.println(rd);
-        }
+        // for(DetailPageDto rd : roomDataList){
+        //     System.out.println(rd);
+        // } roomDataList로 데이터값이 전달되는지 확인
         model.addAttribute("roomDataList", roomDataList);
         return "companyInsert";
     }
@@ -118,7 +126,6 @@ public class MypageController {
             return "seatChoice";
         }
     
-
 
     @GetMapping("/c_mypage/resign")
     public String cMypageResign() {
