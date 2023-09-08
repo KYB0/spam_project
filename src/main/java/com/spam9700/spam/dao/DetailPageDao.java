@@ -16,7 +16,6 @@ public interface DetailPageDao {
 
     String getOpenTimeByStudyRoom(@Param("room_name") String room_name);
 
-
     DetailPageDto getRoomById(int room_id);
 
     List < DetailPageDto > getRoomsByCategory(int category_id);
@@ -26,9 +25,9 @@ public interface DetailPageDao {
     // 스터디 룸 정보를 DB에 삽입하는 메서드 추가
     int insertStudyRoom(DetailPageDto detailPageDto);
 
-    List<ReservationDto> getReservationListByCustomerId(String customer_id);
+    // List<ReservationDto> getReservationListByCustomerId(String customer_id);
 
-    List<ReviewDto> getReviewListByCustomerId(String customer_id);
+    // List<ReviewDto> getReviewListByCustomerId(String customer_id);
 
     // company_id 가져오기
     DetailPageDto getCompanyIdFromCompanyMember(String company_id);
@@ -45,6 +44,8 @@ public interface DetailPageDao {
     int getTotalRoomCountByCompanyId(String company_id);
 
     List<DetailPageDto> getAllRoomsByCompanyId(String company_id);
+
+    boolean reviewInsert(ReviewDto reviewDto);
 
 
 

@@ -1,10 +1,8 @@
 package com.spam9700.spam.service;
 
 
-import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,17 +22,17 @@ public class StudycafeService {
 
     @Autowired
     private DetailPageDao detailPageDao;
-    private SqlSessionFactory sqlSessionFactory;
-    public StudycafeService(SqlSessionFactory sqlSessionFactory){
-        this.sqlSessionFactory = sqlSessionFactory;
-    }
 
+
+    @Autowired
+    private MypageDao mypageDao;
+    
     public List<ReservationDto> getReservationListByCustomerId(String customer_id) {
-        return detailPageDao.getReservationListByCustomerId(customer_id);
+        return mypageDao.getReservationListByCustomerId(customer_id);
     }
 
     public List<ReviewDto> getReviewListByCustomerId(String customer_id) {
-        return detailPageDao.getReviewListByCustomerId(customer_id);
+        return mypageDao.getReviewListByCustomerId(customer_id);
     }
 
 
@@ -69,9 +67,6 @@ public class StudycafeService {
 
         return roomPageDto;
         }
-
-        
-    
 
     public List<DetailPageDto> getAllRoomsByCompanyId(String company_id) {
         return detailPageDao.getAllRoomsByCompanyId(company_id);
