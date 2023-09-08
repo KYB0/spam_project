@@ -1,17 +1,18 @@
 package com.spam9700.spam.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spam9700.spam.dto.QnaBoardDto;
 import com.spam9700.spam.service.QnABoardService;
 
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
 
 @Slf4j
 @Controller
@@ -26,7 +27,6 @@ public class QnABoardController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        // 서비스에서 모든 게시물을 가져옵니다.
         List<QnaBoardDto> qnaBoardDtoList = qnABoardService.getAllQnaBoard();
         model.addAttribute("qnaBoardDtoList", qnaBoardDtoList);
         log.info("qnaBoardDtoList:{}", qnaBoardDtoList);
@@ -42,8 +42,17 @@ public class QnABoardController {
     }
 
     @PostMapping("/write")
-    public String write() {
+    public String write(@RequestParam("user_id") String userId,
+            @RequestParam("board_title") String title,
+            @RequestParam("board_content") String content) {
         log.info("write");
+        QnaBoardDto qnaBoardDto = new QnaBoardDto();
+        qnaBoardDto.setUser_id(userId);
+        qnaBoardDto.setBoard_title(title);
+        qnaBoardDto.setBoard_content(content);
+
+        qnABoardService.insertQnaBoard(qnaBoardDto);
+
         return "redirect:/qna/list";
     }
 

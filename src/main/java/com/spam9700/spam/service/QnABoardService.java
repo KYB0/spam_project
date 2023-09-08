@@ -20,8 +20,12 @@ public class QnABoardService {
     }
 
     public List<QnaBoardDto> getAllQnaBoard() {
-        log.info("서비스");
-        // 데이터베이스로부터 게시판 데이터를 조회하는 코드
+    log.info("서비스 - 목록");
         return qnaBoardDao.getAllQnaBoard();
+    }
+
+    public void insertQnaBoard(QnaBoardDto qnaBoardDto) {
+        log.info("서비스 - 글 쓰기");
+        qnaBoardDao.insertQnaBoard(qnaBoardDto);
     }
 }

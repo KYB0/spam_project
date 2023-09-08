@@ -9,6 +9,7 @@ import com.spam9700.spam.dto.QnaBoardDto;
 @Mapper
 public interface QnaBoardDao {
 
-    public List<QnaBoardDto> getAllQnaBoard();
+    List<QnaBoardDto> getAllQnaBoard();
 
+    void insertQnaBoard(QnaBoardDto qnaBoardDto);
 }

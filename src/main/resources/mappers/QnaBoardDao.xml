@@ -3,24 +3,21 @@
 <mapper namespace="com.spam9700.spam.dao.QnaBoardDao">
     <!-- getAllQnaBoard 쿼리 추가 -->
     <select id="getAllQnaBoard" resultType="com.spam9700.spam.dto.QnaBoardDto">
-     SELECT
-    board_id,
-    IFNULL(customer_id, company_id) AS writer_id,
-    CASE 
-        WHEN customer_id IS NOT NULL THEN '고객' 
-        ELSE '기업' 
-    END AS writer_type,
-    board_title,
-    board_content,
-    board_date
-FROM
-    board
-WHERE
-    customer_id IS NOT NULL
-    OR company_id IS NOT NULL
-ORDER BY
-    board_date DESC
-
+        SELECT
+            board_id,
+            user_id,
+            board_title,
+            board_content,
+            board_date
+        FROM
+            board
+        ORDER BY
+            board_date DESC
     </select>
-    <!-- 필요에 따라 다른 SQL 매핑을 추가할 수 있습니다. -->
+
+    <!-- insertQnaBoard 쿼리 추가 -->
+    <insert id="insertQnaBoard">
+        INSERT INTO board (user_id, board_title, board_content, board_date)
+        VALUES (#{user_id}, #{board_title}, #{board_content}, NOW())
+    </insert>
 </mapper>
