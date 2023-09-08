@@ -28,6 +28,10 @@ public class MemberController {
     @Autowired
     private final MemberService memberService;
 
+    private void invalidateSession(HttpSession session){
+        session.invalidate();
+    }
+
     @GetMapping("/joinfrm")
     public String joinForm() {
         log.info("회원가입 선택 화면");
@@ -78,9 +82,11 @@ public class MemberController {
     public String iLogin(@RequestParam String customer_id, @RequestParam String customer_pwd, HttpSession session) {
         log.info("개인로그인 처리");
         log.info("id:{}, pwd:{}", customer_id, customer_pwd);
+
         boolean result = memberService.iLogin(customer_id, customer_pwd);
         if (result) {
             log.info("개인로그인 성공");
+            session.setAttribute("loggedIn", true);
             session.setAttribute("customer_id", customer_id);
             return "redirect:/main"; // 로그인 성공 시 홈 화면으로 이동
         } else {
@@ -91,13 +97,15 @@ public class MemberController {
 
     @PostMapping("/c_login")
     public String cLogin(@RequestParam String company_id, @RequestParam String company_pwd,
-            @RequestParam String company_businessnum) {
+            @RequestParam String company_businessnum, HttpSession session) {
         log.info("기업로그인 처리");
         log.info("id:{}, pwd:{}, businessnum:{}", company_id, company_pwd, company_businessnum);
+
         boolean result = memberService.cLogin(company_id, company_pwd, company_businessnum);
         if (result) {
             log.info("기업로그인 성공");
-            return "redirect:/";
+            session.setAttribute("company_id", company_id);
+            return "redirect:/main";
         } else {
             log.info("로그인 실패");
             return "c_login";
@@ -152,18 +160,24 @@ public class MemberController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         // Remove the loggedInUser attribute from the session
-        session.removeAttribute("customer_id");
+        session.invalidate(); //세션 무효화
         return "redirect:/main"; // 로그아웃 후 홈 화면으로 이동
     }
 
-    @GetMapping("/res")
-    public String tert() {
-        return "res";
-    }
+    @PostMapping("/i_mypage/resign")
+    public String resign(HttpSession session) {
 
-    @GetMapping("/res1")
-    public String stert() {
-        return "res1";
+    String customer_id = (String) session.getAttribute("customer_id");
+
+    memberService.resign(customer_id);
+    log.info("회원탈퇴1");
+    
+    invalidateSession(session); //세션 무효화
+
+    return "redirect:/main";
     }
+    
+    
+
 
 }

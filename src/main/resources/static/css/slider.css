@@ -1,0 +1,29 @@
+﻿*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 30px);
+    padding: 10px;
+  }
+  
+  .slider {
+    position: absolute;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    /* width: 50px; */
+    max-height: calc(100% - 30px); /* 푸터의 높이를 고려한 최대 높이 설정 */
+    overflow: hidden; /* 내용이 넘치는 경우를 대비한 오버플로우 감춤 */
+    margin: 0 auto; /* 가운데 정렬을 위한 마진 설정 */
+    padding: 10px;
+  }
+  
+  .slider img {
+    max-width: 70% /* 이미지가 슬라이더 너비를 넘지 않도록 설정 */
+    
+  }
+   

@@ -17,7 +17,7 @@
 }
 
 .footer-bar {
-    position: fixed; /* Fix the footer-bar position */
+            position: fixed; /* Fix the footer-bar position */
             bottom: 0; /* Stick to the bottom of the viewport */
             left: 0; /* Align to the left */
             width: 100%; /* Take the full width of the viewport */

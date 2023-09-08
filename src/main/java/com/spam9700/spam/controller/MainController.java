@@ -5,8 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spam9700.spam.dto.CustomerMemberDto;
 import com.spam9700.spam.service.MemberService;
@@ -30,16 +28,43 @@ public class MainController {
     @GetMapping("/search")
     public String search() {
         log.info("검색창");
-        return "search";
+        return "searchList";
     }
 
-    @RequestMapping("/member/i_mypage")
-    public String iMypage(Model model, HttpSession session) {
+    @GetMapping("/qna_list")
+    public String qnaboard() {
+        return "qnaBoard";
+    }
+
+    @GetMapping("/member/i_mypage")
+    public String iMypage(HttpSession session, Model model) {
+        log.info("get 마이페이지");
+        
+        // 세션에서 저장된 회원 ID 가져오기
+        String customer_id = (String) session.getAttribute("customer_id");
+
+        CustomerMemberDto customerMemberDto = memberService.getCustomerInfoById(customer_id);
+        session.setAttribute("customerMemberDto", customerMemberDto);
+        model.addAttribute("customerMemberDto", customerMemberDto);
+
         return "iMypage";
     }
 
-    @RequestMapping("/member/c_mypage")
-    public String cMypage(Model model) {
-        return "cMypage";
+    @PostMapping("/member/i_mypage")
+    public String updateMypage(CustomerMemberDto customerMemberDto, HttpSession session){
+        log.info("customerMemberDto:{}", customerMemberDto);
+
+        boolean result = memberService.updateMypage(customerMemberDto);
+        if(result){
+            log.info("업데이트 성공");
+            return "redirect:/member/i_mypage";
+        }
+        log.info("업데이트 실패");
+        return "redirect:/member/i_mypage";
+    }
+     @GetMapping("/res")
+    public String resPage() {
+        log.info("res 페이지");
+        return "res";
     }
 }

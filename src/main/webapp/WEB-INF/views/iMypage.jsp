@@ -3,35 +3,76 @@
 <%@ include file="header.jsp" %>
 <%@ include file="footer.jsp" %>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>마이 페이지</title>
+    <link rel="stylesheet" href="/spam/css/mypage.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="/spam/js/mypage.js"></script>
+    <!-- <script src="/spam/js/i_join.js"></script> -->
 </head>
+
 <body>
-    <h1>마이 페이지</h1>
-    <form action="${pageContext.request.contextPath}/member/i_mypage" method="post">
-        <input type="hidden" name="userId" value="${member.customer_id}" />
-        <p> <label for="username">이름:</label>
-        <input type="text" id="username" name="username" value="${user.username}" /><br></p>
 
-        <p> <label for="userID">아이디:</label>
-        <input type="text" id="userID" name="userID" value="${user.userID}" /><br></p>
+    <div class="sidebar">
+        <h4><a href="${pageContext.request.contextPath}/member/i_mypage" class="active">마이 페이지</a>
+            <a href="${pageContext.request.contextPath}/i_mypage/review" id="button--open">이용 후기</a>
+            <a href="${pageContext.request.contextPath}/i_mypage/list">예약 및 리뷰 내역</a>
+            <a href="${pageContext.request.contextPath}/i_mypage/myqna">나의 문의 내역</a>
+        </h4>
+        <!-- 원하는 메뉴 항목들을 추가할 수 있습니다. -->
+    </div>
 
-        <p> <label for="userID">패스워드:</label>
-        <input type="password" id="userPw" name="userPw" value="${user.userPw}" /><br></p>
+    <div class="favoriteRooms">
+        <h2>찜한 독서실 목록</h2>
+        <!-- 여기에 찜한 독서실 목록을 표시하는 내용을 추가하세요. -->
 
-        <p> <label for="userID">패스워드 확인:</label>
-        <input type="password" id="userPwc" name="userPwc" value="${user.userpWc}" /><br></p>
 
-        <p> <label for="userID">휴대전화:</label>
-        <input type="text" id="userpNum" name="userpNum" value="${user.userpNum}" /><br></p>
+    </div>
 
-        <p> <label for="email">이메일:</label>
-        <input type="text" id="userEmail" name="userEmail" value="${user.userEmail}" /><br></p>
-        <!-- 필요한 정보 수정 필드 추가 -->
 
-        <input type="submit" value="회원 탈퇴" />
-        <input type="submit" value="정보 수정" />
-    </form>
+
+    <div class="mpContent">
+        <h2>Edit My Page
+            <form id="memberInfo" method="post">
+                <div>
+                    <label for="name">이름:</label> 
+                    <input type="text" id="customer_name" name="customer_name"
+                        value="${customerMemberDto.customer_name}" readonly>
+                </div>
+                <div>
+                    <label for="username">아이디:</label>
+                    <input type="text" id="customer_id" name="customer_id" value="${customerMemberDto.customer_id}"
+                        readonly>
+                </div>
+                <div>
+                    <label for="password">비밀번호:</label>
+                    <input type="password" id="customer_pwd" name="customer_pwd">
+                </div>
+                <div>
+                    <label for="confirmPassword">비밀번호 확인:</label>
+                    <input type="password" id="customer_pwd_re" name="customer_pwd">
+                </div>
+                <div>
+                    <label for="phoneNumber">전화번호:</label>
+                    <input type="tel" id="customer_phone" name="customer_phone"
+                        value="${customerMemberDto.customer_phone}" required maxlength="13"
+                        pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}">
+                </div>
+                <div>
+                    <label for="email">이메일:</label>
+                    <input type="email" id="customer_email" name="customer_email"
+                        value="${customerMemberDto.customer_email}">
+                </div>
+
+                <button type="submit" onclick="return resignAlert();" name="resignButton" >회원 탈퇴</button>
+                <button type="submit" onclick="return updateAlert();" name="updateButton">수정 완료</button>
+        </h2>
+        </form>
+
+    </div>
+
 </body>
+
 </html>

@@ -148,14 +148,13 @@
         .navbar-brand {
             color: #DCE682 !important;
         }
-
-        
     </style>
 
 
     <!-- Custom styles for this template -->
     <link href="navbars-offcanvas.css" rel="stylesheet">
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
+
 
 </head>
 
@@ -193,8 +192,19 @@
 
                 <!-- 로그인 상태 확인 후 표시 여부 결정 -->
                 <c:choose>
-                    <c:when test="${not empty sessionScope.customer_id}">
-                        <span class="mx-2 text-light" id="text-id">환영합니다, ${sessionScope.customer_id} 님</span>
+                    <c:when test="${not empty sessionScope.customer_id or not empty sessionScope.company_id}">
+                        <span class="mx-2 text-light">
+                            환영합니다, 
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.customer_id}">
+                                    ${sessionScope.customer_id} 님
+                                </c:when>
+                                <c:otherwise>
+                                    ${sessionScope.company_id} 님
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
+                        <!-- 로그아웃 버튼 -->
                         <a class="btn btn-outline-light mx-2 btn-logout" type="button"
                             href="${pageContext.request.contextPath}/member/logout" id="btn-logout">로그아웃</a>
                     </c:when>
@@ -205,6 +215,7 @@
                             onclick="location.href='${pageContext.request.contextPath}/member/joinfrm'">회원가입</button>
                     </c:otherwise>
                 </c:choose>
+
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
@@ -233,8 +244,17 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/search">독서실 검색</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link " href="${pageContext.request.contextPath}/member/i_mypage"
-                                onclick="return checkLogin()">마이페이지</a>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.customer_id}">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/member/i_mypage">마이페이지</a>
+                                </c:when>
+                                <c:when test="${not empty sessionScope.company_id}">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/c_mypage">마이페이지</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/member/i_login" onclick="loginAlert()">마이페이지</a>
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link " href="${pageContext.request.contextPath}/qna_list">Q&A</a>
@@ -256,4 +276,11 @@
 </main>
 <script src="js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+</script>
+<script>
+    function loginAlert() {
+        alert("로그인 후 이용 가능한 서비스입니다.");
+        window.location.href = "${pageContext.request.contextPath}/member/i_login";
+        return false;
+    }
 </script>

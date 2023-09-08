@@ -1,564 +1,316 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>독서실 상세 보기</title>
-<link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
-<script src="/js/jquery-3.7.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPAM</title>
+    <style>
+        .rdetail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 100px;
+            /* 푸터와의 간격 조절 */
+        }
 
-<style>
-    .t_content {
-	display: block;
-	float: left;
-	height: 30px;
-	font-size: 16px;
-	line-height: 1.6;
-	text-align: center;
-	background-color: #322A31;
-	border: 1px solid black;
-    color: #DCE682;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-}
+        .rdetail h1 {
+            color: #DCE682;
+            margin-top: 150px;
+            /* 위에서 */
+            -webkit-text-stroke: 2px #322A31;
+            /* 글자 테두리색 및 두께 (표준) */
+            text-transform: uppercase;
+        }
 
-.d_content {
-	display: block;
-	float: left;
-	height: 30px;
-	font-size: 16px;
-	line-height: 1.6;
-	text-align: center;
-	background-color: white;
-	border: 1px solid black;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-}
+        .stc-img-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 70%;
+            /* 최대 너비 설정 */
+            width: 100%;
+            height: auto;
+        }
 
-.content_h {
-	height: 400px;
-	line-height: 400px;
-}
+        .rimage {
+            width: 100%;
+            /* 이미지의 최대 너비에 맞게 늘어나도록 설정 */
+            height: auto;
+        }
 
-.content_in {
-	overflow: auto;
-	line-height: 1.6;
-	text-align: left;
-	box-sizing: border-box;
-	height: 168px;
-}
+        .hr-image {
+            max-width: 600px;
+            /* 구분선 이미지의 최대 너비 설정 */
+            width: 100%;
+            margin-top: 50px;
+            /* 구분선과 rimage 사이의 간격 조절 */
+        }
 
-.content_tag {
-	line-height: 1.6;
-	text-align: left;
-	height: 30px;
-	box-sizing: border-box;
-	margin-left: 5px;
-}
+        .invite {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 요소들을 수평 가운데 정렬 */
+            text-align: center;
+            margin-bottom: 150px;
+        }
 
-.content_tag>a {
-	text-decoration: none;
-}
-.content_tag>a:link {
-	color: black;
-}
-.content_tag>a:visited {
-	color: black;
-}
 
-.file_h {
-	height: 60px;
-	line-height: 55px;
-	box-sizing: border-box;
-}
+        /* zzim 요소 위치 이동 */
+        .zzim {
+            /* 원하는 위치로 이동시키기 위한 스타일 설정 */
+            margin-left: 500px;
+            /* 오른쪽으로 20px 이동 (원하는 값으로 조절) */
+        }
 
-.con_table {
-	width: 100%;
-}
-/************************/
-.data-row>div {
-	display: block;
-	float: left;
-	height: 40px;
-	font-size: 14px;
-	line-height: 2.5;
-	text-align: center;
-	background-color: #e7e7e7;
-	border: 1px solid #322A31;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-	overflow: hidden;
-	padding: 2px;
-}
+        /* 마우스를 가져다 대었을 때 버튼 확대 애니메이션 적용 */
+        .zzim-button:hover {
+            transform: scale(1.1);
+            /* 버튼 크기를 110%로 확대 */
+            z-index: 1;
+            /* 다른 요소 위에 나타나도록 z-index 설정 */
+        }
 
-.data-area {
-	margin-bottom: 10px;
-}
+        /* 이미지 버튼 스타일 설정 */
+        .zzim-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: transform 0.2s;
+            /* 변화에 애니메이션 적용 */
+            position: relative;
+            /* 버튼의 위치를 상대적으로 설정 */
+        }
 
-.btn-area .paging {
-	width: 100%;
-	margin: 0px auto;
-	opacity: 0.8;
-	text-align: center;
-}
 
-.paging .pno {
-	background-color: #efefef;
-	margin: 2px;
-	border: 1px solid #6c6c6c;
-	border-radius: 3px;
-	line-height: 1.5;
-	font-size: 15px;
-	height: 20px;
-}
 
-.paging>a {
-	text-decoration: none;
-}
+        /* 이미지 버튼에 마우스를 가져다 대었을 때 이미지 변화 설정 (선택사항) */
+        .zzim-button:hover img {
+            /* 기본 이미지 설정 */
+            content: url('image/like_2.png');
+            transition: transform 0.2s, content 0.2s;
+            /* 변화에 애니메이션 적용 */
+        }
 
-.paging>a:visited {
-	color: black;
-}
+        /* 마우스를 가져다 대었을 때 이미지 크기 조절 및 내용 변경 */
+        .zzim-button:hover img {
+            transform: scale(1.1);
+            /* 이미지 크기를 110%로 확대 */
+            content: url('image/like_1.png');
+            /* 이미지 내용 변경 */
+        }
 
-.btn-area {
-	margin: 0px auto;
-	width: 300px;
-	text-align: center;
-}
+        /* 클릭한 상태에서 이미지 변경 */
+        .zzim-button.clicked img {
+            content: url('image/like_1.png');
+            /* 클릭한 경우 이미지 변경 */
+        }
 
-.wr-btn {
-	display: block;
-	width: 80%;
-	padding: 10px 16px;
-	font-size: 16px;
-	line-height: 1.5;
-	border-radius: 6px;
-	color: #fff;
-	background-color: black;
-	border-color: black;
-	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
+        /* 클릭한 상태에서 마우스를 가져다 대었을 때 다른 이미지로 변화 */
+        .zzim-button.clicked:hover img {
+            content: url('image/like_2.png');
+            /* 클릭한 상태에서 마우스를 올리면 다른 이미지로 변경 */
+        }
+
+        /* 정보 요소에 대한 스타일 (여백 등) */
+        .info {
+            display: block;
+            /* 수직으로 배치하기 위해 display를 block으로 변경 */
+
+        }
+
+        #myform fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
 }
-.p-10 {
-	width: 10%;
+#myform fieldset legend{
+    text-align: right;
 }
-.p-15 {
-	width: 15%;
+#myform input[type=radio]{
+    display: none;
 }
-.p-20 {
-	width: 20%;
+#myform label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
 }
-.p-30 {
-	width: 30%;
+#myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
-.p-35 {
-	width: 35%;
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
-.p-50 {
-	width: 50%;
+#myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
-.p-85 {
-	width: 85%;
+#reviewContents {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1.5px #D3D3D3;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
 }
 
-.dp-10 {
-	width: 10%;
-}
-.dp-15 {
-	width: 15%;
-}
-.dp-20 {
-	width: 20%;
-}
-.dp-30 {
-	width: 30%;
-}
-
-.wrap {
-	min-height: 100%;
-	position: relative;
-	padding-bottom: 58px; 
-}
-
-.footer-bar {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;
-	background-color: white;
-	color: #fff;
-	min-height: 58px;
-	line-height: 58px;
-	padding: 0px;
-}
-
-.footer-logo {
-	width: 30px;
-	border-radius: 5px;
-}
-
-.fcontents {
-	text-align: center;
-	padding: 0px;
-}
-
-.footer-logo, .footer-txt {
-	margin: 0px auto;
-	vertical-align: middle;
-}
-
-.ta {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	resize: none;
-}
-
-.write-form {
-	max-width: 600px;
-	padding: 15px;
-	margin: 0px auto;
-}
-
-.write-form .write-input {
-	position: relative;
-	height: auto;
-	box-sizing: border-box;
-	padding: 10px;
-	font-size: 16px;
-	display: block;
-	width: 100%;
-	line-height: 1.5;
-	color: black;
-	background-color: #fff;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-}
-
-.btn-write {
-	width: 50px;
-	padding: 15px 15px;
-	font-size: 14px;
-	line-height: 1.5;
-	border-radius: 10px;
-	color: #DCE682;
-	background-color: #322A31;
-	border-color: #322A31;
-	margin-top: 10px;
-}
-
-.btn-write[type="reset"], .btn-write[type="button"] {
-	background-color: #322A31;
-	border-color: #322A31;
-}
-
-.btn-sub {
-	width: 50px;
-	padding: 15px 15px;
-	font-size: 14px;
-	line-height: 1.5;
-	border-radius: 10px;
-	color: #DCE682;
-	background-color: #322A31;
-	border-color: #322A31;
-	margin-top: 10px;
-}
-
-.filebox input[type="file"] {
-	position: absolute;
-	width: 0;
-	height: 0;
-	padding: 0;
-	overflow: hidden;
-	border: 0;
-}
-
-.filebox label {
-	display: inline-block;
-	padding: 10px 20px;
-	color: white;
-	vertical-align: middle;
-	background-color: #fdfdfd;
-	cursor: pointer;
-	border: 1px solid #ebebeb;
-	border-radius: 5px;
-	width: 20%;
-}
-
-/* named upload */
-.filebox .upload-name {
-	display: inline-block;
-	width: 79%;
-	height: 35px;
-	font-size: 16px;
-	padding: 0 10px;
-	vertical-align: middle;
-	background-color: #f5f5f5;
-	border: 1px solid #ebebeb;
-	border-radius: 5px;
-}
-
-.rtbl-head {
-	background-color: #322A31;
-    color: #DCE682;
-	text-align: center;
-	height: 30px;
-}
-
-/*
- * Responsive css
- */
-@media only screen and (max-width: 768px) {
-	.content {
-		max-width: 100%;
-	}
-	.board-form, .write-form {
-		max-width: 360px;
-		padding: 0px;
-	}
-	.title-row .t-date, .title-row .t-view, .data-row .t-date, .data-row .t-view
-		{
-		display: none;
-	}
-	.p-10 {
-		width: 20%;
-	}
-	.p-15 {
-		width: 25%;
-	}
-	.p-30 {
-		width: 55%;
-	}
-	.p-85 {
-		width: 75%;
-	}
-	.dp-30, .dp-20, .dp-15, .dp-10 {
-		width: 75%;
-	}
-	.filebox label {
-		text-align: center;
-		width: 100%;
-	}
-	.filebox .upload-name {
-		width: 100%;
-	}
-	.top-home {
-		display: none;
-	}
-}
-</style>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.5.0/jquery.serialize-object.min.js"
-	integrity="sha512-Gn0tSSjkIGAkaZQWjx3Ctl/0dVJuTmjW/f9QyB302kFjU4uTNP4HtA32U2qXs/TRlEsK5CoEqMEMs7LnzLOBsA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script
-	src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
-<script>
-	let m = "${msg}";
-	if (m != "") {
-		alert(m);
-	}
-	$(function() {
-		$('#summernote').summernote({
-			height : 300, 
-			minHeight : null, 
-			maxHeight : null, 
-			focus : true, 
-			lang : "ko-KR", 
-			placeholder : '최대 2048자까지 쓸 수 있습니다'
-		});
-	
-		$('#summernote').summernote('disable');
-		
-		
-		let loginName = "${mb.m_name}";
-		$("#m_name").html(loginName + "님");
-		$(".suc").css("display", "block");
-		$(".bef").css("display", "none");
-
-		
-	});
-</script>
+/* 예약하기 버튼 스타일 */
+.reservation-button {
+            position: fixed;
+            top: 500px; /* 상단 여백 조절 */
+            right: 200px; /* 오른쪽 여백 조절 */
+            z-index: 999; /* 다른 요소 위에 나타나도록 설정 */
+            background-color: #322A31; /* 버튼 배경색 */
+            color: #DCE682 !important;/* 버튼 글자색 */
+            padding: 10px 20px; /* 버튼 내부 여백 조절 */
+            border: none; /* 테두리 없애기 */
+            cursor: pointer;
+            border-radius: 20px; /* 둥글게 만들기 */
+            text-decoration: none; /* 밑줄 제거 */
+        }
+    </style>
+    <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
+
 <body>
-	<div class="wrap">
-		<header>
-			<jsp:include page="header.jsp"></jsp:include>
-		</header>
-		<section>
-			<div class="content">
-				<div class="write-form">
-					<div class="user-info">
-						<div class="t_content p-15">번호</div>
-						<div class="d_content p-85">${board.b_num}</div>
-					</div>
-					<div>
-						<div class="t_content p-15">작성자</div>
-						<div class="d_content p-35">${board.m_name}</div>
-						<div class="t_content p-15">작성일</div>
-						<div class="d_content p-35">
-							<fmt:formatDate value="${board.b_date}"
-								pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-						</div>
-					</div>
-					<div>
-						<div class="t_content p-15">독서실</div>
-						<div class="d_content p-85">${board.b_title}</div>
-					</div>
-					<div>
-						<div class="t_content p-15 content_h">내용</div>
-<%-- 						<div class="d_content p-85 content_h">${board.b_contents}</div> --%>
-						<textarea id="summernote" class="d_content p-85 content_h" readonly >${board.b_contents}</textarea>	
-					</div>
-					
-					<div>
-						<div class="t_content p-15 file_h">첨부파일</div>
-						<div class="d_content p-85 file_h" style="overflow: auto;">
-							<c:if test="${empty fList}">
-                            첨부된 파일이 없습니다.
-                        	</c:if>
-							<c:if test="${!empty fList}">
-								<c:forEach var="fitem" items="${fList}">
-									<a href="/board/download?bf_sysname=${fitem.bf_sysname}
-									        &bf_oriname=${fitem.bf_oriname}">
-										<span class="file-title"> <i class="fa fa-file-o"
-											style="font-size: 24px"></i> ${fitem.bf_oriname}
-									</span>
-									</a>
-								</c:forEach>
-							</c:if>
-						</div>
-					</div>
+    <%@ include file="header.jsp" %>
 
-					
+    <section class="rdetail" style="display: flex; justify-content: center;">
+        <h1>${room_name}</h1>
+        <div class="stc-img-container">
+            <img src="image/hr.png" alt="구분선" class="hr-image">
+            <img src="image/stc_1.jpg" class="rimage" style="width: 700px; margin-top: 150px; margin-bottom: 150px;">
+        </div>
+        <div class="invite">
+            <h2>독서실 소개</h2>
+            <div class="zzim">
+                <button id="zzim-button" class="zzim-button">
+                    <img src="image/like_2.png" alt="찜 버튼" id="zzim-image">
+                </button>
+            </div><br>
+            <div class="info">
+                <h4 class="r-description">영업 시간 ${room_description}</h4> <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
+                <h4 class="r-time">가격 <p>
+                        <h5>시간당 : 1일당: </h5>
+                    </p>
+                </h4> <!-- jquery로 db에서 데이터를 가져온다-->
+            </div>
+        </div>
+        <div class="star">
+            <h2>평점</h2>
 
-					<div class="btn-area">
-						<button class="btn-write" id="upbtn"
-							onclick="upload_board('${board.b_num}')">업</button>
-						<button class="btn-write" id="delbtn"
-							onclick="delete_board('${board.b_num}')">딜</button>
-						<button class="btn-sub" onclick="backbtn()">백</button>
-					</div>
-					
-					<form id="rform">
-						
-						<input type="hidden" name="r_bnum" id="r_bnum"
-							value="${board.b_num}">
-						<textarea name="r_contents" rows="3" class="write-input ta"
-							id="r_contents" placeholder="댓글"></textarea>
-						<input type="hidden" name="r_id" id="r_id" value="${mb.m_id}">
-						<input type="button" value="작성" class="btn-write"
-							onclick="replyInsert()" style="width: 100%; margin-bottom: 30px;">
-					</form>
-					<table style="width: 100%">
-					
-						<tr class="rtbl-head">
-							<td class="p-20">닉네임</td>
-							<td class="p-50">댓글</td>
-							<td class="p-30">작성일</td>
-						</tr>
-					</table>
+            <form class="mb-3" name="myform" id="myform" method="post">
+                <fieldset>
+                    <span class="text-bold">별점을 선택해주세요</span>
+                    <input type="radio" name="reviewStar" value="5" id="rate1"><label
+                        for="rate1">★</label>
+                    <input type="radio" name="reviewStar" value="4" id="rate2"><label
+                        for="rate2">★</label>
+                    <input type="radio" name="reviewStar" value="3" id="rate3"><label
+                        for="rate3">★</label>
+                    <input type="radio" name="reviewStar" value="2" id="rate4"><label
+                        for="rate4">★</label>
+                    <input type="radio" name="reviewStar" value="1" id="rate5"><label
+                        for="rate5">★</label>
+                </fieldset>
+                <div>
+                    <textarea class="col-auto form-control" type="text" id="reviewContents"
+                              placeholder="후기를 남겨주세요."></textarea>
+                </div><br>
+                <div>
+                    <button type="submit" class="btn btn-primary">평점 남기기</button>
+                </div>
+            </form>							
 
-					<table style="width: 100%;" id="rtable">
-						<c:forEach var="ritem" items="${rList}">
-							<tr>
-								<td class="p-20">${ritem.r_id}</td>
-								<td class="p-50">${ritem.r_contents}</td>
-								
-								<td class="p-30"><fmt:parseDate value="${ritem.r_date}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime" type="both" />
-								<fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${parsedDateTime}" /></td>
-								
-<%-- 								<td class="p-30"> <fmt:formatDate value=" ${ritem.r_date}" --%>
-<%-- 										pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate></td> --%>
-								
-<%-- 								<td class="p-30">${ritem.r_date}</td> --%>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</div>
-		</section>
-		<footer>
-			<jsp:include page="footer.jsp"></jsp:include>
-		</footer>
-	</div>
+        </div>
 
-	<template id="tr_template">
-		<tr>
-			<td class="p-20">{b_id}</td>
-			<td class="p-50">{b_contents}</td>
-			<td class="p-30">{b_date}</td>
-		</tr>
-	</template>
-	<script>
-		$('#upbtn').hide();
-		$('#delbtn').hide();
-		let mid = '${mb.m_id}';
-		let bid = '${board.b_id}';
-		console.log(mid, bid);
-		if (mid == bid) {
-			$('#upbtn').show();
-			$('#delbtn').show();
-		}
-		function delete_board(bnum) {
-			let conf = confirm("정말 삭제하겠습니까?");
-			if (conf == true) {
-				location.href = '/board/delete?b_num=' + bnum;
-			}
-		}
-		function upload_board(bnum) {
-			location.href = '/board/update?b_num=' + bnum;
-		}
+    </section>
+    <!-- 예약하기 버튼 -->
+    <button class="reservation-button" id="reservation-button">예약하기</button>
 
-		function replyInsert() {
-			let obj = $('#rform').serializeObject();
-			console.log('obj:', obj);
-			$.ajax({
-				method : 'post', 
-				url : '/board/reply2', 
-	
-	
-			}).done(
-					function(res) {
-						console.log("res:", res); 
 
-						if (res != null && res != '') {
-							let reply = '';
-							reply += '<tr><td class="p-20">' + res.r_id
-									+ '</td>' + '<td class="p-50">'
-									+ res.r_contents + '</td>'
-									+ '<td class="p-30">' + res.r_date
-									+ '</td></tr>'
-
-							$('#rtable').prepend(reply);
-							$('#r_contents').val('').focus();
-						}
-
-					}).fail(function(res) {
-				console.log("err:", res);
-			}); //ajax
-		}//replyInsert
-		const backbtn = function() {
-			let url = "/board/list?";
-			let col = '${sessionScope.sDto.colname}';
-			let keyw = '${sDto.keyword}';
-
-			if (col == null) {
-				url += 'pageNum=${sessionScope.pageNum}';
-			} else {
-				url += 'colname=${sDto.colname}' + '&keyword=${sDto.keyword}'
-						+ '&pageNum=${pageNum}'
-			}
-			location.href = url;
-		}
-	</script>
+    <%@ include file="footer.jsp" %>
 </body>
+<script>
+    // 이미지 버튼 클릭 이벤트 처리
+    const zzimButton = document.getElementById("zzim-button");
+    let isClicked = false; // 이미지 버튼 클릭 상태를 나타내는 변수
+
+    zzimButton.addEventListener("click", function () {
+        const zzimImage = document.getElementById("zzim-image");
+        if (!isClicked) {
+            zzimImage.src = "image/like_1.png"; // 클릭한 경우 이미지 변경
+        } else {
+            zzimImage.src = "image/like_2.png"; // 이미지를 원래 상태로 변경
+        }
+        isClicked = !isClicked; // 클릭 상태를 반전
+    });
+
+    $(document).ready(function() {
+    // 예약하기 버튼을 클릭했을 때의 동작을 정의합니다.
+    $("#reservation-button").click(function() {
+        // room_name을 동적으로 가져오거나 설정합니다.
+        var room_name = "${room_name}"; // 여기에 실제 데이터 값을 설정하세요.
+
+        // 동적으로 생성된 URL을 만듭니다.
+        var reservationURL = "/spam/" + room_name + "/reservation";
+
+        // 사용자를 해당 URL로 이동시킵니다.
+        window.location.href = reservationURL;
+    });
+});
+var room_name = "${room_name}";
+
+$(document).ready(function() {
+    // 서버에서 room_description 데이터를 가져오는 Ajax 요청
+    $.ajax({
+        type: "GET",
+        url: "/spam/" + room_name, // 실제 서버 엔드포인트 경로로 대체해야 합니다.
+        success: function(data) {
+            // 성공적으로 데이터를 가져왔을 때
+            // 가져온 데이터를 room_description 변수에 할당
+            var room_description = data.room_description;
+
+            // room_description을 사용하여 필요한 작업 수행
+            // 예: 영업 시간을 표시
+            $(".r-description").text("영업 시간 " + room_description);
+            console.log(data);
+        },
+        error: function() {
+            // 데이터 가져오기에 실패한 경우에 대한 처리
+            console.error("데이터 가져오기 실패");
+        }
+    });
+});
+
+$(document).ready(function() {
+    // 서버에서 room_description 데이터를 가져오는 Ajax 요청
+    $.ajax({
+        type: "GET",
+        url: "/spam/" + room_name, // 실제 서버 엔드포인트 경로로 대체해야 합니다.
+        success: function(data) {
+            // 성공적으로 데이터를 가져왔을 때
+            // 가져온 데이터를 room_description 변수에 할당
+            var room_description = data.room_description;
+
+            // room_description을 사용하여 필요한 작업 수행
+            // 예: 영업 시간을 표시
+            $(".r-description").text("영업 시간 " + room_description);
+            console.log(data);
+        },
+        error: function() {
+            // 데이터 가져오기에 실패한 경우에 대한 처리
+            console.error("데이터 가져오기 실패");
+        }
+    });
+});
+
+</script>
+
 </html>

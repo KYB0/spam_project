@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "spam",
   "version": "1.0.0",
   "description": "cal",
@@ -18,5 +19,9 @@
   "homepage": "https://github.com/KYB0/spam_project/tree/yongbin#readme",
   "dependencies": {
     "react-calendar": "^4.6.0"
+=======
+  "dependencies": {
+    "chart.js": "^4.4.0"
+>>>>>>> test
   }
 }

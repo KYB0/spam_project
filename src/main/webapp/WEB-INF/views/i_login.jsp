@@ -21,16 +21,16 @@
     <section class="login-form">
         <h1>LOGIN</h1>
         <form action="/spam/member/i_login" method="post">
-            <div class="caption-top">
+            <p><div class="int-area-login">
                 <a href="/spam/member/i_login">개인 로그인</a>
                 <a href="/spam/member/c_login">기업 로그인</a>
-            </div>
-            <div class="int-area">
+            </div></p>
+            <p><div class="int-area">
                 <input type="text" name="customer_id" id="id" autofocus autocomplete="off" required>
                 <label for="id">아이디</label>
             </div>
 
-            <div class="int-area">
+            <p><div class="int-area">
                 <input type="password" name="customer_pwd" id="pw" autocomplete="off" required>
                 <label for="pw">비밀번호</label>
             </div>
@@ -70,5 +70,5 @@
 
 
 </body>
-
+<%@ include file="footer.jsp" %>
 </html>

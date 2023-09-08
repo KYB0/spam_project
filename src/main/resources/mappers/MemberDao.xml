@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spam9700.spam.dao.MemberDao">
-
+    
+    
+    <!-- join -->
     <insert id="join" parameterType="com.spam9700.spam.dto.CustomerMemberDto">
         INSERT INTO customer_member (customer_id, customer_pwd, customer_name, customer_email, customer_birth, customer_phone)
         VALUES (#{customer_id}, #{customer_pwd}, #{customer_name}, #{customer_email}, #{customer_birth}, #{customer_phone})
     </insert>
-
-
 
     <!-- login -->
 
@@ -24,7 +24,7 @@
     <!-- idCheck -->
 
     <select id="idCheck" resultType="boolean">
-        SELECT COUNT(*) > 0
+        SELECT COUNT(*) 
         FROM customer_member
         WHERE customer_id = #{customer_id}
     </select>
@@ -50,6 +50,34 @@
 
     <!-- cLogin -->
 
-    <!-- getMemberInfo -->
+
+    <!-- mypage update -->
+
+    <!-- <update id="updateCustomerInfo" parameterType="CustomerMemberDto">
+        UPDATE customer_member
+        SET customer_pwd = #{customer_pwd},
+            customer_phone = #{customer_phone},
+            customer_email = #{customer_email}
+        WHERE customer_id = #{customer_id}
+    </update> -->
+
+    <update id="updateMypage" parameterType="CustomerMemberDto">
+        UPDATE customer_member
+        SET
+        customer_name = #{customer_name},
+        customer_email = #{customer_email},
+        customer_phone = #{customer_phone}
+        WHERE customer_id = #{customer_id}
+    </update>
+
+    <select id="getCustomerInfoById"  resultType="CustomerMemberDto">
+        SELECT * FROM customer_member 
+        WHERE customer_id = #{customer_id}
+    </select>
+
+    <delete id="deleteMemberInfo" parameterType="String">
+        DELETE FROM customer_member
+        WHERE customer_id = #{customer_id}
+    </delete>
 
 </mapper>

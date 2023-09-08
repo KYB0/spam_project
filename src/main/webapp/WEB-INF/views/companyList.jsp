@@ -22,10 +22,11 @@ transform: translate(-20%, 100%); /* 화면 중앙 정렬을 위한 transform �
 
 .c_monthlist {
     position: absolute;
-left: 30%;
+left: 50%;
 top: calc(20% + 250px); /* c_mypage 하단에서 100px 아래로 이동 */
-transform: translate(-30%, -20%);
+transform: translate(-50%, -20%);
 height: 250px; /* 높이 설정, 원하는 높이로 조정하세요 */
+
 }
 
 .c_monthlist h4 {
@@ -66,7 +67,13 @@ height: 50px; /* 버튼 상자 높이 설정 */
         <h1>고객 수</h1>
         <div class="c_monthlist">
             <h4>월별 이용자 수</h4>
-            /*그래프*/
+            <div>
+            <button id="sendAjax">새로 고침</button>
+        </div>
+            <div style="width: 800px;">
+                <canvas id="myChart" ></canvas>
+                
+              </div>
         </div>
     </section>
     <section class="c_menu">
@@ -79,4 +86,85 @@ height: 50px; /* 버튼 상자 높이 설정 */
     </section>
     <%@ include file="footer.jsp" %>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+    const myBarChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+      datasets: [{
+        label: '이용자 수',
+        data: [15, 20, 14, 25, 30, 32, 28, 24, 27, 0, 0, 0],
+        backgroundColor : [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            ],
+        borderColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(201, 203, 207, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(255, 205, 86, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+            ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+//새로고침 버튼 설정
+const button = document.getElementById("sendAjax");
+
+button.addEventListener("click", function(){
+    // sendAjax('http://localhost:8000/spam/c_mypage/list');
+    // 새로고침을 실행하기 위해 현재 페이지를 다시 로드
+    window.location.reload();
+});
+
+function sendAjax(url){
+    const oReq = new XMLHttpRequest();
+
+    oReq.open('POST', url);
+    oReq.setRequestHeader('Content-Type', "application/json") //json형태로 보낸다
+    oReq.send();
+
+    oReq.addEventListener('load', function(){
+        const result = JSON.parse(oReq.responseText);
+        const user_count = result.user_count;
+        const comp_data = myBarChart.data.datasets[0].data;
+
+        for(let i=0; i<comp_data.length; i++){
+            comp_data[i] = user_count[i];
+        }
+        
+        myBarChart.update();
+    })
+}
+
+</script>
 </html>
