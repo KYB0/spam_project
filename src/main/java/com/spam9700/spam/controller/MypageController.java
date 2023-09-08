@@ -1,7 +1,9 @@
 package com.spam9700.spam.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,16 +11,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.spam9700.spam.dto.CompanyMemberDto;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
+import com.spam9700.spam.dto.SeatDto;
 import com.spam9700.spam.service.StudycafeService;
 
 import jakarta.mail.Session;
@@ -44,7 +50,7 @@ public class MypageController {
     }
 
     @GetMapping("/c_mypage/insert")
-    public String cMypageInsert(HttpSession session, Model model, @RequestParam(name="page", defaultValue = "1") int page, @RequestParam(name = "size", defaultValue = "5") int size) {
+    public String cMypageInsert(HttpSession session, Model model, @RequestParam(name="page", defaultValue = "1") int page) {
         String company_id = (String)session.getAttribute("company_id");
         //로그인 세션 가져오기
         if (company_id == null) {
@@ -52,21 +58,22 @@ public class MypageController {
             return "redirect:/member/c_login"; // 기업로그인 페이지로 리다이렉트 또는 다른 처리
         }
         
-
+        int pageSize = 5;
        
-        RoomPageDto roomPageDto = studycafeService.getRoomsByPage(page, size, company_id);
+        List<DetailPageDto> paginatedRooms = studycafeService.getPaginatedRooms(page, pageSize, company_id);
+        int totalRoomsCount = studycafeService.getTotalRoomsCount(company_id);
         // System.out.println("++++++++++++++++++++++++"+page+"+++++++++++++++++++++++++");
         // System.out.println("--------------------------"+size+"----------------------------");
     
-        model.addAttribute("roomDataPage", roomPageDto.getRoomDataPage());
-        model.addAttribute("currentPage", roomPageDto.getCurrentPage());
-        model.addAttribute("totalPages", roomPageDto.getTotalPages());
+        model.addAttribute("roomDataPage", paginatedRooms);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", (totalRoomsCount + pageSize - 1) / pageSize);
 
          List<DetailPageDto> roomDataList = studycafeService.getAllRoomsByCompanyId(company_id);
 
-        for(DetailPageDto rd : roomDataList){
-            System.out.println(rd);
-        } //roomDataList로 데이터값이 전달되는지 확인
+        // for(DetailPageDto rd : roomDataList){
+        //     System.out.println(rd);
+        // } //roomDataList로 데이터값이 전달되는지 확인
         model.addAttribute("roomDataList", roomDataList);
         return "companyInsert";
     }
@@ -138,8 +145,19 @@ public class MypageController {
     }
 
     @GetMapping("/c_mypage/seatInsert")
-        public String seatInsert(){
+        public String seatInsert(Model model){
+            List<SeatDto> seatsIn = studycafeService.getAllSeats();
+            model.addAttribute("seatsIn", seatsIn);
             return "seatChoice";
+        }
+
+        @PostMapping("/c_mypage/seatInsert")
+        public String insertSeats(@RequestParam("room_id") int roomId, @RequestParam("selectedSeats") List<String> selectedSeats){
+            // 선택한 좌석 정보를 DB에 삽입
+            studycafeService.insertSeats(roomId, selectedSeats);
+             // 리디렉션 URL 설정
+    String redirectUrl = "/c_mypage/insert";
+    return "redirect:" + redirectUrl;
         }
     
 

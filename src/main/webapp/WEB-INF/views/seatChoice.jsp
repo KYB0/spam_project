@@ -202,6 +202,9 @@ body{
 <body>
     <%@ include file="header.jsp" %>
     <section id="s_container">
+        <form id="seatForm" action="/c_mypage/seatInsert" method="POST">
+            <input type="hidden" name="selectedSeats" id="selectedSeatsInput">
+        </form>
         <div class="seat_contaner">
             <label for="movie">
                 자리를 선택해 주세요
@@ -281,7 +284,16 @@ body{
                 <span class="s_seat">47</span>
                 <span class="s_seat">48</span>
             </div>
-
+            <tbody>
+                <c:forEach items="${seatsIn}" var="seat">
+                    <tr>
+                        <td>${seat.seat_id}</td>
+                        <td>${seat.room_id}</td>
+                        <td>${seat.seat_number}</td>
+                        <td>${seat.is_reserved}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
         </div>
         <br>
         <div class="sbutton-container">
@@ -292,31 +304,43 @@ body{
 </body>
 <script>
    document.addEventListener("DOMContentLoaded", function () {
-        const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
-        const selectedSeats = []; // 선택된 좌석을 저장하는 배열
+    const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
+    const selectedSeats = []; // 선택된 좌석을 저장하는 배열
+    const selectedSeatsInput = document.getElementById("selectedSeatsInput"); // hidden input 요소
 
-        seats.forEach((s_seat) => {
-            s_seat.addEventListener("click", function () {
-                if (!s_seat.classList.contains("occupiedSeat")) {
-                    if (s_seat.classList.contains("selectedSeat")) {
-                        // 이미 선택된 좌석을 다시 클릭하면 선택 해제
-                        s_seat.classList.remove("selectedSeat");
-                        const index = selectedSeats.indexOf(s_seat.textContent);
-                        if (index !== -1) {
-                            selectedSeats.splice(index, 1);
-                        }
-                    } else {
-                        // 좌석이 비어 있고 선택되지 않았을 때 선택
-                        s_seat.classList.add("selectedSeat");
-                        selectedSeats.push(s_seat.textContent);
+    seats.forEach((s_seat) => {
+        s_seat.addEventListener("click", function () {
+            if (!s_seat.classList.contains("occupiedSeat")) {
+                if (s_seat.classList.contains("selectedSeat")) {
+                    // 이미 선택된 좌석을 다시 클릭하면 선택 해제
+                    s_seat.classList.remove("selectedSeat");
+                    const index = selectedSeats.indexOf(s_seat.textContent);
+                    if (index !== -1) {
+                        selectedSeats.splice(index, 1);
                     }
-                    // 선택된 좌석 목록 업데이트
-                    const selectedSeatsDiv = document.getElementById("selectedSeats");
-                    selectedSeatsDiv.textContent = `선택한 자리: ${selectedSeats.join(", ")}`;
+                } else {
+                    // 좌석이 비어 있고 선택되지 않았을 때 선택
+                    s_seat.classList.add("selectedSeat");
+                    selectedSeats.push(s_seat.textContent);
                 }
-            });
+                // 선택된 좌석 목록 업데이트
+                const selectedSeatsDiv = document.getElementById("selectedSeats");
+                selectedSeatsDiv.textContent = `선택한 자리: ${selectedSeats.join(", ")}`;
+                
+                // hidden input에 선택된 좌석 정보 설정
+                selectedSeatsInput.value = selectedSeats.join(","); 
+            }
         });
     });
+
+    // "선택완료" 버튼 클릭 시 폼 제출
+    const chooseButton = document.querySelector(".myChooseButton");
+    chooseButton.addEventListener("click", function () {
+        const seatForm = document.getElementById("seatForm");
+        seatForm.submit(); // 폼 제출
+    });
+});
+
 
 
 </script>

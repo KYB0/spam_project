@@ -345,13 +345,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${roomDataList}" var="room">
+                                <c:forEach items="${roomDataPage}" var="room">
                                     <tr>
                                         <td>${room.room_id}</td>
                                         <td>${room.room_name}</td>
                                         <td>${room.room_description}</td>
-                                        <td>${room.time_price}</td>
-                                        <td>${room.day_price}</td>
+                                        <td>${room.time_price} 원</td>
+                                        <td>${room.day_price} 원</td>
                                         <td>${room.region}</td>
                                         <td>
                                             <ul class="action-list">
@@ -368,20 +368,29 @@
                             <div class="col-sm-6 col-xs-6">
                                 <ul class="pagination hidden-xs pull-right" id="PageNavigation">
                                     <c:if test="${currentPage > 1}">
-                                            <li>
-                                                <a href="/spam/c_mypage/insert?page=${currentPage - 1}&size=${size}">&laquo; </a>
-                                            </li>
-                                    </c:if>
-                                    <c:forEach begin="1" end="${totalPages}" var="page">
-                                                <li class="<c:if test="${currentPage eq page}">active</c:if>">
-                                                    <a href="/spam/c_mypage/insert?page=${page}&size=${size}">${page}</a>
-                                                </li>
-                                    </c:forEach>
-                                    <c:if test="${currentPage < totalPages}">
-                                                <li>
-                                                    <a href="/spam/c_mypage/insert?page=${currentPage + 1}&size=${size}">&raquo;</a>
-                                                </li>
-                                    </c:if>
+                    <li>
+                        <a href="/spam/c_mypage/insert?page=${currentPage - 1}">&laquo; </a>
+                    </li>
+                </c:if>
+                <c:forEach begin="1" end="${totalPages}" var="pageNum">
+                    <c:choose>
+                        <c:when test="${pageNum eq currentPage}">
+                            <li class="active">
+                                <a href="/spam/c_mypage/insert?page=${pageNum}">${pageNum}</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+                            <li>
+                                <a href="/spam/c_mypage/insert?page=${pageNum}">${pageNum}</a>
+                            </li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+                <c:if test="${currentPage < totalPages}">
+                    <li>
+                        <a href="/spam/c_mypage/insert?page=${currentPage + 1}">&raquo;</a>
+                    </li>
+                </c:if>
                                 </ul>
                             </div>
                         </div>
@@ -403,64 +412,6 @@
     </section>
     <%@ include file="footer.jsp" %>
     </body>
-    <script>
-        
-  $(document).ready(function(){
-    
-    
-    // 페이지 버튼 클릭 이벤트 핸들러
-    $(document).on('click', '#PageNavigation a', function(e){
-        e.preventDefault();
-        const page = $(this).data('page');
-        
-        // AJAX 요청
-        $.ajax({
-            url: `/spam/c_mypage/insert?page=${page}&size=<%= size %>`,
-            method: 'GET',
-            success: function(data){
-                // 성공 시 목록 갱신
-                updateRoomList(data);
-            },
-            error: function(){
-                console.error('데이터를 불러오는데 실패했습니다.');
-            }
-        });
-    });
-    
-    // 목록 갱신 함수
-    function updateRoomList(data) {
-        const roomTable = $('#roomTable');
-        const tbody = roomTable.find('tbody');
-        
-        tbody.empty();
-        
-        data.roomDataPage.forEach((room) => {
-            const row = $('<tr>');
-            row.html(`
-                <td>${room.room_id}</td>
-                <td>${room.room_name}</td>
-                <td>${room.room_description}</td>
-                <td>${room.time_price}</td>
-                <td>${room.day_price}</td>
-                <td>${room.region}</td>
-                <td><a href="/spam/c_mypage/seatInsert?room_id=${room.room_id}" data-tip="좌석 등록"><i class="fa fa-chair"></i></a></td>
-            `);
-            
-            tbody.append(row);
-        });
-        
-        const pagination = $('#PageNavigation');
-        pagination.empty();
-        
-        for (let i = 1; i <= data.totalPages; i++) {
-            const li = $('<li>');
-            li.addClass(data.currentPage === i ? 'active' : '');
-            li.html(`<a href="#" data-page="${i}">${i}</a>`);
-            pagination.append(li);
-        }
-    }
-});
 
-    </script>
 
 </html>
