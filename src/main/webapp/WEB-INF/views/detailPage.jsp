@@ -237,10 +237,10 @@
                         placeholder="후기를 남겨주세요."></textarea>
                 </div><br>
                 <div>
-                    <button type="submit" class="btn btn-primary">평점 남기기</button>
+                    <button type="submit" id="reviewButton" class="btn btn-primary">평점 남기기</button>
                 </div>
             </form>
-     
+
     </section>
     <!-- 예약하기 버튼 -->
     <button class="reservation-button" id="reservation-button">예약하기</button>
@@ -322,6 +322,50 @@
         });
     });
 
+    //리뷰 작성 스크립트
+    $(document).ready(function () {
+        // 리뷰 폼이 제출될 때의 동작을 정의합니다.
+        $("#myform").submit(function (event) {
+            event.preventDefault(); // 기본 폼 제출 동작을 중지합니다.
+
+            // 리뷰 폼에서 입력한 데이터를 가져옵니다.
+            var reviewStar = $("input[name='reviewStar']:checked").val();
+            var reviewContents = $("#reviewContents").val();
+
+            // AJAX 요청을 사용하여 서버에 데이터를 전송합니다.
+            $.ajax({
+                type: "POST",
+                url: "/spam/" + room_name + "/review", // 실제 서버 엔드포인트 경로로 대체해야 합니다.
+                data: JSON.stringify({
+                    reviewStar: reviewStar,
+                    reviewContents: reviewContents
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    if (data.success) {
+                        // 성공적으로 서버 응답을 받았을 때의 처리를 여기에 추가합니다.
+                        // 예: 리뷰가 성공적으로 등록되었음을 사용자에게 알리는 메시지 표시
+                        console.log("리뷰 작성 성공");
+                    } else {
+                        // 서버 요청에 실패한 경우에 대한 처리를 여기에 추가합니다.
+                        // 예: 리뷰 작성 실패 메시지 표시 또는 오류 처리
+                        console.log("리뷰 작성 실패");
+                    }
+                },
+                error: function () {
+                    //서버 요청에 실패한 경우에 대한 처리를 여기에 추가
+                    console.error("서버 요청 실패");
+                }
+            });
+        });
+
+        //평점 남기기 버튼에 클릭 이벤트 리스너 추가
+        $("#reviewButton").click(function () {
+            // 리뷰 폼을 서브밋합니다.
+            $("#myform").submit();
+        });
+    });
 </script>
 
 </html>

@@ -23,8 +23,7 @@ public interface DetailPageDao {
 
     List < DetailPageDto > getRoomsByCompany(String company_id);
 
-    public int addReply(ReviewDto reviewDto);
-
     boolean reviewInsert(ReviewDto reviewDto);
+
 
 }

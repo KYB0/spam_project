@@ -47,9 +47,10 @@ public class DetailPageService {
         return detailPageDao.getRoomsByCompany(company_id);
     }
 
-    //리뷰 작성
     public boolean reviewInsert(ReviewDto reviewDto) {
         return detailPageDao.reviewInsert(reviewDto);
     }
+
+ 
 
 }
