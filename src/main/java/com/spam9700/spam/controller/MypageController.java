@@ -44,9 +44,17 @@ public class MypageController {
     }
 
     @GetMapping("/c_mypage/insert")
-    public String cMypageInsert(Model model, @RequestParam(name="page", defaultValue = "1") int page, @RequestParam(name = "size", defaultValue = "5") int size) {
-        List<DetailPageDto> roomDataList = studycafeService.getAllRooms();
-        RoomPageDto roomPageDto = studycafeService.getRoomsByPage(page, size);
+    public String cMypageInsert(HttpSession session, Model model, @RequestParam(name="page", defaultValue = "1") int page, @RequestParam(name = "size", defaultValue = "5") int size) {
+        String company_id = (String)session.getAttribute("company_id");
+        //로그인 세션 가져오기
+        if (company_id == null) {
+            // 세션에 company_id가 없으면 처리할 로직 추가 (예: 로그인 페이지로 리다이렉트)
+            return "redirect:/member/c_login"; // 기업로그인 페이지로 리다이렉트 또는 다른 처리
+        }
+        
+
+       
+        RoomPageDto roomPageDto = studycafeService.getRoomsByPage(page, size, company_id);
         // System.out.println("++++++++++++++++++++++++"+page+"+++++++++++++++++++++++++");
         // System.out.println("--------------------------"+size+"----------------------------");
     
@@ -54,13 +62,22 @@ public class MypageController {
         model.addAttribute("currentPage", roomPageDto.getCurrentPage());
         model.addAttribute("totalPages", roomPageDto.getTotalPages());
 
-        // for(DetailPageDto rd : roomDataList){
-        //     System.out.println(rd);
-        // } roomDataList로 데이터값이 전달되는지 확인
+         List<DetailPageDto> roomDataList = studycafeService.getAllRoomsByCompanyId(company_id);
+
+        for(DetailPageDto rd : roomDataList){
+            System.out.println(rd);
+        } //roomDataList로 데이터값이 전달되는지 확인
         model.addAttribute("roomDataList", roomDataList);
         return "companyInsert";
     }
 
+
+
+
+
+
+
+    
     @PostMapping("/c_mypage/insert")
         public String processStudyRoomInsert(@ModelAttribute DetailPageDto detailPageDto, RedirectAttributes redirectAttributes) {
             // System.out.println("========================="+((String)s.getAttribute));
