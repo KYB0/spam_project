@@ -61,7 +61,7 @@ public class StudycafeController {
     }
 
  // Ajax 요청을 처리하는 메서드
-  @GetMapping("/spam/searchRooms")
+  @GetMapping("/searchRooms")
   @ResponseBody
   public List<DetailPageDto> searchRoomsAjax(@RequestParam(name = "region", required = false) String region,
                                    @RequestParam(name = "searchKeyword", required = false) String searchKeyword) {

@@ -8,8 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>독서실 검색</title>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
-    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="/spam/js/searchList.js"></script>
     <link rel="stylesheet" href="/spam/css/searchList.css">
 </head>
 <body>
@@ -26,8 +24,8 @@
                 <option>인천</option>
                 <option>경기</option>
             </select>
-        <input type="text" name="searchKeyword" id="total_ipt_keyword" class="search_input search_keyword" maxlength="30" placeholder="검색어 입력" autocomplete="off">
-            <button type="button" id="btn_search" class="btn_search">검색</button>
+        <input type="text" name="searchKeyword" id="total_ipt_keyword" class="search_input search_keyword" maxlength="30" placeholder="독서실 이름 입력" autocomplete="off">
+            <button type="button" id="btn_search" class="btn_search" >검색</button>
         </div>
     </form>
 
@@ -54,5 +52,7 @@
     </div>
 
     <%@ include file="footer.jsp" %>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="/spam/js/searchList.js"></script>
 </body>
 </html>

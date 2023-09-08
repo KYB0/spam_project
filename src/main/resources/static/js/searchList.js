@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    
+
 // 검색 버튼을 눌렀을 때
 $("#btn_search").click(function() {
     const region = $("#region").val();
