@@ -76,7 +76,6 @@ public class MypageController {
 
 
 
-
     
     @PostMapping("/c_mypage/insert")
         public String processStudyRoomInsert(@ModelAttribute DetailPageDto detailPageDto, RedirectAttributes redirectAttributes) {

@@ -317,7 +317,6 @@
 </head>
 <body>
     <%@ include file="header.jsp" %>
-    <% int size = 5; %>
     <section class=" c_insert">
     <h1>등록 및 수정</h1>
     </section>
@@ -356,7 +355,7 @@
                                         <td>${room.region}</td>
                                         <td>
                                             <ul class="action-list">
-                                                <li><a href="/spam/c_mypage/seatInsert?room_id=${room.room_id}" data-tip="좌석 등록"><i class="fa fa-chair"></i></a></li>
+                                                <li><a href="/spam/c_mypage/seatInsert" data-tip="좌석 등록">좌석 등록</a></li>
                                             </ul>
                                         </td>
                                     </tr>

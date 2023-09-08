@@ -47,7 +47,7 @@
         select count(*) from study_room WHERE company_id = #{company_id}
     </select>
 
-    <select id="getRoomsByCompanyId" parameterType="map" resultType="com.spam9700.spam.dto.RoomPageDto">
+    <select id="getRoomsByCompanyId" parameterType="map" resultType="com.spam9700.spam.dto.DetailPageDto">
         SELECT * from study_room WHERE company_id = #{company_id} LIMIT #{offset}, #{size}
     </select>
 
