@@ -209,16 +209,8 @@ body{
         </div>
         <ul class="s_showcase">
             <li class="s_li">
-                <div class="availableSeat"></div>
-                <small class="s_small">빈자리</small>
-            </li>
-            <li class="s_li">
                 <div class="selectedSeatIcon"></div>
                 <small class="s_small">선택한 자리</small>
-            </li>
-            <li class="s_li">
-                <div class="occupiedSeat"></div>
-                <small class="s_small">선택된 자리</small>
             </li>
         </ul>
 
@@ -240,8 +232,8 @@ body{
                 <span class="s_seat">10</span>
                 <span class="s_seat">11</span>
                 <span class="s_seat">12</span>
-                <span class="occupiedSeat">13</span>
-                <span class="occupiedSeat">14</span>
+                <span class="s_seat">13</span>
+                <span class="s_seat">14</span>
                 <span class="s_seat">15</span>
                 <span class="s_seat">16</span>
             </div>
@@ -253,7 +245,7 @@ body{
                 <span class="s_seat">20</span>
                 <span class="s_seat">21</span>
                 <span class="s_seat">22</span>
-                <span class="occupiedSeat">23</span>
+                <span class="s_seat">23</span>
                 <span class="s_seat">24</span>
             </div>
 
@@ -264,8 +256,8 @@ body{
                 <span class="s_seat">28</span>
                 <span class="s_seat">29</span>
                 <span class="s_seat">30</span>
-                <span class="occupiedSeat">31</span>
-                <span class="occupiedSeat">32</span>
+                <span class="s_seat">31</span>
+                <span class="s_seat">32</span>
             </div>
 
             <div class="s_row">
@@ -281,12 +273,12 @@ body{
 
             <div class="s_row">
                 <span class="s_seat">41</span>
-                <span class="occupiedSeat">42</span>
-                <span class="occupiedSeat">43</span>
+                <span class="s_seat">42</span>
+                <span class="s_seat">43</span>
                 <span class="s_seat">44</span>
                 <span class="s_seat">45</span>
                 <span class="s_seat">46</span>
-                <span class="occupiedSeat">47</span>
+                <span class="s_seat">47</span>
                 <span class="s_seat">48</span>
             </div>
 
@@ -294,38 +286,37 @@ body{
         <br>
         <div class="sbutton-container">
             <a href="#" class="myChooseButton">선택완료</a>
-            <a href="#" class="myChooseButton-fixx" >비품 예약</a>
         </div>
     </section>
     <%@ include file="footer.jsp" %>
 </body>
 <script>
    document.addEventListener("DOMContentLoaded", function () {
-    const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
-    let selectedSeat = null; // 선택된 좌석을 저장하는 변수
+        const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
+        const selectedSeats = []; // 선택된 좌석을 저장하는 배열
 
-    seats.forEach((s_seat) => {
-        s_seat.addEventListener("click", function () {
-            if (!s_seat.classList.contains("occupiedSeat")) {
-                // 좌석이 비어 있을 때만 선택 가능
-                if (selectedSeat !== null) {
-                    // 이미 선택된 좌석이 있을 경우, 선택 취소
-                    selectedSeat.classList.remove("selectedSeat");
+        seats.forEach((s_seat) => {
+            s_seat.addEventListener("click", function () {
+                if (!s_seat.classList.contains("occupiedSeat")) {
+                    if (s_seat.classList.contains("selectedSeat")) {
+                        // 이미 선택된 좌석을 다시 클릭하면 선택 해제
+                        s_seat.classList.remove("selectedSeat");
+                        const index = selectedSeats.indexOf(s_seat.textContent);
+                        if (index !== -1) {
+                            selectedSeats.splice(index, 1);
+                        }
+                    } else {
+                        // 좌석이 비어 있고 선택되지 않았을 때 선택
+                        s_seat.classList.add("selectedSeat");
+                        selectedSeats.push(s_seat.textContent);
+                    }
+                    // 선택된 좌석 목록 업데이트
+                    const selectedSeatsDiv = document.getElementById("selectedSeats");
+                    selectedSeatsDiv.textContent = `선택한 자리: ${selectedSeats.join(", ")}`;
                 }
-
-                s_seat.classList.add("selectedSeat"); // 새로운 좌석 선택
-                selectedSeat = s_seat; // 선택된 좌석 업데이트
-            }
+            });
         });
     });
-
-    // "비품 예약" 버튼을 클릭했을 때의 동작 정의
-    const reserveButton = document.getElementById("s-reserve-button");
-    reserveButton.addEventListener("click", function () {
-        // 여기에 비품 예약을 위한 동작을 추가하세요.
-        // 예를 들어, 팝업 창을 표시하거나 다른 페이지로 이동할 수 있습니다. 모달창 등록
-    });
-});
 
 
 </script>

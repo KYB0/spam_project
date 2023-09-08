@@ -16,4 +16,42 @@
         SELECT * FROM study_room;
     </select>
 
+    <!-- CompanyMemberDto에서 company_id를 가져오는 SQL -->
+    <select id="getCompanyIdFromCompanyMember" resultType="DetailPageDto">
+        SELECT * FROM company_member WHERE company_id = #{company_id}
+    </select>
+
+    <insert id="insertStudyRoom" parameterType="com.spam9700.spam.dto.DetailPageDto">
+        INSERT INTO study_room (company_id, room_name, room_description, time_price, day_price, region)
+        VALUES (#{company_id}, #{room_name}, #{room_description}, #{time_price}, #{day_price}, #{region})
+    </insert>
+
+    <select id="getSeatsByRoomId" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT *
+        FROM study_room
+        WHERE room_id = #{room_id}
+    </select>
+
+    <insert id="insertSeat" parameterType="com.spam9700.spam.dto.SeatDto">
+        INSERT INTO seats (room_id, seat_number, is_reserved)
+        VALUES (#{room_id}, #{seat_number}, #{is_reserved})
+    </insert>
+
+    <!-- 페이징을 적용한 독서실 목록 조회
+    <select id="getRoomsByPage" parameterType="map" resultType="com.spam9700.spam.dto.DetailPageDto">
+        select * from study_room WHERE company_id = #{company_id} LIMIT #{offset}, #{limit}
+    </select> -->
+
+    <!-- 전체 독서실 개수 조회 -->
+    <select id="getTotalRoomCountByCompanyId" resultType="int">
+        select count(*) from study_room WHERE company_id = #{company_id}
+    </select>
+
+    <select id="getRoomsByCompanyId" parameterType="map" resultType="com.spam9700.spam.dto.RoomPageDto">
+        SELECT * from study_room WHERE company_id = #{company_id} LIMIT #{offset}, #{size}
+    </select>
+
+    <select id="getAllRoomsByCompanyId" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
+    SELECT * FROM study_room WHERE company_id = #{company_id}
+</select>
 </mapper>
