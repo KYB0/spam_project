@@ -28,7 +28,7 @@ public class MemberController {
     @Autowired
     private final MemberService memberService;
 
-    private void invalidateSession(HttpSession session){
+    private void invalidateSession(HttpSession session) {
         session.invalidate();
     }
 
@@ -86,8 +86,8 @@ public class MemberController {
         boolean result = memberService.iLogin(customer_id, customer_pwd);
         if (result) {
             log.info("개인로그인 성공");
-            session.setAttribute("loggedIn", true);
-            session.setAttribute("customer_id", customer_id);
+            session.setAttribute("loggedInUserId", customer_id); // 사용자 아이디를 세션에 저장
+            session.setAttribute("customer_id", customer_id); // 사용자 아이디를 세션에 저장
             return "redirect:/main"; // 로그인 성공 시 홈 화면으로 이동
         } else {
             log.info("로그인 실패");
@@ -104,6 +104,7 @@ public class MemberController {
         boolean result = memberService.cLogin(company_id, company_pwd, company_businessnum);
         if (result) {
             log.info("기업로그인 성공");
+            session.setAttribute("loggedInUserId", company_id);
             session.setAttribute("company_id", company_id);
             return "redirect:/main";
         } else {
@@ -160,24 +161,21 @@ public class MemberController {
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         // Remove the loggedInUser attribute from the session
-        session.invalidate(); //세션 무효화
+        session.invalidate(); // 세션 무효화
         return "redirect:/main"; // 로그아웃 후 홈 화면으로 이동
     }
 
     @PostMapping("/i_mypage/resign")
     public String resign(HttpSession session) {
 
-    String customer_id = (String) session.getAttribute("customer_id");
+        String customer_id = (String) session.getAttribute("customer_id");
 
-    memberService.resign(customer_id);
-    log.info("회원탈퇴1");
-    
-    invalidateSession(session); //세션 무효화
+        memberService.resign(customer_id);
+        log.info("회원탈퇴1");
 
-    return "redirect:/main";
+        invalidateSession(session); // 세션 무효화
+
+        return "redirect:/main";
     }
-    
-    
-
 
 }

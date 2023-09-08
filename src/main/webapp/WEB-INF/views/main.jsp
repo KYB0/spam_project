@@ -1,5 +1,4 @@
 ﻿<%@ include file="header.jsp" %>
-<%@ include file="footer.jsp" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,16 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-
-
+  
+  
   <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
-  
-
   <link rel="stylesheet" href="/spam/css/slider.css">
-
+  
+  
+  
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       let m = "${msg}";
       if (m !== '') {
         alert(m);
@@ -30,7 +29,7 @@
         slideWidth: 600,
       });
     });
-  </script>
+    </script>
 
 </head>
 
@@ -51,5 +50,7 @@
     </section>
   </div>
 </body>
+
+<%@ include file="footer.jsp" %>
 
 </html>

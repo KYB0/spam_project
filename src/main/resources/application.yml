@@ -39,9 +39,6 @@ spring:
 mybatis:
   type-aliases-package: com.spam9700.spam.dto
   mapper-locations: classpath:/mappers/*.xml
-<<<<<<< HEAD
-  configuration:
-    map-underscore-to-camel-case: true
     
 logging:
   level:
@@ -91,7 +88,3 @@ root:
   appender-ref:
     ref: console
 
-=======
-  # configuration:
-  #   map-underscore-to-camel-case: true
->>>>>>> test

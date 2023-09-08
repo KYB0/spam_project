@@ -19,13 +19,37 @@ public class QnABoardService {
         this.qnaBoardDao = qnaBoardDao;
     }
 
-    public List<QnaBoardDto> getAllQnaBoard() {
-    log.info("서비스 - 목록");
-        return qnaBoardDao.getAllQnaBoard();
+    public List<QnaBoardDto> getAllQnaBoard(int page, int pageSize) {
+        log.info("서비스 - 목록");
+        int offset = (page - 1) * pageSize; // 페이지 시작 위치 계산
+        return qnaBoardDao.getAllQnaBoard(offset, pageSize);
     }
 
     public void insertQnaBoard(QnaBoardDto qnaBoardDto) {
         log.info("서비스 - 글 쓰기");
         qnaBoardDao.insertQnaBoard(qnaBoardDto);
     }
+
+    public List<QnaBoardDto> searchQnaBoard(String keyword, int page, int pageSize) {
+        log.info("서비스 - 검색: {}", keyword);
+        int offset = (page - 1) * pageSize; // 페이지 시작 위치 계산
+        return qnaBoardDao.searchQnaBoard(keyword, offset, pageSize);
+    }
+
+    public int getTotalBoardCount() {
+        log.info("서비스 - 총 게시글 수 조회");
+        return qnaBoardDao.getTotalBoardCount();
+    }
+
+    public int getSearchResultCount(String keyword) {
+        log.info("서비스 - 검색 결과 수 조회: {}", keyword);
+        return qnaBoardDao.getSearchResultCount(keyword);
+    }
+
+    public QnaBoardDto getBoardById(int boardId) {
+log.info("서비스 - 글 상세");
+        log.info("getQnaBoardById: {}", boardId);
+        return qnaBoardDao.getBoardById(boardId);
+    }
+
 }
