@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spam9700.spam.Common.FileManager;
+import com.spam9700.spam.common.FileManager;
 import com.spam9700.spam.dao.BoardDao;
 // import com.spam9700.board.common.Paging;
 import com.spam9700.spam.dto.BFile;
