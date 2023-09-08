@@ -47,7 +47,7 @@
             /* 모서리 둥글게 설정 */
             position: relative;
             left: 75%;
-            top: 75%;
+            margin-top: 5%;
         }
 
         .c_menu {
@@ -317,6 +317,7 @@
 </head>
 <body>
     <%@ include file="header.jsp" %>
+    <% int size = 5; %>
     <section class=" c_insert">
     <h1>등록 및 수정</h1>
     </section>
@@ -355,7 +356,7 @@
                                         <td>${room.region}</td>
                                         <td>
                                             <ul class="action-list">
-                                                <li><a href="/spam/c_mypage/seatInsert" data-tip="좌석 등록">좌석 등록</a></li>
+                                                <li><a href="/spam/c_mypage/seatInsert?room_id=${room.room_id}" data-tip="좌석 등록"><i class="fa fa-chair"></i></a></li>
                                             </ul>
                                         </td>
                                     </tr>
@@ -366,18 +367,22 @@
                     <div class="panel-footer">
                         <div class="row">
                             <div class="col-sm-6 col-xs-6">
-                                <ul class="pagination hidden-xs pull-right" id="pagination">
-                                    <li class="<c:if test="${currentPage eq 1}">disabled</c:if>">
-                                        <a href="/spam/c_mypage/insert?page=${currentPage - 1}&size=${size}">&laquo; </a>
-                                    </li>
+                                <ul class="pagination hidden-xs pull-right" id="PageNavigation">
+                                    <c:if test="${currentPage > 1}">
+                                            <li>
+                                                <a href="/spam/c_mypage/insert?page=${currentPage - 1}&size=${size}">&laquo; </a>
+                                            </li>
+                                    </c:if>
                                     <c:forEach begin="1" end="${totalPages}" var="page">
-                                        <li class="<c:if test="${currentPage eq page}">active</c:if>">
-                                            <a href="/spam/c_mypage/insert?page=${page}&size=${size}">${page}</a>
-                                        </li>
+                                                <li class="<c:if test="${currentPage eq page}">active</c:if>">
+                                                    <a href="/spam/c_mypage/insert?page=${page}&size=${size}">${page}</a>
+                                                </li>
                                     </c:forEach>
-                                    <li class="<c:if test="${currentPage eq totalPages}">disabled</c:if>">
-                                        <a href="/spam/c_mypage/insert?page=${currentPage + 1}&size=${size}">&raquo;</a>
-                                    </li>
+                                    <c:if test="${currentPage < totalPages}">
+                                                <li>
+                                                    <a href="/spam/c_mypage/insert?page=${currentPage + 1}&size=${size}">&raquo;</a>
+                                                </li>
+                                    </c:if>
                                 </ul>
                             </div>
                         </div>
@@ -400,65 +405,63 @@
     <%@ include file="footer.jsp" %>
     </body>
     <script>
-       // 페이지 번호 클릭 이벤트 핸들러
-$(document).on('click', '#pagination a', function(e){
-    e.preventDefault();
-    const page = $(this).data('page');
+        
+  $(document).ready(function(){
     
-    // 새로운 size 값을 설정 (예: 20)
-    size = 20; // 원하는 크기로 변경
     
-    // AJAX 요청을 보내는 부분
-    $.ajax({
-        url: `/spam/c_mypage/insert?page=${page}&size=${size}`, // 서버 URL 수정
-        method: 'GET',
-        success: function(data){
-            // 페이지 데이터를 가져와서 독서실 목록 업데이트하는 함수
-            function updateRoomList(data){
-                const roomTable = document.getElementById('roomTable');
-                const tbody = roomTable.querySelector('tbody');
-
-                // 이전에 표시된 데이터 삭제
-                while (tbody.firstChild) {
-                    tbody.removeChild(tbody.firstChild);
-                }
-
-                // 서버에서 받은 데이터로 테이블 업데이트
-                data.roomDataPage.forEach((room)=>{
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${room.room_id}</td>
-                        <td>${room.room_name}</td>
-                        <td>${room.room_description}</td>
-                        <td>${room.time_price}</td>
-                        <td>${room.day_price}</td>
-                        <td>${room.region}</td>
-                        <td><a href="/spam/c_mypage/seatInsert?room_id=${room.room_id}" data-tip="좌석 등록"><i class="fa fa-chair"></i></a></td>
-                    `;
-                    
-                    tbody.appendChild(row);
-                });
-
-                // 페이지 번호 업데이트
-                const pagination = document.getElementById('pagination');
-                pagination.innerHTML = '';
-
-                for(let i=1; i<=data.totalPages; i++){
-                    const li = document.createElement('li');
-                    li.className = data.currentPage === i ? 'active' : '';
-                    li.innerHTML = `<a href="#" data-page="${i}">${i}</a>`;
-                    pagination.appendChild(li);
-                }
+    // 페이지 버튼 클릭 이벤트 핸들러
+    $(document).on('click', '#PageNavigation a', function(e){
+        e.preventDefault();
+        const page = $(this).data('page');
+        
+        // AJAX 요청
+        $.ajax({
+            url: `/spam/c_mypage/insert?page=${page}&size=<%= size %>`,
+            method: 'GET',
+            success: function(data){
+                // 성공 시 목록 갱신
+                updateRoomList(data);
+            },
+            error: function(){
+                console.error('데이터를 불러오는데 실패했습니다.');
             }
-
-            // 페이지 데이터 업데이트
-            updateRoomList(data);
-        },
-        error: function () {
-            console.error('데이터를 불러오는데 실패했습니다.');
-        }
+        });
     });
+    
+    // 목록 갱신 함수
+    function updateRoomList(data) {
+        const roomTable = $('#roomTable');
+        const tbody = roomTable.find('tbody');
+        
+        tbody.empty();
+        
+        data.roomDataPage.forEach((room) => {
+            const row = $('<tr>');
+            row.html(`
+                <td>${room.room_id}</td>
+                <td>${room.room_name}</td>
+                <td>${room.room_description}</td>
+                <td>${room.time_price}</td>
+                <td>${room.day_price}</td>
+                <td>${room.region}</td>
+                <td><a href="/spam/c_mypage/seatInsert?room_id=${room.room_id}" data-tip="좌석 등록"><i class="fa fa-chair"></i></a></td>
+            `);
+            
+            tbody.append(row);
+        });
+        
+        const pagination = $('#PageNavigation');
+        pagination.empty();
+        
+        for (let i = 1; i <= data.totalPages; i++) {
+            const li = $('<li>');
+            li.addClass(data.currentPage === i ? 'active' : '');
+            li.html(`<a href="#" data-page="${i}">${i}</a>`);
+            pagination.append(li);
+        }
+    }
 });
+
     </script>
 
 </html>

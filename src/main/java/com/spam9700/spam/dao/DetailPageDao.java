@@ -41,4 +41,12 @@ public interface DetailPageDao {
     List<DetailPageDto> getRoomsByPage(int offset, int limit);
     int getTotalRoomCount();
 
+    List<DetailPageDto> getRoomsByCompanyId(@Param("company_id") String company_id, @Param("offset") int offset, @Param("size") int size);
+
+    int getTotalRoomCountByCompanyId(String company_id);
+
+    List<DetailPageDto> getAllRoomsByCompanyId(String company_id);
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.spam9700.spam.service;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -50,26 +51,32 @@ public class StudycafeService {
         return detailPageDao.getAllRooms();
     }
 
-    public RoomPageDto getRoomsByPage(int page, int size) {
-        try(SqlSession sqlSession = sqlSessionFactory.openSession()){
-            DetailPageDao detailPageDao = sqlSession.getMapper(DetailPageDao.class);
 
-            int offset = (page - 1) * size;
-            List<DetailPageDto> roomDataPage = detailPageDao.getRoomsByPage(offset, size);
-            int totalRooms = detailPageDao.getTotalRoomCount();
 
-            int totalPages = (int) Math.ceil((double) totalRooms / size);
 
-            RoomPageDto roomPageDto = new RoomPageDto();
-            roomPageDto.setRoomDataPage(roomDataPage);
-            roomPageDto.setCurrentPage(page);
-            roomPageDto.setTotalPages(totalPages);
+    public RoomPageDto getRoomsByPage(int page, int size, String company_id) {
+        RoomPageDto roomPageDto = new RoomPageDto();
 
-            return roomPageDto;
+        int offset = (page - 1) * size;
+        List<DetailPageDto> roomDataPage = detailPageDao.getRoomsByCompanyId(company_id, offset, size);
+        int totalRooms = detailPageDao.getTotalRoomCountByCompanyId(company_id);
+
+        int totalPages = (int) Math.ceil((double) totalRooms/size);
+
+        roomPageDto.setRoomDataPage(roomDataPage);
+        roomPageDto.setCurrentPage(page);
+        roomPageDto.setTotalPages(totalPages);
+
+        return roomPageDto;
         }
 
         
+    
+
+    public List<DetailPageDto> getAllRoomsByCompanyId(String company_id) {
+        return detailPageDao.getAllRoomsByCompanyId(company_id);
     }
     
+
 
 }
