@@ -28,7 +28,7 @@ public class StudycafeService {
     public DetailPageDto getStudyRoomByRoomName(String room_name) {
         return detailPageDao.getStudyRoomByRoomName(room_name);
     }
-
+    
     public String getOpenTimeByStudyRoom(String room_name) {
         return detailPageDao.getOpenTimeByStudyRoom(room_name);
     }

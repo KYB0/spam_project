@@ -67,4 +67,5 @@ public class MainController {
         log.info("res 페이지");
         return "res";
     }
+    
 }
