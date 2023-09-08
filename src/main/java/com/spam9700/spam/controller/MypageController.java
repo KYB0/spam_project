@@ -149,45 +149,6 @@ public class MypageController {
         return "companyResign";
     }
 
-    @GetMapping("/i_mypage/review")
-    public String reviewfrm(Model model, HttpSession session) {
-
-        Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
-
-        if (loggedIn != null && loggedIn) {
-            //로그인 상태인 경우 리뷰 작성폼으로 이동
-            log.info("이용 후기 페이지");
-            return "review";
-        } else {
-            //로그인되지 않은 경우 로그인 페이지로 리다이렉트 또는 에러 처리
-            return "redirect:member/i_login";
-        }
-    }
-
-    @PostMapping("/i_mypage/review")
-    public String review(ReviewDto reviewDto,
-                         Model model, HttpSession session) {
-        log.info("이용후기 작성란");
-        
-        //세션에서 customer_id 가져오기
-        String customer_id = (String) session.getAttribute("customer_id");
-
-        //ReviewDto에 customer_id 설정
-        reviewDto.setCustomer_id(customer_id);
-
-        // boolean reviewSubmitted = studycafeService.submitReview(reviewDto);/
-
-        try {
-            //리뷰가 성공적으로 저장되었을 경우의 처리
-            return "redirect:/member/i_mypage";
-        } catch (Exception e) {
-            //리뷰 저장에 실패한 경우의 처리
-            model.addAttribute("error", "리뷰 작성이 되지 않았습니다.");
-            return "review";
-        }
-    }
-
-
     @GetMapping("/i_mypage/list")
     public String myListfrm(Model model, HttpSession session) {
         log.info("예약 내역 페이지");
@@ -225,6 +186,12 @@ public class MypageController {
         log.info("reviewList", reviewList);
 
         return "show_review";
+    }
+
+    @GetMapping("/i_mypage/list/like_list")
+    public String likeList() { 
+        log.info("찜 목록 페이지");
+        return "likeList";
     }
 
     @PostMapping("/i_mypage/list/review_list")
