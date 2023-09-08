@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.spam9700.spam.dao.DetailPageDao">
+
     <!-- room_name을 사용하여 스터디 룸 조회 -->
     <select id="getStudyRoomByRoomName" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
-    SELECT * FROM study_room WHERE room_name = #{room_name}
+        SELECT * FROM study_room WHERE room_name = #{room_name}
     </select>
-    
-    <!--room_description을 사용하여 스터디 카페 이용시간 조회  -->
+
+    <!-- room_description을 사용하여 스터디 카페 이용시간 조회 -->
     <select id="getOpenTimeByStudyRoom" parameterType="String" resultType="String">
         SELECT room_description FROM study_room WHERE room_name = #{room_name}
     </select>
 
+    <!-- 모든 스터디 룸 조회 -->
     <select id="getAllRooms" resultType="com.spam9700.spam.dto.DetailPageDto">
         SELECT * FROM study_room;
     </select>
@@ -54,4 +55,15 @@
     <select id="getAllRoomsByCompanyId" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
     SELECT * FROM study_room WHERE company_id = #{company_id}
 </select>
+    <!-- 리뷰 데이터를 review 테이블에 삽입 -->
+    <insert id="reviewInsert">
+        INSERT INTO review (review_content, rating, customer_id, room_id)
+        VALUES (#{review_content}, #{rating}, #{customer_id}, #{room_id});
+    </insert>
+
+    <!-- <insert id="reviewInsert">
+    
+        INSERT INTO rating (rating_value, customer_id, room_id)
+        VALUES (#{rating}, #{customer_id}, #{room_id});
+    </insert> -->
 </mapper>

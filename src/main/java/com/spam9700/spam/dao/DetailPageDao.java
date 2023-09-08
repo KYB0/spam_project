@@ -17,10 +17,9 @@ public interface DetailPageDao {
     String getOpenTimeByStudyRoom(@Param("room_name") String room_name);
 
 
-
     DetailPageDto getRoomById(int room_id);
 
-    List<DetailPageDto> getRoomsByCategory(int category_id);
+    List < DetailPageDto > getRoomsByCategory(int category_id);
 
     List<DetailPageDto> getRoomsByCompany(String company_id);
 

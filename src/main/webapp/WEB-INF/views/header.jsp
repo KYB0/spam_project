@@ -246,7 +246,7 @@
                         <li class="nav-item dropdown">
                             <c:choose>
                                 <c:when test="${not empty sessionScope.customer_id}">
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/member/i_mypage">마이페이지</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/i_mypage">마이페이지</a>
                                 </c:when>
                                 <c:when test="${not empty sessionScope.company_id}">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/c_mypage">마이페이지</a>

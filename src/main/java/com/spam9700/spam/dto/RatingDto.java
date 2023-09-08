@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RatingDto {
     private int rating_id;
-    private int value;
-    private int review_id;
+    private int rating_value;
+    private String customer_id;
+    private int room_id;
 }
