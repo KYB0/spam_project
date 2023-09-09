@@ -39,7 +39,7 @@
     </select>
 
 <!-- getAllQnaBoardWithPaging 쿼리 수정 -->
-<select id="getAllQnaBoardWithPaging" resultType="com.spam9700.spam.dto.QnaBoardDto">
+<select id="getAllQnaBoardWithPaging" parameterType="map" resultType="com.spam9700.spam.dto.QnaBoardDto">
     SELECT
         board_id,
         user_id,
@@ -50,7 +50,7 @@
         board
     ORDER BY
         board_date DESC
-    LIMIT #{pageSize} OFFSET #{pageSize * (page - 1)}
+    LIMIT #{pageSize} OFFSET #{offset}
 </select>
 
 
@@ -80,5 +80,22 @@
         WHERE
             board_id = #{boardId}
     </select>
+
+     <!-- Update an existing QnA board -->
+    <update id="updateQnaBoard">
+        UPDATE board
+        SET
+            board_title = #{board_title},
+            board_content = #{board_content}
+        WHERE
+            board_id = #{board_id}
+    </update>
+    
+    <!-- Delete a QnA board by its ID -->
+    <delete id="deleteQnaBoard">
+        DELETE FROM board
+        WHERE
+            board_id = #{board_id}
+    </delete>
 
 </mapper>

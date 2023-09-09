@@ -47,9 +47,24 @@ public class QnABoardService {
     }
 
     public QnaBoardDto getBoardById(int boardId) {
-log.info("서비스 - 글 상세");
+        log.info("서비스 - 글 상세");
         log.info("getQnaBoardById: {}", boardId);
         return qnaBoardDao.getBoardById(boardId);
+    }
+
+    public List<QnaBoardDto> getAllQnaBoardWithPaging(int pageSize, int offset) {
+        log.info("서비스 - 페이지별 목록 가져오기");
+        return qnaBoardDao.getAllQnaBoardWithPaging(pageSize, offset);
+    }
+
+    public void updateQnaBoard(QnaBoardDto existingBoard) {
+        log.info("서비스 - 글 수정");
+        qnaBoardDao.updateQnaBoard(existingBoard);
+    }
+
+    public void deleteQnaBoard(int boardId) {
+        log.info("서비스 - 글 삭제");
+        qnaBoardDao.deleteQnaBoard(boardId);
     }
 
 }

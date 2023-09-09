@@ -25,8 +25,12 @@ public interface QnaBoardDao {
 
     QnaBoardDto getBoardById(int boardId);
 
-    Page<QnaBoardDto> getAllQnaBoardWithPaging(Pageable pageable);
-
     Page<QnaBoardDto> searchQnaBoard(String keyword, Pageable pageable);
+
+    List<QnaBoardDto> getAllQnaBoardWithPaging(int pageSize, int offset);
+
+    void updateQnaBoard(QnaBoardDto board);
+
+    void deleteQnaBoard(int boardId);
 
 }

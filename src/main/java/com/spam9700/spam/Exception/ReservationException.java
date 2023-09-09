@@ -1,4 +1,4 @@
-package com.spam9700.spam.exception;
+package com.spam9700.spam.Exception;
 
 public class ReservationException extends RuntimeException {
 
