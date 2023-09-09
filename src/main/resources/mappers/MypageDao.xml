@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.MypageDao">
+
+    <insert id="insertReview" parameterType="map">
+        INSERT INTO review (review_content, rating, customer_id, room_id)
+        VALUES (#{review_content},#{rating},#{customer_id},#{room_id});
+    </insert>
+
+   <select id="getReservationListByCustomerId" resultType="com.spam9700.spam.dto.ReservationDto">
+        SELECT * FROM seat_reservations 
+        WHERE customer_id = #{customer_id}
+    </select>
+
+    <select id="getReviewListByCustomerId" resultType="com.spam9700.spam.dto.ReviewDto">
+        SELECT * FROM review
+        WHERE customer_id = #{customer_id}
+    </select>
+
+
+
+</mapper>

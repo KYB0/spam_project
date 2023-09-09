@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!doctype html>
 <html lang="en" data-bs-theme="auto">
 
 <head>
@@ -14,7 +15,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-        </script>
+    </script>
     <link rel="canonical" href="https://getbootstrap.kr/docs/5.3/examples/navbars-offcanvas/">
 
 
@@ -73,6 +74,41 @@
             -webkit-overflow-scrolling: touch;
         }
 
+        .btn-outline-light {
+            --bs-btn-color: #DCE682 !important;
+            --bs-btn-border-color: #f8f9fa !important;
+            --bs-btn-hover-color: #e5ff00 !important;
+            --bs-btn-hover-bg: #000000 !important;
+            --bs-btn-hover-border-color: #f8f9fa !important;
+            --bs-btn-focus-shadow-rgb: 248, 249, 250 !important;
+            --bs-btn-active-color: #000 !important;
+            --bs-btn-active-bg: #f8f9fa !important;
+            --bs-btn-active-border-color: #f8f9fa !important;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+            --bs-btn-disabled-color: #f8f9fa !important;
+            --bs-btn-disabled-bg: transparent !important;
+            --bs-btn-disabled-border-color: #f8f9fa !important;
+            --bs-gradient: none !important;
+        }
+
+        .btn-light {
+            --bs-btn-color: #DCE682 !important;
+            --bs-btn-bg: #322A31 !important;
+            --bs-btn-border-color: #f8f9fa;
+            --bs-btn-hover-color: #e5ff00 !important;
+            --bs-btn-hover-bg: #000000 !important;
+            --bs-btn-hover-border-color: #f8f9fa !important;
+            --bs-btn-focus-shadow-rgb: 248, 249, 250 !important;
+            --bs-btn-active-color: #000 !important;
+            --bs-btn-active-bg: #f8f9fa !important;
+            --bs-btn-active-border-color: #f8f9fa !important;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+            --bs-btn-disabled-color: #f8f9fa !important;
+            --bs-btn-disabled-bg: transparent !important;
+            --bs-btn-disabled-border-color: #f8f9fa !important;
+            --bs-gradient: none !important;
+        }
+
         .btn-bd-primary {
             --bd-violet-bg: #712cf9;
             --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
@@ -119,7 +155,9 @@
     <link href="navbars-offcanvas.css" rel="stylesheet">
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
 
+
 </head>
+
 
 
 <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -151,10 +189,34 @@
             <a class="navbar-brand" href="${pageContext.request.contextPath}/main">SPAM</a>
 
             <div class="d-flex justify-content-end align-items-center">
-                <button class="btn btn-outline-light mx-2 btn-login" type="button"
-                    onclick="location.href='${pageContext.request.contextPath}/member/i_login'">로그인</button>
-                <button class="btn btn-light mx-2 btn-signup" type="button"
-                    onclick="location.href='${pageContext.request.contextPath}/member/joinfrm'">회원가입</button>
+
+                <!-- 로그인 상태 확인 후 표시 여부 결정 -->
+                <c:choose>
+                    <c:when test="${not empty sessionScope.customer_id or not empty sessionScope.company_id}">
+                        <span class="mx-2 text-light">
+                            환영합니다, 
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.customer_id}">
+                                    ${sessionScope.customer_id} 님
+                                </c:when>
+                                <c:otherwise>
+                                    ${sessionScope.company_id} 님
+                                </c:otherwise>
+                            </c:choose>
+                        </span>
+                        <!-- 로그아웃 버튼 -->
+                        <a class="btn btn-outline-light mx-2 btn-logout" type="button"
+                            href="${pageContext.request.contextPath}/member/logout" id="btn-logout">로그아웃</a>
+                    </c:when>
+                    <c:otherwise>
+                        <button class="btn btn-outline-light mx-2 btn-login" type="button"
+                            onclick="location.href='${pageContext.request.contextPath}/member/i_login'">로그인</button>
+                        <button class="btn btn-light mx-2 btn-signup" type="button"
+                            onclick="location.href='${pageContext.request.contextPath}/member/joinfrm'">회원가입</button>
+                    </c:otherwise>
+                </c:choose>
+
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasNavbarDark" aria-controls="offcanvasNavbarDark"
                     aria-label="Toggle navigation">
@@ -170,6 +232,7 @@
                         aria-label="Close"></button>
 
                 </div>
+
                 <div class="offcanvas-body">
 
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -181,8 +244,17 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/search">독서실 검색</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link " href="${pageContext.request.contextPath}/member/i_mypage"
-                                onclick="return checkLogin()">마이페이지</a>
+                            <c:choose>
+                                <c:when test="${not empty sessionScope.customer_id}">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/i_mypage">마이페이지</a>
+                                </c:when>
+                                <c:when test="${not empty sessionScope.company_id}">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/c_mypage">마이페이지</a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/member/i_login" onclick="loginAlert()">마이페이지</a>
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link " href="${pageContext.request.contextPath}/qna_list">Q&A</a>
@@ -204,21 +276,11 @@
 </main>
 <script src="js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
-
-        function checkLogin() {
-            // 여기에 로그인 상태를 확인하는 코드를 작성합니다.
-            // 예를 들어, 로그인된 사용자인지 확인하는 조건문을 사용하면 됩니다.
-            // 이 예제에서는 사용자가 로그인하지 않은 것으로 가정하고 경고 창을 표시합니다.
-
-            var isLoggedIn = false; // 사용자가 로그인한 상태인지 여부를 판단하는 변수
-
-            if (!isLoggedIn) {
-                // 사용자가 로그인하지 않은 경우 경고 창을 표시합니다.
-                alert("로그인이 필요합니다.");
-                return false; // 링크를 클릭하여 페이지로 이동하지 않도록 false를 반환합니다.
-            }
-
-            // 사용자가 로그인한 경우에는 해당 페이지로 이동합니다.
-            return true;
-        }
-    </script>
+</script>
+<script>
+    function loginAlert() {
+        alert("로그인 후 이용 가능한 서비스입니다.");
+        window.location.href = "${pageContext.request.contextPath}/member/i_login";
+        return false;
+    }
+</script>

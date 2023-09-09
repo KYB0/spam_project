@@ -1,6 +1,5 @@
-﻿package com.spam9700.spam.dto;
+package com.spam9700.spam.dto;
 
-import java.time.LocalDate;
 
 import lombok.Data;
 

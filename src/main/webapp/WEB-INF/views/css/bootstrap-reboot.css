@@ -366,6 +366,10 @@ samp {
 
 pre {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  display: block;
+>>>>>>> lghh
   margin-top: 0;
   margin-bottom: 1rem;
   overflow: auto;
@@ -396,10 +400,17 @@ kbd {
 kbd kbd {
   padding: 0;
   font-size: 1em;
+<<<<<<< HEAD
 >>>>>>> seolha
 }
 
 figure {
+=======
+}
+
+figure {
+  margin: 0 0 1rem;
+>>>>>>> lghh
 }
 
 img,
@@ -444,11 +455,20 @@ button {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
 
 input,
+=======
+button:focus:not(:focus-visible) {
+  outline: 0;
+}
+
+input,
+button,
+>>>>>>> lghh
 select,
 optgroup,
 textarea {
@@ -460,6 +480,7 @@ textarea {
 
 button,
 <<<<<<< HEAD
+<<<<<<< HEAD
 input {
   overflow: visible;
 }
@@ -467,10 +488,13 @@ input {
 button,
 =======
 >>>>>>> seolha
+=======
+>>>>>>> lghh
 select {
   text-transform: none;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 button,
 html [type="button"],
@@ -484,6 +508,8 @@ button::-moz-focus-inner,
 [type="reset"]::-moz-focus-inner,
 [type="submit"]::-moz-focus-inner {
 =======
+=======
+>>>>>>> lghh
 [role=button] {
   cursor: pointer;
 }
@@ -513,11 +539,15 @@ button:not(:disabled),
 }
 
 ::-moz-focus-inner {
+<<<<<<< HEAD
 >>>>>>> seolha
+=======
+>>>>>>> lghh
   padding: 0;
   border-style: none;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 input[type="radio"],
 input[type="checkbox"] {
@@ -537,6 +567,9 @@ textarea {
 =======
 textarea {
 >>>>>>> seolha
+=======
+textarea {
+>>>>>>> lghh
   resize: vertical;
 }
 
@@ -548,6 +581,7 @@ fieldset {
 }
 
 legend {
+<<<<<<< HEAD
 <<<<<<< HEAD
   display: block;
   width: 100%;
@@ -578,6 +612,8 @@ progress {
 [type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 =======
+=======
+>>>>>>> lghh
   float: left;
   width: 100%;
   padding: 0;
@@ -627,7 +663,10 @@ legend + * {
 
 ::-webkit-color-swatch-wrapper {
   padding: 0;
+<<<<<<< HEAD
 >>>>>>> seolha
+=======
+>>>>>>> lghh
 }
 
 ::-webkit-file-upload-button {
@@ -636,29 +675,42 @@ legend + * {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> lghh
 ::file-selector-button {
   font: inherit;
   -webkit-appearance: button;
 }
 
+<<<<<<< HEAD
 >>>>>>> seolha
+=======
+>>>>>>> lghh
 output {
   display: inline-block;
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> lghh
 iframe {
   border: 0;
 }
 
+<<<<<<< HEAD
 >>>>>>> seolha
+=======
+>>>>>>> lghh
 summary {
   display: list-item;
   cursor: pointer;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 template {
   display: none;
@@ -666,13 +718,21 @@ template {
 progress {
   vertical-align: baseline;
 >>>>>>> seolha
+=======
+progress {
+  vertical-align: baseline;
+>>>>>>> lghh
 }
 
 [hidden] {
   display: none !important;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> seolha
+=======
+
+>>>>>>> lghh
 /*# sourceMappingURL=bootstrap-reboot.css.map */
