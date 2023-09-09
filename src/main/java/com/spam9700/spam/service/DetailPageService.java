@@ -51,6 +51,10 @@ public class DetailPageService {
         return detailPageDao.reviewInsert(reviewDto);
     }
 
+    public List<DetailPageDto> getRoomsByName(String room_name) {
+        return detailPageDao.getRoomsByName(room_name);
+    }
+
  
 
 }

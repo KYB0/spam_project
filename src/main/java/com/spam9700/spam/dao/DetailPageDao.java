@@ -51,6 +51,8 @@ public interface DetailPageDao {
 
     int getTotalRoomsCount(String company_id);
 
+    List<DetailPageDto> getRoomsByName(String room_name);
+
 
 
 }

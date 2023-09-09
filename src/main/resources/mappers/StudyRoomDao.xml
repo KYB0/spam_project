@@ -17,6 +17,10 @@
         SELECT * FROM study_room;
     </select>
 
+    <select id="getRoomsByName" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE room_name = #{room_name}
+    </select>
+
     <!-- CompanyMemberDto에서 company_id를 가져오는 SQL -->
     <select id="getCompanyIdFromCompanyMember" resultType="DetailPageDto">
         SELECT * FROM company_member WHERE company_id = #{company_id}
