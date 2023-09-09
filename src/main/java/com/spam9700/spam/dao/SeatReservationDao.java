@@ -9,7 +9,7 @@ import com.spam9700.spam.dto.SeatReservationDto;
 @Mapper
 public interface SeatReservationDao {
 
-    // List<SeatReservationDto> getAllSeatReservations();
+    List<SeatReservationDto> getAllSeatReservations();
 
     void createSeatReservation(SeatReservationDto seatReservationDto);
 

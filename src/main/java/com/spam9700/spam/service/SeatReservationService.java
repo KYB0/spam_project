@@ -22,9 +22,9 @@ public class SeatReservationService {
     }
 
     // 모든 좌석 예약 목록 조회
-    // public List<SeatReservationDto> getAllSeatReservations() {
-    //     return seatReservationDao.getAllSeatReservations();
-    // }
+    public List<SeatReservationDto> getAllSeatReservations() {
+        return seatReservationDao.getAllSeatReservations();
+    }
 
     // 좌석 예약 생성
     public void createSeatReservation(SeatReservationDto seatReservationDto) {

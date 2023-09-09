@@ -25,13 +25,13 @@ public class SeatReservationController {
     }
 
     // 좌석 예약 목록 조회
-    // @GetMapping("/")
-    // public String listSeatReservations(Model model) {
-    //     List<SeatReservationDto> seatReservations = seatReservationService.getAllSeatReservations();
-    //     model.addAttribute("seatReservations", seatReservations);
-    //     log.info("seatReservations:{}", seatReservations);
-    //     return "seat-list"; // 뷰 이름 반환 (templates/seat_reservation/list.jsp와 연결됨)
-    // }
+    @GetMapping("/ls")
+    public String listSeatReservations(Model model) {
+        List<SeatReservationDto> seatReservations = seatReservationService.getAllSeatReservations();
+        model.addAttribute("seatReservations", seatReservations);
+        log.info("seatReservations:{}", seatReservations);
+        return "seat-list"; // 뷰 이름 반환 (templates/seat_reservation/list.jsp와 연결됨)
+    }
 
     // 좌석 예약 페이지로 이동
     @GetMapping("/reserve")
