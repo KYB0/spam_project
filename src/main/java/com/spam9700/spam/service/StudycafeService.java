@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spam9700.spam.dao.DetailPageDao;
 import com.spam9700.spam.dao.MypageDao;
@@ -27,6 +28,8 @@ public class StudycafeService {
 
     @Autowired
     private DetailPageDao detailPageDao;
+
+    @Autowired
     private SeatDao seatDao;
     
 
@@ -87,24 +90,24 @@ public class StudycafeService {
         return detailPageDao.getTotalRoomsCount(company_id);
     }
 
+     //좌석 등록
+    public void saveSelectedSeats(int room_id, String seat_number) {
+        seatDao.saveSelectedSeats(room_id, seat_number);
+    }
 
-    //기업고객 좌석 등록
+    //전체 좌석 조회
     public List<SeatDto> getAllSeats() {
         return seatDao.getAllSeats();
     }
-    //기업고객 좌석 등록    
-    public void insertSeats(int roomId, List<String> selectedSeats) {
-       // room_id와 선택한 좌석 정보를 이용하여 DB에 삽입
-    List<SeatDto> seatDtos = new ArrayList<>();
-    for (String seatNumber : selectedSeats) {
-        SeatDto seatDto = new SeatDto();
-        seatDto.setRoom_id(roomId);
-        seatDto.setSeat_number(seatNumber);
-        seatDtos.add(seatDto);
+
+    //새로운 데이터 저장 후 이전 데이터 삭제
+    @Transactional
+    public void deletePreviousSeatsByRoomId(int room_id) {
+        seatDao.deletePreviousSeatsByRoomId(room_id);
     }
-    seatDao.insertSeats(seatDtos);
-    }
-    
+
+
+
 
 
 }

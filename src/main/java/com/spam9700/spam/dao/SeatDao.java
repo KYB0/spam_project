@@ -10,5 +10,6 @@ import com.spam9700.spam.dto.SeatDto;
 public interface SeatDao {
     
     List<SeatDto> getAllSeats();
-    void insertSeats(List<SeatDto> seatDtos);
+    void saveSelectedSeats(int room_id, String  seat_number);
+    void deletePreviousSeatsByRoomId(int room_id);
 }

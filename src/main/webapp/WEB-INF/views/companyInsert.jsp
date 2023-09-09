@@ -201,10 +201,10 @@
         }
 
         .panel .panel-body .table tbody .action-list li a:hover {
-            text-shadow: 3px 3px 0 rgba(255, 255, 255, 0.3);
+            text-shadow: 3px 3px 0 #E6E6FA;
         }
 
-        .panel .panel-body .table tbody .action-list li a:before,
+        /* .panel .panel-body .table tbody .action-list li a:before,
         .panel .panel-body .table tbody .action-list li a:after {
             content: attr(data-tip);
             color: #fff;
@@ -219,9 +219,9 @@
             left: 50%;
             top: -32px;
             transition: all 0.3s ease 0s;
-        }
+        } */
 
-        .panel .panel-body .table tbody .action-list li a:after {
+        /* .panel .panel-body .table tbody .action-list li a:after {
             content: '';
             height: 15px;
             width: 15px;
@@ -230,7 +230,7 @@
             transform: translateX(-50%) rotate(45deg);
             top: -18px;
             z-index: -1;
-        }
+        } */
 
         .panel .panel-body .table tbody .action-list li a:hover:before,
         .panel .panel-body .table tbody .action-list li a:hover:after {
@@ -355,7 +355,7 @@
                                         <td>${room.region}</td>
                                         <td>
                                             <ul class="action-list">
-                                                <li><a href="/spam/c_mypage/seatInsert" data-tip="좌석 등록">좌석 등록</a></li>
+                                                <li><a href="/spam/c_mypage/seatInsert?room_id=${room.room_id}" data-tip="좌석 등록">좌석 등록</a></li>
                                             </ul>
                                         </td>
                                     </tr>

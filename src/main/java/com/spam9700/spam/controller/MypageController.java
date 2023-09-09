@@ -145,19 +145,39 @@ public class MypageController {
     }
 
     @GetMapping("/c_mypage/seatInsert")
-        public String seatInsert(Model model){
-            List<SeatDto> seatsIn = studycafeService.getAllSeats();
-            model.addAttribute("seatsIn", seatsIn);
+        public String seatInsert(Model model, @RequestParam("room_id") int room_id){
+            //room_id를 이용해 해당 방 정보를 가져옴
+            SeatDto seatDto = new SeatDto();
+            seatDto.setRoom_id(room_id);
+            log.info("room_id : "+room_id);
+           
+            List<SeatDto> seatsData = studycafeService.getAllSeats();
+            //좌석 등록 페이지로 해당 방 정보 전달
+            model.addAttribute("seatDto", seatDto);
+
             return "seatChoice";
         }
 
+     
         @PostMapping("/c_mypage/seatInsert")
-        public String insertSeats(@RequestParam("room_id") int roomId, @RequestParam("selectedSeats") List<String> selectedSeats){
-            // 선택한 좌석 정보를 DB에 삽입
-            studycafeService.insertSeats(roomId, selectedSeats);
-             // 리디렉션 URL 설정
-    String redirectUrl = "/c_mypage/insert";
-    return "redirect:" + redirectUrl;
+        public String insertSeats(@ModelAttribute("seatDto") SeatDto seatDto, Model model){
+            // seatDto에서 seat_number 값을 가져옵니다.
+            String seat_number = seatDto.getSeat_number();
+
+            // room_id 값을 가져오기 위해 이전 페이지에서 전달된 seatDto를 사용합니다.
+            int room_id = seatDto.getRoom_id();
+
+             // 이전에 저장된 해당 room_id의 데이터를 모두 삭제합니다.
+             studycafeService.deletePreviousSeatsByRoomId(room_id);
+             log.info("delete room_id : "+room_id);
+           
+            //room_id와 seat_number 정보를 이용하여 좌석 정보를 DB에 저장
+            studycafeService.saveSelectedSeats(room_id, seat_number);
+            log.info("save room_id : "+room_id);
+
+          
+             
+          return "redirect:/c_mypage/insert" ;
         }
     
 

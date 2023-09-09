@@ -202,8 +202,9 @@ body{
 <body>
     <%@ include file="header.jsp" %>
     <section id="s_container">
-        <form id="seatForm" action="/c_mypage/seatInsert" method="POST">
-            <input type="hidden" name="selectedSeats" id="selectedSeatsInput">
+        <form id="seatForm" action="/spam/c_mypage/seatInsert" method="POST">
+            <input type="hidden" name="seat_number" id="selectedSeatsInput">
+            <input type="hidden" name="room_id" value="<%= request.getParameter("room_id") %>">
         </form>
         <div class="seat_contaner">
             <label for="movie">
@@ -284,30 +285,47 @@ body{
                 <span class="s_seat">47</span>
                 <span class="s_seat">48</span>
             </div>
-            <tbody>
-                <c:forEach items="${seatsIn}" var="seat">
-                    <tr>
-                        <td>${seat.seat_id}</td>
-                        <td>${seat.room_id}</td>
-                        <td>${seat.seat_number}</td>
-                        <td>${seat.is_reserved}</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
         </div>
         <br>
         <div class="sbutton-container">
-            <a href="#" class="myChooseButton">선택완료</a>
+            <input type="submit" class="myChooseButton" value="선택완료" form="seatForm">
         </div>
     </section>
     <%@ include file="footer.jsp" %>
 </body>
 <script>
    document.addEventListener("DOMContentLoaded", function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const room_id = urlParams.get("room_id");
+    const submitButton = document.querySelector(".myChooseButton");
     const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
     const selectedSeats = []; // 선택된 좌석을 저장하는 배열
     const selectedSeatsInput = document.getElementById("selectedSeatsInput"); // hidden input 요소
 
+    // 이전에 선택한 좌석 정보를 로컬 스토리지에서 가져와서 화면에 반영
+    const selectedSeatsFromStorage = localStorage.getItem(`selectedSeats_${room_id}`);
+    if (selectedSeatsFromStorage) {
+        const selectedSeatsArray = selectedSeatsFromStorage.split(",");
+        selectedSeatsArray.forEach(seatNumber => {
+            const seat = document.querySelector(`.s_seat:nth-child(${seatNumber})`);
+            if (seat && !seat.classList.contains("occupiedSeat")) {
+                seat.classList.add("selectedSeat");
+            }
+        });
+    }
+
+    // 이전에 색이 바뀐 좌석 정보를 로컬 스토리지에서 가져와서 화면에 반영
+    const coloredSeatsFromStorage = localStorage.getItem(`coloredSeats_${room_id}`);
+    if (coloredSeatsFromStorage) {
+        const coloredSeatsArray = coloredSeatsFromStorage.split(",");
+        coloredSeatsArray.forEach(seatNumber => {
+            const seat = document.querySelector(`.s_seat:nth-child(${seatNumber})`);
+            if (seat && !seat.classList.contains("occupiedSeat")) {
+                seat.style.backgroundColor = "#6feaf6"; // 원하는 색상으로 변경
+            }
+        });
+    }
+    
     seats.forEach((s_seat) => {
         s_seat.addEventListener("click", function () {
             if (!s_seat.classList.contains("occupiedSeat")) {
@@ -324,22 +342,46 @@ body{
                     selectedSeats.push(s_seat.textContent);
                 }
                 // 선택된 좌석 목록 업데이트
-                const selectedSeatsDiv = document.getElementById("selectedSeats");
+                const selectedSeats = Array.from(document.querySelectorAll(".selectedSeat")).map(seat => seat.textContent);
+                const selectedSeatsDiv = document.getElementById("seat_number");
                 selectedSeatsDiv.textContent = `선택한 자리: ${selectedSeats.join(", ")}`;
                 
                 // hidden input에 선택된 좌석 정보 설정
                 selectedSeatsInput.value = selectedSeats.join(","); 
+
+                // 선택한 좌석 정보를 로컬 스토리지에 저장
+                localStorage.setItem(`selectedSeats_${room_id}`, selectedSeatsArray.map(seat => Array.from(seats).indexOf(seat) + 1).join(","));
+
+                // 좌석 색상 정보를 로컬 스토리지에 저장
+                localStorage.setItem(`coloredSeats_${room_id}`, selectedSeatsArray.map(seat => Array.from(seats).indexOf(seat) + 1).join(","));
             }
         });
     });
+// 양식 제출 버튼을 클릭했을 때
+submitButton.addEventListener("click", function () {
+        // 선택된 좌석 정보를 form의 hidden input에 할당
+        selectedSeatsInput.value = Array.from(seats)
+            .filter(seat => seat.classList.contains("selectedSeat"))
+            .map(seat => Array.from(seats).indexOf(seat) + 1)
+            .join(",");
 
-    // "선택완료" 버튼 클릭 시 폼 제출
-    const chooseButton = document.querySelector(".myChooseButton");
-    chooseButton.addEventListener("click", function () {
-        const seatForm = document.getElementById("seatForm");
-        seatForm.submit(); // 폼 제출
+        
+        // room_id도 양식에 추가
+        const room_id_input = document.createElement("input");
+        room_id_input.type = "hidden";
+        room_id_input.name = "room_id";
+        room_id_input.value = room_id;
+        seatForm.appendChild(room_id_input);
+
+        // form을 제출
+        seatForm.submit();
     });
+    
+
+    
 });
+
+
 
 
 

@@ -27,22 +27,6 @@
         VALUES (#{company_id}, #{room_name}, #{room_description}, #{time_price}, #{day_price}, #{region})
     </insert>
 
-    <!-- 좌석 등록  : 해당 room_id의 좌석 정보 가져오기-->
-    <select id="getSeatsByRoomId" resultType="com.spam9700.spam.dto.SeatDto">
-        SELECT *
-        FROM study_room
-        WHERE room_id = #{room_id}
-    </select>
-
-    <!-- 좌석 정보 삽입하기 -->
-    <insert id="insertSeats" parameterType="java.util.List">
-    INSERT INTO seats (room_id, seat_number)
-    VALUES
-    <foreach collection="list" item="seat" separator=",">
-        (#{seat.room_id}, #{seat.seat_number})
-    </foreach>
-</insert>
-
     <!-- 페이징을 적용한 독서실 목록 조회 -->
     <select id="getPaginatedRooms" parameterType="map" resultType="com.spam9700.spam.dto.DetailPageDto">
         select * from study_room WHERE company_id = #{company_id} LIMIT #{startIdx}, #{pageSize}
@@ -74,4 +58,6 @@
         INSERT INTO rating (rating_value, customer_id, room_id)
         VALUES (#{rating}, #{customer_id}, #{room_id});
     </insert> -->
+
+
 </mapper>
