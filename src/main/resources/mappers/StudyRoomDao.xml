@@ -27,34 +27,26 @@
         VALUES (#{company_id}, #{room_name}, #{room_description}, #{time_price}, #{day_price}, #{region})
     </insert>
 
-    <select id="getSeatsByRoomId" resultType="com.spam9700.spam.dto.SeatDto">
-        SELECT *
-        FROM study_room
-        WHERE room_id = #{room_id}
+    <!-- 페이징을 적용한 독서실 목록 조회 -->
+    <select id="getPaginatedRooms" parameterType="map" resultType="com.spam9700.spam.dto.DetailPageDto">
+        select * from study_room WHERE company_id = #{company_id} LIMIT #{startIdx}, #{pageSize}
     </select>
 
-    <insert id="insertSeat" parameterType="com.spam9700.spam.dto.SeatDto">
-        INSERT INTO seats (room_id, seat_number, is_reserved)
-        VALUES (#{room_id}, #{seat_number}, #{is_reserved})
-    </insert>
-
-    <!-- 페이징을 적용한 독서실 목록 조회
-    <select id="getRoomsByPage" parameterType="map" resultType="com.spam9700.spam.dto.DetailPageDto">
-        select * from study_room WHERE company_id = #{company_id} LIMIT #{offset}, #{limit}
-    </select> -->
-
     <!-- 전체 독서실 개수 조회 -->
-    <select id="getTotalRoomCountByCompanyId" resultType="int">
+    <select id="getTotalRoomsCount"  parameterType="String" resultType="int">
         select count(*) from study_room WHERE company_id = #{company_id}
     </select>
 
-    <select id="getRoomsByCompanyId" parameterType="map" resultType="com.spam9700.spam.dto.RoomPageDto">
-        SELECT * from study_room WHERE company_id = #{company_id} LIMIT #{offset}, #{size}
+    <select id="getRoomsByCompanyId" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * from study_room WHERE company_id = #{company_id}
     </select>
 
     <select id="getAllRoomsByCompanyId" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
     SELECT * FROM study_room WHERE company_id = #{company_id}
 </select>
+
+  
+
     <!-- 리뷰 데이터를 review 테이블에 삽입 -->
     <insert id="reviewInsert">
         INSERT INTO review (review_content, rating, customer_id, room_id)
@@ -66,4 +58,6 @@
         INSERT INTO rating (rating_value, customer_id, room_id)
         VALUES (#{rating}, #{customer_id}, #{room_id});
     </insert> -->
+
+
 </mapper>

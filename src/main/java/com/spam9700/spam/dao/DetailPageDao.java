@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
+import com.spam9700.spam.dto.RoomPageDto;
 
 @Mapper
 public interface DetailPageDao {
@@ -40,11 +41,15 @@ public interface DetailPageDao {
     List<DetailPageDto> getRoomsByPage(int offset, int limit);
     int getTotalRoomCount();
 
-    List<DetailPageDto> getRoomsByCompanyId(@Param("company_id") String company_id, @Param("offset") int offset, @Param("size") int size);
+    List<DetailPageDto> getRoomsByCompanyId(@Param("company_id") String company_id, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
     int getTotalRoomCountByCompanyId(String company_id);
 
     List<DetailPageDto> getAllRoomsByCompanyId(String company_id);
+
+    List<DetailPageDto> getPaginatedRooms(int startIdx, int pageSize, String company_id);
+
+    int getTotalRoomsCount(String company_id);
 
 
 
