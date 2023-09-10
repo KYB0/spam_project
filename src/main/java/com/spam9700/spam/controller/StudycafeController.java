@@ -13,11 +13,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReviewDto;
+import com.spam9700.spam.dto.WishListDto;
 import com.spam9700.spam.service.DetailPageService;
+import com.spam9700.spam.service.WishListService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -28,15 +34,31 @@ public class StudycafeController {
     @Autowired
     private DetailPageService detailPageService;
 
-    @GetMapping("/{room_name}")
-    public String detailPage(@PathVariable("room_name") String room_name, Model model){
-        DetailPageDto roomDetail = detailPageService.getStudyRoomByRoomName(room_name);
+    @Autowired
+    private WishListService wishListService;
 
+    @GetMapping("/{room_name}")
+    public String detailPage(HttpSession session, @PathVariable("room_name") String room_name, Model model){
+        String customer_id = (String)session.getAttribute("customer_id");
+        DetailPageDto detailPageDto = detailPageService.getCustomerIdByName(customer_id);
+        session.setAttribute("detailPageDto", detailPageDto);
+        model.addAttribute("detailPageDto", detailPageDto);
+        
+
+        DetailPageDto roomDetail = detailPageService.getStudyRoomByRoomName(room_name);
+        WishListDto  roomIdWish = wishListService.getRoomIdByRoomName(room_name);
+       int room_id = roomIdWish.getRoom_id();
         List<DetailPageDto> rnData = detailPageService.getRoomsByName(room_name);
-          for(DetailPageDto rnd : rnData){
-            System.out.println(rnd);
+        List<WishListDto> riWish = detailPageService.getRIdByRoomName(room_name);
+
+          for(WishListDto riw : riWish){
+            System.out.println(riw);
         } //rnData 데이터값이 전달되는지 확인
+        
+        model.addAttribute("riWish", riWish);
         model.addAttribute("rnData", rnData);
+        model.addAttribute("room_id", room_id);
+        
 
         if (roomDetail != null) {
             // 해당 방이 존재하는 경우
@@ -51,21 +73,31 @@ public class StudycafeController {
         }
 }
 
-
-    @PostMapping("/{room_name}/review")
-    @Transactional
-    public ResponseEntity < Object > review(@PathVariable("room_name") String room_name, @RequestBody ReviewDto reviewDto) {
-
-        boolean result = detailPageService.reviewInsert(reviewDto);
-
-        if (result) {
-            // 리뷰 작성이 성공한 경우
-            return ResponseEntity.ok().body("{\"success\": true}");
-        } else {
-            // 리뷰 작성이 실패한 경우
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"success\":false}");
+    @PostMapping("/wishList/{room_id}")
+    public ResponseEntity<String> toggleFavorite(@RequestParam("room_id") int room_id, HttpSession session, Model model){
+        
+        String customer_id = (String) session.getAttribute("customer_id");
+       
+        List<WishListDto> wlData = wishListService.getIdByRoom(room_id);
+        for(WishListDto wld : wlData){
+            System.out.println("room_id: " + wld);
+            System.out.println("customer_id: " + customer_id);
         }
+        model.addAttribute("wlData", wlData);
+        model.addAttribute("room_id", room_id); // room_id를 모델에 추가
+        
+        if(customer_id == null){
+            return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED);
+        }
+
+        
+
+        wishListService.toggleRoomFavorite(room_id, customer_id);
+        return new ResponseEntity<>("찜하기 상태가 업데이트되었습니다.", HttpStatus.OK);
     }
+
+
+
 }
 
     // @PostMapping("/{room_name}/review")

@@ -4,10 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spam9700.spam.dao.DetailPageDao;
+import com.spam9700.spam.dao.WishListDao;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReviewDto;
+import com.spam9700.spam.dto.WishListDto;
 
 
 
@@ -19,6 +22,12 @@ public class DetailPageService {
     public DetailPageService(DetailPageDao detailPageDao){
         this.detailPageDao = detailPageDao;
     }
+
+    @Autowired
+    public WishListService wishListService;
+    
+    @Autowired
+    public WishListDao wishListDao;
 
     public DetailPageDto getStudyRoomByRoomName(String room_name){
         return detailPageDao.getStudyRoomByRoomName(room_name);
@@ -55,6 +64,34 @@ public class DetailPageService {
         return detailPageDao.getRoomsByName(room_name);
     }
 
- 
+    public DetailPageDto getCustomerIdByName(String customer_id) {
+        return detailPageDao.getCustomerIdByName(customer_id);
+    }
 
+   
+
+    public List<WishListDto> getRIdByRoomName(String room_name) {
+        return detailPageDao.getRIdByRoomName(room_name);
+    }
+
+ 
+    public DetailPageDto getRoomDetailByName(String room_name) {
+        // WishListService를 사용하여 WishListDto 가져오기
+        WishListDto wishListDto = wishListService.getRoomIdByRoomName(room_name);
+
+        // WishListDto를 DetailPageDto로 변환
+        DetailPageDto detailPageDto = new DetailPageDto();
+        // 여기에서 WishListDto의 필드 값을 DetailPageDto의 필드로 복사하거나 매핑해야 합니다.
+
+        detailPageDto.setRoom_id(wishListDto.getRoom_id());
+        detailPageDto.setRoom_name(wishListDto.getRoom_name());
+        // 복사 예제:
+        // detailPageDto.setRoomId(wishListDto.getRoomId());
+        // detailPageDto.setRoomName(wishListDto.getRoomName());
+        // ...
+
+        return detailPageDto;
+    }
+    
+  
 }

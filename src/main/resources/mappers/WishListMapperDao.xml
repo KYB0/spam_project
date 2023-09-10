@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spam9700.spam.dao.WishListDao">
+
+    <!-- room_id 조회 -->
+    
+    <!-- 찜 추가 -->
+    <insert id="insertRoomFavorite" parameterType="com.spam9700.spam.dto.WishListDto">
+        INSERT INTO wishlist (customer_id, room_id) VALUES (#{customer_id}, #{room_id})
+    </insert>
+
+    <!-- 찜 삭제 -->
+    <delete id="deleteRoomFavorite" parameterType="com.spam9700.spam.dto.WishListDto">
+        DELETE FROM wishlist WHERE customer_id = #{customer_id} AND room_id = #{room_id}
+    </delete>
+
+    <!-- 찜 여부 확인 -->
+    <!-- <select id="isRoomInWishList" parameterType="com.spam9700.spam.dto.WishListDto" resultType="int">
+        SELECT COUNT(*) FROM wishlist WHERE customer_id = #{customer_id} AND room_id = #{room_id}
+    </select> -->
+
+        <select id="getIdByRoom" parameterType="int" resultType="com.spam9700.spam.dto.WishListDto">
+        SELECT room_id FROM study_room WHERE room_name = #{room_name}
+        </select>
+
+        
+
+    <select id="isRoomFavorited" parameterType="map" resultType="boolean">
+    SELECT COUNT(*) FROM wishlist
+    WHERE room_id = #{room_id} AND customer_id = #{customer_id}
+    </select>
+
+    
+  
+</mapper>

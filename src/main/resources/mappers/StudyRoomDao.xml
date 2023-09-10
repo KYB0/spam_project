@@ -64,4 +64,18 @@
     </insert> -->
 
 
+   <!-- CompanyMemberDto에서 company_id를 가져오는 SQL -->
+    <select id="getCustomerIdByName" resultType="DetailPageDto">
+        SELECT * FROM customer_member WHERE customer_id = #{customer_id}
+    </select>
+
+    <!-- 찜기능 -->
+    <select id="getRIdByRoomName" parameterType="java.lang.String" resultType="com.spam9700.spam.dto.WishListDto">
+    SELECT * FROM study_room WHERE room_name = #{room_name}
+</select>
+
+<select id="getRoomIdByRoomName" parameterType="String" resultType="com.spam9700.spam.dto.WishListDto">
+        SELECT * FROM study_room WHERE room_name = #{room_name}
+        </select>
+    
 </mapper>
