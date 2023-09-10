@@ -1,4 +1,5 @@
-﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+﻿<%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM</title>
     <style>
+        .p-20 {
+            width: 20%;
+        }
+
+        .p-30 {
+            width: 30%;
+        }
+
+        .p-50 {
+            width: 50%;
+        }
+
+        .rtbl-head {
+            background-color: pink;
+            text-align: center;
+            height: 30px;
+        }
+
         .rdetail {
             display: flex;
             flex-direction: column;
@@ -220,27 +239,56 @@
                 </h4> <!-- jquery로 db에서 데이터를 가져온다-->
             </div>
         </div>
+        <h2>평점</h2>
         <div class="star">
-            <h2>평점</h2>
 
-            <form class="mb-3" name="myform" id="myform" method="POST" >
+            <form class="mb-3" name="myform" id="myform" method="POST" action="/spam/{room_name}/review">
                 <fieldset>
-                    <input type="hidden" name="room_id" value="${roomDetail.room_id}">
-                    <span class="text-bold">별점을 선택해주세요</span>
-                    <input type="radio" name="reviewStar" value="5" id="rate1"><label for="rate1">★</label>
-                    <input type="radio" name="reviewStar" value="4" id="rate2"><label for="rate2">★</label>
-                    <input type="radio" name="reviewStar" value="3" id="rate3"><label for="rate3">★</label>
-                    <input type="radio" name="reviewStar" value="2" id="rate4"><label for="rate4">★</label>
-                    <input type="radio" name="reviewStar" value="1" id="rate5"><label for="rate5">★</label>
+                    <div class="star-container" id="star">
+                        <input type="hidden" name="room_id" value="${roomDetail.room_id}">
+                        <input type="hidden" name="customer_id" id="customer_id" value=${customer_id}>
+                        <span class="text-bold">별점을 선택해주세요</span>
+                        <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">★</label>
+                        <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">★</label>
+                        <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">★</label>
+                        <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">★</label>
+                        <input type="radio" name="rating" value="1" id="rate5" checked><label for="rate5">★</label>
+                    </div>
                 </fieldset>
                 <div>
-                    <textarea class="col-auto form-control" type="text" id="reviewContents"
+                    <textarea class="col-auto form-control" name="review_content" type="text" id="reviewContents"
                         placeholder="후기를 남겨주세요."></textarea>
                 </div><br>
                 <div>
                     <button type="submit" id="reviewButton" class="btn btn-primary">평점 남기기</button>
                 </div>
             </form>
+
+            <!-- 리뷰 목록 표시 -->
+            <table style="width: 100%">
+                <!-- 제목 테이블 -->
+                <tr class="rtbl-head">
+                    <td>WRITER</td>
+                    <td>CONTENTS</td>
+                    <td>DATE</td>
+                </tr>
+            </table>
+
+            <table style="width: 100%;" id="rtable">
+                <c:forEach var="ritem" items="${rList}">
+                    <tr>
+                        <td class="p-20">${roomDetail.room_id}</td>
+                        <td class="p-50">${roomDetail.review_content}</td>
+                        <!-- LocalDateTime을 jstl에서 사용하기: pattern에 꼭 'T'추가할것.-->
+                        <td class="p-30">
+                            <fmt:parseDate value="${ritem.r_date}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime"
+                                type="both" />
+                            <fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${parsedDateTime}" />
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+
 
     </section>
     <!-- 예약하기 버튼 -->
@@ -301,48 +349,46 @@
         });
     });
 
-    //리뷰 작성 스크립트
-    $(document).ready(function () {
-        // 리뷰 폼이 제출될 때의 동작을 정의합니다.
-        $("#myform").submit(function (event) {
-            event.preventDefault(); // 기본 폼 제출 동작을 중지합니다.
 
-            // 리뷰 폼에서 입력한 데이터를 가져옵니다.
-            var reviewStar = $("input[name='reviewStar']:checked").val();
-            var reviewContents = $("#reviewContents").val();
+    //리뷰 작성
+    $("#reviewButton").click(function (event) {
+        event.preventDefault(); //기본 동작 방지
 
-            // AJAX 요청을 사용하여 서버에 데이터를 전송합니다.
-            $.ajax({
-                type: "POST",
-                url: "/spam/" + room_name + "/review", // 실제 서버 엔드포인트 경로로 대체해야 합니다.
-                data: JSON.stringify({
-                    reviewStar: reviewStar,
-                    reviewContents: reviewContents
-                }),
-                contentType: "application/json",
-                dataType: "json",
-                success: function (data) {
-                    if (data.success) {
-                        // 성공적으로 서버 응답을 받았을 때의 처리를 여기에 추가합니다.
-                        // 예: 리뷰가 성공적으로 등록되었음을 사용자에게 알리는 메시지 표시
-                        console.log("리뷰 작성 성공");
-                    } else {
-                        // 서버 요청에 실패한 경우에 대한 처리를 여기에 추가합니다.
-                        // 예: 리뷰 작성 실패 메시지 표시 또는 오류 처리
-                        console.log("리뷰 작성 실패");
-                    }
-                },
-                error: function () {
-                    //서버 요청에 실패한 경우에 대한 처리를 여기에 추가
-                    console.error("서버 요청 실패");
+        let rating = $("input[name='rating']:checked").val(); // 선택된 평점 가져오기
+        let review_content = $("#reviewContents").val(); // 리뷰 내용 가져오기
+        let customer_id = $("#customer_id").val();
+        
+        
+        let`reviewData = {
+            rating: rating, //rating 값을 가져오도록 수정
+            review_content: review_content,
+            customer_id: customer_id
+        
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/spam/" + room_name + "/review",
+            // contentType: "application/json",
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            // data: JSON.stringify(reviewData),/
+            data: reviewData,
+            success: function (response) {
+                if (response == "success") {
+                    // 리뷰가 성공적으로 추가되었을 때 처리
+                    // 리뷰 목록을 다시 불러와서 표시
+                    loadReviews();
+                    alert("리뷰가 성공적으로 작성되었습니다.")
+                } else {
+                    //리뷰 작성 실패 처리
+                    alert("리뷰 작성에 실패했습니다.");
                 }
-            });
-        });
-
-        //평점 남기기 버튼에 클릭 이벤트 리스너 추가
-        $("#reviewButton").click(function () {
-            // 리뷰 폼을 서브밋합니다.
-            $("#myform").submit();
+            },
+            error: function (error) {
+                // 에러 처리
+                console.error(error); // 에러 로그 확인
+                alert("서버 오류가 발생했습니다.");
+            }
         });
     });
 </script>
