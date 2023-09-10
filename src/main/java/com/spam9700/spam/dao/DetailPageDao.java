@@ -10,6 +10,7 @@ import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
+import com.spam9700.spam.dto.WishListDto;
 
 @Mapper
 public interface DetailPageDao {
@@ -53,6 +54,11 @@ public interface DetailPageDao {
 
     List<DetailPageDto> getRoomsByName(String room_name);
 
+    DetailPageDto getCustomerIdByName(@Param("customer_id")String customer_id);
 
 
+    
+    //찜기능
+    List<WishListDto> getRIdByRoomName(String room_name);
+    DetailPageDto getRoomIdByRoomName(String room_name);
 }
