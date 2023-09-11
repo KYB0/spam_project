@@ -263,33 +263,11 @@
     <%@ include file="footer.jsp" %>
 </body>
 <script>
-     // 하트(찜하기) 버튼 클릭 이벤트 처리
-     const zzimButton = document.getElementById("zzim-button");
-
-zzimButton.addEventListener("click", function () {
-    var room_id = document.getElementById("room_id").value; // JSP에서 방 정보를 가져옴
-    const zzimImage = document.getElementById("zzim-image");
-
-    // AJAX를 사용하여 서버에 찜하기 상태 업데이트 요청 보냄
-    $.ajax({
-        type: "POST",
-        url: "/spam/wishList/" + room_id,
-        success: function (response) {
-            if (response === "찜하기 상태가 업데이트되었습니다.") {
-                // 성공적으로 업데이트되었을 경우 이미지 변경 및 메시지 표시
-                if (zzimImage.src.endsWith("like_2.png")) {
-                    zzimImage.src = "image/like_1.png";
-                } else {
-                    zzimImage.src = "image/like_2.png";
-                }
-            } else {
-                alert(response); // 실패 메시지 표시
-            }
-        },
-        error: function () {
-            alert("오류 발생"); // 오류 메시지 표시
-        }
-    });
+document.getElementById('zzim-button').addEventListener('click', function () {
+    const room_id = document.getElementById('room_id').value;
+    const form = document.getElementById('zzim-form');
+    form.action = `/spam/wishList/${room_id}`;
+    form.submit();
 });
 
 

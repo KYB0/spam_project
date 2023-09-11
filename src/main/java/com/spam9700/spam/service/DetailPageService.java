@@ -64,34 +64,24 @@ public class DetailPageService {
         return detailPageDao.getRoomsByName(room_name);
     }
 
-    public DetailPageDto getCustomerIdByName(String customer_id) {
-        return detailPageDao.getCustomerIdByName(customer_id);
+
+//찜
+    public boolean isRoomInWishList(WishListDto wishListDto) {
+      // 해당 room_id와 customer_id로 Wishlist 테이블에서 데이터 조회
+        return detailPageDao.isRoomInWishList(wishListDto) != null;
     }
 
-   
-
-    public List<WishListDto> getRIdByRoomName(String room_name) {
-        return detailPageDao.getRIdByRoomName(room_name);
+    public void removeFromWishList(WishListDto wishListDto) {
+        // Wishlist 테이블에서 해당 데이터 삭제
+        detailPageDao.removeFromWishList(wishListDto);
     }
 
- 
-    public DetailPageDto getRoomDetailByName(String room_name) {
-        // WishListService를 사용하여 WishListDto 가져오기
-        WishListDto wishListDto = wishListService.getRoomIdByRoomName(room_name);
-
-        // WishListDto를 DetailPageDto로 변환
-        DetailPageDto detailPageDto = new DetailPageDto();
-        // 여기에서 WishListDto의 필드 값을 DetailPageDto의 필드로 복사하거나 매핑해야 합니다.
-
-        detailPageDto.setRoom_id(wishListDto.getRoom_id());
-        detailPageDto.setRoom_name(wishListDto.getRoom_name());
-        // 복사 예제:
-        // detailPageDto.setRoomId(wishListDto.getRoomId());
-        // detailPageDto.setRoomName(wishListDto.getRoomName());
-        // ...
-
-        return detailPageDto;
+    public void addToWishList(WishListDto wishListDto) {
+         // Wishlist 테이블에 데이터 추가
+         detailPageDao.addToWishList(wishListDto);
     }
-    
+
+
+
   
 }

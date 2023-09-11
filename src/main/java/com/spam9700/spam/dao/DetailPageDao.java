@@ -54,11 +54,13 @@ public interface DetailPageDao {
 
     List<DetailPageDto> getRoomsByName(String room_name);
 
-    DetailPageDto getCustomerIdByName(@Param("customer_id")String customer_id);
 
+ //찜
+    Object isRoomInWishList(WishListDto wishListDto);
+
+    void removeFromWishList(WishListDto wishListDto);
+
+    void addToWishList(WishListDto wishListDto);
 
     
-    //찜기능
-    List<WishListDto> getRIdByRoomName(String room_name);
-    DetailPageDto getRoomIdByRoomName(String room_name);
 }

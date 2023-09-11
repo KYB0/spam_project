@@ -34,36 +34,26 @@ public class StudycafeController {
     @Autowired
     private DetailPageService detailPageService;
 
-    @Autowired
-    private WishListService wishListService;
+
 
     @GetMapping("/{room_name}")
-    public String detailPage(HttpSession session, @PathVariable("room_name") String room_name, Model model){
-        String customer_id = (String)session.getAttribute("customer_id");
-        DetailPageDto detailPageDto = detailPageService.getCustomerIdByName(customer_id);
-        session.setAttribute("detailPageDto", detailPageDto);
-        model.addAttribute("detailPageDto", detailPageDto);
-        
+    public String detailPage(@PathVariable("room_name") String room_name, Model model, HttpSession session) {
 
-        DetailPageDto roomDetail = detailPageService.getStudyRoomByRoomName(room_name);
-        WishListDto  roomIdWish = wishListService.getRoomIdByRoomName(room_name);
-       int room_id = roomIdWish.getRoom_id();
-        List<DetailPageDto> rnData = detailPageService.getRoomsByName(room_name);
-        List<WishListDto> riWish = detailPageService.getRIdByRoomName(room_name);
+        DetailPageDto roomDetail = (DetailPageDto) session.getAttribute("roomDetail"); // 세션에서 가져오기
 
-          for(WishListDto riw : riWish){
-            System.out.println(riw);
-        } //rnData 데이터값이 전달되는지 확인
-        
-        model.addAttribute("riWish", riWish);
-        model.addAttribute("rnData", rnData);
-        model.addAttribute("room_id", room_id);
-        
+    if (roomDetail == null) { // 세션에 데이터가 없는 경우에만 DB에서 가져옴
+        roomDetail = detailPageService.getStudyRoomByRoomName(room_name);
+        session.setAttribute("roomDetail", roomDetail); // 세션에 저장
+    }
+
+    log.info("roomDetail:{}", roomDetail);
 
         if (roomDetail != null) {
             // 해당 방이 존재하는 경우
+            session.setAttribute("room_id", roomDetail.getRoom_id());
+            model.addAttribute("room_id", roomDetail.getRoom_id());
             model.addAttribute("room_name", roomDetail.getRoom_name());
-            model.addAttribute("room_description", roomDetail.getRoom_description());
+
             // 추가 데이터도 필요한 경우 모델에 추가하세요.
             return "detailPage"; // 적절한 뷰 이름을 사용하세요.
         } else {
@@ -71,30 +61,33 @@ public class StudycafeController {
             // 예: 에러 페이지로 리다이렉트 또는 에러 메시지를 표시하도록 수정하세요.
             return "redirect:/member/i_login"; // 에러 페이지로 리다이렉트
         }
-}
+    }
 
     @PostMapping("/wishList/{room_id}")
-    public ResponseEntity<String> toggleFavorite(@RequestParam("room_id") int room_id, HttpSession session, Model model){
+    @ResponseBody
+    public String addToWishList(@PathVariable("room_id") int room_id, HttpSession session){
+       String customer_id =  (String)  session.getAttribute("customer_id");
+       if (customer_id != null && !customer_id.isEmpty()) {
+        // WishlistDto 객체를 생성하여 해당 room_id와 customer_id를 설정합니다.
+        WishListDto wishListDto = new WishListDto();
+        wishListDto.setRoom_id(room_id);
+        wishListDto.setCustomer_id(customer_id);
         
-        String customer_id = (String) session.getAttribute("customer_id");
-       
-        List<WishListDto> wlData = wishListService.getIdByRoom(room_id);
-        for(WishListDto wld : wlData){
-            System.out.println("room_id: " + wld);
-            System.out.println("customer_id: " + customer_id);
+        // 이미 찜한 경우, DB에서 삭제
+        if (detailPageService.isRoomInWishList(wishListDto)) {
+            detailPageService.removeFromWishList(wishListDto);
+            return "찜이 해제되었습니다.";
+        } else {
+            // 찜하지 않은 경우, DB에 추가
+            detailPageService.addToWishList(wishListDto);
+            return "찜이 추가되었습니다.";
         }
-        model.addAttribute("wlData", wlData);
-        model.addAttribute("room_id", room_id); // room_id를 모델에 추가
-        
-        if(customer_id == null){
-            return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED);
-        }
-
-        
-
-        wishListService.toggleRoomFavorite(room_id, customer_id);
-        return new ResponseEntity<>("찜하기 상태가 업데이트되었습니다.", HttpStatus.OK);
+    } else {
+        return "로그인 후 이용해주세요.";
     }
+    }
+
+
 
 
 
