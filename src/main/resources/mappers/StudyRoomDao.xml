@@ -44,7 +44,7 @@
 
     <select id="getAllRoomsByCompanyId" parameterType="String" resultType="com.spam9700.spam.dto.DetailPageDto">
     SELECT * FROM study_room WHERE company_id = #{company_id}
-</select>
+    </select>
 
   
 
@@ -61,7 +61,6 @@
     </insert> -->
 
 
-</mapper>
     <!-- 지역별 독서실 검색 -->
     <select id="getRoomsByRegion" resultType="com.spam9700.spam.dto.DetailPageDto">
         SELECT * FROM study_room WHERE region = #{region};
@@ -75,5 +74,17 @@
     <!-- 지역과 키워드를 모두 고려한 독서실 검색 -->
     <select id="getRoomsByRegionAndKeyword" resultType="com.spam9700.spam.dto.DetailPageDto">
         SELECT * FROM study_room WHERE region = #{region} AND room_name LIKE CONCAT('%', #{keyword}, '%');
+    </select>
+
+    <!-- 리뷰 추가 -->
+
+    <insert id="reviewInsert">
+        INSERT INTO review (review_id, review_content, rating, customer_id, room_id)
+        VALUES (#{review_id}, #{review_content}, #{rating}, #{customer_id}, #{room_id})
+    </insert>
+ 
+    <select id="getReviewsByRoomId" resultType="com.spam9700.spam.dto.ReviewDto">
+        SELECT * FROM review 
+        WHERE room_id = #{room_id}
     </select>
 </mapper>

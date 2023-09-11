@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spam9700.spam.dao.MemberDao;
-import com.spam9700.spam.dto.CompanyMemberDto;
 import com.spam9700.spam.dto.CustomerMemberDto;
 
 import lombok.extern.slf4j.Slf4j;

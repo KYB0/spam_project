@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spam9700.spam.dao.DetailPageDao;
 import com.spam9700.spam.dto.DetailPageDto;
@@ -49,7 +50,9 @@ public class DetailPageService {
         return detailPageDao.reviewInsert(reviewDto);
     }
 
- 
+    public List<ReviewDto> getReviewsByRoomId(Integer room_id) {
+        return detailPageDao.getReviewsByRoomId(room_id);
+    }
 
     public List<DetailPageDto> searchRooms(String region, String searchKeyword) {
         return null;

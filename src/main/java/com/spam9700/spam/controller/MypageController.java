@@ -20,6 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.spam9700.spam.dto.CompanyMemberDto;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
@@ -27,7 +30,6 @@ import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.SeatDto;
 import com.spam9700.spam.service.StudycafeService;
 
-import jakarta.mail.Session;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
