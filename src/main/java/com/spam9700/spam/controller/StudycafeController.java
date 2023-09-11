@@ -9,13 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReviewDto;
-=======
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,7 +21,6 @@ import com.spam9700.spam.service.StudycafeService;
 
 import jakarta.servlet.http.HttpSession;
 
->>>>>>> ksk
 import com.spam9700.spam.service.DetailPageService;
 import com.spam9700.spam.dto.DetailPageDto;
 
