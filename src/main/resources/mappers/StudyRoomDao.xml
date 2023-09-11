@@ -61,7 +61,6 @@
     </insert> -->
 
 
-</mapper>
     <!-- 지역별 독서실 검색 -->
     <select id="getRoomsByRegion" resultType="com.spam9700.spam.dto.DetailPageDto">
         SELECT * FROM study_room WHERE region = #{region};
