@@ -1,9 +1,7 @@
 package com.spam9700.spam.controller;
 
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,22 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-import com.spam9700.spam.dto.CompanyMemberDto;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spam9700.spam.dto.DetailPageDto;
+import com.spam9700.spam.dto.QnaBoardDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
-import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.SeatDto;
 import com.spam9700.spam.service.StudycafeService;
 
@@ -240,8 +230,15 @@ public class MypageController {
     }
 
     @GetMapping("i_mypage/myqna")
-    public String qnaList() {
+    public String qnaList(Model model, HttpSession session) {
         log.info("나의 문의 내역 페이지");
+
+        String user_id = (String) session.getAttribute("user_id");
+
+        List<QnaBoardDto> qnaBoardDto = studycafeService.getQnaListByUserId(user_id);
+
+        model.addAttribute("qnaBoardDto", qnaBoardDto);
+
         return "myQna";
     }
 

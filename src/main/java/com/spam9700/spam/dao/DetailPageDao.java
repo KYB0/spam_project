@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.spam9700.spam.dto.DetailPageDto;
+import com.spam9700.spam.dto.QnaBoardDto;
 import com.spam9700.spam.dto.ReviewDto;
-import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.WishListDto;
 
 @Mapper
@@ -69,6 +69,7 @@ public interface DetailPageDao {
     void removeFromWishList(WishListDto wishListDto);
 
     void addToWishList(WishListDto wishListDto);
+
 
     
 }

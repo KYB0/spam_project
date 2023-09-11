@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.spam9700.spam.dto.QnaBoardDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 
@@ -16,6 +17,8 @@ public interface MypageDao {
     List<ReservationDto> getReservationListByCustomerId(String customer_id);
 
     List<ReviewDto> getReviewListByCustomerId(String customer_id);
+
+    List<QnaBoardDto> getQnaListByUserId(String customer_id);
 
     
 

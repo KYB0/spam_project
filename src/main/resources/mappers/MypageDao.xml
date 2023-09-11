@@ -17,6 +17,10 @@
         WHERE customer_id = #{customer_id}
     </select>
 
+    <select id="getQnaListByUserId" resultType="com.spam9700.spam.dto.ReviewDto">
+        SELECT * FROM board
+        WHERE user_id = #{user_id}
+    </select>
 
 
 </mapper>

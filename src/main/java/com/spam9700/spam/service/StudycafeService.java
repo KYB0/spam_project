@@ -14,6 +14,7 @@ import com.spam9700.spam.dao.DetailPageDao;
 import com.spam9700.spam.dao.MypageDao;
 import com.spam9700.spam.dao.SeatDao;
 import com.spam9700.spam.dto.DetailPageDto;
+import com.spam9700.spam.dto.QnaBoardDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
@@ -132,6 +133,13 @@ public class StudycafeService {
     public void deletePreviousSeatsByRoomId(int room_id) {
         seatDao.deletePreviousSeatsByRoomId(room_id);
     }
+
+    public List<QnaBoardDto> getQnaListByUserId(String customer_id) {
+        return mypageDao.getQnaListByUserId(customer_id);
+    }
+
+   
+
 
 
 
