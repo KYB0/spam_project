@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.RatingDto;
@@ -53,27 +54,6 @@ public class StudycafeController {
             return "redirect:/member/i_login"; // 에러 페이지로 리다이렉트
         }
     }
-
-    // //리뷰 
-    // @PostMapping("/{room_name}/addreview")
-    // public ResponseEntity<String> addReview(@PathVariable String room_name, @RequestBody ReviewDto reviewDto) {
-    //     detailPageService.addReview(reviewDto);
-     
-    //     return ResponseEntity.ok("Review added successfully");
-    // }
-
-    // @GetMapping("/{room_name}/list")
-    // public List<ReviewDto> listReviews(ReviewDto reviewDto) {
-    //     return detailPageService.listReviews(reviewDto);
-    // }
-
-    //별점
-    // @PostMapping("/{room_name}/rate")
-    // public ResponseEntity<String> rateProduct(@RequestBody RatingDto ratingDto) {
-    //     detailPageService.rateProduct(ratingDto);
-    //     return ResponseEntity.ok("Rating added successfully");
-    // }
-
 
  
 
@@ -113,4 +93,19 @@ public class StudycafeController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Room not found");
         }
     }
+
+    @GetMapping("/{room_name}/reviews")
+    public ModelAndView getReviews(@PathVariable("room_name") String room_name, Model model, HttpSession session) {
+        ModelAndView mav = new ModelAndView("detailPage");
+        Integer room_id = (Integer) session.getAttribute("room_id");
+
+        if (room_id != null) {
+            List<ReviewDto> reviewList = detailPageService.getReviewsByRoomId(room_id);
+            mav.addObject("reviewList", reviewList);
+        } else {
+            mav.addObject("error", "Room not found");
+        }
+        return mav;
+    }
+   
 }

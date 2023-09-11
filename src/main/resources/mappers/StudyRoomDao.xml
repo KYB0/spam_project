@@ -63,4 +63,8 @@
         VALUES (#{review_id}, #{review_content}, #{rating}, #{customer_id}, #{room_id})
     </insert>
  
+    <select id="getReviewsByRoomId" resultType="com.spam9700.spam.dto.ReviewDto">
+        SELECT * FROM review 
+        WHERE room_id = #{room_id}
+    </select>
 </mapper>

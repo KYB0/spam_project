@@ -52,4 +52,8 @@ public class DetailPageService {
         return detailPageDao.reviewInsert(reviewDto);
     }
 
+    public List<ReviewDto> getReviewsByRoomId(Integer room_id) {
+        return detailPageDao.getReviewsByRoomId(room_id);
+    }
+
   }

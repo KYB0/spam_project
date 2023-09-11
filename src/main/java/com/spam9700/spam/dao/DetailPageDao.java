@@ -39,5 +39,7 @@ public interface DetailPageDao {
 
     boolean reviewInsert(ReviewDto reviewDto);
 
+    List<ReviewDto> getReviewsByRoomId(Integer room_id);
+
 
 }

@@ -359,7 +359,7 @@
         let customer_id = $("#customer_id").val();
         
         
-        let`reviewData = {
+        let reviewData = {
             rating: rating, //rating 값을 가져오도록 수정
             review_content: review_content,
             customer_id: customer_id
@@ -377,10 +377,12 @@
                 if (response == "success") {
                     // 리뷰가 성공적으로 추가되었을 때 처리
                     // 리뷰 목록을 다시 불러와서 표시
-                    loadReviews();
-                    alert("리뷰가 성공적으로 작성되었습니다.")
+                    console.log("성공")
+                    alert("리뷰가 성공적으로 작성되었습니다.");
+                    // loadReviews();
                 } else {
                     //리뷰 작성 실패 처리
+                    console.log("개갓이 실패");
                     alert("리뷰 작성에 실패했습니다.");
                 }
             },
