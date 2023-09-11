@@ -58,14 +58,10 @@ public class StudycafeController {
     @GetMapping("/{room_name}")
     public String detailPage(@PathVariable("room_name") String room_name, Model model, HttpSession session) {
 
-        DetailPageDto roomDetail = (DetailPageDto) session.getAttribute("roomDetail"); // 세션에서 가져오기
-
-    if (roomDetail == null) { // 세션에 데이터가 없는 경우에만 DB에서 가져옴
-        roomDetail = detailPageService.getStudyRoomByRoomName(room_name);
-        session.setAttribute("roomDetail", roomDetail); // 세션에 저장
-    }
-
-    log.info("roomDetail:{}", roomDetail);
+        DetailPageDto roomDetail = detailPageService.getStudyRoomByRoomName(room_name);
+        model.addAttribute("roomDetail", roomDetail);
+        log.info("roomDetail:{}", roomDetail);
+        log.info("roomDetail:{}", roomDetail);
 
         if (roomDetail != null) {
             // 해당 방이 존재하는 경우
@@ -84,25 +80,50 @@ public class StudycafeController {
     @PostMapping("/wishList/{room_id}")
     @ResponseBody
     public String addToWishList(@PathVariable("room_id") int room_id, HttpSession session){
-       String customer_id =  (String)  session.getAttribute("customer_id");
-       if (customer_id != null && !customer_id.isEmpty()) {
-        // WishlistDto 객체를 생성하여 해당 room_id와 customer_id를 설정합니다.
-        WishListDto wishListDto = new WishListDto();
-        wishListDto.setRoom_id(room_id);
-        wishListDto.setCustomer_id(customer_id);
+       // Session에서 customer_id 가져오기
+       String customer_id = (String) session.getAttribute("customer_id");
         
-        // 이미 찜한 경우, DB에서 삭제
-        if (detailPageService.isRoomInWishList(wishListDto)) {
-            detailPageService.removeFromWishList(wishListDto);
-            return "찜이 해제되었습니다.";
-        } else {
-            // 찜하지 않은 경우, DB에 추가
-            detailPageService.addToWishList(wishListDto);
-            return "찜이 추가되었습니다.";
+       // customer_id가 null이면 로그인 안한 상태
+       if (customer_id == null) {
+           return "로그인 후 이용해주세요.";
+       }
+
+       // WishListDto 객체를 생성하여 room_id와 customer_id 설정
+       WishListDto wishListDto = new WishListDto();
+       wishListDto.setRoom_id(room_id);
+       wishListDto.setCustomer_id(customer_id);
+
+       // 이미 찜한 경우, DB에서 삭제
+       if (detailPageService.isRoomInWishList(wishListDto)) {
+           detailPageService.removeFromWishList(wishListDto);
+           return "찜이 해제되었습니다.";
+       } else {
+           // 찜하지 않은 경우, DB에 추가
+           detailPageService.addToWishList(wishListDto);
+           return "찜이 추가되었습니다.";
+       }
+   }
+
+
+    @GetMapping("/checkWishList/{room_id}")
+    @ResponseBody
+    public ResponseEntity<Boolean> checkWishList(@PathVariable("room_id") int room_id, HttpSession session) {
+        String customer_id = (String) session.getAttribute("customer_id");
+
+        if (customer_id != null && !customer_id.isEmpty()) {
+            // WishlistDto 객체를 생성하여 해당 room_id와 customer_id를 설정합니다.
+            WishListDto wishListDto = new WishListDto();
+            wishListDto.setRoom_id(room_id);
+            wishListDto.setCustomer_id(customer_id);
+
+            // 이미 찜한 경우, true를 응답
+            if (detailPageService.isRoomInWishList(wishListDto)) {
+                return ResponseEntity.status(HttpStatus.OK).body(true);
+            }
         }
-    } else {
-        return "로그인 후 이용해주세요.";
-    }
+
+        // 찜하지 않은 경우 또는 로그인하지 않은 경우, false를 응답
+        return ResponseEntity.status(HttpStatus.OK).body(false);
     }
 
 

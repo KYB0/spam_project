@@ -50,19 +50,6 @@
     SELECT * FROM study_room WHERE company_id = #{company_id}
     </select>
 
-  
-
-    <!-- 리뷰 데이터를 review 테이블에 삽입 -->
-    <insert id="reviewInsert">
-        INSERT INTO review (review_content, rating, customer_id, room_id)
-        VALUES (#{review_content}, #{rating}, #{customer_id}, #{room_id});
-    </insert>
-
-    <!-- <insert id="reviewInsert">
-    
-        INSERT INTO rating (rating_value, customer_id, room_id)
-        VALUES (#{rating}, #{customer_id}, #{room_id});
-    </insert> -->
 
 
     <!-- 지역별 독서실 검색 -->
@@ -106,7 +93,8 @@
 <!-- 찜 여부를 확인하는 쿼리 -->
 <select id="isRoomInWishList" parameterType="com.spam9700.spam.dto.WishListDto" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM wishlist
-    WHERE room_id = #{room_id} AND customer_id = #{customer_id}
+    WHERE room_id = #{room_id}
+      AND (customer_id = #{customer_id} OR customer_id IS NULL)
 </select>
 
 <!-- 찜제거 -->

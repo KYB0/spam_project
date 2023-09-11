@@ -80,7 +80,6 @@ public class DetailPageService {
         // Wishlist 테이블에서 해당 데이터 삭제
         detailPageDao.removeFromWishList(wishListDto);
     }
-
     public void addToWishList(WishListDto wishListDto) {
          // Wishlist 테이블에 데이터 추가
          detailPageDao.addToWishList(wishListDto);
