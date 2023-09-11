@@ -39,7 +39,7 @@
             <ul>
                 <c:forEach var="detailPageDto" items="${detailPageDtos}">
                     <li>
-                        <strong>독서실 이름:</strong> ${detailPageDto.room_name} <br>
+                        <strong>독서실 이름:</strong> <a href="/spam/${detailPageDto.room_name}">${detailPageDto.room_name}</a> <br>
                         <strong>지역:</strong> ${detailPageDto.region} <br>
                         <strong>시간당 가격:</strong> ${detailPageDto.time_price} <br>
                         <strong>하루 가격:</strong> ${detailPageDto.day_price} <br>
@@ -47,6 +47,7 @@
                     </li>
                 </c:forEach>
             </ul>
+            
         </section>
         
     </div>

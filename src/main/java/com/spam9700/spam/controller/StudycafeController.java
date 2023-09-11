@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spam9700.spam.service.StudycafeService;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.spam9700.spam.service.DetailPageService;
 import com.spam9700.spam.dto.DetailPageDto;
 
@@ -30,24 +33,26 @@ public class StudycafeController {
     private DetailPageService detailPageService;
      // 상세 페이지 뷰
 
-    @GetMapping("/{room_name}")
-    public String detailPage(@PathVariable("room_name") String room_name, Model model) {
-        DetailPageDto studyRoom = detailPageService.getStudyRoomByRoomName(room_name);
-        if (studyRoom != null) {
-            String roomDescription = detailPageService.getOpenTimeByStudyRoom(studyRoom.getRoom_description());
+   @GetMapping("/{room_name}")
+    public String detailPage(@PathVariable("room_name") String room_name, Model model, HttpSession session) {
 
-            log.info("독서실 상세페이지");
-
-            if (roomDescription != null) {
-                studyRoom.setRoom_description(roomDescription);
-                model.addAttribute("studyRoom", studyRoom);
-            } else {
-                model.addAttribute("error", "Study room description not found.");
-            }
+        DetailPageDto roomDetail = detailPageService.getStudyRoomByRoomName(room_name);
+        model.addAttribute("roomDetail", roomDetail);
+        log.info("roomDetail:{}", roomDetail);
+        
+        if (roomDetail != null) {
+            // 해당 방이 존재하는 경우
+            session.setAttribute("room_id", roomDetail.getRoom_id());
+            model.addAttribute("room_id", roomDetail.getRoom_id());
+            model.addAttribute("room_name", roomDetail.getRoom_name());
+            model.addAttribute("room_description", roomDetail.getRoom_description());
+            // 추가 데이터도 필요한 경우 모델에 추가하세요.
+            return "detailPage"; // 적절한 뷰 이름을 사용하세요.
         } else {
-            model.addAttribute("error", "Study room not found.");
+            // 해당 방이 존재하지 않는 경우에 대한 처리
+            // 예: 에러 페이지로 리다이렉트 또는 에러 메시지를 표시하도록 수정하세요.
+            return "redirect:/member/i_login"; // 에러 페이지로 리다이렉트
         }
-        return "detailPage";
     }
 
     // 검색 결과 뷰
