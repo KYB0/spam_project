@@ -43,16 +43,17 @@ function performSearch(region, keyword) {
             data.forEach(function(studyRoom) {
                 const studyRoomElement = `
                     <li>
-                        <strong>독서실 이름:</strong> ${studyRoom.room_name} <br>
+                        <strong>독서실 이름:</strong> <a href="/spam/${studyRoom.room_name}">${studyRoom.room_name}</a> <br>
                         <strong>지역:</strong> ${studyRoom.region} <br>
                         <strong>시간당 가격:</strong> ${studyRoom.time_price} <br>
                         <strong>하루 가격:</strong> ${studyRoom.day_price} <br>
                         <strong>설명:</strong> ${studyRoom.room_description}
                     </li>
                 `;
-
+            
                 $("#studyRoomList ul").append(studyRoomElement);
             });
+            
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log("Error:", textStatus, errorThrown);  // 에러 정보 로깅
