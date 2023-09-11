@@ -90,7 +90,7 @@ public class StudycafeController {
                                    @RequestParam(name = "searchKeyword", required = false) String searchKeyword) {
     return studycafeService.searchRooms(region, searchKeyword);
   }
-}
+
  
 
     @PostMapping(value = "/{room_name}/review", consumes = "application/x-www-form-urlencoded")
@@ -144,4 +144,5 @@ public class StudycafeController {
         return mav;
     }
    
+
 }
