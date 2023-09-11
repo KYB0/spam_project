@@ -218,11 +218,20 @@ body{
             </li>
             <li class="s_li">
                 <div class="occupiedSeat"></div>
-                <small class="s_small">선택된 자리</small>
+                <small class="s_small">선택 불가</small>
             </li>
         </ul>
 
         <div class="Stable">
+            <table>
+                <c:forEach var="seat" items="${seats}">
+                    <tr>
+                        <td>
+                            <span class="s_seat ${seat.isOccupied ? 'occupiedSeat' : 'availableSeat'}">${seat.seatNumber}</span>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
             <div class="Ctable"></div>
             <div class="s_row">
                 <span class="s_seat">1</span>
@@ -240,8 +249,8 @@ body{
                 <span class="s_seat">10</span>
                 <span class="s_seat">11</span>
                 <span class="s_seat">12</span>
-                <span class="occupiedSeat">13</span>
-                <span class="occupiedSeat">14</span>
+                <span class="s_seat">13</span>
+                <span class="s_seat">14</span>
                 <span class="s_seat">15</span>
                 <span class="s_seat">16</span>
             </div>
@@ -253,7 +262,7 @@ body{
                 <span class="s_seat">20</span>
                 <span class="s_seat">21</span>
                 <span class="s_seat">22</span>
-                <span class="occupiedSeat">23</span>
+                <span class="s_seat">23</span>
                 <span class="s_seat">24</span>
             </div>
 
@@ -264,8 +273,8 @@ body{
                 <span class="s_seat">28</span>
                 <span class="s_seat">29</span>
                 <span class="s_seat">30</span>
-                <span class="occupiedSeat">31</span>
-                <span class="occupiedSeat">32</span>
+                <span class="s_seat">31</span>
+                <span class="s_seat">32</span>
             </div>
 
             <div class="s_row">
@@ -281,12 +290,12 @@ body{
 
             <div class="s_row">
                 <span class="s_seat">41</span>
-                <span class="occupiedSeat">42</span>
-                <span class="occupiedSeat">43</span>
+                <span class="s_seat">42</span>
+                <span class="s_seat">43</span>
                 <span class="s_seat">44</span>
                 <span class="s_seat">45</span>
                 <span class="s_seat">46</span>
-                <span class="occupiedSeat">47</span>
+                <span class="s_seat">47</span>
                 <span class="s_seat">48</span>
             </div>
 
@@ -294,7 +303,6 @@ body{
         <br>
         <div class="sbutton-container">
             <a href="#" class="myChooseButton">선택완료</a>
-            <a href="#" class="myChooseButton-fixx" >비품 예약</a>
         </div>
     </section>
     <%@ include file="footer.jsp" %>

@@ -160,7 +160,6 @@ public class MypageController {
             return "seatChoice";
         }
 
-     
         @PostMapping("/c_mypage/seatInsert")
         public String insertSeats(@ModelAttribute("seatDto") SeatDto seatDto, Model model){
             // seatDto에서 seat_number 값을 가져옵니다.

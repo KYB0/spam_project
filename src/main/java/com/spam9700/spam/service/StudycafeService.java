@@ -133,6 +133,15 @@ public class StudycafeService {
         seatDao.deletePreviousSeatsByRoomId(room_id);
     }
 
+    public void reserveSeats(SeatDto seatDto) {
+
+
+    }
+
+    public List<SeatDto> getAllSeatsOfData() {
+        return seatDao.getAllSeatsOfData();
+    }
+
 
 
 
