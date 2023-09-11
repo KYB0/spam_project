@@ -1,4 +1,20 @@
-﻿function showChatbot() {
+﻿let chatHistory = [];
+
+function saveState() { // 상태저장
+    const modalContent = document.querySelector('.modal-content');
+    chatHistory.push(modalContent.innerHTML);
+}
+
+function loadLastState() {
+    const lastState = chatHistory[chatHistory.length - 1];
+    if (lastState) {
+        const modalContent = document.querySelector('.modal-content');
+        modalContent.innerHTML = lastState;
+    }
+}
+
+
+function showChatbot() {
     const modal = document.getElementById("chatbotModal");
     modal.style.display = "block";
 }
@@ -31,9 +47,21 @@ function sendMessage(message) {
     closeChatbot();
 }
 
+
+
+
 function showOptions(options) {
+    saveState();
     const modalContent = document.querySelector('.modal-content');
     modalContent.innerHTML = ''; // 기존 내용 초기화
+
+    // '이전' 버튼 추가
+    const prevButton = document.createElement('button');
+    prevButton.id = 'prev-button';
+    prevButton.onclick = () => loadLastState();
+    prevButton.textContent = '이전';
+    modalContent.appendChild(prevButton);
+
 
     for (const option of options) {
         const optionButton = document.createElement('button');
@@ -45,9 +73,18 @@ function showOptions(options) {
 }
 
 function showSubOptions(parentOption) {
+    saveState();
     const modalContent = document.querySelector('.modal-content');
     modalContent.innerHTML = ''; // 기존 내용 초기화
 
+     // '이전' 버튼 추가
+     const prevButton = document.createElement('button');
+     prevButton.id = 'prev-button';
+     prevButton.onclick = () => loadLastState();
+     prevButton.textContent = '이전';
+     modalContent.appendChild(prevButton);
+
+     
     const subOptions = [];
     // 여기에 해당 parentOption 에 따른 하위 옵션을 추가 예정
         //개인정보
