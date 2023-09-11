@@ -16,6 +16,7 @@ public class ReviewDto {
     private String customer_id;
     private int room_id;
     private String room_name;
+    private LocalDateTime review_date;
 
     
 }

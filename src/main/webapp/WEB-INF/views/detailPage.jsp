@@ -242,7 +242,7 @@
         <h2>평점</h2>
         <div class="star">
 
-            <form class="mb-3" name="myform" id="myform" method="POST" action="/spam/{room_name}/review">
+            <form class="mb-3" name="myform" id="myform" method="POST" action="/spam/${room_name}/review">
                 <fieldset>
                     <div class="star-container" id="star">
                         <input type="hidden" name="room_id" value="${roomDetail.room_id}">
@@ -260,34 +260,38 @@
                         placeholder="후기를 남겨주세요."></textarea>
                 </div><br>
                 <div>
-                    <button type="submit" id="reviewButton" class="btn btn-primary">평점 남기기</button>
+                    <button type="submit" id="reviewButton" onclick="reviewbtn()" class="btn btn-primary">평점
+                        남기기</button>
                 </div>
             </form>
 
             <!-- 리뷰 목록 표시 -->
-            <table style="width: 100%">
+            <table style="width: 100%;" id="rtable">
                 <!-- 제목 테이블 -->
                 <tr class="rtbl-head">
                     <td>WRITER</td>
                     <td>CONTENTS</td>
                     <td>DATE</td>
                 </tr>
-            </table>
-
-            <table style="width: 100%;" id="rtable">
-                <c:forEach var="ritem" items="${rList}">
+                <!-- 리뷰 목록 반복 및 리뷰 표시 -->
+                <c:forEach var="review" items="${reviewList}">
                     <tr>
-                        <td class="p-20">${roomDetail.room_id}</td>
-                        <td class="p-50">${roomDetail.review_content}</td>
+                        <td class="p-20">${review.customer_id}</td>
+                        <td class="p-50">${review.review_content}</td>
                         <!-- LocalDateTime을 jstl에서 사용하기: pattern에 꼭 'T'추가할것.-->
                         <td class="p-30">
-                            <fmt:parseDate value="${ritem.r_date}" pattern="yyyy-MM-dd'T'HH:mm:ss" var="parsedDateTime"
-                                type="both" />
+                            <fmt:parseDate value="${review.review_date}" pattern="yyyy-MM-dd'T'HH:mm:ss"
+                                var="parsedDateTime" type="both" />
                             <fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${parsedDateTime}" />
                         </td>
                     </tr>
                 </c:forEach>
+
             </table>
+
+            <div id="reviewListContainer">
+                <!-- 리뷰 목록이 여기에 나타납니다. -->
+            </div>
 
 
     </section>
@@ -298,7 +302,7 @@
     <%@ include file="footer.jsp" %>
 </body>
 <script>
-    // 이미지 버튼 클릭 이벤트 처리
+    // 이미지 버튼 클릭 이벤트 처리 (찜 기능)
     const zzimButton = document.getElementById("zzim-button");
     let isClicked = false; // 이미지 버튼 클릭 상태를 나타내는 변수
 
@@ -312,86 +316,105 @@
         isClicked = !isClicked; // 클릭 상태를 반전
     });
 
+    // 예약하기 버튼 클릭 시 동작 정의
     $(document).ready(function () {
-        // 예약하기 버튼을 클릭했을 때의 동작을 정의합니다.
         $("#reservation-button").click(function () {
-            // room_name을 동적으로 가져오거나 설정합니다.
-            var room_name = "${room_name}"; // 여기에 실제 데이터 값을 설정하세요.
-
-            // 동적으로 생성된 URL을 만듭니다.
+            var room_name = "${room_name}"; // 방 이름을 동적으로 가져오거나 설정하세요.
             var reservationURL = "/spam/" + room_name + "/reservation";
-
-            // 사용자를 해당 URL로 이동시킵니다.
             window.location.href = reservationURL;
         });
     });
+
+    // 서버에서 room_description 데이터를 가져오는 Ajax 요청
     var room_name = "${room_name}";
 
     $(document).ready(function () {
-        // 서버에서 room_description 데이터를 가져오는 Ajax 요청
         $.ajax({
             type: "GET",
-            url: "/spam/" + room_name, // 실제 서버 엔드포인트 경로로 대체해야 합니다.
+            url: "/spam/" + room_name,
             success: function (data) {
-                // 성공적으로 데이터를 가져왔을 때
-                // 가져온 데이터를 room_description 변수에 할당
                 var room_description = data.room_description;
-
-                // room_description을 사용하여 필요한 작업 수행
-                // 예: 영업 시간을 표시
                 $(".r-description").text("영업 시간 " + room_description);
                 console.log(data);
             },
             error: function () {
-                // 데이터 가져오기에 실패한 경우에 대한 처리
                 console.error("데이터 가져오기 실패");
             }
         });
     });
 
+    // 리뷰 작성 및 리뷰 불러오기 관련 스크립트
+    $(document).ready(function () {
+        // 리뷰 작성 버튼 클릭 시
+        $("#reviewButton").click(function (event) {
+            event.preventDefault(); // 기본 동작 방지
 
-    //리뷰 작성
-    $("#reviewButton").click(function (event) {
-        event.preventDefault(); //기본 동작 방지
+            let rating = $("input[name='rating']:checked").val(); // 선택된 평점 가져오기
+            let review_content = $("#reviewContents").val(); // 리뷰 내용 가져오기
+            let customer_id = $("#customer_id").val();
 
-        let rating = $("input[name='rating']:checked").val(); // 선택된 평점 가져오기
-        let review_content = $("#reviewContents").val(); // 리뷰 내용 가져오기
-        let customer_id = $("#customer_id").val();
-        
-        
-        let reviewData = {
-            rating: rating, //rating 값을 가져오도록 수정
-            review_content: review_content,
-            customer_id: customer_id
-        
-        };
+            let reviewData = {
+                rating: rating,
+                review_content: review_content,
+                customer_id: customer_id
+            };
 
-        $.ajax({
-            type: "POST",
-            url: "/spam/" + room_name + "/review",
-            // contentType: "application/json",
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-            // data: JSON.stringify(reviewData),/
-            data: reviewData,
-            success: function (response) {
-                if (response == "success") {
-                    // 리뷰가 성공적으로 추가되었을 때 처리
-                    // 리뷰 목록을 다시 불러와서 표시
-                    console.log("성공")
-                    alert("리뷰가 성공적으로 작성되었습니다.");
-                    // loadReviews();
-                } else {
-                    //리뷰 작성 실패 처리
-                    console.log("개갓이 실패");
-                    alert("리뷰 작성에 실패했습니다.");
+            $.ajax({
+                type: "POST",
+                url: "/spam/" + room_name + "/review",
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                data: reviewData,
+                success: function (response) {
+                    if (response == "success") {
+                        // 리뷰가 성공적으로 추가되었을 때 처리
+                        console.log("성공");
+                        alert("리뷰가 성공적으로 작성되었습니다.");
+                        // 리뷰 목록을 갱신
+                        updateReviewList();
+                        // 입력 폼 초기화
+                        $("#reviewContents").val("");
+                    } else {
+                        // 리뷰 작성 실패 처리
+                        console.log("리뷰 작성 실패");
+                        alert("리뷰 작성에 실패했습니다.");
+                    }
+                },
+                error: function (error) {
+                    // 에러 처리
+                    console.error(error);
+                    alert("서버 오류가 발생했습니다.");
                 }
-            },
-            error: function (error) {
-                // 에러 처리
-                console.error(error); // 에러 로그 확인
-                alert("서버 오류가 발생했습니다.");
-            }
+            });
         });
+
+        // 리뷰 목록을 불러오는 함수
+        function updateReviewList() {
+            $.ajax({
+                type: "GET",
+                url: "/spam/" + room_name + "/reviews",
+                success: function (data) {
+                    console.log("data:", data);
+                    // 댓글 목록을 초기화
+                    $("#reviewListContainer").empty();
+
+                    // 서버에서 가져온 리뷰를 화면에 추가
+                    for (let i = 0; i < data.length; i++) {
+                        let commentHtml = "<tr>" +
+                            "<td>" + data[i].customer_id + "</td>" +
+                            "<td>" + data[i].review_content + "</td>" +
+                            "<td>" + data[i].review_date + "</td>" +
+                            "</tr>";
+                        $("#reviewListContainer").append(commentHtml);
+                    }
+                },
+                error: function () {
+                    alert("리뷰 목록을 불러오기 실패");
+                }
+            });
+        }
+
+        // 페이지 로드 시 리뷰 목록 불러오기
+        updateReviewList();
     });
 </script>
 

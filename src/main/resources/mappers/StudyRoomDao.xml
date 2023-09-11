@@ -46,21 +46,6 @@
     SELECT * FROM study_room WHERE company_id = #{company_id}
     </select>
 
-  
-
-    <!-- 리뷰 데이터를 review 테이블에 삽입 -->
-    <insert id="reviewInsert">
-        INSERT INTO review (review_content, rating, customer_id, room_id)
-        VALUES (#{review_content}, #{rating}, #{customer_id}, #{room_id});
-    </insert>
-
-    <!-- <insert id="reviewInsert">
-    
-        INSERT INTO rating (rating_value, customer_id, room_id)
-        VALUES (#{rating}, #{customer_id}, #{room_id});
-    </insert> -->
-
-
     <!-- 지역별 독서실 검색 -->
     <select id="getRoomsByRegion" resultType="com.spam9700.spam.dto.DetailPageDto">
         SELECT * FROM study_room WHERE region = #{region};
@@ -86,5 +71,6 @@
     <select id="getReviewsByRoomId" resultType="com.spam9700.spam.dto.ReviewDto">
         SELECT * FROM review 
         WHERE room_id = #{room_id}
+        ORDER BY review_date DESC;
     </select>
 </mapper>
