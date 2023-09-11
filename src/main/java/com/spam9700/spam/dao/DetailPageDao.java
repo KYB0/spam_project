@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
+import com.spam9700.spam.dto.WishListDto;
 
 @Mapper
 public interface DetailPageDao {
@@ -59,5 +60,15 @@ public interface DetailPageDao {
 
     int getTotalRoomsCount(String company_id);
 
+    List<DetailPageDto> getRoomsByName(String room_name);
 
+
+ //찜
+    Object isRoomInWishList(WishListDto wishListDto);
+
+    void removeFromWishList(WishListDto wishListDto);
+
+    void addToWishList(WishListDto wishListDto);
+
+    
 }

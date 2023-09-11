@@ -213,7 +213,15 @@
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
+<script>
+      document.getElementById('zzim-button').addEventListener('click', function () {
+        const room_id = document.getElementById('room_id').value;
+        const form = document.getElementById('zzim-form');
+        form.action = `/spam/wishList/${room_id}`;
+        form.submit();
+    });
 
+</script>
 <body>
     <%@ include file="header.jsp" %>
 
@@ -226,17 +234,23 @@
         <div class="invite">
             <h2>독서실 소개</h2>
             <div class="zzim">
-                <button id="zzim-button" class="zzim-button">
-                    <img src="image/like_2.png" alt="찜 버튼" id="zzim-image">
+                <form method="POST" action="/spam/wishList/{room_id}" id="zzim-form">
+                <input type="hidden" id="room_id" value="${room_id}">
+                <button id="zzim-button" class="zzim-button" type="button">
+                    <img src="<c:choose><c:when test='${roomFavorited}'>image/like_1.png</c:when><c:otherwise>image/like_2.png</c:otherwise></c:choose>" alt="찜 버튼" id="zzim-image">
                 </button>
+            </form>
             </div><br>
             <div class="info">
-                <h4 class="r-description">영업 시간 ${room_description}</h4>
+                <c:forEach items="${rnData}" var="rmd">
+                <h4 class="r-description">영업 시간 : ${rmd.room_description}</h4>
                 <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
-                <h4 class="r-time">가격 <p>
-                        <h5>시간당 : 1일당: </h5>
+                <h4 class="r-time">가격  <p>
+                        <h5>시간당 : ${rmd.time_price} 원</h5>
+                        <h5>1일당 : ${rmd.day_price} 원</h5>
                     </p>
                 </h4> <!-- jquery로 db에서 데이터를 가져온다-->
+            </c:forEach>
             </div>
         </div>
         <h2>평점</h2>
@@ -298,19 +312,15 @@
     <%@ include file="footer.jsp" %>
 </body>
 <script>
-    // 이미지 버튼 클릭 이벤트 처리
-    const zzimButton = document.getElementById("zzim-button");
-    let isClicked = false; // 이미지 버튼 클릭 상태를 나타내는 변수
+document.getElementById('zzim-button').addEventListener('click', function () {
+    const room_id = document.getElementById('room_id').value;
+    const form = document.getElementById('zzim-form');
+    form.action = `/spam/wishList/${room_id}`;
+    form.submit();
+});
 
-    zzimButton.addEventListener("click", function () {
-        const zzimImage = document.getElementById("zzim-image");
-        if (!isClicked) {
-            zzimImage.src = "image/like_1.png"; // 클릭한 경우 이미지 변경
-        } else {
-            zzimImage.src = "image/like_2.png"; // 이미지를 원래 상태로 변경
-        }
-        isClicked = !isClicked; // 클릭 상태를 반전
-    });
+
+  
 
     $(document).ready(function () {
         // 예약하기 버튼을 클릭했을 때의 동작을 정의합니다.
@@ -327,72 +337,55 @@
     });
     var room_name = "${room_name}";
 
+
+    //리뷰 작성 스크립트
     $(document).ready(function () {
-        // 서버에서 room_description 데이터를 가져오는 Ajax 요청
-        $.ajax({
-            type: "GET",
-            url: "/spam/" + room_name, // 실제 서버 엔드포인트 경로로 대체해야 합니다.
-            success: function (data) {
-                // 성공적으로 데이터를 가져왔을 때
-                // 가져온 데이터를 room_description 변수에 할당
-                var room_description = data.room_description;
+        // 리뷰 폼이 제출될 때의 동작을 정의합니다.
+        $("#myform").submit(function (event) {
+            event.preventDefault(); // 기본 폼 제출 동작을 중지합니다.
 
-                // room_description을 사용하여 필요한 작업 수행
-                // 예: 영업 시간을 표시
-                $(".r-description").text("영업 시간 " + room_description);
-                console.log(data);
-            },
-            error: function () {
-                // 데이터 가져오기에 실패한 경우에 대한 처리
-                console.error("데이터 가져오기 실패");
-            }
-        });
-    });
+            // 리뷰 폼에서 입력한 데이터를 가져옵니다.
+            var reviewStar = $("input[name='reviewStar']:checked").val();
+            var reviewContents = $("#reviewContents").val();
 
-
-    //리뷰 작성
-    $("#reviewButton").click(function (event) {
-        event.preventDefault(); //기본 동작 방지
-
-        let rating = $("input[name='rating']:checked").val(); // 선택된 평점 가져오기
-        let review_content = $("#reviewContents").val(); // 리뷰 내용 가져오기
-        let customer_id = $("#customer_id").val();
-        
-        
-        let reviewData = {
-            rating: rating, //rating 값을 가져오도록 수정
-            review_content: review_content,
-            customer_id: customer_id
-        
-        };
-
-        $.ajax({
-            type: "POST",
-            url: "/spam/" + room_name + "/review",
-            // contentType: "application/json",
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-            // data: JSON.stringify(reviewData),/
-            data: reviewData,
-            success: function (response) {
-                if (response == "success") {
-                    // 리뷰가 성공적으로 추가되었을 때 처리
-                    // 리뷰 목록을 다시 불러와서 표시
-                    console.log("성공")
-                    alert("리뷰가 성공적으로 작성되었습니다.");
-                    // loadReviews();
-                } else {
-                    //리뷰 작성 실패 처리
-                    console.log("개갓이 실패");
-                    alert("리뷰 작성에 실패했습니다.");
+            // AJAX 요청을 사용하여 서버에 데이터를 전송합니다.
+            $.ajax({
+                type: "POST",
+                url: "/spam/" + room_name + "/review", // 실제 서버 엔드포인트 경로로 대체해야 합니다.
+                data: JSON.stringify({
+                    reviewStar: reviewStar,
+                    reviewContents: reviewContents
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    if (data.success) {
+                        // 성공적으로 서버 응답을 받았을 때의 처리를 여기에 추가합니다.
+                        // 예: 리뷰가 성공적으로 등록되었음을 사용자에게 알리는 메시지 표시
+                        console.log("리뷰 작성 성공");
+                    } else {
+                        // 서버 요청에 실패한 경우에 대한 처리를 여기에 추가합니다.
+                        // 예: 리뷰 작성 실패 메시지 표시 또는 오류 처리
+                        console.log("리뷰 작성 실패");
+                    }
+                },
+                error: function () {
+                    //서버 요청에 실패한 경우에 대한 처리를 여기에 추가
+                    console.error("서버 요청 실패");
                 }
-            },
-            error: function (error) {
-                // 에러 처리
-                console.error(error); // 에러 로그 확인
-                alert("서버 오류가 발생했습니다.");
-            }
+            });
+        });
+
+        //평점 남기기 버튼에 클릭 이벤트 리스너 추가
+        $("#reviewButton").click(function () {
+            // 리뷰 폼을 서브밋합니다.
+            $("#myform").submit();
         });
     });
+
+
+
+
 </script>
 
 </html>
