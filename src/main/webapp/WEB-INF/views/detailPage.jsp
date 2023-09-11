@@ -213,7 +213,15 @@
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
+<script>
+      document.getElementById('zzim-button').addEventListener('click', function () {
+        const room_id = document.getElementById('room_id').value;
+        const form = document.getElementById('zzim-form');
+        form.action = `/spam/wishList/${room_id}`;
+        form.submit();
+    });
 
+</script>
 <body>
     <%@ include file="header.jsp" %>
 
@@ -226,17 +234,23 @@
         <div class="invite">
             <h2>독서실 소개</h2>
             <div class="zzim">
-                <button id="zzim-button" class="zzim-button">
-                    <img src="image/like_2.png" alt="찜 버튼" id="zzim-image">
+                <form method="POST" action="/spam/wishList/{room_id}" id="zzim-form">
+                <input type="hidden" id="room_id" value="${room_id}">
+                <button id="zzim-button" class="zzim-button" type="button">
+                    <img src="<c:choose><c:when test='${roomFavorited}'>image/like_1.png</c:when><c:otherwise>image/like_2.png</c:otherwise></c:choose>" alt="찜 버튼" id="zzim-image">
                 </button>
+            </form>
             </div><br>
             <div class="info">
-                <h4 class="r-description">영업 시간 ${room_description}</h4>
+                <c:forEach items="${rnData}" var="rmd">
+                <h4 class="r-description">영업 시간 : ${rmd.room_description}</h4>
                 <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
-                <h4 class="r-time">가격 <p>
-                        <h5>시간당 : 1일당: </h5>
+                <h4 class="r-time">가격  <p>
+                        <h5>시간당 : ${rmd.time_price} 원</h5>
+                        <h5>1일당 : ${rmd.day_price} 원</h5>
                     </p>
                 </h4> <!-- jquery로 db에서 데이터를 가져온다-->
+            </c:forEach>
             </div>
         </div>
         <h2>평점</h2>
@@ -302,19 +316,15 @@
     <%@ include file="footer.jsp" %>
 </body>
 <script>
-    // 이미지 버튼 클릭 이벤트 처리 (찜 기능)
-    const zzimButton = document.getElementById("zzim-button");
-    let isClicked = false; // 이미지 버튼 클릭 상태를 나타내는 변수
+document.getElementById('zzim-button').addEventListener('click', function () {
+    const room_id = document.getElementById('room_id').value;
+    const form = document.getElementById('zzim-form');
+    form.action = `/spam/wishList/${room_id}`;
+    form.submit();
+});
 
-    zzimButton.addEventListener("click", function () {
-        const zzimImage = document.getElementById("zzim-image");
-        if (!isClicked) {
-            zzimImage.src = "image/like_1.png"; // 클릭한 경우 이미지 변경
-        } else {
-            zzimImage.src = "image/like_2.png"; // 이미지를 원래 상태로 변경
-        }
-        isClicked = !isClicked; // 클릭 상태를 반전
-    });
+
+  
 
     // 예약하기 버튼 클릭 시 동작 정의
     $(document).ready(function () {
@@ -328,6 +338,8 @@
     // 서버에서 room_description 데이터를 가져오는 Ajax 요청
     var room_name = "${room_name}";
 
+
+    //리뷰 작성 스크립트
     $(document).ready(function () {
         $.ajax({
             type: "GET",
@@ -416,6 +428,10 @@
         // 페이지 로드 시 리뷰 목록 불러오기
         updateReviewList();
     });
+
+
+
+
 </script>
 
 </html>
