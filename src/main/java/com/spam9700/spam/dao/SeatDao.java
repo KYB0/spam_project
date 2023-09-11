@@ -3,14 +3,16 @@
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import com.spam9700.spam.dto.SeatDto;
 
 @Mapper
 public interface SeatDao {
     
-    List<SeatDto> getAllSeats();
+  
     void saveSelectedSeats(int room_id, String  seat_number);
     void deletePreviousSeatsByRoomId(int room_id);
+    List<SeatDto> getSeatsByRoomName(String room_name);
     List<SeatDto> getAllSeatsOfData();
 }

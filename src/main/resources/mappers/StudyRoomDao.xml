@@ -103,4 +103,5 @@
     WHERE room_id = #{room_id} AND customer_id = #{customer_id}
 </delete>
 
+
 </mapper>

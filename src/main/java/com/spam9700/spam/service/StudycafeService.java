@@ -122,10 +122,7 @@ public class StudycafeService {
         seatDao.saveSelectedSeats(room_id, seat_number);
     }
 
-    //전체 좌석 조회
-    public List<SeatDto> getAllSeats() {
-        return seatDao.getAllSeats();
-    }
+ 
 
     //새로운 데이터 저장 후 이전 데이터 삭제
     @Transactional
@@ -133,13 +130,13 @@ public class StudycafeService {
         seatDao.deletePreviousSeatsByRoomId(room_id);
     }
 
-    public void reserveSeats(SeatDto seatDto) {
 
-
+    public List<SeatDto> getAllSeaaaatsOfData() {
+        return seatDao.getAllSeatsOfData();
     }
 
-    public List<SeatDto> getAllSeatsOfData() {
-        return seatDao.getAllSeatsOfData();
+    public List<SeatDto> getSeatsByRoomName(String room_name) {
+        return seatDao.getSeatsByRoomName(room_name);
     }
 
 

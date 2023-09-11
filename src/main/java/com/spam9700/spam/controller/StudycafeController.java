@@ -61,7 +61,6 @@ public class StudycafeController {
         DetailPageDto roomDetail = detailPageService.getStudyRoomByRoomName(room_name);
         model.addAttribute("roomDetail", roomDetail);
         log.info("roomDetail:{}", roomDetail);
-        log.info("roomDetail:{}", roomDetail);
 
         if (roomDetail != null) {
             // 해당 방이 존재하는 경우
