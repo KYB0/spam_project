@@ -41,16 +41,16 @@ public interface DetailPageDao {
     List<DetailPageDto> getRoomsByPage(int offset, int limit);
     int getTotalRoomCount();
 
-    List<DetailPageDto> getRoomsByCompanyId(@Param("company_id") String company_id, @Param("offset") int offset, @Param("pageSize") int pageSize);
+    List<DetailPageDto> getRoomsByCompany(String company_id);
 
-    int getTotalRoomCountByCompanyId(String company_id);
+    List<DetailPageDto> searchRoomsByKeyword(@Param("keyword") String keyword);
 
-    List<DetailPageDto> getAllRoomsByCompanyId(String company_id);
+     // 지역  검색
+     List<DetailPageDto> getRoomsByRegion(@Param("region") String region);
 
-    List<DetailPageDto> getPaginatedRooms(int startIdx, int pageSize, String company_id);
-
-    int getTotalRoomsCount(String company_id);
-
-
-
-}
+     // 키워드  검색
+     List<DetailPageDto> getRoomsByKeyword(@Param("keyword") String keyword);
+ 
+     // 지역 and 키워드 검색
+     List<DetailPageDto> getRoomsByRegionAndKeyword(@Param("region") String region, @Param("keyword") String keyword);
+ }

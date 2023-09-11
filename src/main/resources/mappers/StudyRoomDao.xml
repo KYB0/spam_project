@@ -7,6 +7,7 @@
         SELECT * FROM study_room WHERE room_name = #{room_name}
     </select>
 
+    
     <!-- room_description을 사용하여 스터디 카페 이용시간 조회 -->
     <select id="getOpenTimeByStudyRoom" parameterType="String" resultType="String">
         SELECT room_description FROM study_room WHERE room_name = #{room_name}
@@ -60,4 +61,19 @@
     </insert> -->
 
 
+</mapper>
+    <!-- 지역별 독서실 검색 -->
+    <select id="getRoomsByRegion" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE region = #{region};
+    </select>
+
+    <!-- 키워드를 포함하는 독서실 검색 -->
+    <select id="getRoomsByKeyword" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE room_name LIKE CONCAT('%', #{keyword}, '%');
+    </select>
+
+    <!-- 지역과 키워드를 모두 고려한 독서실 검색 -->
+    <select id="getRoomsByRegionAndKeyword" resultType="com.spam9700.spam.dto.DetailPageDto">
+        SELECT * FROM study_room WHERE region = #{region} AND room_name LIKE CONCAT('%', #{keyword}, '%');
+    </select>
 </mapper>

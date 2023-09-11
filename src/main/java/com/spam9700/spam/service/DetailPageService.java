@@ -9,7 +9,7 @@ import com.spam9700.spam.dao.DetailPageDao;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReviewDto;
 
-
+// 독서실 상세페이지 
 
 @Service
 public class DetailPageService {
@@ -39,9 +39,7 @@ public class DetailPageService {
         return detailPageDao.getRoomById(room_id);
     }
 
-    public List<DetailPageDto> getRoomsByCategory(int category_id){
-        return detailPageDao.getRoomsByCategory(category_id);
-    }
+
 
     public List<DetailPageDto> getRoomsByComapny(String company_id){
         return detailPageDao.getRoomsByCompany(company_id);
@@ -53,4 +51,7 @@ public class DetailPageService {
 
  
 
+    public List<DetailPageDto> searchRooms(String region, String searchKeyword) {
+        return null;
+    }
 }

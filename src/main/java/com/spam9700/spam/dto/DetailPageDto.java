@@ -13,9 +13,10 @@ public class DetailPageDto {
     private String company_id;
     private String room_name;
     private String room_description;
+    private String region;
     private int time_price;
     private int day_price;
-    private String region;
+  
 
 
 }

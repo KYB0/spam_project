@@ -1,13 +1,13 @@
-﻿package com.spam9700.spam.service;
+﻿// package com.spam9700.spam.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+// import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.stereotype.Service;
 
-import com.spam9700.spam.dao.CListDao;
+// import com.spam9700.spam.dao.CListDao;
 
-@Service
-public class CListService {
+// @Service
+// public class CListService {
     
-    @Autowired
-    CListDao cListDao;
-}
+//     @Autowired
+//     CListDao cListDao;
+// }
