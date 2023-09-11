@@ -7,20 +7,55 @@
         VALUES (#{review_content},#{rating},#{customer_id},#{room_id});
     </insert>
 
+    <!-- 예약 내역 불러오기 -->
    <select id="getReservationListByCustomerId" resultType="com.spam9700.spam.dto.ReservationDto">
         SELECT * FROM seat_reservations 
         WHERE customer_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
     </select>
 
-    <select id="getReviewListByCustomerId" resultType="com.spam9700.spam.dto.ReviewDto">
-        SELECT * FROM review
+    <!-- 예약 내역 페이징 -->
+    <select id="getTotalReservationsByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM seat_reservations
         WHERE customer_id = #{customer_id}
     </select>
 
-    <select id="getQnaListByUserId" resultType="com.spam9700.spam.dto.ReviewDto">
-        SELECT * FROM board
-        WHERE user_id = #{user_id}
+    <!-- 리뷰 내역 불러오기 -->
+    <select id="getReviewListByCustomerId" resultType="com.spam9700.spam.dto.ReviewDto">
+        SELECT * FROM review
+        WHERE customer_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
     </select>
 
+    <!-- 리뷰 내역 페이징 -->
+    <select id="getTotalReviewsByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM review
+        WHERE customer_id = #{customer_id}
+    </select>
 
+    <!-- QnA 내역 불러오기 -->
+    <select id="getQnaListByUserId" resultType="com.spam9700.spam.dto.QnaBoardDto">
+        SELECT * FROM board
+        WHERE user_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- QnA 내역 페이징 -->
+    <select id="getTotalQnaListByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM board
+        WHERE user_id = #{customer_id}
+    </select>
+
+    <!-- 찜 목록 내역 불러오기 -->
+    <select id ="getWishListByCustomerId" resultType="com.spam9700.spam.dto.WishListDto">
+        SELECT * FROM wishlist
+        WHERE customer_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 찜 목록 내역 페이징 -->
+    <select id="getTotalWishListByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM wishlist
+        WHERE customer_id = #{customer_id}
+    </select>
 </mapper>

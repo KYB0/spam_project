@@ -19,6 +19,7 @@ import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.SeatDto;
+import com.spam9700.spam.dto.WishListDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -64,12 +65,18 @@ public class StudycafeService {
     @Autowired
     private MypageDao mypageDao;
     
-    public List<ReservationDto> getReservationListByCustomerId(String customer_id) {
-        return mypageDao.getReservationListByCustomerId(customer_id);
+    //예약 내역 리스트 불러오기
+    public List<ReservationDto> getReservationListByCustomerId(String customer_id, int offset, int pageSize) {
+        return mypageDao.getReservationListByCustomerId(customer_id, offset, pageSize);
+    }
+    // 예약 내역 페이징
+     public int getTotalReservationsByCustomerId(String customer_id) {
+        return mypageDao.getTotalReservationsByCustomerId(customer_id);
     }
 
-    public List<ReviewDto> getReviewListByCustomerId(String customer_id) {
-        return mypageDao.getReviewListByCustomerId(customer_id);
+
+    public List<ReviewDto> getReviewListByCustomerId(String customer_id, int offset, int pageSize) {
+        return mypageDao.getReviewListByCustomerId(customer_id, offset, pageSize);
     }
 
 
@@ -134,9 +141,27 @@ public class StudycafeService {
         seatDao.deletePreviousSeatsByRoomId(room_id);
     }
 
-    public List<QnaBoardDto> getQnaListByUserId(String customer_id) {
-        return mypageDao.getQnaListByUserId(customer_id);
+    public List<QnaBoardDto> getQnaListByUserId(String customer_id, int offset, int pageSize) {
+        return mypageDao.getQnaListByUserId(customer_id, offset, pageSize);
     }
+
+    public int getTotalReviewsByCustomerId(String customer_id) {
+        return mypageDao.getTotalReviewsByCustomerId(customer_id);
+    }
+
+    public int getTotalQnaListByCustomerId(String customer_id) {
+        return mypageDao.getTotalQnaListByCustomerId(customer_id);
+    }
+
+    public List<WishListDto> getWishListByCustomerId(String customer_id, int offset, int pageSize) {
+        return mypageDao.getWishListByCustomerId(customer_id, offset, pageSize);
+    }
+
+    public int getTotalWishListByCustomerId(String customer_id) {
+        return mypageDao.getTotalWishListByCustomerId(customer_id);
+    }
+
+   
 
    
 

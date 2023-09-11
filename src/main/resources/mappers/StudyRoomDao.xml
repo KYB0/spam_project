@@ -65,13 +65,14 @@
         SELECT * FROM study_room WHERE region = #{region} AND room_name LIKE CONCAT('%', #{keyword}, '%');
     </select>
 
-    <!-- 리뷰 추가 -->
+    <!-- 리뷰 작성 -->
 
     <insert id="reviewInsert">
         INSERT INTO review (review_id, review_content, rating, customer_id, room_id)
         VALUES (#{review_id}, #{review_content}, #{rating}, #{customer_id}, #{room_id})
     </insert>
  
+    <!-- 최신순으로 댓글 불러오기 -->
     <select id="getReviewsByRoomId" resultType="com.spam9700.spam.dto.ReviewDto">
         SELECT * FROM review 
         WHERE room_id = #{room_id}
