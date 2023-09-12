@@ -28,8 +28,8 @@
     </select>
 
     <insert id="insertStudyRoom" parameterType="com.spam9700.spam.dto.DetailPageDto">
-        INSERT INTO study_room (company_id, room_name, room_description, time_price, day_price, region)
-        VALUES (#{company_id}, #{room_name}, #{room_description}, #{time_price}, #{day_price}, #{region})
+        INSERT INTO study_room (company_id, room_name, room_description, time_price, day_price, region, bs_time)
+        VALUES (#{company_id}, #{room_name}, #{room_description}, #{time_price}, #{day_price}, #{region}, #{bs_time})
     </insert>
 
     <!-- 페이징을 적용한 독서실 목록 조회 -->

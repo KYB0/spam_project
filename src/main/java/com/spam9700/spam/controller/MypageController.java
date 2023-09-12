@@ -1,13 +1,17 @@
-package com.spam9700.spam.controller;
+﻿package com.spam9700.spam.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +34,7 @@ import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.SeatDto;
 import com.spam9700.spam.service.StudycafeService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -133,10 +138,11 @@ public class MypageController {
         detailPageDto.setTime_price(time_price);
         detailPageDto.setDay_price(day_price);
         detailPageDto.setRegion(region);
+        
 
         // 서비스로 DetailPageDto 전달
         int result = studycafeService.insertStudyRoom(detailPageDto);
-        System.out.println("++++++++++++++++"+result);
+        // System.out.println("++++++++++++++++"+result);
         if(result > 0){
             // 등록 성공 시 처리
             return "redirect:/c_mypage/insert"; // 등록 페이지로 이동
@@ -145,6 +151,8 @@ public class MypageController {
             return "redirect:/spam/c_mypage/insert";
         }
     }
+
+
 
     @GetMapping("/c_mypage/seatInsert")
         public String seatInsert(Model model, @RequestParam("room_id") int room_id){

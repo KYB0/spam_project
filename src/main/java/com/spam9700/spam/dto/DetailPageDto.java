@@ -16,7 +16,7 @@ public class DetailPageDto {
     private String region;
     private int time_price;
     private int day_price;
-  
+    private String bs_time;
 
 
 }

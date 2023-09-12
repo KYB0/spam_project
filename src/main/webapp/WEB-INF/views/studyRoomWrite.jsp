@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -126,6 +128,8 @@ input:-webkit-autofill:focus {
 }
 
 
+
+
     </style>
     <script>
         function std_write(){
@@ -161,6 +165,8 @@ input:-webkit-autofill:focus {
                 return;
             }
 
+
+
             document.stdForm1.action = "/spam/c_mypage/insert/write"; //insert 페이지로 std-form1에 저장된 자료를 전송함
             document.stdForm1.submit();
         }
@@ -187,6 +193,7 @@ input:-webkit-autofill:focus {
     </c:if>
     <section class="c_insert">
         <h1>독서실 등록</h1>
+        
     </section>
     <form id="stdForm1" name="stdForm1" method="post">
         <table>
@@ -210,10 +217,13 @@ input:-webkit-autofill:focus {
                 <td>지역</td>
                 <td><input name="stdRRegion"></td>
             </tr>
-            <tr>
-                
-                <td><input type="button" id="stdB" value="등록" onclick="std_write()">
+              
+                        
+                <td>
+                    
+                    <input type="button" id="stdB" value="등록" onclick="std_write()">
             </td> 
+            
             </tr>
             <!-- 등록 버튼을 누르면 위쪽에 있는 스크립트문에서 std_write() 함수가 호출되서 실행되어 insert 페이지로 자료를 전송한다. -->
         </table>
