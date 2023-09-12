@@ -92,7 +92,8 @@
 <!-- 찜 여부를 확인하는 쿼리 -->
 <select id="isRoomInWishList" parameterType="com.spam9700.spam.dto.WishListDto" resultType="java.lang.Integer">
     SELECT COUNT(*) FROM wishlist
-    WHERE room_id = #{room_id} AND customer_id = #{customer_id}
+    WHERE room_id = #{room_id}
+      AND (customer_id = #{customer_id} OR customer_id IS NULL)
 </select>
 
 <!-- 찜제거 -->
@@ -100,5 +101,6 @@
     DELETE FROM wishlist
     WHERE room_id = #{room_id} AND customer_id = #{customer_id}
 </delete>
+
 
 </mapper>

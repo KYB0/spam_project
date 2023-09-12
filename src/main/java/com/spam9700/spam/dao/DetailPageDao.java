@@ -71,4 +71,5 @@ public interface DetailPageDao {
     void addToWishList(WishListDto wishListDto);
 
     
+
 }

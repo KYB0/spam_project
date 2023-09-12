@@ -234,12 +234,9 @@
         <div class="invite">
             <h2>독서실 소개</h2>
             <div class="zzim">
-                <form method="POST" action="/spam/wishList/{room_id}" id="zzim-form">
-                <input type="hidden" id="room_id" value="${room_id}">
-                <button id="zzim-button" class="zzim-button" type="button">
+                <button id="zzim-button" class="zzim-button">
                     <img src="<c:choose><c:when test='${roomFavorited}'>image/like_1.png</c:when><c:otherwise>image/like_2.png</c:otherwise></c:choose>" alt="찜 버튼" id="zzim-image">
                 </button>
-            </form>
             </div><br>
             <div class="info">
                 <c:forEach items="${rnData}" var="rmd">
@@ -318,9 +315,43 @@
 <script>
 document.getElementById('zzim-button').addEventListener('click', function () {
     const room_id = document.getElementById('room_id').value;
-    const form = document.getElementById('zzim-form');
-    form.action = `/spam/wishList/${room_id}`;
-    form.submit();
+    // AJAX 요청을 보냅니다.
+    fetch(`/spam/checkWishList/${room_id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.exists) {
+                // 이미 찜한 경우, 찜 해제 요청
+                fetch(`/spam/wishList/${room_id}`, {
+                    method: 'DELETE'
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data); // 찜 해제 성공 메시지
+                        const zzimImage = document.getElementById('zzim-image');
+                        zzimImage.src = 'image/like_2.png'; // 찜 해제 이미지로 변경
+                    })
+                    .catch(error => {
+                        console.error('찜 해제 실패:', error);
+                    });
+            } else {
+                // 찜하지 않은 경우, 찜 추가 요청
+                fetch(`/spam/wishList/${room_id}`, {
+                    method: 'POST'
+                })
+                    .then(response => response.text())
+                    .then(data => {
+                        alert(data); // 찜 추가 성공 메시지
+                        const zzimImage = document.getElementById('zzim-image');
+                        zzimImage.src = 'image/like_1.png'; // 찜 추가 이미지로 변경
+                    })
+                    .catch(error => {
+                        console.error('찜 추가 실패:', error);
+                    });
+            }
+        })
+        .catch(error => {
+            console.error('찜 상태 확인 실패:', error);
+        });
 });
 
 

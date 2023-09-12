@@ -8,4 +8,5 @@ public class SeatDto {
     private int room_id;
     private String seat_number;
     private int is_reserved;
+    private boolean available; //좌석의 사용 가능 여부
 }
