@@ -38,19 +38,27 @@ public class ReservationController {
         // }
 
         List<Integer> seatNumbersList = new ArrayList<>();
+         String seatNumber = null;
+         String[] seatNumbers = null;
         for (SeatDto seat : seats) {
-            String seatNumber = seat.getSeat_number();
-            String[] seatNumbers = seatNumber.split(",");
+            seatNumber = seat.getSeat_number();
+            seatNumbers = seatNumber.split(",");
+            
             for (String number : seatNumbers) {
-                seatNumbersList.add(Integer.parseInt(number.trim()));
+                try {
+                    int parsedNumber = Integer.parseInt(number.trim());
+                    seatNumbersList.add(parsedNumber);
+                    // System.out.println("Extracted number: " + parsedNumber); // 숫자가 올바르게 추출되었을 때 출력
+                } catch (NumberFormatException e) {
+                    System.err.println("Invalid number format: " + number); // 숫자로 변환할 수 없는 경우 오류 메시지 출력
+                }
             }
         }
-        
-
-     
+  
         model.addAttribute("seats", seats);
         model.addAttribute("room_name", room_name);
-        model.addAttribute("seatNumbersList", seatNumbersList);
+        //model.addAttribute("seatNumber", seatNumber);
+       model.addAttribute("seatNumbersList", seatNumbersList);
 
         
         

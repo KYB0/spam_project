@@ -1,7 +1,5 @@
 ﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -226,6 +224,7 @@
             </li>
         </ul>
 
+        
         <div class="Stable">
          
             <div class="Ctable"></div>
@@ -311,36 +310,39 @@
     <%@ include file="footer.jsp" %>
 </body>
 <script>
-    const seatNumbersList = document.getElementById('seatNumbersList').value;// 컨트롤러에서 전달한 좌석 번호 배열을 직접 사용
-
-const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
+ const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
 let selectedSeat = null; // 선택된 좌석을 저장하는 변수
 
-seats.forEach((s_seat) => {
+// 좌석 번호를 포함한 배열 생성
+const seatNumbersList  = [];
+for (let i = 1; i <= 48; i++) {
+    seatNumbersList.push(i);
+}
+
+
+const  seatNumbers=${seatNumbersList};
+ console.log(seatNumbers)
+    
+
+ seats.forEach((s_seat) => {
     const seatNumber = parseInt(s_seat.textContent); // 좌석 번호 추출 및 정수로 변환
 
-    // seatNumbersList에 해당 좌석 번호가 있는지 확인
-    if (seatNumbersList.includes(seatNumber)) {
-        // 해당 좌석 번호가 배열에 있다면 선택 가능
-        s_seat.classList.add("availableSeat");
+    if (seatNumbers.includes(seatNumber)) {
+        s_seat.classList.add("availableSeat"); // 해당 좌석 번호가 배열에 있다면 선택 가능
     } else {
-        // 해당 좌석 번호가 배열에 없다면 선택 불가능
-        s_seat.classList.add("occupiedSeat");
+        s_seat.classList.add("occupiedSeat"); // 해당 좌석 번호가 배열에 없다면 선택 불가능
     }
 
     s_seat.addEventListener("click", function () {
         if (s_seat.classList.contains("availableSeat")) {
-            // 좌석이 선택 가능한 경우에만 선택 처리
             if (selectedSeat !== null) {
-                // 이미 선택된 좌석이 있을 경우, 선택 취소
                 selectedSeat.classList.remove("selectedSeat");
             }
 
-            s_seat.classList.add("selectedSeat"); // 새로운 좌석 선택
-            selectedSeat = s_seat; // 선택된 좌석 업데이트
+            s_seat.classList.add("selectedSeat");
+            selectedSeat = s_seat;
         }
     });
 });
-
 </script>
 </html>
