@@ -8,6 +8,7 @@
 
         if (!birthPattern.test(birth)) {
             birthErrorMsg.html("생년월일 형식에 맞게 입력해주세요 (YYYYMMDD)");
+            $(this).closest('.int-area').addClass('error');
         } else {
             // 생년월일의 유효성 검사
             let year = parseInt(birth.substring(0, 4));

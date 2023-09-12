@@ -9,8 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"> -->
     </script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <link rel="stylesheet" href="/spam/css/style.css">
@@ -27,15 +27,15 @@
             </div></p>
             <p><div class="int-area">
                 <input type="text" name="customer_id" id="id" autofocus autocomplete="off" required>
-                <label for="id">ID</label>
-            </div></p>
+                <label for="id">아이디</label>
+            </div>
 
             <p><div class="int-area">
                 <input type="password" name="customer_pwd" id="pw" autocomplete="off" required>
-                <label for="pw">  PASSWORD</label></p>
+                <label for="pw">비밀번호</label>
             </div>
-            <p><div class="btn-area">
-                <button id="btn" type="submit">LOGIN</button></p>
+            <div class="btn-area">
+                <button id="btn" type="submit">로그인</button>
             </div>
         </form>
         <div class="caption">

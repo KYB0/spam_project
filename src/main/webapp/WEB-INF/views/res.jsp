@@ -1,84 +1,99 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스터디카페 예약</title>
 </head>
 
 <body>
-    <input type="text" id="datepicker" autocomplete="off">
-    <div id="timeSlots"></div>
-    <div id="selectedTimeSlots"></div>
+    <h1>스터디카페 예약</h1>
+
+    <label for="date">날짜:</label>
+    <input type="date" id="date" required><br>
+
+    <label for="startTime">시작 시간:</label>
+    <select id="startTime">
+        <option value="00:00">00:00</option>
+        <option value="01:00">01:00</option>
+        <option value="02:00">02:00</option>
+        <option value="03:00">03:00</option>
+        <option value="04:00">04:00</option>
+        <option value="05:00">05:00</option>
+        <option value="06:00">06:00</option>
+        <option value="07:00">07:00</option>
+        <option value="08:00">08:00</option>
+        <option value="09:00">09:00</option>
+        <option value="10:00">10:00</option>
+        <option value="11:00">11:00</option>
+        <option value="12:00">12:00</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+        <option value="18:00">18:00</option>
+        <option value="19:00">19:00</option>
+        <option value="20:00">20:00</option>
+        <option value="21:00">21:00</option>
+        <option value="22:00">22:00</option>
+        <option value="23:00">23:00</option>
+    </select><br>
+
+    <label for="endTime">끝나는 시간:</label>
+    <select id="endTime">
+        <option value="00:00">00:00</option>
+        <option value="01:00">01:00</option>
+        <option value="02:00">02:00</option>
+        <option value="03:00">03:00</option>
+        <option value="04:00">04:00</option>
+        <option value="05:00">05:00</option>
+        <option value="06:00">06:00</option>
+        <option value="07:00">07:00</option>
+        <option value="08:00">08:00</option>
+        <option value="09:00">09:00</option>
+        <option value="10:00">10:00</option>
+        <option value="11:00">11:00</option>
+        <option value="12:00">12:00</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+        <option value="18:00">18:00</option>
+        <option value="19:00">19:00</option>
+        <option value="20:00">20:00</option>
+        <option value="21:00">21:00</option>
+        <option value="22:00">22:00</option>
+        <option value="23:00">23:00</option>
+    </select><br>
+
+    <button onclick="generateTimeSlots()">중간 시간 생성</button>
+
+    <div id="timeSlots">
+    </div>
 
     <script>
-        $(function () {
-            // 한글로 월과 요일 표시를 위한 설정
-            $.datepicker.setDefaults($.datepicker.regional['ko']);
+        const startTimeSelect = document.getElementById("startTime");
+        const endTimeSelect = document.getElementById("endTime");
 
-            // datepicker 설정
-            $("#datepicker").datepicker({
-                nextText: "다음",
-                prevText: "이전",
-                monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
-                dayNames: ["일", "월", "화", "수", "목", "금", "토", "일"],
-                dayNamesShort: ["일", "월", "화", "수", "목", "금", "토", "일"],
-                dayNamesMin: ["일", "월", "화", "수", "목", "금", "토", "일"],
-                minDate: 0, 
-                dateFormat: 'yy-mm-dd', // 원하는 날짜 형식 지정
-                onSelect: function (dateText, inst) {
-                    let selectedDate = new Date(dateText);
-                    generateTimeSlots(selectedDate);
-                }
-            });
 
-            function generateTimeSlots(selectedDate) {
-                // 시작 시간과 종료 시간을 설정
-                let startTime = new Date(selectedDate);
-                let endTime = new Date(selectedDate);
-                startTime.setHours(9, 0, 0); // 시작 시간 설정 (예: 9:00 AM)
-                endTime.setHours(18, 0, 0); // 종료 시간 설정 (예: 6:00 PM)
+        function generateTimeSlots() {
+            const startTime = document.getElementById("startTime").value;
+            const endTime = document.getElementById("endTime").value;
 
-                let timeSlotContainer = $("#timeSlots");
-                timeSlotContainer.empty(); // 이전에 생성된 버튼을 삭제
+            const startHour = parseInt(startTime.split(":")[0]);
+            const endHour = parseInt(endTime.split(":")[0]);
 
-                while (startTime < endTime) {
-                    let timeSlotButton = $("<button>").text(startTime.toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    }))
-                    .data("startTime", new Date(startTime)) // 시작 시간을 버튼 데이터로 저장
-                    .data("isSelected", false); // 선택 여부를 저장
-
-                    timeSlotButton.click(function () {
-                        // 버튼을 클릭했을 때 선택 여부를 토글
-                        let isSelected = $(this).data("isSelected");
-                        $(this).data("isSelected", !isSelected);
-
-                        // 선택된 시간대를 모아서 표시
-                        updateSelectedTimeSlots();
-                    });
-
-                    timeSlotContainer.append(timeSlotButton);
-                    startTime.setHours(startTime.getHours() + 1); // 1시간 뒤의 시간으로 이동
-                }
+            const timeSlots = [];
+            for (let hour = startHour; hour <= endHour; hour++) {
+                timeSlots.push(hour + `:00`);
             }
 
-            function updateSelectedTimeSlots() {
-                // 선택된 시간대를 가져와서 화면에 표시
-                let selectedTimeSlots = [];
-                $("#timeSlots button[data-isSelected=true]").each(function () {
-                    selectedTimeSlots.push($(this).text());
-                });
-
-                let selectedTimeSlotsContainer = $("#selectedTimeSlots");
-                selectedTimeSlotsContainer.empty();
-                selectedTimeSlotsContainer.text("선택한 시간: " + selectedTimeSlots.join(", "));
-            }
-        });
+            console.log("중간 시간:", timeSlots);
+        }
     </script>
 </body>
 

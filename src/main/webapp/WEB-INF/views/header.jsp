@@ -84,7 +84,7 @@
             --bs-btn-active-color: #000 !important;
             --bs-btn-active-bg: #f8f9fa !important;
             --bs-btn-active-border-color: #f8f9fa !important;
-            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
             --bs-btn-disabled-color: #f8f9fa !important;
             --bs-btn-disabled-bg: transparent !important;
             --bs-btn-disabled-border-color: #f8f9fa !important;
@@ -102,7 +102,7 @@
             --bs-btn-active-color: #000 !important;
             --bs-btn-active-bg: #f8f9fa !important;
             --bs-btn-active-border-color: #f8f9fa !important;
-            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) ;
             --bs-btn-disabled-color: #f8f9fa !important;
             --bs-btn-disabled-bg: transparent !important;
             --bs-btn-disabled-border-color: #f8f9fa !important;
@@ -192,12 +192,12 @@
 
                 <!-- 로그인 상태 확인 후 표시 여부 결정 -->
                 <c:choose>
-                    <c:when test="${not empty sessionScope.customer_id or not empty sessionScope.company_id}">
+                    <c:when test="${not empty sessionScope.loggedInUserId}">
                         <span class="mx-2 text-light">
                             환영합니다, 
                             <c:choose>
-                                <c:when test="${not empty sessionScope.customer_id}">
-                                    ${sessionScope.customer_id} 님
+                                <c:when test="${not empty sessionScope.loggedInUserId}">
+                                    ${sessionScope.loggedInUserId} 님
                                 </c:when>
                                 <c:otherwise>
                                     ${sessionScope.company_id} 님
@@ -257,7 +257,7 @@
                             </c:choose>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link " href="${pageContext.request.contextPath}/qna_list">Q&A</a>
+                            <a class="nav-link " href="${pageContext.request.contextPath}/qna/list">Q&A</a>
                         </li>
                     </ul>
                     <br>
