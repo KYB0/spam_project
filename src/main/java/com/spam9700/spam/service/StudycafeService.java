@@ -139,6 +139,10 @@ public class StudycafeService {
         return seatDao.getSeatsByRoomName(room_name);
     }
 
+    public List<SeatDto> getAllSeats() {
+return seatDao.getAllSeats();
+    }
+
 
 
 

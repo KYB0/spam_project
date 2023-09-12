@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -314,6 +315,8 @@
             <a href="#" class="myChooseButton">선택완료</a>
         </div>
     </section>
+    <section class="r_contaner">
+    </section>
     <%@ include file="footer.jsp" %>
 </body>
 <script>
@@ -327,10 +330,8 @@
     }
 
 
-    const seatNumbers = $ {
-        seatNumbersList
-    };
-    console.log(seatNumbers)
+    const seatNumbers = ${seatNumbersList};
+    console.log(seatNumbers);
 
 
     seats.forEach((s_seat) => {
@@ -346,13 +347,18 @@
             if (s_seat.classList.contains("availableSeat")) {
                 if (selectedSeat !== null) {
                     selectedSeat.classList.remove("selectedSeat");
+                    
                 }
 
                 s_seat.classList.add("selectedSeat");
                 selectedSeat = s_seat;
+                console.log(selectedSeat);
             }
         });
     });
 </script>
 
 </html>
+
+
+

@@ -31,5 +31,9 @@
     WHERE sr.room_name = #{room_name}
     </select>
 
+      <!-- 좌석 정보 조회 -->
+    <select id="getAllSeats" resultType="com.spam9700.spam.dto.SeatDto">
+        SELECT * FROM seats
+    </select>
 
 </mapper>
