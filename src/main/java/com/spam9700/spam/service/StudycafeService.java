@@ -153,13 +153,17 @@ public class StudycafeService {
         return mypageDao.getTotalQnaListByCustomerId(customer_id);
     }
 
-    public List<WishListDto> getWishListByCustomerId(String customer_id, int offset, int pageSize) {
-        return mypageDao.getWishListByCustomerId(customer_id, offset, pageSize);
+    public List<WishListDto> getWishListWithRoomNameByCustomerId(String customer_id, int offset, int pageSize) {
+        return mypageDao.getWishListWithRoomNameByCustomerId(customer_id, offset, pageSize);
     }
 
     public int getTotalWishListByCustomerId(String customer_id) {
         return mypageDao.getTotalWishListByCustomerId(customer_id);
     }
+
+  
+
+   
 
    
 

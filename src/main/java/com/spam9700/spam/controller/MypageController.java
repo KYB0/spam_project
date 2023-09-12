@@ -208,14 +208,14 @@ public class MypageController {
         String customer_id = (String) session.getAttribute("customer_id");
 
         // 페이징 정보 계산
-        int totalReviews = studycafeService.getTotalWishListByCustomerId(customer_id);
-        int totalPages = (int) Math.ceil((double) totalReviews / pageSize);
+        int totalWishLists = studycafeService.getTotalWishListByCustomerId(customer_id);
+        int totalPages = (int) Math.ceil((double) totalWishLists / pageSize);
         int offset = (page - 1) * pageSize;
 
         // customer_id를 이용하여 내가 작성한 리뷰 리스트를 가져오는 메서드를 studycafeService에서 호출
-        List<WishListDto> wishList = studycafeService.getWishListByCustomerId(customer_id, offset, pageSize);
+        List<WishListDto> wishList = studycafeService.getWishListWithRoomNameByCustomerId(customer_id, offset, pageSize);
 
-        // 모델에 리뷰 리스트를 추가
+        // 모델에 찜 목록 리스트를 추가
         model.addAttribute("wishList", wishList);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("currentPage", page);
@@ -238,8 +238,8 @@ public class MypageController {
         String customer_id = (String) session.getAttribute("customer_id");
 
         // 페이징 정보 계산
-        int totalReviews = studycafeService.getTotalQnaListByCustomerId(customer_id);
-        int totalPages = (int) Math.ceil((double) totalReviews / pageSize);
+        int totalQnaLists = studycafeService.getTotalQnaListByCustomerId(customer_id);
+        int totalPages = (int) Math.ceil((double) totalQnaLists / pageSize);
         int offset = (page - 1) * pageSize;
 
         List<QnaBoardDto> qnaBoardList = studycafeService.getQnaListByUserId(customer_id, offset, pageSize);

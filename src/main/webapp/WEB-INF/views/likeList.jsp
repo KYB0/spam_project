@@ -28,16 +28,18 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">찜</th>
-                    <th scope="col">고객 ID</th>
-                    <th scope="col">업체 번호</th>
+                    <th scope="col">찜 No.</th>
+                    <!-- <th scope="col">고객 ID</th> -->
+                    <th scope="col">업체명</th>
+                    <th scope="col">업체 코드</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach items="${wishList}" var="wishList">
                     <tr>
                         <td>${wishList.wishlist_id}</td>
-                        <td>${wishList.customer_id}</td>
+                        <!-- <td>${wishList.customer_id}</td> -->
+                        <td>${wishList.room_name}</td>
                         <td>${wishList.room_id}</td>
                     </tr>
                 </c:forEach>

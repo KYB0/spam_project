@@ -4,6 +4,7 @@
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import com.spam9700.spam.dto.QnaBoardDto;
 import com.spam9700.spam.dto.ReservationDto;
@@ -27,7 +28,9 @@ public interface MypageDao {
 
     int getTotalQnaListByCustomerId(String customer_id);
 
-    List<WishListDto> getWishListByCustomerId(String customer_id, int offset, int pageSize);
+    List<WishListDto> getWishListWithRoomNameByCustomerId(@Param("customerId") String customer_id, 
+                                                          @Param("offset") int offset, 
+                                                          @Param("pageSize") int pageSize);
 
     int getTotalWishListByCustomerId(String customer_id);
 

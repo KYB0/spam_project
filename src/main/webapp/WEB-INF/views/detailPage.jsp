@@ -8,12 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM</title>
     <style>
-        .p-20 {
-            width: 20%;
+        .p-10 {
+            width: 15%;
         }
-
-        .p-30 {
-            width: 30%;
+        .p-15{
+            width:15%;
+        }
+        .p-25 {
+            width: 25%;
         }
 
         .p-50 {
@@ -285,15 +287,17 @@
                 <tr class="rtbl-head">
                     <td>WRITER</td>
                     <td>CONTENTS</td>
+                    <td>RATE</td>
                     <td>DATE</td>
                 </tr>
                 <!-- 리뷰 목록 반복 및 리뷰 표시 -->
                 <c:forEach var="review" items="${reviewList}">
                     <tr>
-                        <td class="p-20">${review.customer_id}</td>
+                        <td class="p-10">${review.customer_id}</td>
                         <td class="p-50">${review.review_content}</td>
+                        <td class="p-15">${roomDetail.rating}</td>
                         <!-- LocalDateTime을 jstl에서 사용하기: pattern에 꼭 'T'추가할것.-->
-                        <td class="p-30">
+                        <td class="p-25">
                             <fmt:parseDate value="${review.review_date}" pattern="yyyy-MM-dd'T'HH:mm:ss"
                                 var="parsedDateTime" type="both" />
                             <fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${parsedDateTime}" />

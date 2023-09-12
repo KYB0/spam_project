@@ -29,7 +29,7 @@
     transform: translate(10%, -20%);
     padding: 50px 150px 90px 50px;  /*필요한 경우 여백 추가*/
     
-}
+} 
 
 /* 화면 크기에 따른 너비 조절 */
 @media (max-width: 768px) {
