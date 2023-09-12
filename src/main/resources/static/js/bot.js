@@ -1,15 +1,23 @@
 ﻿let chatHistory = [];
 
-function saveState() { // 상태저장
+function saveState() { // 상태 저장
     const modalContent = document.querySelector('.modal-content');
     chatHistory.push(modalContent.innerHTML);
 }
 
-function loadLastState() {
+function applyEventListeners() { // 이벤트 리스너 적용
+    const buttons = document.querySelectorAll('.chat-button');
+    buttons.forEach((button) => {
+        button.addEventListener('click', yourEventHandler); // yourEventHandler는 실제 이벤트를 처리하는 함수입니다.
+    });
+}
+
+function loadLastState() { // 마지막 상태 불러오기
     const lastState = chatHistory[chatHistory.length - 1];
     if (lastState) {
         const modalContent = document.querySelector('.modal-content');
         modalContent.innerHTML = lastState;
+        applyEventListeners(); // 이벤트 리스너 적용
     }
 }
 
