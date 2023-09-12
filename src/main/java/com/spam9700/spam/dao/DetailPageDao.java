@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReviewDto;
@@ -64,12 +66,15 @@ public interface DetailPageDao {
 
 
  //찜
-    Object isRoomInWishList(WishListDto wishListDto);
 
+ 
     void removeFromWishList(WishListDto wishListDto);
 
     void addToWishList(WishListDto wishListDto);
 
-    
+    int toggleWishlist(WishListDto wishListDto);
+
+    int isProductInWishList(WishListDto wishListDto);
+
 
 }

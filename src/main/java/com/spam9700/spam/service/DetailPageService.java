@@ -71,10 +71,6 @@ public class DetailPageService {
 
 
 //찜
-    public boolean isRoomInWishList(WishListDto wishListDto) {
-      // 해당 room_id와 customer_id로 Wishlist 테이블에서 데이터 조회
-        return detailPageDao.isRoomInWishList(wishListDto) != null;
-    }
 
     public void removeFromWishList(WishListDto wishListDto) {
         // Wishlist 테이블에서 해당 데이터 삭제
@@ -85,6 +81,17 @@ public class DetailPageService {
          detailPageDao.addToWishList(wishListDto);
     }
 
+    public int  toggleWishlist(WishListDto wishListDto) {
+        int count = detailPageDao.isProductInWishList(wishListDto);
+        if(count == 0){
+            detailPageDao.addToWishList(wishListDto);
+        }else{
+            detailPageDao.removeFromWishList(wishListDto);
+        }
+        return count;
+    }
+
+ 
 
 
   

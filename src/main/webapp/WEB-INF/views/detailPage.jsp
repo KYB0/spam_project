@@ -1,5 +1,6 @@
 ﻿<%@ page pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -213,15 +214,6 @@
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
-<script>
-      document.getElementById('zzim-button').addEventListener('click', function () {
-        const room_id = document.getElementById('room_id').value;
-        const form = document.getElementById('zzim-form');
-        form.action = `/spam/wishList/${room_id}`;
-        form.submit();
-    });
-
-</script>
 <body>
     <%@ include file="header.jsp" %>
 
@@ -234,8 +226,8 @@
         <div class="invite">
             <h2>독서실 소개</h2>
             <div class="zzim">
-                <button id="zzim-button" class="zzim-button">
-                    <img src="<c:choose><c:when test='${roomFavorited}'>image/like_1.png</c:when><c:otherwise>image/like_2.png</c:otherwise></c:choose>" alt="찜 버튼" id="zzim-image">
+                <button id="zzim-button" class="zzim-button" data-customer-id="${customer_id}" data-room-id="${room_id}" onclick="toggleWishList(this)">
+                    <img src="image/like_2.png" alt="찜 버튼" id="zzim-image">
                 </button>
             </div><br>
             <div class="info">
@@ -313,49 +305,40 @@
     <%@ include file="footer.jsp" %>
 </body>
 <script>
-document.getElementById('zzim-button').addEventListener('click', function () {
-    const room_id = document.getElementById('room_id').value;
-    // AJAX 요청을 보냅니다.
-    fetch(`/spam/checkWishList/${room_id}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.exists) {
-                // 이미 찜한 경우, 찜 해제 요청
-                fetch(`/spam/wishList/${room_id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.text())
-                    .then(data => {
-                        alert(data); // 찜 해제 성공 메시지
-                        const zzimImage = document.getElementById('zzim-image');
-                        zzimImage.src = 'image/like_2.png'; // 찜 해제 이미지로 변경
-                    })
-                    .catch(error => {
-                        console.error('찜 해제 실패:', error);
-                    });
-            } else {
-                // 찜하지 않은 경우, 찜 추가 요청
-                fetch(`/spam/wishList/${room_id}`, {
-                    method: 'POST'
-                })
-                    .then(response => response.text())
-                    .then(data => {
-                        alert(data); // 찜 추가 성공 메시지
-                        const zzimImage = document.getElementById('zzim-image');
-                        zzimImage.src = 'image/like_1.png'; // 찜 추가 이미지로 변경
-                    })
-                    .catch(error => {
-                        console.error('찜 추가 실패:', error);
-                    });
+
+function toggleWishList(buttonElement){
+    var buttonElement = document.getElementById("zzim-button");
+    var imageElement = document.getElementById("zzim-image");
+    const customer_id = buttonElement.getAttribute("data-customer-id");
+    const room_id = buttonElement.getAttribute("data-room-id");
+
+    $.ajax({
+        type: "POST",
+        url: "/spam/wishlist/toggle",
+        data: JSON.stringify({customer_id:customer_id, room_id:room_id}),
+        contentType: "application/json",
+        success: function(data){
+            if(data === "Added to Wishlist"){
+                //찜하기 추가됨 : 하트 아이콘 색상 변경
+                imageElement.src = "image/like_1.png"; // 찜 추가 이미지로 변경
+            }else if(data === "Removed from Wishlist"){
+                //찜하기 제거됨 : 하트 아이콘 색상 변경 해제
+                imageElement.src = "image/like_2.png"; // 찜 해제 이미지로 변경
+            }else{
+                //로그인이 필요한 경우 또는 오류 발생
+                alert(data);
             }
-        })
-        .catch(error => {
-            console.error('찜 상태 확인 실패:', error);
-        });
-});
+        },
+        error:function(){
+            alert("로그인이 필요합니다.");
+        }
+    })
+}
 
 
-  
+
+
+  //하은씨 힘내요
 
     // 예약하기 버튼 클릭 시 동작 정의
     $(document).ready(function () {
@@ -378,7 +361,7 @@ document.getElementById('zzim-button').addEventListener('click', function () {
             success: function (data) {
                 var room_description = data.room_description;
                 $(".r-description").text("영업 시간 " + room_description);
-                console.log(data);
+                // console.log(data);
             },
             error: function () {
                 console.error("데이터 가져오기 실패");
@@ -436,7 +419,7 @@ document.getElementById('zzim-button').addEventListener('click', function () {
                 type: "GET",
                 url: "/spam/" + room_name + "/reviews",
                 success: function (data) {
-                    console.log("data:", data);
+                    // console.log("data:", data);
                     // 댓글 목록을 초기화
                     $("#reviewListContainer").empty();
 

@@ -15,4 +15,5 @@ public interface SeatDao {
     void deletePreviousSeatsByRoomId(int room_id);
     List<SeatDto> getSeatsByRoomName(String room_name);
     List<SeatDto> getAllSeatsOfData();
+    List<SeatDto> getAllSeats();
 }
