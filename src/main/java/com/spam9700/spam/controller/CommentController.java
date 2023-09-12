@@ -90,9 +90,14 @@ public class CommentController {
     }
 
     @GetMapping("/getByBoardId/{boardId}")
-    public ResponseEntity<List<CommentDto>> getCommentsByBoardId(@PathVariable int boardId) {
-        List<CommentDto> comments = commentService.getCommentsByBoardId(boardId);
+    public ResponseEntity<List<CommentDto>> getCommentsByBoardId(
+            @PathVariable int boardId,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "5") int pageSize) {
+        List<CommentDto> comments = commentService.getCommentsByBoardId(boardId, page, pageSize);
         log.info("댓글 목록 조회 성공: 게시글 ID = {}, 댓글 수 = {}", boardId, comments.size());
+        log.info("page:{},pageSize:{}", page, pageSize);
         return ResponseEntity.ok(comments);
     }
+
 }

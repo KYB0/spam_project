@@ -17,6 +17,6 @@ public interface CommentDao {
 
     int deleteComment(int commentId);
 
-    List<CommentDto> getCommentsByBoardId(int boardId);
+    List<CommentDto> getCommentsByBoardId(int boardId, int offset, int pageSize);
 
 }

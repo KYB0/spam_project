@@ -52,6 +52,8 @@
                 <th>작성자</th>
                 <th>내용</th>
                 <th>작성일</th>
+                <th>수정</th>
+                <th>삭제</th>
             </tr>
         </thead>
         <tbody id="comments">
@@ -69,9 +71,56 @@
         <input type="button" value="댓글 작성" onclick="addComment()">
     </form>
 
+    <!-- 댓글 수정 폼 -->
+    <h3>댓글 수정</h3>
+    <form id="editCommentForm" style="display: none;">
+        <input type="hidden" id="editCommentId" name="comment_id">
+        <label for="editCommentContent">댓글 내용:</label>
+        <textarea id="editCommentContent" name="comment_content" rows="4" cols="50"></textarea>
+        <br>
+        <input type="button" value="댓글 수정" onclick="editComment()">
+    </form>
+
     <a href="${pageContext.request.contextPath}/qna/list">목록으로 돌아가기</a>
 
     <script>
+        // 특정 페이지의 댓글을 로드하는 JavaScript 함수
+        function loadComments(page) {
+            let boardId = "${board.board_id}";
+
+            $.ajax({
+                type: "GET",
+                url: "${pageContext.request.contextPath}/comments/getByBoardId/" + boardId + "?page=" + page,
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    // 댓글 목록을 초기화
+                    $("#comments").empty();
+
+                    // 서버에서 가져온 댓글을 화면에 추가
+                    for (let i = 0; i < data.length; i++) {
+                        let commentHtml = "<tr>" +
+                            "<td>" + data[i].user_id + "</td>" +
+                            "<td>" + data[i].comment_content + "</td>" +
+                            "<td>" + data[i].comment_date + "</td>" +
+                            "<td><a href='#' onclick='openEditForm(" + data[i].comment_id + ", \"" + data[i]
+                            .comment_content + "\")'>수정</a></td>" +
+                            "<td><a href='#' onclick='deleteComment(" + data[i].comment_id +
+                            ")'>삭제</a></td>" +
+                            "</tr>";
+                        $("#comments").append(commentHtml);
+                    }
+                },
+                error: function () {
+                    alert("댓글 불러오기 실패");
+                }
+            });
+        }
+
+        // 페이지 로드 시 초기 댓글 페이지를 로드합니다.
+        $(document).ready(function () {
+            loadComments(1);
+        });
         // 페이지 로드 시 댓글 가져오기
         $(document).ready(function () {
             getComments();
@@ -86,6 +135,13 @@
                 document.body.appendChild(form);
                 form.submit();
             }
+        }
+
+        // JavaScript function to open edit form
+        function openEditForm(commentId, commentContent) {
+            $("#editCommentId").val(commentId);
+            $("#editCommentContent").val(commentContent);
+            $("#editCommentForm").show();
         }
 
         // AJAX로 댓글 추가
@@ -104,19 +160,55 @@
                 dataType: "json",
                 success: function (data) {
                     // 댓글 추가 성공 시 화면에 댓글 추가
-                    let commentHtml = "<tr>" +
-                        "<td>${loggedInUserId}</td>" +
-                        "<td>" + commentContent + "</td>" +
-                        "<td>" + data.comment_date + "</td>" +
-                        "</tr>";
-                    $("#comments").append(commentHtml);
-
+                    getComments();
                     // 입력 폼 초기화
                     $("#comment_content").val("");
                 },
                 error: function () {
-                    location.href="/spam/member/i_login";
+                    location.href = "/spam/member/i_login";
                     alert("댓글 추가 실패");
+                }
+            });
+        }
+
+        // AJAX로 댓글 수정
+        function editComment() {
+            let commentId = $("#editCommentId").val();
+            let editedContent = $("#editCommentContent").val();
+
+            $.ajax({
+                type: "PUT",
+                url: "${pageContext.request.contextPath}/comments/" + commentId,
+                data: JSON.stringify({
+                    comment_content: editedContent
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                success: function (data) {
+                    // 댓글 수정 성공 시 화면 갱신
+                    getComments();
+                    // 폼 초기화 및 닫기
+                    $("#editCommentId").val("");
+                    $("#editCommentContent").val("");
+                    $("#editCommentForm").hide();
+                },
+                error: function () {
+                    alert("댓글 수정 실패");
+                }
+            });
+        }
+
+        // AJAX로 댓글 삭제
+        function deleteComment(commentId) {
+            $.ajax({
+                type: "DELETE",
+                url: "${pageContext.request.contextPath}/comments/" + commentId,
+                success: function () {
+                    // 댓글 삭제 성공 시 화면 갱신
+                    getComments();
+                },
+                error: function () {
+                    alert("댓글 삭제 실패");
                 }
             });
         }
@@ -140,6 +232,10 @@
                             "<td>" + data[i].user_id + "</td>" +
                             "<td>" + data[i].comment_content + "</td>" +
                             "<td>" + data[i].comment_date + "</td>" +
+                            "<td><a href='#' onclick='openEditForm(" + data[i].comment_id + ", \"" + data[i]
+                            .comment_content + "\")'>수정</a></td>" +
+                            "<td><a href='#' onclick='deleteComment(" + data[i].comment_id +
+                            ")'>삭제</a></td>" +
                             "</tr>";
                         $("#comments").append(commentHtml);
                     }

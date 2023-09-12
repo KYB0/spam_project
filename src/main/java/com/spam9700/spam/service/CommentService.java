@@ -33,7 +33,9 @@ public class CommentService {
         return commentDao.deleteComment(commentId);
     }
 
-    public List<CommentDto> getCommentsByBoardId(int boardId) {
-        return commentDao.getCommentsByBoardId(boardId);
+    public List<CommentDto> getCommentsByBoardId(int boardId, int page, int pageSize) {
+        int offset = (page - 1) * pageSize; // 페이지 시작 댓글 인덱스 계산
+        return commentDao.getCommentsByBoardId(boardId, offset, pageSize);
     }
+
 }
