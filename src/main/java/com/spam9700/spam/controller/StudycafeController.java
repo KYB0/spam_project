@@ -27,6 +27,7 @@ import com.spam9700.spam.dto.ReviewDto;
 
 import com.spam9700.spam.service.StudycafeService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import com.spam9700.spam.service.DetailPageService;
@@ -60,7 +61,6 @@ public class StudycafeController {
         DetailPageDto roomDetail = detailPageService.getStudyRoomByRoomName(room_name);
         model.addAttribute("roomDetail", roomDetail);
         log.info("roomDetail:{}", roomDetail);
-
         if (roomDetail != null) {
             Integer room_id = roomDetail.getRoom_id(); // "room_id"를 직접 가져옵니다.
             session.setAttribute("room_id", room_id);
@@ -76,56 +76,33 @@ public class StudycafeController {
         }
     }
 
-    @PostMapping("/wishList/{room_id}")
-    @ResponseBody
-    public String addToWishList(@PathVariable("room_id") int room_id, HttpSession session){
-       // Session에서 customer_id 가져오기
-       String customer_id = (String) session.getAttribute("customer_id");
-        
-       // customer_id가 null이면 로그인 안한 상태
-       if (customer_id == null) {
-           return "로그인 후 이용해주세요.";
+    
+    // @PostMapping("/wishlist/add")
+    // public ResponseEntity<String> addToWishlist(@RequestBody WishListDto wishListDto){
+    //     detailPageService.addToWishList(wishListDto);
+    //     return ResponseEntity.ok("Added to Wishlist");
+    // }
+
+    // @PostMapping("/wishlist/remove")
+    // public ResponseEntity<String> removeFromWishlist(@RequestBody WishListDto wishListDto){
+    //     detailPageService.removeFromWishList(wishListDto);
+    //     return ResponseEntity.ok("Removed from Wishlist");
+    // }
+
+    @PostMapping("/wishlist/toggle")
+    public ResponseEntity<String> toggleWishlist(@RequestBody WishListDto wishListDto) {
+       //로그인 여부 확인 ( 비회원일 시 에러 응답)
+       if (wishListDto.getCustomer_id() == null){
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 후에 찜하기가 가능합니다.");
        }
-
-       // WishListDto 객체를 생성하여 room_id와 customer_id 설정
-       WishListDto wishListDto = new WishListDto();
-       wishListDto.setRoom_id(room_id);
-       wishListDto.setCustomer_id(customer_id);
-
-       // 이미 찜한 경우, DB에서 삭제
-       if (detailPageService.isRoomInWishList(wishListDto)) {
-           detailPageService.removeFromWishList(wishListDto);
-           return "찜이 해제되었습니다.";
-       } else {
-           // 찜하지 않은 경우, DB에 추가
-           detailPageService.addToWishList(wishListDto);
-           return "찜이 추가되었습니다.";
+       //중복 클릭 여부 확인(찜한 상태: 1, 찜 안한 상태: 0)
+       int toggleResult = detailPageService.toggleWishlist(wishListDto);
+       if(toggleResult == 0){
+        return ResponseEntity.ok("Added to Wishlist");
+       }else{
+        return ResponseEntity.ok("Removed from Wishlist");
        }
-   }
-
-
-    @GetMapping("/checkWishList/{room_id}")
-    @ResponseBody
-    public ResponseEntity<Boolean> checkWishList(@PathVariable("room_id") int room_id, HttpSession session) {
-        String customer_id = (String) session.getAttribute("customer_id");
-
-        if (customer_id != null && !customer_id.isEmpty()) {
-            // WishlistDto 객체를 생성하여 해당 room_id와 customer_id를 설정합니다.
-            WishListDto wishListDto = new WishListDto();
-            wishListDto.setRoom_id(room_id);
-            wishListDto.setCustomer_id(customer_id);
-
-            // 이미 찜한 경우, true를 응답
-            if (detailPageService.isRoomInWishList(wishListDto)) {
-                return ResponseEntity.status(HttpStatus.OK).body(true);
-            }
-        }
-
-        // 찜하지 않은 경우 또는 로그인하지 않은 경우, false를 응답
-        return ResponseEntity.status(HttpStatus.OK).body(false);
     }
-
-
 
 
 
