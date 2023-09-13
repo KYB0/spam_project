@@ -80,4 +80,15 @@
         WHERE customer_id = #{customer_id}
     </delete>
 
+    <delete id="deleteCMemberInfo" parameterType="String">
+        DELETE FROM company_member
+        WHERE company_id = #{company_id}
+    </delete>
+
+<!-- // company_id 회원 탈퇴시 study_room에 등록된 데이터값 삭제 -->
+    <delete id="deleteStudyRoomsByCompanyId" parameterType="String"> 
+    DELETE FROM study_room
+    WHERE company_id = #{company_id}
+</delete>
+
 </mapper>

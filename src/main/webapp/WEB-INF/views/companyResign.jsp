@@ -158,6 +158,7 @@
         }
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
+    <script src="js/code.jquery.com_jquery-3.7.0.min.js"></script>
 </head>
 
 <body>
@@ -174,7 +175,11 @@
         <div class="c_quit">
             <h4>탈퇴 신청</h4>
             <div class="resign_quit">
-                <button id="r_quit">탈퇴 신청</button>
+                <form method="post" action="/spam/member/c_mypage/resign">
+                    <input type="hidden" name="company_id" value="${company_id}">
+                    <input type="submit" id="r_quit" value="회원 탈퇴">
+                </form>
+                <!-- <button type="submit" onclick="return cresignAlert();" id="r_quit" name="resignButton">회원 탈퇴</button> -->
             </div>
         </div>
     </section>
@@ -189,10 +194,20 @@
     <%@ include file="footer.jsp" %>
 </body>
 <script>
-    // 탈퇴 신청 버튼 클릭 이벤트 처리
-    document.getElementById("r_quit").addEventListener("click", function() {
-        // 알림창 표시
-        alert("탈퇴가 완료되었습니다.");
+    // // 탈퇴 신청 버튼 클릭 이벤트 처리
+    // document.getElementById("r_quit").addEventListener("click", function() {
+    //     // 알림창 표시
+    //     alert("탈퇴가 완료되었습니다.");
+    // });
+    $(document).ready(function() {
+    $("form").submit(function(event) {
+        var confirmDelete = confirm("회원 탈퇴하시겠습니까?");
+        if (!confirmDelete) {
+            event.preventDefault(); // 탈퇴를 취소하고 페이지를 리로드하지 않음
+        }
     });
+});
+ 
+
 </script>
 </html>

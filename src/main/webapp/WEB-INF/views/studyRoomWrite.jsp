@@ -1,6 +1,4 @@
-﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -89,7 +87,7 @@ form#stdForm1 {
   min-width: 250px;
   padding-left: 5px;
   outline: none;
-  color: rgba(0,0,0,1);
+  color: white;
         }
 
         input[name^="stdR"]:focus {

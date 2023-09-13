@@ -56,5 +56,11 @@ public class MemberService {
         memberDao.deleteMemberInfo(customer_id);
     }
 
+    public void deleteUserWithRooms(String company_id) {
+        memberDao.deleteStudyRoomsByCompanyId(company_id);
+        memberDao.deleteCMemberInfo(company_id);
+        
+    }
+
    
 }

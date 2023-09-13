@@ -185,4 +185,24 @@ public class MemberController {
         return "redirect:/main";
     }
 
+    @PostMapping("/c_mypage/resign")
+    public String deleteUser(@RequestParam("company_id") String company_id, HttpSession session, RedirectAttributes redirectAttributes) {
+        // 현재 로그인된 company_id를 세션에서 가져옴
+        String loggedInCompanyId = (String) session.getAttribute("company_id");
+
+        // 로그인된 사용자의 company_id와 탈퇴 요청에서 받은 companyId를 비교하여 처리
+        if (loggedInCompanyId != null && loggedInCompanyId.equals(company_id)) {
+            memberService.deleteUserWithRooms(company_id);
+            session.invalidate(); // 세션 무효화 (로그아웃)
+
+            redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다."); // 리다이렉트 시 메시지 전달
+
+            return "redirect:/main"; // 탈퇴 후 로그인 페이지로 리다이렉트
+        } else {
+            // 로그인된 사용자와 탈퇴 요청의 company_id가 일치하지 않을 때 처리
+            redirectAttributes.addFlashAttribute("error", "회원 탈퇴에 실패하였습니다."); // 리다이렉트 시 에러 메시지 전달
+            return "redirect:/main"; // 회원 탈퇴 실패 시 이동할 페이지
+        }
+    }
+
 }
