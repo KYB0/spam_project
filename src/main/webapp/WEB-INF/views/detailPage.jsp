@@ -8,14 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM</title>
     <style>
-        .p-10 {
-            width: 15%;
+        .p-20 {
+            width: 20%;
         }
-        .p-15{
-            width:15%;
-        }
-        .p-25 {
-            width: 25%;
+
+        .p-30 {
+            width: 30%;
         }
 
         .p-50 {
@@ -216,14 +214,14 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
 <script>
-      document.getElementById('zzim-button').addEventListener('click', function () {
+    document.getElementById('zzim-button').addEventListener('click', function () {
         const room_id = document.getElementById('room_id').value;
         const form = document.getElementById('zzim-form');
         form.action = `/spam/wishList/${room_id}`;
         form.submit();
     });
-
 </script>
+
 <body>
     <%@ include file="header.jsp" %>
 
@@ -237,22 +235,23 @@
             <h2>독서실 소개</h2>
             <div class="zzim">
                 <form method="POST" action="/spam/wishList/{room_id}" id="zzim-form">
-                <input type="hidden" id="room_id" value="${room_id}">
-                <button id="zzim-button" class="zzim-button" type="button">
-                    <img src="<c:choose><c:when test='${roomFavorited}'>image/like_1.png</c:when><c:otherwise>image/like_2.png</c:otherwise></c:choose>" alt="찜 버튼" id="zzim-image">
-                </button>
-            </form>
+                    <input type="hidden" id="room_id" value="${room_id}">
+                    <button id="zzim-button" class="zzim-button" type="button">
+                        <img src="<c:choose><c:when test='${roomFavorited}'>image/like_1.png</c:when><c:otherwise>image/like_2.png</c:otherwise></c:choose>"
+                            alt="찜 버튼" id="zzim-image">
+                    </button>
+                </form>
             </div><br>
             <div class="info">
                 <c:forEach items="${rnData}" var="rmd">
-                <h4 class="r-description">영업 시간 : ${rmd.room_description}</h4>
-                <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
-                <h4 class="r-time">가격  <p>
-                        <h5>시간당 : ${rmd.time_price} 원</h5>
-                        <h5>1일당 : ${rmd.day_price} 원</h5>
-                    </p>
-                </h4> <!-- jquery로 db에서 데이터를 가져온다-->
-            </c:forEach>
+                    <h4 class="r-description">영업 시간 : ${rmd.room_description}</h4>
+                    <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
+                    <h4 class="r-time">가격 <p>
+                            <h5>시간당 : ${rmd.time_price} 원</h5>
+                            <h5>1일당 : ${rmd.day_price} 원</h5>
+                        </p>
+                    </h4> <!-- jquery로 db에서 데이터를 가져온다-->
+                </c:forEach>
             </div>
         </div>
         <h2>평점</h2>
@@ -293,19 +292,28 @@
                 <!-- 리뷰 목록 반복 및 리뷰 표시 -->
                 <c:forEach var="review" items="${reviewList}">
                     <tr>
-                        <td class="p-10">${review.customer_id}</td>
+                        <td class="p-20">${review.customer_id}</td>
                         <td class="p-50">${review.review_content}</td>
-                        <td class="p-15">${roomDetail.rating}</td>
                         <!-- LocalDateTime을 jstl에서 사용하기: pattern에 꼭 'T'추가할것.-->
-                        <td class="p-25">
+                        <td class="p-30">
                             <fmt:parseDate value="${review.review_date}" pattern="yyyy-MM-dd'T'HH:mm:ss"
                                 var="parsedDateTime" type="both" />
                             <fmt:formatDate pattern="yyyy.MM.dd HH:mm:ss" value="${parsedDateTime}" />
                         </td>
                     </tr>
                 </c:forEach>
-
             </table>
+
+            <!-- 페이지네이션 -->
+<!-- <div id="pagination">
+    <button id="prevPage" onclick="changePage(<%= currentPage - 1 %>)">이전</button>
+    <c:forEach var="pageNumber" begin="1" end="${totalPages}">
+        <c:set var="pageNumberInt" value="${pageNumber}" />
+        <button onclick="changePage(${pageNumberInt})">${pageNumber}</button>
+    </c:forEach>
+    <button id="nextPage" onclick="changePage(<%= currentPage + 1 %>)">다음</button>
+</div> -->
+
 
             <div id="reviewListContainer">
                 <!-- 리뷰 목록이 여기에 나타납니다. -->
@@ -320,15 +328,15 @@
     <%@ include file="footer.jsp" %>
 </body>
 <script>
-document.getElementById('zzim-button').addEventListener('click', function () {
-    const room_id = document.getElementById('room_id').value;
-    const form = document.getElementById('zzim-form');
-    form.action = `/spam/wishList/${room_id}`;
-    form.submit();
-});
+    document.getElementById('zzim-button').addEventListener('click', function () {
+        const room_id = document.getElementById('room_id').value;
+        const form = document.getElementById('zzim-form');
+        form.action = `/spam/wishList/${room_id}`;
+        form.submit();
+    });
 
 
-  
+
 
     // 예약하기 버튼 클릭 시 동작 정의
     $(document).ready(function () {
@@ -418,6 +426,7 @@ document.getElementById('zzim-button').addEventListener('click', function () {
                         let commentHtml = "<tr>" +
                             "<td>" + data[i].customer_id + "</td>" +
                             "<td>" + data[i].review_content + "</td>" +
+                            "<td>" + data[i].rating + "점</td>" +
                             "<td>" + data[i].review_date + "</td>" +
                             "</tr>";
                         $("#reviewListContainer").append(commentHtml);
@@ -434,8 +443,19 @@ document.getElementById('zzim-button').addEventListener('click', function () {
     });
 
 
+    // // 초기 페이지 번호 설정
+    // var currentPage = 1;
+    // var totalPages = $ {
+    //     totalPages
+    // }; // 서버에서 전달된 총 페이지 수
 
-
+    // // 페이지 변경 함수
+    // function changePage(page) {
+    //     if (page >= 1 && page <= totalPages) {
+    //         currentPage = page;
+    //         loadReviews(currentPage); // 서버에서 해당 페이지의 리뷰를 가져오는 함수 호출
+    //     }
+    // }
 </script>
 
 </html>

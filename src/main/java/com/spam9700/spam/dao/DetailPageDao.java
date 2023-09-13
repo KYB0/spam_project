@@ -48,7 +48,7 @@ public interface DetailPageDao {
  
     boolean reviewInsert(ReviewDto reviewDto);
 
-    List<ReviewDto> getReviewsByRoomId(Integer room_id);
+    List<ReviewDto> getReviewsByRoomId(@Param("room_id") Integer room_id);
 
     List<DetailPageDto> getRoomsByCompanyId(String company_id, int offset, int pageSize);
 
@@ -69,6 +69,7 @@ public interface DetailPageDao {
     void removeFromWishList(WishListDto wishListDto);
 
     void addToWishList(WishListDto wishListDto);
+
 
 
     

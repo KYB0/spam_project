@@ -86,6 +86,8 @@ public class DetailPageService {
          detailPageDao.addToWishList(wishListDto);
     }
 
+    
+
 
 
   

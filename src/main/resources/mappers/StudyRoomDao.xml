@@ -77,11 +77,6 @@
         SELECT * FROM review 
         WHERE room_id = #{room_id}
         ORDER BY review_date DESC;
-
-        <!-- SELECT * FROM review
-        WHERE room_id = #{room_id}
-        ORDER BY review_date DESC
-        LIMIT #{pageSize} OFFSET #{offset`}; -->
     </select>
 
     <!-- 상세페이지 리뷰 내역 페이징 -->

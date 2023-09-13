@@ -1,5 +1,6 @@
 package com.spam9700.spam.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import java.util.List;
@@ -164,21 +165,26 @@ public class StudycafeController {
 
 
 
-    @GetMapping("/{room_name}/reviews")
+       @GetMapping("/{room_name}/reviews")
     @ResponseBody
-    public List<ReviewDto> getReviews(@PathVariable("room_name") String room_name, Model model, HttpSession session) {
+    public List<ReviewDto> getReviews(@PathVariable("room_name") String room_name, Model model, HttpSession session,
+    @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int pageSize) {
         
         System.out.println("room_name:"+room_name);
         Integer room_id = (Integer) session.getAttribute("room_id");
         System.out.println("id="+room_id);
 
         List < ReviewDto > reviewList = detailPageService.getReviewsByRoomId(room_id);
-        if (room_id != null) {
-            log.info("reviewList:{}", reviewList);
-            
-        } 
-        return reviewList;  //List-->잭슨-->Json   
+        
+        //페이징 로직 추가
+        int totalStart = (page - 1) * pageSize;
+        int totalEnd = Math.min(totalStart + pageSize, reviewList.size());
+        
+        if (totalStart < totalEnd) {
+            return reviewList.subList(totalStart, totalEnd);  //List-->잭슨-->Json   
+        } else {
+            return Collections.emptyList();
+        }
     }
-
 
 }
