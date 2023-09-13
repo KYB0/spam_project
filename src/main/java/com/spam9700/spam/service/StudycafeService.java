@@ -43,21 +43,68 @@ public class StudycafeService {
         return detailPageDao.getOpenTimeByStudyRoom(room_name);
     }
 
-    public List<DetailPageDto> searchRooms(String region, String searchKeyword) {
+    // public List<DetailPageDto> searchRooms(String region, String searchKeyword, String company_id, int page, int pageSize) {
+    //     if ((region == null || region.isEmpty() || region.equals("전체")) && (searchKeyword == null || searchKeyword.isEmpty())) {
+    //         // 검색 키워드와 지역이 모두 없거나 지역이 "전체"인 경우 모든 독서실 목록을 반환
+    //         return detailPageDao.getAllRooms();
+    //     } else if (searchKeyword == null || searchKeyword.isEmpty()) {
+    //         // 검색 키워드는 없지만 지역이 있는 경우 해당 지역의 독서실 목록을 반환
+    //         return detailPageDao.getRoomsByRegion(region);
+    //     } else if (region == null || region.isEmpty() || region.equals("전체")) {
+    //         // 지역은 없지만 검색 키워드가 있는 경우 해당 키워드를 포함하는 독서실 목록을 반환
+    //         return detailPageDao.getRoomsByKeyword(searchKeyword);
+    //     } else {
+    //         // 지역과 검색 키워드 둘 다 있는 경우 해당 지역에 위치하면서 키워드를 포함하는 독서실 목록을 반환
+    //         return detailPageDao.getRoomsByRegionAndKeyword(region, searchKeyword);
+    //     }
+    // }
+
+    public List<DetailPageDto> searchRooms(String region, String searchKeyword, String company_id, int page, int pageSize) {
+        List<DetailPageDto> results = new ArrayList<>();
+        List<DetailPageDto> filteredResults = new ArrayList<>();
+    
+        // 모든 독서실 목록을 가져옵니다.
+        results = detailPageDao.getAllRooms();
+    
+        // 필터링 조건에 따라 결과를 필터링합니다.
         if ((region == null || region.isEmpty() || region.equals("전체")) && (searchKeyword == null || searchKeyword.isEmpty())) {
             // 검색 키워드와 지역이 모두 없거나 지역이 "전체"인 경우 모든 독서실 목록을 반환
-            return detailPageDao.getAllRooms();
+            filteredResults.addAll(results);
         } else if (searchKeyword == null || searchKeyword.isEmpty()) {
             // 검색 키워드는 없지만 지역이 있는 경우 해당 지역의 독서실 목록을 반환
-            return detailPageDao.getRoomsByRegion(region);
+            for (DetailPageDto room : results) {
+                if (room.getRegion().equals(region)) {
+                    filteredResults.add(room);
+                }
+            }
         } else if (region == null || region.isEmpty() || region.equals("전체")) {
             // 지역은 없지만 검색 키워드가 있는 경우 해당 키워드를 포함하는 독서실 목록을 반환
-            return detailPageDao.getRoomsByKeyword(searchKeyword);
+            for (DetailPageDto room : results) {
+                if (room.getRoom_name().contains(searchKeyword)) {
+                    filteredResults.add(room);
+                }
+            }
         } else {
             // 지역과 검색 키워드 둘 다 있는 경우 해당 지역에 위치하면서 키워드를 포함하는 독서실 목록을 반환
-            return detailPageDao.getRoomsByRegionAndKeyword(region, searchKeyword);
+            for (DetailPageDto room : results) {
+                if (room.getRegion().equals(region) && room.getRoom_name().contains(searchKeyword)) {
+                    filteredResults.add(room);
+                }
+            }
+        }
+    
+        // 페이지네이션을 적용하여 필터링된 결과를 반환합니다.
+        int totalResults = filteredResults.size();
+        int startIndex = (page - 1) * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, totalResults);
+        
+        if (startIndex < endIndex) {
+            return filteredResults.subList(startIndex, endIndex);
+        } else {
+            return new ArrayList<>();
         }
     }
+    
 
 
     //  기존 코드
@@ -89,21 +136,21 @@ public class StudycafeService {
 
 
 
-    public RoomPageDto getRoomsByPage(int page, int pageSize, String company_id) {
-        RoomPageDto roomPageDto = new RoomPageDto();
+    // public RoomPageDto getRoomsByPage(int page, int pageSize, String company_id) {
+    //     RoomPageDto roomPageDto = new RoomPageDto();
 
-        int offset = (page - 1) * pageSize;
-        List<DetailPageDto> roomDataPage = detailPageDao.getRoomsByCompanyId(company_id, offset, pageSize);
-        int totalRooms = detailPageDao.getTotalRoomCountByCompanyId(company_id);
+    //     int offset = (page - 1) * pageSize;
+    //     List<DetailPageDto> roomDataPage = detailPageDao.getRoomsByCompanyId(company_id, offset, pageSize);
+    //     int totalRooms = detailPageDao.getTotalRoomCountByCompanyId(company_id);
 
-        int totalPages = (int) Math.ceil((double) totalRooms/pageSize);
+    //     int totalPages = (int) Math.ceil((double) totalRooms/pageSize);
 
-        roomPageDto.setRoomDataPage(roomDataPage);
-        roomPageDto.setCurrentPage(page);
-        roomPageDto.setTotalPages(totalPages);
+    //     roomPageDto.setRoomDataPage(roomDataPage);
+    //     roomPageDto.setCurrentPage(page);
+    //     roomPageDto.setTotalPages(totalPages);
 
-        return roomPageDto;
-        }
+    //     return roomPageDto;
+    //     }
 
         
     
@@ -135,6 +182,10 @@ public class StudycafeService {
     @Transactional
     public void deletePreviousSeatsByRoomId(int room_id) {
         seatDao.deletePreviousSeatsByRoomId(room_id);
+    }
+
+    public int getTotalSearchListByCompanyId(String company_id) {
+        return detailPageDao.getTotalSearchListByCompanyId(company_id);
     }
 
 

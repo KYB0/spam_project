@@ -14,6 +14,17 @@
 
 <body>
     <%@ include file="header.jsp" %>
+      
+    <!-- 세션에서 정보 읽어오기 -->
+    <% 
+        HttpSession session = request.getSession();
+        String roomName = (String) session.getAttribute("temp_room_name");
+        String seatNumber = (String) session.getAttribute("temp_seat_number");
+        String startTime = (String) session.getAttribute("temp_start_time");
+        String endTime = (String) session.getAttribute("temp_end_time");
+    %>
+
+
     <!--view-->
     <div id="content">
         <div class="right">

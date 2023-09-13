@@ -75,4 +75,11 @@
     <select id="getRoomsByRegionAndKeyword" resultType="com.spam9700.spam.dto.DetailPageDto">
         SELECT * FROM study_room WHERE region = #{region} AND room_name LIKE CONCAT('%', #{keyword}, '%');
     </select>
+
+    <!--독서실 검색 페이징  -->
+    <select id="getTotalSearchListByCompanyId" resultType="int">
+        select count(*) from study_room
+        WHERE company_id = #{company_id}
+    </select>
 </mapper>
+ 

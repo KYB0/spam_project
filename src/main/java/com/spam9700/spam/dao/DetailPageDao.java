@@ -64,4 +64,6 @@ public interface DetailPageDao {
     List<DetailPageDto> getRoomsByCompanyId(String company_id, int offset, int pageSize);
 
     boolean reviewInsert(ReviewDto reviewDto);
+
+    int getTotalSearchListByCompanyId(String company_id);
  }

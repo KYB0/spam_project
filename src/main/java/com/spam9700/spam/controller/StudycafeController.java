@@ -66,20 +66,39 @@ public class StudycafeController {
     }
 
     // 검색 결과 뷰
-      @GetMapping("/search")
+    @GetMapping("/search")
     public String searchStudyRooms(@RequestParam(name = "region", required = false) String region,
                                    @RequestParam(name = "searchKeyword", required = false) String searchKeyword,
-                                   Model model) {
-        List<DetailPageDto> searchResults = studycafeService.searchRooms(region, searchKeyword);
-        model.addAttribute("detailPageDtos", searchResults);  // "readingRooms" 대신 "detailPageDtos"를 사용
+                                   @RequestParam(name = "page", defaultValue = "1") int page,
+                                   @RequestParam(name = "pageSize", defaultValue = "5") int pageSize,
+                                   Model model, HttpSession session) {
+    
+        String company_id = (String) session.getAttribute("company_id");
+    
+        // 페이징 정보 계산
+        int totalReviews = studycafeService.getTotalSearchListByCompanyId(company_id);
+        int totalPages = (int) Math.ceil((double) totalReviews / pageSize);
+    
+        List<DetailPageDto> searchResults = studycafeService.searchRooms(region, searchKeyword, company_id, page, pageSize);
+                                    
+        // 로그 추가
+        System.out.println("currentPage: " + page);
+        System.out.println("totalPages: " + totalPages);
+        System.out.println("searchResults size: " + searchResults.size());
+    
+        model.addAttribute("detailPageDtos", searchResults);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentPage", page);
+    
         return "searchList";
     }
+    
 
  // Ajax 요청을 처리하는 메서드
   @GetMapping("/searchRooms")
   @ResponseBody
   public List<DetailPageDto> searchRoomsAjax(@RequestParam(name = "region", required = false) String region,
                                    @RequestParam(name = "searchKeyword", required = false) String searchKeyword) {
-    return studycafeService.searchRooms(region, searchKeyword);
+    return studycafeService.searchRooms(region, searchKeyword, searchKeyword, 1, 5);
   }
 }
