@@ -80,7 +80,7 @@
             color: #DCE682;
             border: none;
             cursor: pointer;
-            width: 120px;
+            width: 120px;  
             /* 버튼 상자 너비 설정 */
             max-width: 200px;
             /* 최대 가로 너비 설정 (원하는 크기로 조정 가능) */

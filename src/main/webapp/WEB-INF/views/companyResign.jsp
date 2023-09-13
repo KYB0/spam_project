@@ -156,6 +156,18 @@
             margin: 5px;
             border-radius: 30px; /* 버튼 모서리를 더 둥글게 만듭니다. */
         }
+
+        .c_resign_button {
+    padding: 10px 20px;
+    background-color: #E6E6FA;
+    color: #B19CD9;
+    border: none;
+    cursor: pointer;
+    width: 120px;
+    height: 50px;
+    margin: 5px;
+    border-radius: 30px; /* 버튼 모서리를 더 둥글게 만듭니다. */
+}
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="js/code.jquery.com_jquery-3.7.0.min.js"></script>
@@ -177,7 +189,7 @@
             <div class="resign_quit">
                 <form method="post" action="/spam/member/c_mypage/resign">
                     <input type="hidden" name="company_id" value="${company_id}">
-                    <input type="submit" id="r_quit" value="회원 탈퇴">
+                    <input type="submit" class="c_resign_button" value="회원 탈퇴">
                 </form>
                 <!-- <button type="submit" onclick="return cresignAlert();" id="r_quit" name="resignButton">회원 탈퇴</button> -->
             </div>
