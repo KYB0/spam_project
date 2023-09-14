@@ -1,6 +1,7 @@
 ﻿package com.spam9700.spam.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -75,6 +76,13 @@ public interface DetailPageDao {
     int toggleWishlist(WishListDto wishListDto);
 
     int isProductInWishList(WishListDto wishListDto);
+
+    
+    
+    List<DetailPageDto> getDetailPageData();
+
+
+    int  isRoomInWishlist(@Param("customer_id") String customer_id,@Param("room_id") int room_id);
 
 
 }

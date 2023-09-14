@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,7 @@ import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.SeatDto;
+import com.spam9700.spam.dto.WishListDto;
 import com.spam9700.spam.service.StudycafeService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,8 +49,17 @@ public class MypageController {
 
 
     @GetMapping("/c_mypage")
-    public String companyMypage() {
+    public String companyMypage(Model model, HttpSession session) {
+        String company_id = (String) session.getAttribute("company_id");
+        model.addAttribute("company_id", company_id);
         return "companyMypage";
+    }
+
+    @GetMapping("/getTotalWishlistCount")
+    @ResponseBody
+    public int getTotalWishlistCount(HttpSession session) {
+        String company_id = (String) session.getAttribute("company_id");
+        return studycafeService.getTotalWishlistCount(company_id);
     }
 
     @GetMapping("/c_mypage/list")
@@ -128,7 +139,7 @@ public class MypageController {
     }
 
     @PostMapping("/c_mypage/insert/write")
-    public String insertStudyRoomWritePage(@RequestParam("stdRName") String room_name, @RequestParam("stdRDescription") String room_description, @RequestParam("stdRTPrice") int time_price, @RequestParam("stdRDPrice") int day_price, @RequestParam("stdRRegion") String region, RedirectAttributes redirectAttributes, HttpSession session){
+    public String insertStudyRoomWritePage(@RequestParam("stdRName") String room_name, @RequestParam("stdRDescription") String room_description, @RequestParam("stdRTPrice") int time_price, @RequestParam("stdRDPrice") int day_price, @RequestParam("stdRRegion") String region, RedirectAttributes redirectAttributes, HttpSession session, Model model){
         // DetailPageDto 객체 생성 및 company_id 설정
         DetailPageDto detailPageDto = new DetailPageDto();
        String company_id = (String)session.getAttribute("company_id");
@@ -140,17 +151,26 @@ public class MypageController {
         detailPageDto.setRegion(region);
         
 
-        // 서비스로 DetailPageDto 전달
-        int result = studycafeService.insertStudyRoom(detailPageDto);
-        // System.out.println("++++++++++++++++"+result);
-        if(result > 0){
-            // 등록 성공 시 처리
-            return "redirect:/c_mypage/insert"; // 등록 페이지로 이동
-        }else{
-            redirectAttributes.addFlashAttribute("errorAlert", "등록에 실패했습니다.");
-            return "redirect:/spam/c_mypage/insert";
+        try {
+            // 서비스로 DetailPageDto 전달
+            int result = studycafeService.insertStudyRoom(detailPageDto);
+            if(result > 0){
+                // 등록 성공 시 처리
+                return "redirect:/c_mypage/insert"; // 등록 페이지로 이동
+            } else {
+                // 등록 실패 시 처리
+                model.addAttribute("errorAlert", "등록에 실패했습니다.");
+                // 해당 JSP 페이지로 이동
+                return "studyRoomWrite"; // 독서실 등록 페이지로 이동
+            }
+        } catch (DuplicateKeyException e) {
+            // 중복 키 예외 처리
+            model.addAttribute("errorAlert", "중복 이름으로 등록이 불가능합니다.");
+            // 해당 JSP 페이지로 이동
+            return "studyRoomWrite"; // 독서실 등록 페이지로 이동
         }
     }
+    
 
 
 

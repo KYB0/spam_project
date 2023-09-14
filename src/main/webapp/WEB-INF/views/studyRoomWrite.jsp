@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -163,11 +164,18 @@ input:-webkit-autofill:focus {
                 return;
             }
 
-
+                    // 중복 키 예외 처리를 여기에서 확인하도록 수정
+    <c:if test="${not empty errorAlert}">
+        alert("${errorAlert}");
+        // 오류 메시지 처리 후 필요한 동작 수행
+        location.reload(); // 페이지를 리로드
+    </c:if>
 
             document.stdForm1.action = "/spam/c_mypage/insert/write"; //insert 페이지로 std-form1에 저장된 자료를 전송함
             document.stdForm1.submit();
         }
+
+
     </script>
 
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">

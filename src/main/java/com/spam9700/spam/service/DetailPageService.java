@@ -91,6 +91,11 @@ public class DetailPageService {
         return count;
     }
 
+    public boolean isRoomInWishlist(String customer_id, int room_id) {
+        int count = detailPageDao.isRoomInWishlist(customer_id, room_id);
+        return count > 0; // count가 0보다 크면 찜한 상태, 그렇지 않으면 찜하지 않은 상태
+    }
+
  
 
 

@@ -22,9 +22,9 @@ transform: translate(-20%, 100%); /* 화면 중앙 정렬을 위한 transform �
 
 .c_like {
     position: absolute;
-left: 30%;
+left: 50%;
 top: calc(20% + 250px); /* c_mypage 하단에서 100px 아래로 이동 */
-transform: translate(-30%, -20%);
+transform: translate(-50%, -20%);
 height: 250px; /* 높이 설정, 원하는 높이로 조정하세요 */
 }
 
@@ -100,6 +100,7 @@ height: 50px; /* 버튼 상자 높이 설정 */
 }
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <%@ include file="header.jsp" %>
@@ -109,13 +110,6 @@ height: 50px; /* 버튼 상자 높이 설정 */
             <h4>나를 찜한 이용자 수</h4>
             <img src="image/like_3.png" alt="좋아요">
             <p id="likeCount">0</p>
-        </div>
-        <div class="qna_list">
-            <h4>Q&A 게시판</h4>
-            <div class="qna_box">최신글
-                <div class="qna_post"></div>
-            </div>
-
         </div>
     </section>
     <section class="c_menu">
@@ -128,4 +122,18 @@ height: 50px; /* 버튼 상자 높이 설정 */
     </section>
     <%@ include file="footer.jsp" %>
 </body>
+<script>
+    $(document).ready(function() {
+    $.ajax({
+        url: '/spam/getTotalWishlistCount',
+        method: 'GET',
+        success: function(data) {
+            $('#likeCount').text(data);
+        },
+        error: function() {
+            // 에러 처리 로직을 추가할 수 있습니다.
+        }
+    });
+});
+</script>
 </html>

@@ -76,18 +76,16 @@ public class StudycafeController {
         }
     }
 
-    
-    // @PostMapping("/wishlist/add")
-    // public ResponseEntity<String> addToWishlist(@RequestBody WishListDto wishListDto){
-    //     detailPageService.addToWishList(wishListDto);
-    //     return ResponseEntity.ok("Added to Wishlist");
-    // }
-
-    // @PostMapping("/wishlist/remove")
-    // public ResponseEntity<String> removeFromWishlist(@RequestBody WishListDto wishListDto){
-    //     detailPageService.removeFromWishList(wishListDto);
-    //     return ResponseEntity.ok("Removed from Wishlist");
-    // }
+    @GetMapping("/wishlist/check")
+    public ResponseEntity<String> checkWishlistStatus(@RequestParam("customer_id") String customer_id, @RequestParam("room_id") int room_id){
+        boolean isWishlisted = detailPageService.isRoomInWishlist(customer_id, room_id);
+        
+        if(isWishlisted){
+            return ResponseEntity.ok("Added to Wishlist");
+        }else{
+            return ResponseEntity.ok("Removed from Wishlist");
+        }
+    }
 
     @PostMapping("/wishlist/toggle")
     public ResponseEntity<String> toggleWishlist(@RequestBody WishListDto wishListDto) {

@@ -13,11 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.spam9700.spam.dao.DetailPageDao;
 import com.spam9700.spam.dao.MypageDao;
 import com.spam9700.spam.dao.SeatDao;
+import com.spam9700.spam.dao.WishListDao;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.SeatDto;
+import com.spam9700.spam.dto.WishListDto;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +34,9 @@ public class StudycafeService {
 
     @Autowired
     private SeatDao seatDao;
+
+    @Autowired
+    private WishListDao wishListDao;
     
        // DetailPageDao 관련 메서드
     public DetailPageDto getStudyRoomByRoomName(String room_name) {
@@ -142,6 +147,25 @@ public class StudycafeService {
     public List<SeatDto> getAllSeats() {
         return seatDao.getAllSeats();
     }
+
+
+    //찜 개수 가져오기
+    public List<WishListDto> getWishListData() {
+        return wishListDao.getWishListData();
+    }
+
+    public List<DetailPageDto> getDetailPageData() {
+        return detailPageDao.getDetailPageData();
+    }
+
+    // public int getTotalWishlistCount(String company_id) {
+    //     return wishListDao.getTotalWishlistCount(company_id);
+    // }
+
+    public int getTotalWishlistCount(String company_id) {
+        return wishListDao.getTotalWishlistCountByCompanyId(company_id);
+    }
+
 
 
 

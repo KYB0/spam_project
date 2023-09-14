@@ -306,11 +306,49 @@
 </body>
 <script>
 
+$(document).ready(function () {
+    // 서버에서 "찜 상태" 정보를 가져옵니다.
+    var customer_id = "${customer_id}";
+    var room_id = "${room_id}";
+
+    $.ajax({
+        type: "GET",
+        url: "/spam/wishlist/check",
+        data: { customer_id: customer_id, room_id: room_id },
+        success: function (data) {
+            if (data === "Added to Wishlist") {
+                // 찜 상태이면 초기 이미지를 꽉 찬 하트로 설정
+                $("#zzim-image").attr("src", "image/like_1.png");
+                console.log(data)
+            } else if (data === "Removed from Wishlist") {
+                // 찜 상태가 아니면 초기 이미지를 빈 하트로 설정
+                $("#zzim-image").attr("src", "image/like_2.png");
+            } else {
+                // 찜 상태 확인 실패 시 처리 (예: 기본 이미지로 설정)
+                console.error("찜 상태 확인 실패");
+            }
+        },
+        error: function () {
+            // 에러 발생 시 처리 (예: 기본 이미지로 설정)
+            console.error("찜 상태 확인 실패");
+        }
+    });
+});
+
+
+
+    // 찜하기 버튼 클릭 시 toggleWishList 함수 호출
+    $("#zzim-button").click(function () {
+        toggleWishList(this);
+    });
+
+
 function toggleWishList(buttonElement){
     var buttonElement = document.getElementById("zzim-button");
     var imageElement = document.getElementById("zzim-image");
     const customer_id = buttonElement.getAttribute("data-customer-id");
     const room_id = buttonElement.getAttribute("data-room-id");
+
 
     $.ajax({
         type: "POST",
@@ -321,6 +359,8 @@ function toggleWishList(buttonElement){
             if(data === "Added to Wishlist"){
                 //찜하기 추가됨 : 하트 아이콘 색상 변경
                 imageElement.src = "image/like_1.png"; // 찜 추가 이미지로 변경
+
+            
             }else if(data === "Removed from Wishlist"){
                 //찜하기 제거됨 : 하트 아이콘 색상 변경 해제
                 imageElement.src = "image/like_2.png"; // 찜 해제 이미지로 변경
@@ -334,7 +374,6 @@ function toggleWishList(buttonElement){
         }
     })
 }
-
 
 
 
@@ -384,6 +423,8 @@ function toggleWishList(buttonElement){
                 review_content: review_content,
                 customer_id: customer_id
             };
+
+            
 
             $.ajax({
                 type: "POST",

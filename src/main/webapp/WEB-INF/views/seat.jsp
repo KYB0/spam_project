@@ -327,9 +327,7 @@
     }
 
 
-    const seatNumbers = $ {
-        seatNumbersList
-    };
+    const seatNumbers = $ {seatNumbersList};
     console.log(seatNumbers)
 
 

@@ -101,6 +101,10 @@
         SELECT COUNT(*) FROM wishlist WHERE room_id = #{room_id} AND customer_id = #{customer_id}
     </select>
 
+    <select id="isRoomInWishlist" resultType="int" parameterType="com.spam9700.spam.dto.WishListDto">
+        SELECT COUNT(*) FROM wishlist WHERE room_id = #{room_id} AND customer_id = #{customer_id}
+    </select>
+
 
 
 </mapper>
