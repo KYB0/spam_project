@@ -24,8 +24,10 @@ function loadLastState() { // 마지막 상태 불러오기
 
 function showChatbot() {
     const modal = document.getElementById("chatbotModal");
-    modal.style.display = "block";
+    modal.style.right = "0"; // 모달을 오른쪽으로 이동
+    modal.style.display = "block"; // 모달을 표시
 }
+
 
 function closeModal() {
     const modal = document.getElementById("chatbotModal");
@@ -64,6 +66,7 @@ function showOptions(options) {
     modalContent.innerHTML = ''; // 기존 내용 초기화
 
     // '이전' 버튼 추가
+    
     const prevButton = document.createElement('button');
     prevButton.id = 'prev-button';
     prevButton.onclick = () => loadLastState();
