@@ -7,6 +7,9 @@
 .chatbot-icon {
     width: 50px; /* 아이콘의 너비 조정 */
     height: 50px; /* 아이콘의 높이 조정 */
+    position: fixed;
+    left: 70px;
+    top: 100px;
 }
 
 .modal {

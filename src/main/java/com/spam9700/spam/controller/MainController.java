@@ -58,7 +58,7 @@ public class MainController {
         if(result){
             log.info("업데이트 성공");
             return "redirect:/i_mypage";
-        }
+        }   
         log.info("업데이트 실패");
         return "redirect:/i_mypage";
     }

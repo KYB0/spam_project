@@ -1,7 +1,7 @@
 ﻿<%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="header.jsp" %>
-
+<%@ include file="bot.jsp" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +25,7 @@
 </head>
 
 <body>
+
     <div id="container_id" class="container_class">
         <div id="search_id" class="search_class">
             <div class="search_option">
@@ -56,6 +57,7 @@
                 <c:forEach var="detailPageDto" items="${detailPageDtos}">
                     <li>
                         <strong></strong> <img src="img/juksal.jpg" alt="독서실 이미지" width="150"> <br>
+                        
                         <strong>독서실 이름:</strong> <a
                             href="/spam/${detailPageDto.room_name}">${detailPageDto.room_name}</a> <br>
                         <strong>지역:</strong> ${detailPageDto.region} <br>
@@ -129,6 +131,7 @@
     </div>
     <footer id="footer_id" class="footer_class">
         <%@ include file="footer.jsp" %>
+        
     </footer>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="/spam/js/searchList.js"></script>

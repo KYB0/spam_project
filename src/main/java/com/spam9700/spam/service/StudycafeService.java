@@ -92,20 +92,23 @@ public class StudycafeService {
                 }
             }
         }
-    
-        // 페이지네이션을 적용하여 필터링된 결과를 반환합니다.
-        int totalResults = filteredResults.size();
-        int startIndex = (page - 1) * pageSize;
-        int endIndex = Math.min(startIndex + pageSize, totalResults);
-        
-        if (startIndex < endIndex) {
-            return filteredResults.subList(startIndex, endIndex);
-        } else {
-            return new ArrayList<>();
-        }
-    }
+
     
 
+     // 페이지네이션을 적용하여 필터링된 결과를 반환합니다.
+     int totalResults = filteredResults.size();
+     int startIndex = (page - 1) * pageSize;
+     int endIndex = Math.min(startIndex + pageSize, totalResults);
+
+     if (startIndex < endIndex) {
+         return filteredResults.subList(startIndex, endIndex);
+     } else {
+         return new ArrayList<>();
+     }
+ }
+
+ 
+ 
 
     //  기존 코드
     @Autowired
