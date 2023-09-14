@@ -257,7 +257,7 @@
                             </c:choose>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link " href="${pageContext.request.contextPath}/qna_list">Q&A</a>
+                            <a class="nav-link " href="${pageContext.request.contextPath}/qna/list">Q&A</a>
                         </li>
                     </ul>
                     <br>
