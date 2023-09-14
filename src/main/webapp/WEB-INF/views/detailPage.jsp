@@ -304,19 +304,9 @@
                 </c:forEach>
             </table>
 
-            <!-- 페이지네이션 -->
-<!-- <div id="pagination">
-    <button id="prevPage" onclick="changePage(<%= currentPage - 1 %>)">이전</button>
-    <c:forEach var="pageNumber" begin="1" end="${totalPages}">
-        <c:set var="pageNumberInt" value="${pageNumber}" />
-        <button onclick="changePage(${pageNumberInt})">${pageNumber}</button>
-    </c:forEach>
-    <button id="nextPage" onclick="changePage(<%= currentPage + 1 %>)">다음</button>
-</div> -->
-
-
+            
             <div id="reviewListContainer">
-                <!-- 리뷰 목록이 여기에 나타납니다. -->
+                <!--  리뷰 목록이 여기에 나타납니다. -->
             </div>
 
 
@@ -443,19 +433,7 @@
     });
 
 
-    // // 초기 페이지 번호 설정
-    // var currentPage = 1;
-    // var totalPages = $ {
-    //     totalPages
-    // }; // 서버에서 전달된 총 페이지 수
-
-    // // 페이지 변경 함수
-    // function changePage(page) {
-    //     if (page >= 1 && page <= totalPages) {
-    //         currentPage = page;
-    //         loadReviews(currentPage); // 서버에서 해당 페이지의 리뷰를 가져오는 함수 호출
-    //     }
-    // }
+    
 </script>
 
 </html>

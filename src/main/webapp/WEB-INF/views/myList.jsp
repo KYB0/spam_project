@@ -37,6 +37,7 @@
                     <th scope="col">좌석 ID</th>
                     <th scope="col">시작 시간</th>
                     <th scope="col">종료 시간</th>
+                    <th scope="col"> </th>
                 </tr>
             </thead>
             <tbody>
@@ -47,6 +48,11 @@
                         <td>${reservation.seat_number}</td>
                         <td>${reservation.start_time}</td>
                         <td>${reservation.end_time}</td>
+                        <td>${reservation.status}</td>
+                        <td><form action="/spam/{room_name}/cancel" method="post"> <!-- 예약 취소 폼 추가 -->
+                            <input type="hidden" name="reservation_id" value="${reservation.reservation_id}">
+                            <button type="submit">예약 취소</button>
+                        </form></td>
                     </tr>
                 </c:forEach>
             </tbody>

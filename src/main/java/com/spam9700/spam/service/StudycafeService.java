@@ -161,9 +161,10 @@ public class StudycafeService {
         return mypageDao.getTotalWishListByCustomerId(customer_id);
     }
 
-    public int getTotalReviewsByRoomId(Integer room_id) {
-        return 0;
-    }
+
+    public void cancelReservation(int reservation_id) {
+         mypageDao.cancelReservation(reservation_id);
+        }
 
   
 

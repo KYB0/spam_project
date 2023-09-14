@@ -13,6 +13,7 @@ public class ReservationDto {
     private String customer_id;
     private String seat_number;
     private String room_name;
+    private String status;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime start_time;

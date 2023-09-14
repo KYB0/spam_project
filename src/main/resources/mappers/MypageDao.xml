@@ -66,4 +66,11 @@
         SELECT COUNT(*) FROM wishlist
         WHERE customer_id = #{customer_id}
     </select>
+
+    <!-- 예약취소 -->
+    <select id="cancelReservation" resultType="com.spam9700.spam.dto.ReservationDto">
+        UPDATE seat_reservations
+        SET status = 'CANCELLED'
+        WHERE reservation_id = #{reservation_id};
+    </select>
 </mapper>

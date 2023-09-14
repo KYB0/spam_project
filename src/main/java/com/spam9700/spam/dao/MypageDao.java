@@ -34,6 +34,8 @@ public interface MypageDao {
 
     int getTotalWishListByCustomerId(String customer_id);
 
+    void cancelReservation(int reservation_id);
+
     
 
     
