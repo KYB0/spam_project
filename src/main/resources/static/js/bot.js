@@ -171,7 +171,7 @@ function handleOptionClick(option) {
        
         responseMessage.textContent = '회원 탈퇴기능은 "마이페이지" 하단에 있습니다.';
         const link = document.createElement('a');
-        link.href = "/spam/member/i_mypage"; // 회원 탈퇴 페이지 링크
+        link.href = "/spam/i_mypage"; // 회원 탈퇴 페이지 링크
         link.textContent = '마이페이지 바로가기';
         responseMessage.appendChild(document.createElement('br'));
         responseMessage.appendChild(link);

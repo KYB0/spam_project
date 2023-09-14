@@ -10,6 +10,9 @@
     height: calc(100vh - 30px);
     padding: 10px;
   }
+  .bx-viewport {
+    height : 500px  !important;
+  }
   
   .slider {
     position: absolute;
