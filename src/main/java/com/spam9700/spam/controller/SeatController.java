@@ -23,18 +23,18 @@ public class SeatController {
         return seatService.getAllSeats();
     }
 
-    @GetMapping("/{room_id}")
-    public List<SeatDto> getSeatsByRoomId(@PathVariable int room_id) {
-        return seatService.getSeatsByRoomId(room_id);
-    }
+    // @GetMapping("/{room_id}")
+    // public List<SeatDto> getSeatsByRoomId(@PathVariable int room_id) {
+    //     return seatService.getSeatsByRoomId(room_id);
+    // }
 
-    @PostMapping("/reserve/{seat_id}")
-    public ResponseEntity<String> reserveSeat(@PathVariable int seat_id) {
-        SeatDto reservedSeat = seatService.reserveSeat(seat_id);
-        if (reservedSeat != null) {
-            return ResponseEntity.ok("Seat reserved successfully.");
-        } else {
-            return ResponseEntity.badRequest().body("Seat is already reserved or does not exist.");
-        }
-    }
+    // @PostMapping("/reserve/{seat_id}")
+    // public ResponseEntity<String> reserveSeat(@PathVariable int seat_id) {
+    //     SeatDto reservedSeat = seatService.reserveSeat(seat_id);
+    //     if (reservedSeat != null) {
+    //         return ResponseEntity.ok("Seat reserved successfully.");
+    //     } else {
+    //         return ResponseEntity.badRequest().body("Seat is already reserved or does not exist.");
+    //     }
+    // }
 }

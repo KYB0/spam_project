@@ -36,8 +36,8 @@
         .std-button {
             /* 스타일을 원하는 대로 설정 */
             padding: 10px 20px;
-            background-color: #E6E6FA;
-            color: #B19CD9;
+            background-color: #FFF0F0;
+            color: #442727;
             border: none;
             cursor: pointer;
             width: 120px;
@@ -76,8 +76,8 @@
         .btn_cmenu button {
             /* 버튼 스타일 */
             padding: 10px 20px;
-            background-color: #322A31;
-            color: #DCE682;
+            background-color: none;
+            color: #815B5B;
             border: none;
             cursor: pointer;
             width: 120px;  
@@ -86,7 +86,109 @@
             /* 최대 가로 너비 설정 (원하는 크기로 조정 가능) */
             height: 50px;
             /* 버튼 상자 높이 설정 */
+            border-radius: 30px;
         }
+
+        .button {
+  float: left;
+  min-width: 150px;
+  max-width: 250px;
+  display: block;
+  margin: 1em;
+  padding: 1em 2em;
+  border: none;
+  background: none;
+  color: inherit;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+  -webkit-backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+}
+.button:focus {
+  outline: none;
+}
+.button > span {
+  vertical-align: middle;
+}
+.button--antiman {
+  background: none;
+  border: none;
+  height: 60px;
+}
+.button--antiman.button--inverted,
+.button--antiman.button--inverted-alt {
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+  -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+  transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+}
+.button--antiman > span {
+  padding-left: 0.35em;
+}
+.button--antiman::before,
+.button--antiman::after {
+  content: '';
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
+  transition: transform 0.3s, opacity 0.3s;
+  -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+  transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
+}
+.button--antiman::before {
+  border: 2px solid #815B5B;
+  opacity: 0;
+  -webkit-transform: scale3d(1.2, 1.2, 1);
+  transform: scale3d(1.2, 1.2, 1);
+}
+.button--antiman.button--border-thin::before {
+  border-width: 1px;
+}
+.button--antiman.button--border-medium::before {
+  border-width: 2px;
+}
+.button--antiman.button--border-thick::before {
+  border-width: 3px;
+}
+.button--antiman.button--inverted::before {
+  border-color: #7986cb;
+}
+.button--antiman.button--inverted-alt::before {
+  border-color: #3f51b5;
+}
+.button--antiman::after {
+  background: #F1D3B3;
+}
+.button--antiman.button--inverted::after {
+  background: #7986cb;
+}
+.button--antiman.button--inverted-alt::after {
+  background: #3f51b5;
+}
+.button--antiman.button--inverted:hover {
+  color: #7986cb;
+}
+.button--antiman.button--inverted-alt:hover {
+  color: #3f51b5;
+}
+.button--antiman:hover::before {
+  opacity: 1;
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
+.button--antiman:hover::after {
+  opacity: 0;
+  -webkit-transform: scale3d(0.8, 0.8, 1);
+  transform: scale3d(0.8, 0.8, 1);
+}
 
         .container {
             margin-top: 10%;
@@ -95,7 +197,7 @@
         }
 
         .panel {
-            background: linear-gradient(to right, #E6E6FA, #B19CD9);
+            background: linear-gradient(to right, #A77979, #553939);
             padding: 0;
             border-radius: 10px;
             border: none;
@@ -401,13 +503,14 @@
     </div>
     <section class="std-insert">
         <a href="/spam/c_mypage/insert/write"><button class="std-button">등록</button></a>
+        
     </section>
     <section class="c_menu">
         <div class="btn_cmenu">
-            <a href="/spam/c_mypage"><button id="cmyp">마이페이지</button></a>
-            <a href="/spam/c_mypage/list"><button id="clist">고객 수</button></a>
-            <a href="/spam/c_mypage/insert"><button id="cinsert">등록 및 수정</button></a>
-            <a href="/spam/c_mypage/resign"><button id="cresign">퇴점 신청</button></a>
+            <a href="/spam/c_mypage"><button class="button button--antiman button--round-l button--text-medium"><i class="button__icon icon icon-plus"></i>마이페이지</button></a>
+            <a href="/spam/c_mypage/list"><button class="button button--antiman button--round-l button--text-medium"><i class="button__icon icon icon-plus"></i>고객 수</button></a>
+            <a href="/spam/c_mypage/insert"><button class="button button--antiman button--round-l button--text-medium"><i class="button__icon icon icon-plus"></i>등록 및 수정</button></a>
+            <a href="/spam/c_mypage/resign"><button class="button button--antiman button--round-l button--text-medium"><i class="button__icon icon icon-plus"></i>퇴점 신청</button></a>
         </div>
     </section>
     <%@ include file="footer.jsp" %>

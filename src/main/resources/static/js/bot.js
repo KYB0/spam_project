@@ -1,7 +1,33 @@
-﻿function showChatbot() {
-    const modal = document.getElementById("chatbotModal");
-    modal.style.display = "block";
+﻿let chatHistory = [];
+
+function saveState() { // 상태 저장
+    const modalContent = document.querySelector('.modal-content');
+    chatHistory.push(modalContent.innerHTML);
 }
+
+function applyEventListeners() { // 이벤트 리스너 적용
+    const buttons = document.querySelectorAll('.chat-button');
+    buttons.forEach((button) => {
+        button.addEventListener('click', yourEventHandler); // yourEventHandler는 실제 이벤트를 처리하는 함수입니다.
+    });
+}
+
+function loadLastState() { // 마지막 상태 불러오기
+    const lastState = chatHistory[chatHistory.length - 1];
+    if (lastState) {
+        const modalContent = document.querySelector('.modal-content');
+        modalContent.innerHTML = lastState;
+        applyEventListeners(); // 이벤트 리스너 적용
+    }
+}
+
+
+function showChatbot() {
+    const modal = document.getElementById("chatbotModal");
+    modal.style.right = "0"; // 모달을 오른쪽으로 이동
+    modal.style.display = "block"; // 모달을 표시
+}
+
 
 function closeModal() {
     const modal = document.getElementById("chatbotModal");
@@ -31,9 +57,22 @@ function sendMessage(message) {
     closeChatbot();
 }
 
+
+
+
 function showOptions(options) {
+    saveState();
     const modalContent = document.querySelector('.modal-content');
     modalContent.innerHTML = ''; // 기존 내용 초기화
+
+    // '이전' 버튼 추가
+    
+    const prevButton = document.createElement('button');
+    prevButton.id = 'prev-button';
+    prevButton.onclick = () => loadLastState();
+    prevButton.textContent = '이전';
+    modalContent.appendChild(prevButton);
+
 
     for (const option of options) {
         const optionButton = document.createElement('button');
@@ -45,9 +84,18 @@ function showOptions(options) {
 }
 
 function showSubOptions(parentOption) {
+    saveState();
     const modalContent = document.querySelector('.modal-content');
     modalContent.innerHTML = ''; // 기존 내용 초기화
 
+     // '이전' 버튼 추가
+     const prevButton = document.createElement('button');
+     prevButton.id = 'prev-button';
+     prevButton.onclick = () => loadLastState();
+     prevButton.textContent = '이전';
+     modalContent.appendChild(prevButton);
+
+     
     const subOptions = [];
     // 여기에 해당 parentOption 에 따른 하위 옵션을 추가 예정
         //개인정보
@@ -123,7 +171,7 @@ function handleOptionClick(option) {
        
         responseMessage.textContent = '회원 탈퇴기능은 "마이페이지" 하단에 있습니다.';
         const link = document.createElement('a');
-        link.href = "/spam/member/i_mypage"; // 회원 탈퇴 페이지 링크
+        link.href = "/spam/i_mypage"; // 회원 탈퇴 페이지 링크
         link.textContent = '마이페이지 바로가기';
         responseMessage.appendChild(document.createElement('br'));
         responseMessage.appendChild(link);

@@ -37,7 +37,6 @@ public interface DetailPageDao {
     int getTotalRoomCount();
 
 
-
     List<DetailPageDto> searchRoomsByKeyword(@Param("keyword") String keyword);
 
      // 지역  검색
@@ -85,4 +84,6 @@ public interface DetailPageDao {
     int  isRoomInWishlist(@Param("customer_id") String customer_id,@Param("room_id") int room_id);
 
 
-}
+
+    int getTotalSearchListByCompanyId(String company_id);
+ }

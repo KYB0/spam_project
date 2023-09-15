@@ -10,6 +10,15 @@
     height: calc(100vh - 30px);
     padding: 10px;
   }
+
+  .bx-wrapper {
+    max-width: 1000px !important; 
+  }
+  
+
+  .bx-viewport {
+    height : 500px  !important;
+  }
   
   .slider {
     position: absolute;
@@ -23,7 +32,18 @@
   }
   
   .slider img {
-    max-width: 70% /* 이미지가 슬라이더 너비를 넘지 않도록 설정 */
+    max-width: 600px /* 이미지가 슬라이더 너비를 넘지 않도록 설정 */
     
   }
    
+        /* 챗봇 모달 스타일 */
+        #chatbotModal {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 9999;
+          background-color: rgba(0, 0, 0, 0.5);
+      }
+      

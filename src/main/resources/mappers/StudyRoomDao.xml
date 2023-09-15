@@ -50,6 +50,7 @@
     SELECT * FROM study_room WHERE company_id = #{company_id}
     </select>
 
+
     <!-- 지역별 독서실 검색 -->
     <select id="getRoomsByRegion" resultType="com.spam9700.spam.dto.DetailPageDto">
         SELECT * FROM study_room WHERE region = #{region};
@@ -107,4 +108,10 @@
 
 
 
+    <!--독서실 검색 페이징  -->
+    <select id="getTotalSearchListByCompanyId" resultType="int">
+        select count(*) from study_room
+        WHERE company_id = #{company_id}
+    </select>
 </mapper>
+ 

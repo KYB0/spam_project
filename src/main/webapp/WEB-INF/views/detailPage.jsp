@@ -37,7 +37,7 @@
         }
 
         .rdetail h1 {
-            color: #DCE682;
+            color: #EBD4D4;
             margin-top: 150px;
             /* 위에서 */
             -webkit-text-stroke: 2px #322A31;
@@ -210,6 +210,118 @@
             text-decoration: none;
             /* 밑줄 제거 */
         }
+
+        .button {
+  float: right;
+  position: fixed;
+  top: 500px;
+            /* 상단 여백 조절 */
+            right: 200px;
+            /* 오른쪽 여백 조절 */
+            z-index: 999;
+  min-width: 150px;
+  max-width: 250px;
+  display: block;
+  /* margin: 1em;
+  padding: 1em 2em; */
+  border: none;
+  background: none;
+  color: inherit;
+  vertical-align: middle;
+  -webkit-backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+}
+.button:focus {
+  outline: none;
+}
+.button > span {
+  vertical-align: middle;
+}
+
+.button--moema {
+  padding: 1.0em 1.5em;
+  border-radius: 50px;
+  background: #ACB992;
+  color: #fff;
+  -webkit-transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
+}
+.button--moema.button--inverted {
+  background: #ECEFF1;
+  color: #37474f;
+}
+.button--moema::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  bottom: -20px;
+  right: -20px;
+  background: inherit;
+  border-radius: 50px;
+  z-index: -1;
+  opacity: 0.4;
+  -webkit-transform: scale3d(0.8, 0.5, 1);
+  transform: scale3d(0.8, 0.5, 1);
+}
+.button--moema:hover {
+  -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+  transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+  color: #ECEFF1;
+  background-color: #464E2E;
+  -webkit-animation: anim-moema-1 0.3s forwards;
+  animation: anim-moema-1 0.3s forwards;
+}
+.button--moema.button--inverted:hover {
+  color: #ECEFF1;
+  background-color: #ACB992;
+}
+.button--moema:hover::before {
+  -webkit-animation: anim-moema-2 0.3s 0.3s forwards;
+  animation: anim-moema-2 0.3s 0.3s forwards;
+}
+@-webkit-keyframes anim-moema-1 {
+  60% {
+    -webkit-transform: scale3d(0.8, 0.8, 1);
+    transform: scale3d(0.8, 0.8, 1);
+  }
+  85% {
+    -webkit-transform: scale3d(1.1, 1.1, 1);
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes anim-moema-1 {
+  60% {
+    -webkit-transform: scale3d(0.8, 0.8, 1);
+    transform: scale3d(0.8, 0.8, 1);
+  }
+  85% {
+    -webkit-transform: scale3d(1.1, 1.1, 1);
+    transform: scale3d(1.1, 1.1, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@-webkit-keyframes anim-moema-2 {
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes anim-moema-2 {
+  to {
+    opacity: 0;
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -299,7 +411,11 @@
 
     </section>
     <!-- 예약하기 버튼 -->
-    <button class="reservation-button" id="reservation-button">예약하기</button>
+    <section class="content">
+        <div class="box bg-1">
+            <button class="button button--moema button--text-thick button--text-upper button--size-s" id="reservation-button">예약하기</button>
+</div>
+    </section>
 
 
     <%@ include file="footer.jsp" %>

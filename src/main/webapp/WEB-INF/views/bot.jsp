@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <%@ include file="header.jsp" %>
+    
     <button type="button" style="border:0" class="btn_bot" onclick="showChatbot()">
         <img src="/spam/img/bot.png" alt="챗봇 아이콘" class="chatbot-icon">
     </button>
@@ -27,6 +27,10 @@
             <button class="chat-button" onclick="showOptions(['등록/입점', '퇴점신청', '독서실 사업자 회원 탈퇴', '가격/정보변경'])">사업자 등록</button>
             <button class="chat-button" onclick="showOptions(['칭찬/불만사항 작성', '스팸광고/제휴 문의'])">기타상담</button>
 
+            
+        <!-- 이전 버튼 추가 -->
+        <button id="prev-button" class="chat-button" onclick="loadLastState()">이전</button>
+        
         </div>
 
     </div>
@@ -34,4 +38,4 @@
 
 </body>
 </html>
-<%@ include file="footer.jsp" %>
+
