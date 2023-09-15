@@ -217,6 +217,9 @@
             background-color: #6feaf6 !important;
             color: #333333;
         }
+        .time-list{
+            display: none;
+        }
 
         /* 스타일링 비활성화된 시간대 */
         .past-time {
@@ -224,36 +227,6 @@
             background-color: #eee; /* 배경 색상을 연한 회색으로 설정 */
             cursor: not-allowed; /* 클릭 이벤트 비활성화 */
         }
-
-        .time-list{
-            display: none;
-        }
-
-        /* Time List Styling */
-/* .time-list {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.time-list li {
-    background-color: #6feaf6;
-    color: #333333;
-    border: 1px solid #000000;
-    padding: 5px 10px;
-    margin: 0px;
-    cursor: pointer;
-}
-
-.time-list li.past-time {
-    background-color: #eee;
-    color: #777;
-    border: 1px solid #eee;
-    cursor: not-allowed;
-} */
-
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <!-- Add this to the head section of your HTML -->
@@ -376,10 +349,10 @@
         
     </section>
     <div class="reservation-form">
-        <form action="/spam/${room_name}/reservation" method="post">
+        <form action="" method="post">
             <input type="text" name="customer_id" id="customer_id" value="${customer_id}">
             <input type="text" name="room_id" value="${room_id}">
-            <input type="text" name="seat_number" id="seat_number">
+            <input type="text" name="seat_number" id="" value="">
             <div id="datepicker"></div>
             <div class="time-selection">
                 <label for="start-time">시작 시간:</label>
@@ -461,12 +434,6 @@ timeList.on('click', 'li', function () {
                     s_seat.classList.add("selectedSeat");
                     selectedSeat = s_seat;
                     console.log(selectedSeat);
-            // 선택한 좌석을 숫자로 가져옵니다.
-const selectedSeatNumber = parseInt(selectedSeat.textContent);
-
-// 좌석 번호를 "seat_number" 입력 필드에 설정합니다.
-$("#seat_number").val(selectedSeatNumber);
-
                 }
             });
         });
@@ -539,11 +506,8 @@ $("#seat_number").val(selectedSeatNumber);
             } else {
                 alert("좌석을 선택해 주세요.");
             }
-            
         });
-        
     });
-    
 </script>
 
 

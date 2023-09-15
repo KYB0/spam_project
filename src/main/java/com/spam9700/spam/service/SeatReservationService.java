@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spam9700.spam.dao.SeatReservationDao;
+import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.SeatReservationDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,13 @@ public class SeatReservationService {
     }
 
 
-    
-}
+        // 모든 좌석 예약 목록 조회
+    public List<ReservationDto> getAllReservations() {
+        return seatReservationDao.getAllReservations();
+    }
 
+    public boolean createReservation(ReservationDto reservationDto) {
+        return seatReservationDao.createReservation(reservationDto);
+    }
+
+}

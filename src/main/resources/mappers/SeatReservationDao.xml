@@ -14,4 +14,17 @@
         VALUES (#{customer_id}, #{seat_number}, #{start_time}, #{end_time})
     </insert>
 
+
+    <select id="getAllReservations" resultType="com.spam9700.spam.dto.SeatReservationDto">
+        SELECT * FROM seat_reservations
+    </select>
+
+    <!-- createReservation -->
+
+ <!-- 예약 데이터를 데이터베이스에 삽입하는 쿼리 -->
+<insert id="createReservation" parameterType="map">
+    INSERT INTO seat_reservations (customer_id, seat_number, start_time, end_time, room_id, status)
+    VALUES (#{customer_id}, #{seat_number}, #{start_time}, #{end_time}, #{room_id}, #{status})
+</insert>
+
 </mapper>
