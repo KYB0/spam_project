@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
 
 import com.spam9700.spam.dto.QnaBoardDto;
-import com.spam9700.spam.dto.ReservationDto;
+import com.spam9700.spam.dto.ReservationDTO;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.WishListDto;
 
@@ -16,7 +16,7 @@ public interface MypageDao {
 
     int insertReview(ReviewDto reviewDto);
 
-    List<ReservationDto> getReservationListByCustomerId(String customer_id, int offset, int pageSize);
+    List<ReservationDTO> getReservationListByCustomerId(String customer_id, int offset, int pageSize);
 
     List<ReviewDto> getReviewListByCustomerId(String customer_id, int offset, int pageSize);
 

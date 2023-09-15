@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
-public class ReservationDto {
+public class ReservationDTO {
     private int reservation_id;
     private String customer_id;
     private int room_id;

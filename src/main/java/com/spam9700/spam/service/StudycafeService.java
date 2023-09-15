@@ -16,7 +16,7 @@ import com.spam9700.spam.dao.SeatDao;
 import com.spam9700.spam.dao.WishListDao;
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.QnaBoardDto;
-import com.spam9700.spam.dto.ReservationDto;
+import com.spam9700.spam.dto.ReservationDTO;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.SeatDto;
@@ -120,7 +120,7 @@ public class StudycafeService {
     private MypageDao mypageDao;
     
     //예약 내역 리스트 불러오기
-    public List<ReservationDto> getReservationListByCustomerId(String customer_id, int offset, int pageSize) {
+    public List<ReservationDTO> getReservationListByCustomerId(String customer_id, int offset, int pageSize) {
         return mypageDao.getReservationListByCustomerId(customer_id, offset, pageSize);
     }
     // 예약 내역 페이징
