@@ -69,19 +69,22 @@ public class MypageController {
             return "redirect:/member/c_login"; // 기업로그인 페이지로 리다이렉트 또는 다른 처리
         }
 
-        RoomPageDto roomPageDto = studycafeService.getRoomsByPage(page, size, company_id);
+        int pageSize = 5;
+       
+        List<DetailPageDto> paginatedRooms = studycafeService.getPaginatedRooms(page, pageSize, company_id);
+        int totalRoomsCount = studycafeService.getTotalRoomsCount(company_id);
         // System.out.println("++++++++++++++++++++++++"+page+"+++++++++++++++++++++++++");
         // System.out.println("--------------------------"+size+"----------------------------");
+    
+        model.addAttribute("roomDataPage", paginatedRooms);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", (totalRoomsCount + pageSize - 1) / pageSize);
 
-        model.addAttribute("roomDataPage", roomPageDto.getRoomDataPage());
-        model.addAttribute("currentPage", roomPageDto.getCurrentPage());
-        model.addAttribute("totalPages", roomPageDto.getTotalPages());
+         List<DetailPageDto> roomDataList = studycafeService.getAllRoomsByCompanyId(company_id);
 
-        List<DetailPageDto> roomDataList = studycafeService.getAllRoomsByCompanyId(company_id);
-
-        for (DetailPageDto rd : roomDataList) {
-            System.out.println(rd);
-        } // roomDataList로 데이터값이 전달되는지 확인
+        // for(DetailPageDto rd : roomDataList){
+        //     System.out.println(rd);
+        // } //roomDataList로 데이터값이 전달되는지 확인
         model.addAttribute("roomDataList", roomDataList);
         return "companyInsert";
     }

@@ -1,4 +1,4 @@
-// package com.spam9700.spam.controller;
+package com.spam9700.spam.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
