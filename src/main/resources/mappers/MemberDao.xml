@@ -50,17 +50,6 @@
 
     <!-- cLogin -->
 
-
-    <!-- mypage update -->
-
-    <!-- <update id="updateCustomerInfo" parameterType="CustomerMemberDto">
-        UPDATE customer_member
-        SET customer_pwd = #{customer_pwd},
-            customer_phone = #{customer_phone},
-            customer_email = #{customer_email}
-        WHERE customer_id = #{customer_id}
-    </update> -->
-
     <update id="updateMypage" parameterType="CustomerMemberDto">
         UPDATE customer_member
         SET

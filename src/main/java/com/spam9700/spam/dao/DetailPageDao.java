@@ -9,8 +9,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.spam9700.spam.dto.DetailPageDto;
+import com.spam9700.spam.dto.QnaBoardDto;
 import com.spam9700.spam.dto.ReviewDto;
-import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.WishListDto;
 
 @Mapper
@@ -50,7 +50,7 @@ public interface DetailPageDao {
  
     boolean reviewInsert(ReviewDto reviewDto);
 
-    List<ReviewDto> getReviewsByRoomId(Integer room_id);
+    List<ReviewDto> getReviewsByRoomId(@Param("room_id") Integer room_id);
 
     List<DetailPageDto> getRoomsByCompanyId(String company_id, int offset, int pageSize);
 

@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -316,6 +317,7 @@
     </section>
     <%@ include file="footer.jsp" %>
 </body>
+
 <script>
     const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
     let selectedSeat = null; // 선택된 좌석을 저장하는 변수

@@ -28,10 +28,11 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">리뷰 ID</th>
+                    <th scope="col">리뷰 No.</th>
+                    <!-- <th scope="col">고객 ID</th> -->
                     <th scope="col">리뷰 내용</th>
                     <th scope="col">별점</th>
-                    <th scope="col">고객 ID</th>
+                    <th scope="col">업체명</th>
                     <th scope="col">업체 코드</th>
                 </tr>
             </thead>
@@ -39,14 +40,52 @@
                 <c:forEach items="${reviewList}" var="review">
                     <tr>
                         <td>${review.review_id}</td>
+                        <!-- <td>${review.customer_id}</td> -->
                         <td>${review.review_content}</td>
                         <td>${review.rating}</td>
-                        <td>${review.customer_id}</td>
+                        <td>${review.room_name}</td>
                         <td>${review.room_id}</td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
+
+        <!-- 페이징 -->
+        <div class="pagination">
+            <c:if test="${totalPages > 1}">
+                <c:choose>
+                    <c:when test="${currentPage > 1}">
+                        <a href="${pageContext.request.contextPath}/i_mypage/list/review_list?page=${currentPage - 1}">이전</a>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="disabled">이전</span>
+                    </c:otherwise>
+                </c:choose>
+        
+                <c:forEach begin="1" end="${totalPages}" var="pageNumber">
+                    <c:url var="pageUrl" value="${pageContext.request.contextPath}/i_mypage/list/review_list">
+                        <c:param name="page" value="${pageNumber}" />
+                    </c:url>
+                    <c:choose>
+                        <c:when test="${pageNumber == currentPage}">
+                            <span class="current-page">${pageNumber}</span>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${pageUrl}">${pageNumber}</a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+        
+                <c:choose>
+                    <c:when test="${currentPage < totalPages}">
+                        <a href="${pageContext.request.contextPath}/i_mypage/list/review_list?page=${currentPage + 1}">다음</a>
+                    </c:when>
+                    <c:otherwise>
+                        <span class="disabled">다음</span>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+        </div>
     </section>
 </body>
 </html>
