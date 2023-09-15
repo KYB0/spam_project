@@ -12,5 +12,5 @@ public class ReservationDto {
     private int seat_id;
     private LocalDateTime start_time;
     private LocalDateTime end_time;
-    private int seat_number;
+     private int seat_number;
 }
