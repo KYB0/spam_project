@@ -1,5 +1,5 @@
 ﻿
-
+<%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +15,7 @@
 <style>
 body{
     font-family: 'Lato', sans-serif;
-    background-color: white;
+    background-color: #f0e9e4;
     color: #fff;
     box-sizing: border-box;
 }

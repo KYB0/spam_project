@@ -12,10 +12,11 @@
     <style>
         body {
             font-family: 'Lato', sans-serif;
-            background-color: white;
+            background-color: #f0e9e4;
             color: #fff;
             box-sizing: border-box;
         }
+   
 
         #s_container {
             display: flex;
@@ -317,6 +318,7 @@
     </section>
     <%@ include file="footer.jsp" %>
 </body>
+
 <script>
      const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
     let selectedSeat = null; // 선택된 좌석을 저장하는 변수

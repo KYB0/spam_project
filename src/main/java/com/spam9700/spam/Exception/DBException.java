@@ -1,4 +1,4 @@
-﻿package com.spam9700.spam.Exception;
+﻿package com.spam9700.spam.exception;
 
 public class DBException extends RuntimeException {
 	

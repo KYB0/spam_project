@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM</title>
     <style>
+        body{
+            background-color: #f0e9e4 !important;  /* 밝은 베이지 */
+        }
+
         .p-20 {
             width: 20%;
         }
@@ -344,14 +348,14 @@
             </div><br>
             <div class="info">
                 <c:forEach items="${rnData}" var="rmd">
-                <h4 class="r-description">영업 시간 : ${rmd.room_description}</h4>
-                <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
-                <h4 class="r-time">가격  <p>
-                        <h5>시간당 : ${rmd.time_price} 원</h5>
-                        <h5>1일당 : ${rmd.day_price} 원</h5>
-                    </p>
-                </h4> <!-- jquery로 db에서 데이터를 가져온다-->
-            </c:forEach>
+                    <h4 class="r-description">영업 시간 : ${rmd.room_description}</h4>
+                    <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
+                    <h4 class="r-time">가격 <p>
+                            <h5>시간당 : ${rmd.time_price} 원</h5>
+                            <h5>1일당 : ${rmd.day_price} 원</h5>
+                        </p>
+                    </h4> <!-- jquery로 db에서 데이터를 가져온다-->
+                </c:forEach>
             </div>
         </div>
         <h2>평점</h2>
@@ -386,6 +390,7 @@
                 <tr class="rtbl-head">
                     <td>WRITER</td>
                     <td>CONTENTS</td>
+                    <td>RATE</td>
                     <td>DATE</td>
                 </tr>
                 <!-- 리뷰 목록 반복 및 리뷰 표시 -->
@@ -401,11 +406,11 @@
                         </td>
                     </tr>
                 </c:forEach>
-
             </table>
 
+            
             <div id="reviewListContainer">
-                <!-- 리뷰 목록이 여기에 나타납니다. -->
+                <!--  리뷰 목록이 여기에 나타납니다. -->
             </div>
 
 
@@ -585,6 +590,7 @@ function toggleWishList(buttonElement){
                         let commentHtml = "<tr>" +
                             "<td>" + data[i].customer_id + "</td>" +
                             "<td>" + data[i].review_content + "</td>" +
+                            "<td>" + data[i].rating + "점</td>" +
                             "<td>" + data[i].review_date + "</td>" +
                             "</tr>";
                         $("#reviewListContainer").append(commentHtml);
@@ -601,8 +607,7 @@ function toggleWishList(buttonElement){
     });
 
 
-
-
+    
 </script>
 
 </html>
