@@ -9,6 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM</title>
     <style>
+        body{
+            background-color: #f0e9e4 !important;  /* 밝은 베이지 */
+        }
+
         .p-20 {
             width: 20%;
         }

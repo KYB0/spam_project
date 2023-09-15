@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body{
+    background-color: #f0e9e4 !important;  /* 밝은 베이지 */
+}
+
 
 .join-form {
     position: absolute;

@@ -15,6 +15,11 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="/spam/js/c_join.js"></script>
 </head>
+<style>
+         body{
+            background-color: #f0e9e4 !important;  /* 밝은 베이지 */
+        }
+</style>
 
 <body>
     <header>

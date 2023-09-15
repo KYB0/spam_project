@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM : 기업:고객 수</title>
     <style>
+
+body{
+            background-color: #f0e9e4 !important;  /* 밝은 베이지 */
+        }
        .c_list{
     position: relative; /* 상대 위치 지정 */
     left: 20%;

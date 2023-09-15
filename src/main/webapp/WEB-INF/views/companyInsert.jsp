@@ -13,6 +13,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
+
+body{
+            background-color: #f0e9e4 !important;  /* 밝은 베이지 */
+        }
         .c_insert {
             position: relative;
             /* 상대 위치 지정 */

@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM : 독서실 등록</title>
     <style>
+          body{
+            background-color: #f0e9e4 !important;  /* 밝은 베이지 */
+        }
 
        .c_insert{
     position: relative; /* 상대 위치 지정 */
@@ -92,7 +95,7 @@ form#stdForm1 {
         }
 
         input[name^="stdR"]:focus {
-  border-bottom: 5px solid #442727; /* $form-shadow 변수를 직접 값을 대입해 주세요 */
+  border-bottom: 5px solid #fff; /* $form-shadow 변수를 직접 값을 대입해 주세요 */
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -126,11 +129,25 @@ input:-webkit-autofill:focus {
     border: 1px solid #442727;
 }
 
-
+ /* 숫자 입력 필드의 스타일 재정의 */
+ input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0; /* 버튼의 여백을 제거하여 숨깁니다. */
+    }
 
 
     </style>
     <script>
+        window.onload = function() {
+    // 영업 시간 입력란을 가져옵니다.
+    var stdRDescriptionInput = document.getElementById("stdRDescription");
+
+    // 원하는 기본 값을 설정합니다.
+    stdRDescriptionInput.value = "9~23 시";
+};
+
         function std_write(){
             let stdRName = document.stdForm1.stdRName.value;
             let stdRDescription = document.stdForm1.stdRDescription.value;
@@ -175,6 +192,20 @@ input:-webkit-autofill:focus {
             document.stdForm1.submit();
         }
 
+        // 입력 필드에서 숫자 이외의 입력을 막는 함수
+    function allowNumbersOnly(inputElement) {
+        inputElement.value = inputElement.value.replace(/[^0-9]/g, '');
+    }
+
+    // 시간별 가격 입력 필드에서 숫자 이외의 입력을 막음
+    document.getElementById('stdRTPrice').addEventListener('input', function() {
+        allowNumbersOnly(this);
+    });
+
+    // 일별 가격 입력 필드에서 숫자 이외의 입력을 막음
+    document.getElementById('stdRDPrice').addEventListener('input', function() {
+        allowNumbersOnly(this);
+    });
 
     </script>
 
@@ -209,15 +240,15 @@ input:-webkit-autofill:focus {
             </tr>
             <tr>
                 <td>영업 시간</td>
-                <td><input name="stdRDescription"></td>
+                <td><input name="stdRDescription" id="stdRDescription" value="9~23 시" readonly></td>
             </tr>
             <tr>
                 <td>시간별 가격</td>
-                <td><input name="stdRTPrice"></td>
+                <td><input name="stdRTPrice" type="number" min="0" step="1"></td>
             </tr>
             <tr>
                 <td>일별 가격</td>
-                <td><input name="stdRDPrice"></td>
+                <td><input name="stdRDPrice" type="number" min="0" step="1"></td>
             </tr>
             <tr>
                 <td>지역</td>
