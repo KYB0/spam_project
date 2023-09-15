@@ -9,9 +9,12 @@
 
     <!-- 예약 내역 불러오기 -->
     <select id="getReservationListByCustomerId" resultType="com.spam9700.spam.dto.ReservationDto">
-        SELECT * FROM seat_reservations
+        SELECT *
+        FROM seat_reservations
         WHERE customer_id = #{customer_id}
+        ORDER BY reservation_id DESC
         LIMIT #{pageSize} OFFSET #{offset}
+
     </select>
 
     <!-- 예약 내역 페이징 -->
@@ -70,7 +73,7 @@
     <!-- 예약취소 -->
     <select id="cancelReservation" resultType="com.spam9700.spam.dto.ReservationDto">
         UPDATE seat_reservations
-        SET status = 'CANCELLED'
+        SET status = '0'
         WHERE reservation_id = #{reservation_id};
     </select>
 </mapper>

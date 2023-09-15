@@ -31,7 +31,12 @@ public class ReservationController {
     public String cancelReservation(@RequestParam("reservation_id") int reservation_id){
         
         studycafeService.cancelReservation(reservation_id);
-        return "redimain";
+        return "redirect:/i_mypage/list";
     }
+
+    // @GetMapping()
+    // public String statusCheckCancel() {
+
+    // }
 
 }
