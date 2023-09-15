@@ -9,7 +9,7 @@
 .footer-txt {
     font-family: 'TheJamsil5Bold', sans-seri;
     text-align: center;
-    color: #DCE682;
+    color: #F5EBEB ;
 }
 .fcontents {
     display: flex; /* Add flex display */
@@ -24,7 +24,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #322A31;
+            background-color: #867070 ;
 }
 
 </style>
