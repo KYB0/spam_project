@@ -9,7 +9,7 @@
 .footer-txt {
     font-family: 'TheJamsil5Bold', sans-seri;
     text-align: center;
-    color: #DCE682;
+    color: #fcfaa7;
 }
 .fcontents {
     display: flex; /* Add flex display */
@@ -24,7 +24,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #322A31;
+            background-color: #7a76ae;
 }
 
 </style>
@@ -32,7 +32,7 @@
     <div class="content">
       <div class="fcontents">
         <img class="footer-logo"
-        src="https://img.icons8.com/color/48/spam-can.png" width="48" height="48" alt="spam-can"/>
+        src="https://img.icons8.com/color/48/spam-can.png" width="48" height="55" alt="spam-can"/>
         <span class="footer-txt ">&copy;2023 인천일보아카데미, 9700</span>
       </div>
     </div>

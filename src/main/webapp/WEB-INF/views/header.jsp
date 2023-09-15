@@ -75,7 +75,7 @@
         }
 
         .btn-outline-light {
-            --bs-btn-color: #DCE682 !important;
+            --bs-btn-color: #fcf5a9 !important;
             --bs-btn-border-color: #f8f9fa !important;
             --bs-btn-hover-color: #e5ff00 !important;
             --bs-btn-hover-bg: #000000 !important;
@@ -92,20 +92,20 @@
         }
 
         .btn-light {
-            --bs-btn-color: #DCE682 !important;
-            --bs-btn-bg: #322A31 !important;
+            --bs-btn-color: #fcf5a9 !important;
+            --bs-btn-bg: #8a7fd1 !important;
             --bs-btn-border-color: #f8f9fa;
             --bs-btn-hover-color: #e5ff00 !important;
             --bs-btn-hover-bg: #000000 !important;
-            --bs-btn-hover-border-color: #f8f9fa !important;
+            --bs-btn-hover-border-color: #fcfaa7 !important;
             --bs-btn-focus-shadow-rgb: 248, 249, 250 !important;
             --bs-btn-active-color: #000 !important;
-            --bs-btn-active-bg: #f8f9fa !important;
-            --bs-btn-active-border-color: #f8f9fa !important;
+            --bs-btn-active-bg: #fcfaa7 !important;
+            --bs-btn-active-border-color: #fcfaa7 !important;
             --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
-            --bs-btn-disabled-color: #f8f9fa !important;
+            --bs-btn-disabled-color: #fcfaa7 !important;
             --bs-btn-disabled-bg: transparent !important;
-            --bs-btn-disabled-border-color: #f8f9fa !important;
+            --bs-btn-disabled-border-color: #fcfaa7 !important;
             --bs-gradient: none !important;
         }
 
@@ -131,22 +131,22 @@
         }
 
         .offcanvas {
-            background-color: #322A31 !important;
+            background-color: #736aa1 !important;
             /* 어두운 배경색으로 변경 */
         }
 
         .offcanvas-title {
-            color: #DCE682;
+            color: #fcfaa7;
             /* 원하는 글씨 색상으로 변경 */
         }
 
         .navbar-dark.bg-dark {
-            background-color: #322A31 !important;
+            background-color: #7a76ae !important;
             /* 원하는 배경색으로 변경 */
         }
 
         .navbar-brand {
-            color: #DCE682 !important;
+            color: #fcfaa7 !important;
         }
     </style>
 
