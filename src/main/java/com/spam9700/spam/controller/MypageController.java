@@ -21,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.QnaBoardDto;
-import com.spam9700.spam.dto.ReservationDTO;
+import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
 import com.spam9700.spam.dto.SeatDto;
@@ -217,7 +217,7 @@ public class MypageController {
         int offset = (page - 1) * pageSize;
 
         // customer_id를 이용하여 예약 리스트를 가져오는 메서드를 studycafeService에서 호출
-        List<ReservationDTO> reservationList = studycafeService.getReservationListByCustomerId(customer_id, offset,
+        List<ReservationDto> reservationList = studycafeService.getReservationListByCustomerId(customer_id, offset,
                 pageSize);
 
         // 모델에 예약 리스트 및 페이징 정보를 추가
