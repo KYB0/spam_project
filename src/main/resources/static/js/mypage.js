@@ -57,7 +57,7 @@
         const confirmResign = confirm("정말로 회원을 탈퇴하시겠습니까?");
 
         if (confirmResign) {
-            
+
             // 사용자가 확인을 눌렀을 경우 탈퇴 로직 수행
             $.ajax({
                 type: "POST",
@@ -82,3 +82,4 @@
         return false;
     }
 
+  

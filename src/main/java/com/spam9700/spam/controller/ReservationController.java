@@ -1,44 +1,42 @@
 // package com.spam9700.spam.controller;
 
-// import com.spam9700.spam.dto.ReservationDTO;
-// import com.spam9700.spam.dto.SeatDto;
-// import com.spam9700.spam.service.ReservationService;
-// import com.spam9700.spam.service.SeatService;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.stereotype.Controller;
-// import org.springframework.ui.Model;
-// import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-// import java.util.List;
+import com.spam9700.spam.service.StudycafeService;
 
-// @Controller
-// @RequestMapping("/reservation")
-// public class ReservationController {
+@Controller
+@RequestMapping("/{room_name}")
+public class ReservationController {
 
-//     @Autowired
-//     private SeatService seatService;
+    @Autowired
+    StudycafeService studycafeService;
 
-//     @Autowired
-//     private ReservationService reservationService;
 
-//     // 예약 페이지 열기
-//     @GetMapping("/create")
-//     public String openReservationPage(Model model) {
-//         List<SeatDto> seatList = seatService.getAllSeats();
-//         model.addAttribute("seatList", seatList);
-//         return "res"; // 이 부분은 JSP 페이지의 이름입니다.
-//     }
+    // 기존의 상세 페이지 컨트롤러와 겹치지 않도록 별도의 URL을 사용
+    @GetMapping("/reservation")
+    public String reservationPage(@PathVariable("room_name") String room_name, Model model) {
+        // 예약 페이지 관련 로직을 여기에 추가
+        
+        return "seat"; // 예약 페이지 템플릿 이름 또는 경로
+    }
 
-//     // 예약 생성 처리
-//     @PostMapping("/create")
-//     public String createReservation(@ModelAttribute ReservationDTO reservationDTO, Model model) {
-//         // 여기에서 예약 정보를 처리하고 예약 결과를 받아옵니다.
-//         ReservationDTO createdReservation = reservationService.createReservation(reservationDTO);
+    @PostMapping("/cancel")
+    public String cancelReservation(@RequestParam("reservation_id") int reservation_id){
+        
+        studycafeService.cancelReservation(reservation_id);
+        return "redirect:/i_mypage/list";
+    }
 
-//         // 예약 결과를 모델에 추가
-//         model.addAttribute("reservationResult", createdReservation);
+    // @GetMapping()
+    // public String statusCheckCancel() {
 
-//         return "reservationResultPage"; // 이 부분은 예약 결과 페이지의 이름입니다.
-//     }
-// }
+    // }
 
+}

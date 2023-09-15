@@ -15,6 +15,7 @@ import com.spam9700.spam.dao.MypageDao;
 import com.spam9700.spam.dao.SeatDao;
 import com.spam9700.spam.dao.WishListDao;
 import com.spam9700.spam.dto.DetailPageDto;
+import com.spam9700.spam.dto.QnaBoardDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
 import com.spam9700.spam.dto.RoomPageDto;
@@ -118,12 +119,18 @@ public class StudycafeService {
     @Autowired
     private MypageDao mypageDao;
     
-    public List<ReservationDto> getReservationListByCustomerId(String customer_id) {
-        return mypageDao.getReservationListByCustomerId(customer_id);
+    //예약 내역 리스트 불러오기
+    public List<ReservationDto> getReservationListByCustomerId(String customer_id, int offset, int pageSize) {
+        return mypageDao.getReservationListByCustomerId(customer_id, offset, pageSize);
+    }
+    // 예약 내역 페이징
+     public int getTotalReservationsByCustomerId(String customer_id) {
+        return mypageDao.getTotalReservationsByCustomerId(customer_id);
     }
 
-    public List<ReviewDto> getReviewListByCustomerId(String customer_id) {
-        return mypageDao.getReviewListByCustomerId(customer_id);
+
+    public List<ReviewDto> getReviewListByCustomerId(String customer_id, int offset, int pageSize) {
+        return mypageDao.getReviewListByCustomerId(customer_id, offset, pageSize);
     }
 
 
@@ -198,6 +205,38 @@ public class StudycafeService {
     public int getTotalWishlistCount(String company_id) {
         return wishListDao.getTotalWishlistCountByCompanyId(company_id);
     }
+    public List<QnaBoardDto> getQnaListByUserId(String customer_id, int offset, int pageSize) {
+        return mypageDao.getQnaListByUserId(customer_id, offset, pageSize);
+    }
+
+    public int getTotalReviewsByCustomerId(String customer_id) {
+        return mypageDao.getTotalReviewsByCustomerId(customer_id);
+    }
+
+    public int getTotalQnaListByCustomerId(String customer_id) {
+        return mypageDao.getTotalQnaListByCustomerId(customer_id);
+    }
+
+    public List<WishListDto> getWishListWithRoomNameByCustomerId(String customer_id, int offset, int pageSize) {
+        return mypageDao.getWishListWithRoomNameByCustomerId(customer_id, offset, pageSize);
+    }
+
+    public int getTotalWishListByCustomerId(String customer_id) {
+        return mypageDao.getTotalWishListByCustomerId(customer_id);
+    }
+
+
+    public void cancelReservation(int reservation_id) {
+         mypageDao.cancelReservation(reservation_id);
+        }
+
+  
+
+   
+
+   
+
+   
 
 
 

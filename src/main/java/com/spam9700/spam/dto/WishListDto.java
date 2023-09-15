@@ -9,4 +9,5 @@ public class WishListDto {
     private int wishlist_id;
     private String customer_id;
     private int room_id;
+    private String room_name;
 }

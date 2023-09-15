@@ -7,16 +7,73 @@
         VALUES (#{review_content},#{rating},#{customer_id},#{room_id});
     </insert>
 
-   <select id="getReservationListByCustomerId" resultType="com.spam9700.spam.dto.ReservationDto">
-        SELECT * FROM seat_reservations 
+    <!-- 예약 내역 불러오기 -->
+    <select id="getReservationListByCustomerId" resultType="com.spam9700.spam.dto.ReservationDto">
+        SELECT *
+        FROM seat_reservations
+        WHERE customer_id = #{customer_id}
+        ORDER BY reservation_id DESC
+        LIMIT #{pageSize} OFFSET #{offset}
+
+    </select>
+
+    <!-- 예약 내역 페이징 -->
+    <select id="getTotalReservationsByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM seat_reservations
         WHERE customer_id = #{customer_id}
     </select>
 
+    <!-- 리뷰 내역 불러오기 -->
     <select id="getReviewListByCustomerId" resultType="com.spam9700.spam.dto.ReviewDto">
-        SELECT * FROM review
+        <!-- SELECT * FROM review
+        WHERE customer_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset} -->
+        SELECT r.*, sr.room_name
+        FROM review r
+        INNER JOIN study_room sr ON r.room_id = sr.room_id
+        WHERE r.customer_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <!-- 리뷰 내역 페이징 -->
+    <select id="getTotalReviewsByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM review
         WHERE customer_id = #{customer_id}
     </select>
 
+    <!-- QnA 내역 불러오기 -->
+    <select id="getQnaListByUserId" resultType="com.spam9700.spam.dto.QnaBoardDto">
+        SELECT * FROM board
+        WHERE user_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
 
+    <!-- QnA 내역 페이징 -->
+    <select id="getTotalQnaListByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM board
+        WHERE user_id = #{customer_id}
+    </select>
 
+    <!-- 찜 목록 내역 불러오기 -->
+    <select id="getWishListWithRoomNameByCustomerId" resultType="com.spam9700.spam.dto.WishListDto">
+        SELECT w.*, sr.room_name
+        FROM wishlist w
+        INNER JOIN study_room sr ON w.room_id = sr.room_id
+        WHERE w.customer_id = #{customer_id}
+        LIMIT #{pageSize} OFFSET #{offset}
+
+    </select>
+
+    <!-- 찜 목록 내역 페이징 -->
+    <select id="getTotalWishListByCustomerId" resultType="int">
+        SELECT COUNT(*) FROM wishlist
+        WHERE customer_id = #{customer_id}
+    </select>
+
+    <!-- 예약취소 -->
+    <select id="cancelReservation" resultType="com.spam9700.spam.dto.ReservationDto">
+        UPDATE seat_reservations
+        SET status = '0'
+        WHERE reservation_id = #{reservation_id};
+    </select>
 </mapper>
