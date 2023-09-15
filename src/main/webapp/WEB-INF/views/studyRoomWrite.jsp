@@ -25,8 +25,8 @@ transform: translate(-20%, 100%); /* 화면 중앙 정렬을 위한 transform �
 .std-button {
             /* 스타일을 원하는 대로 설정 */
             padding: 10px 20px;
-            background-color: #E6E6FA;
-            color: #B19CD9;
+            background-color: #FFF0F0;
+            color: #442727;
             border: none;
             cursor: pointer;
             width: 120px;
@@ -57,7 +57,7 @@ width: 100%;
 .btn_cmenu button {
 /* 버튼 스타일 */
 padding: 10px 20px;
-background-color: #322A31;
+background-color: #442727;
 color: #DCE682;
 border: none;
 cursor: pointer;
@@ -83,8 +83,8 @@ form#stdForm1 {
   border: none;
   margin-bottom: 20px; /* 마진을 추가하여 공백 생성 */
   border: none;
-  border-bottom: 5px solid #E6E6FA;
-  background: #E6E6FA; /* $form-bg 변수를 직접 값을 대입해 주세요 */
+  border-bottom: 5px solid #AA7070;
+  background: #AA7070; /* $form-bg 변수를 직접 값을 대입해 주세요 */
   min-width: 250px;
   padding-left: 5px;
   outline: none;
@@ -92,14 +92,14 @@ form#stdForm1 {
         }
 
         input[name^="stdR"]:focus {
-  border-bottom: 5px solid #B19CD9; /* $form-shadow 변수를 직접 값을 대입해 주세요 */
+  border-bottom: 5px solid #442727; /* $form-shadow 변수를 직접 값을 대입해 주세요 */
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-  border-bottom: 5px solid #B19CD9;
+  border-bottom: 5px solid #442727;
   -webkit-text-fill-color: #fff;
-  -webkit-box-shadow: 0 0 0px 1000px #E6E6FA inset;
+  -webkit-box-shadow: 0 0 0px 1000px #AA7070 inset;
   transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -109,21 +109,21 @@ input:-webkit-autofill:focus {
     margin: 0 auto;
     line-height: 32px; /* $font-size * 2를 계산한 값으로 변경해 주세요 */
     padding: 0 20px;
-    background: #E6E6FA; /* $form-shadow 변수를 직접 값을 대입해 주세요 */
+    background: #FFF0F0; /* $form-shadow 변수를 직접 값을 대입해 주세요 */
     letter-spacing: 2px;
     transition: 0.2s all ease-in-out;
     outline: none;
-    border: 1px solid #B19CD9;
-    box-shadow: 3px 3px 1px 1px #B19CD9, 3px 3px 1px 2px #B19CD9;
+    border: 1px solid #442727;
+    box-shadow: 3px 3px 1px 1px #442727, 3px 3px 1px 2px #442727;
     position: absolute;
     bottom: -45%; /* 원하는 아래쪽 여백 설정 */
     right: 30%; /* 원하는 오른쪽 여백 설정 */
 }
 
 #stdB:hover {
-    background: rgba(0,0,0,1);
+    background: #442727;
     color: white;
-    border: 1px solid #B19CD9;
+    border: 1px solid #442727;
 }
 
 

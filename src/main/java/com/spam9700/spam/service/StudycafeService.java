@@ -141,24 +141,6 @@ public class StudycafeService {
     }
 
 
-
-
-    // public RoomPageDto getRoomsByPage(int page, int pageSize, String company_id) {
-    //     RoomPageDto roomPageDto = new RoomPageDto();
-
-    //     int offset = (page - 1) * pageSize;
-    //     List<DetailPageDto> roomDataPage = detailPageDao.getRoomsByCompanyId(company_id, offset, pageSize);
-    //     int totalRooms = detailPageDao.getTotalRoomCountByCompanyId(company_id);
-
-    //     int totalPages = (int) Math.ceil((double) totalRooms/pageSize);
-
-    //     roomPageDto.setRoomDataPage(roomDataPage);
-    //     roomPageDto.setCurrentPage(page);
-    //     roomPageDto.setTotalPages(totalPages);
-
-    //     return roomPageDto;
-    //     }
-
     public List<DetailPageDto> getAllRoomsByCompanyId(String company_id) {
         return detailPageDao.getAllRoomsByCompanyId(company_id);
     }
@@ -212,9 +194,6 @@ public class StudycafeService {
         return detailPageDao.getDetailPageData();
     }
 
-    // public int getTotalWishlistCount(String company_id) {
-    //     return wishListDao.getTotalWishlistCount(company_id);
-    // }
 
     public int getTotalWishlistCount(String company_id) {
         return wishListDao.getTotalWishlistCountByCompanyId(company_id);

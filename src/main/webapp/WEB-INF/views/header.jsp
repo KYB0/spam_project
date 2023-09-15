@@ -131,22 +131,22 @@
         }
 
         .offcanvas {
-            background-color: #322A31 !important;
+            background-color: #867070 !important;
             /* 어두운 배경색으로 변경 */
         }
 
         .offcanvas-title {
-            color: #DCE682;
+            color: #F5EBEB;
             /* 원하는 글씨 색상으로 변경 */
         }
 
         .navbar-dark.bg-dark {
-            background-color: #322A31 !important;
+            background-color: #867070 !important;
             /* 원하는 배경색으로 변경 */
         }
 
         .navbar-brand {
-            color: #DCE682 !important;
+            color: #F5EBEB !important;
         }
     </style>
 
