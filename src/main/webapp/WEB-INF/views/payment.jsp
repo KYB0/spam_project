@@ -1,4 +1,4 @@
-﻿
+﻿<%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,26 +15,16 @@
 <body>
     <%@ include file="header.jsp" %>
       
-    <!-- 세션에서 정보 읽어오기 -->
-    <% 
-        HttpSession session = request.getSession();
-        String roomName = (String) session.getAttribute("temp_room_name");
-        String seatNumber = (String) session.getAttribute("temp_seat_number");
-        String startTime = (String) session.getAttribute("temp_start_time");
-        String endTime = (String) session.getAttribute("temp_end_time");
-    %>
-
-
     <!--view-->
     <div id="content">
         <div class="right">
                <!-- 인포 -->
-            <section class="info">
-                <p class="name"><strong>스터디룸 이름</strong><br><%= roomName %></p>
-                <p><strong>좌석타입/기간</strong><br><%= seatNumber %></p>
-                <p><strong>체크인</strong><%= startTime %></p>
-                <p><strong>체크아웃</strong><%= endTime %></p>   <!--DB 변수이름 -->>
-            </p></section>
+               <section class="info">
+                <p class="name"><strong>스터디룸 이름</strong><br>${room_name}</p>
+                <p><strong>좌석 번호</strong><br>${seatNumber}</p>
+                <p><strong>체크인</strong><br>${startTime}</p>
+                <p><strong>체크아웃</strong><br>${endTime}</p>
+            </section>
              <section class="total_price_pc"><p><strong><b>총 결제 금액</b>(VAT포함)</strong>
                 <span class="in_price">495,000원</span></p> <ul><li>해당 가격은 세금, 봉사료가 포함된 금액입니다</li>
                      <li>결제완료 후 <span>예약자 이름</span>으로 바로

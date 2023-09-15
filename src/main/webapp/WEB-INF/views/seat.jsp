@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -22,7 +23,6 @@
             justify-content: center;
             align-items: center;
             height: 800px;
-
         }
 
         .seat_contaner {
@@ -48,7 +48,6 @@
         }
 
         .seat_contaner select option {
-
             text-align: left;
         }
 
@@ -65,12 +64,12 @@
         }
 
         .s_showcase .s_seat:hover {
-            cursor: default;
+            cursor: pointer;
             scale: 1;
         }
 
         .s_showcase .selectedSeat:hover {
-            cursor: default;
+            cursor: pointer;
             scale: 1;
         }
 
@@ -103,11 +102,11 @@
         }
 
         .s_seat:hover {
-            scale: 1.2;
+            transform: scale(1.2);
         }
 
         .selectedSeat:hover {
-            scale: 1.2;
+            transform: scale(1.2);
         }
 
         .s_seat:nth-of-type(2) {
@@ -200,11 +199,72 @@
             position: relative;
             top: 1px;
         }
+
+        /* Timepicker styling */
+        .ui-timepicker-div {
+            font-size: 16px;
+        }
+
+        .ui-timepicker-standard {
+            width: 60px;
+        }
+
+        .ui-timepicker-list li {
+            padding: 5px;
+        }
+
+        .ui-timepicker-selected {
+            background-color: #6feaf6 !important;
+            color: #333333;
+        }
+
+        /* 스타일링 비활성화된 시간대 */
+        .past-time {
+            color: #777; /* 글자 색상을 회색으로 설정 */
+            background-color: #eee; /* 배경 색상을 연한 회색으로 설정 */
+            cursor: not-allowed; /* 클릭 이벤트 비활성화 */
+        }
+
+        .time-list{
+            display: none;
+        }
+
+        /* Time List Styling */
+/* .time-list {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.time-list li {
+    background-color: #6feaf6;
+    color: #333333;
+    border: 1px solid #000000;
+    padding: 5px 10px;
+    margin: 0px;
+    cursor: pointer;
+}
+
+.time-list li.past-time {
+    background-color: #eee;
+    color: #777;
+    border: 1px solid #eee;
+    cursor: not-allowed;
+} */
+
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
-    <script src="js/code.jquery.com_jquery-3.7.0.min.js"></script>
+    <!-- Add this to the head section of your HTML -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 </head>
 
 <body>
@@ -313,44 +373,178 @@
         <div class="sbutton-container">
             <a href="#" class="myChooseButton">선택완료</a>
         </div>
+        
     </section>
-    <%@ include file="footer.jsp" %>
+    <div class="reservation-form">
+        <form action="/spam/${room_name}/reservation" method="post">
+            <input type="text" name="customer_id" id="customer_id" value="${customer_id}">
+            <input type="text" name="room_id" value="${room_id}">
+            <input type="text" name="seat_number" id="seat_number">
+            <div id="datepicker"></div>
+            <div class="time-selection">
+                <label for="start-time">시작 시간:</label>
+                <input type="text" id="start-time" name="start_time" class="timepicker">
+                <label for="end-time">종료 시간:</label>
+                <input type="text" id="end-time" name="end_time" class="timepicker">
+                <ul class="time-list"></ul>
+            </div>
+            <button type="submit">예약하기</button>
+        </form>
+    </div>
 </body>
+
 <script>
-    const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
-    let selectedSeat = null; // 선택된 좌석을 저장하는 변수
+    $(document).ready(function () {
+        // 시간 목록 생성
+        const startTimeInput = $('#start-time');
+        const endTimeInput = $('#end-time');
+        const timeList = $('.time-list');
 
-    // 좌석 번호를 포함한 배열 생성
-    const seatNumbersList = [];
-    for (let i = 1; i <= 48; i++) {
-        seatNumbersList.push(i);
-    }
-
-
-    const seatNumbers = $ {seatNumbersList};
-    console.log(seatNumbers)
-
-
-    seats.forEach((s_seat) => {
-        const seatNumber = parseInt(s_seat.textContent); // 좌석 번호 추출 및 정수로 변환
-
-        if (seatNumbers.includes(seatNumber)) {
-            s_seat.classList.add("availableSeat"); // 해당 좌석 번호가 배열에 있다면 선택 가능
-        } else {
-            s_seat.classList.add("occupiedSeat"); // 해당 좌석 번호가 배열에 없다면 선택 불가능
+        for (let i = 0; i < 24; i++) {
+            const li = $('<li>').text(i + ':00');
+            timeList.append(li);
         }
 
-        s_seat.addEventListener("click", function () {
-            if (s_seat.classList.contains("availableSeat")) {
-                if (selectedSeat !== null) {
-                    selectedSeat.classList.remove("selectedSeat");
-                }
+     // 시간 선택 이벤트 처리
+timeList.on('click', 'li', function () {
+    const selectedTime = $(this).text();
+    const selectedDate = $("#datepicker").datepicker("getDate").toISOString().slice(0, 10);
+    const combinedDateTime = selectedDate + ' ' + selectedTime;
 
-                s_seat.classList.add("selectedSeat");
-                selectedSeat = s_seat;
+    // 클릭한 시간을 시작 시간과 종료 시간 입력란에 설정
+    if (startTimeInput.val() === '') {
+        startTimeInput.val(combinedDateTime);
+    } else if (endTimeInput.val() === '') {
+        // 종료 시간이 시작 시간보다 1시간 이상 늦어야 함
+        const startHour = parseInt(startTimeInput.val().split(' ')[1].split(':')[0]);
+        const endHour = parseInt(selectedTime.split(':')[0]);
+        if (endHour >= startHour + 1) {
+            endTimeInput.val(combinedDateTime);
+        } else {
+            startTimeInput.val(combinedDateTime);
+        }
+    } else {
+        startTimeInput.val(combinedDateTime);
+        endTimeInput.val('');
+    }
+});
+
+
+
+        const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
+        let selectedSeat = null; // 선택된 좌석 저장 변수
+
+        // 좌석 번호를 포함한 배열 생성
+        const seatNumbersList = [];
+        for (let i = 1; i <= 48; i++) {
+            seatNumbersList.push(i);
+        }
+
+        const seatNumbers = ${seatNumbersList};
+        console.log(seatNumbers);
+
+        seats.forEach((s_seat) => {
+            const seatNumber = parseInt(s_seat.textContent); // 좌석 번호 추출 및 정수로 변환
+
+            if (seatNumbers.includes(seatNumber)) {
+                s_seat.classList.add("availableSeat"); // 배열에 해당 좌석 번호가 있으면 선택 가능
+            } else {
+                s_seat.classList.add("occupiedSeat"); // 배열에 해당 좌석 번호가 없으면 선택 불가능
             }
+
+            s_seat.addEventListener("click", function () {
+                if (s_seat.classList.contains("availableSeat")) {
+                    if (selectedSeat !== null) {
+                        selectedSeat.classList.remove("selectedSeat");
+                    }
+
+                    s_seat.classList.add("selectedSeat");
+                    selectedSeat = s_seat;
+                    console.log(selectedSeat);
+            // 선택한 좌석을 숫자로 가져옵니다.
+const selectedSeatNumber = parseInt(selectedSeat.textContent);
+
+// 좌석 번호를 "seat_number" 입력 필드에 설정합니다.
+$("#seat_number").val(selectedSeatNumber);
+
+                }
+            });
         });
+
+        document.querySelector(".myChooseButton").addEventListener("click", function () {
+            if (selectedSeat !== null) {
+                // 이전에 표시된 달력을 숨깁니다.
+                $("#datepicker").datepicker("destroy");
+
+                const today = new Date().toISOString().slice(0, 10);
+
+                // #datepicker div에 날짜 선택 달력을 표시합니다.
+                // 달력 초기화
+                $("#datepicker").datepicker({
+                    locale: 'ko',
+                    nextText: "다음",
+                    prevText: "이전",
+                    monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+                    dayNames: ["일", "월", "화", "수", "목", "금", "토", "일"],
+                    dayNamesShort: ["일", "월", "화", "수", "목", "금", "토", "일"],
+                    dayNamesMin: ["일", "월", "화", "수", "목", "금", "토", "일"],
+                    dateFormat: "yy-mm-dd",
+                    minDate: today,
+                    onSelect: function (dateText) {
+                        console.log("선택한 날짜: " + dateText);
+
+                        // 이전에 선택된 시간 제거
+                        $("#start-time").val('');
+                        $("#end-time").val('');
+
+                        // 현재 시간 가져오기
+                        const currentTime = new Date().getHours();
+
+                        // 선택한 날짜와 현재 날짜를 비교하여 시간 목록을 활성화 또는 비활성화
+                        const selectedDate = new Date(dateText);
+                        const currentDate = new Date(today);
+                        if (selectedDate > currentDate) {
+                            // 선택한 날짜가 현재 날짜보다 이후일 때 모든 시간 활성화
+                            $(".time-list li").prop('disabled', false).removeClass('past-time');
+                        } else {
+                            // 선택한 날짜가 현재 날짜와 같거나 이전일 때 과거 시간 비활성화
+                            $(".time-list li").each(function () {
+                                const time = parseInt($(this).text().split(':')[0]);
+                                if (time < currentTime) {
+                                    $(this).prop('disabled', true).addClass('past-time');
+                                } else {
+                                    $(this).prop('disabled', false).removeClass('past-time');
+                                }
+                            });
+                        }
+
+                        // 날짜 선택 시 .time-list 요소 표시
+                        $(".time-list").css("display", "block"); // 시간 슬롯 표시
+
+                        // 시간 슬롯 초기화
+                        const startTime = $("#start-time").val();
+                        const endTime = $("#end-time").val();
+                        const timeList = document.querySelector('.time-list');
+                    },
+                });
+
+                // 달력 위치 설정 (조절 가능)
+                $("#datepicker").datepicker("show");
+
+                // 좌석 번호를 숨김
+                document.querySelector(".seat_contaner").style.display = "none";
+
+                // 선택 완료 버튼 숨김
+                document.querySelector(".myChooseButton").style.display = "none";
+            } else {
+                alert("좌석을 선택해 주세요.");
+            }
+            
+        });
+        
     });
+    
 </script>
+
 
 </html>
