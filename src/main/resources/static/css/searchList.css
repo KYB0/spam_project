@@ -1,10 +1,8 @@
 ﻿/* 기본 설정 */
-
-
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
+    background-color: #f0e9e4;  /* 밝은 베이지 */
     margin: 0;
     padding: 0;
 }
@@ -17,18 +15,20 @@ body {
 
 /* 검색 옵션 */
 .search_class {
-    background: #333;
-    color: white;
+    background: #394032;  /* 다크 그린 */
+    color: #f0e9e4;  /* 밝은 베이지 */
     padding: 1rem;
 }
 
 .search_input {
     padding: 8px;
     margin-right: 10px;
+    background: #f0e9e4;
+    border: 3px solid #7d6c61;  /* 다크 베이지 */
 }
 
 .btn_search {
-    background: #555;
+    background: #7d6c61;  /* 다크 베이지 */
     color: white;
     border: none;
     padding: 8px 16px;
@@ -36,39 +36,40 @@ body {
 }
 
 .btn_search:hover {
-    background: #666;
+    background: #55443c;  /* 더 어두운 베이지 */
 }
 
 /* 리스트 설정 */
-.section_search {
-    padding: 20px;
-    background: #fff;
-}
-
 .list-form ul {
     list-style: none;
     padding: 0;
 }
 
-.list-form li {
-    background: #fff;
+/* .list-form li {
+    background: #f0e9e4;  
     margin: 8px 0;
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 3px solid #7d6c61;
+} */
+
+.list-form li {
+    background: #f0e9e4;
+    margin: 8px 0;
+    padding: 12px;
+    border-bottom: 3px solid #7d6c61;  /* 아래면만 색상을 줌 */
+    border-top: none;  /* 위쪽 테두리를 없앰 */
+    border-left: none;  /* 왼쪽 테두리를 없앰 */
+    border-right: none;  /* 오른쪽 테두리를 없앰 */
 }
+
 
 /* 독서실 정보 */
-.item_ska {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .info_tit a {
-    color: #333;
+    color: #394032;  
     text-decoration: none;
 }
 
 .info_tit a:hover {
     text-decoration: underline;
+    color: #7d6c61;  
 }

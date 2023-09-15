@@ -54,7 +54,7 @@
 
     <!-- 챗봇 아이콘 시작 -->
     <button type="button" style="border:0; position: fixed; left: 0%; top: 10%; transform: translate(50%, -50%);" class="btn_bot" onclick="showChatbot();">
-      <img src="/spam/img/bot.png" alt="챗봇 아이콘" class="chatbot-icon" style="width: 50px; height: 50px;">
+      <img src="/spam/img/botd.png" alt="챗봇 아이콘" class="chatbot-icon" style="width: 100px; height: 100px;">
   </button>
     <!-- 챗봇 아이콘 끝 -->
 
