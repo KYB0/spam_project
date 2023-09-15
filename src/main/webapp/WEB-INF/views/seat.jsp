@@ -319,7 +319,7 @@
 </body>
 
 <script>
-    const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
+     const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
     let selectedSeat = null; // 선택된 좌석을 저장하는 변수
 
     // 좌석 번호를 포함한 배열 생성
@@ -329,8 +329,8 @@
     }
 
 
-    const seatNumbers = $ {seatNumbersList};
-    console.log(seatNumbers)
+    const seatNumbers = ${seatNumbersList};
+    console.log(seatNumbers);
 
 
     seats.forEach((s_seat) => {
@@ -346,10 +346,12 @@
             if (s_seat.classList.contains("availableSeat")) {
                 if (selectedSeat !== null) {
                     selectedSeat.classList.remove("selectedSeat");
+                    
                 }
 
                 s_seat.classList.add("selectedSeat");
                 selectedSeat = s_seat;
+                console.log(selectedSeat);
             }
         });
     });
