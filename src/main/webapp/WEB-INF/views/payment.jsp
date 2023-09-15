@@ -14,15 +14,26 @@
 
 <body>
     <%@ include file="header.jsp" %>
+      
+    <!-- 세션에서 정보 읽어오기 -->
+    <% 
+        HttpSession session = request.getSession();
+        String roomName = (String) session.getAttribute("temp_room_name");
+        String seatNumber = (String) session.getAttribute("temp_seat_number");
+        String startTime = (String) session.getAttribute("temp_start_time");
+        String endTime = (String) session.getAttribute("temp_end_time");
+    %>
+
+
     <!--view-->
     <div id="content">
         <div class="right">
                <!-- 인포 -->
             <section class="info">
-                <p class="name"><strong>스터디룸 이름</strong><br><%= room_name %></p>
-                <p><strong>좌석타입/기간</strong><br><%= seat_number %></p>
-                <p><strong>체크인</strong><%= start_time %></p>
-                <p><strong>체크아웃</strong><%= end_time %></p>   <!--DB 변수이름 -->>
+                <p class="name"><strong>스터디룸 이름</strong><br><%= roomName %></p>
+                <p><strong>좌석타입/기간</strong><br><%= seatNumber %></p>
+                <p><strong>체크인</strong><%= startTime %></p>
+                <p><strong>체크아웃</strong><%= endTime %></p>   <!--DB 변수이름 -->>
             </p></section>
              <section class="total_price_pc"><p><strong><b>총 결제 금액</b>(VAT포함)</strong>
                 <span class="in_price">495,000원</span></p> <ul><li>해당 가격은 세금, 봉사료가 포함된 금액입니다</li>
@@ -30,7 +41,7 @@
                 <span>체크인</span> 하시면 됩니다
               </li></ul></section>
                 <!-- 인포 완-->
-
+              
                  <!-- 결제수단 -->
               <section class="pay_select"><h3>결제수단 선택</h3> <select id="payment-select" class="select_type_1" >
             <option selected="selected" value="KAKAO">
@@ -45,7 +56,7 @@
                 페이코
             </option><option value="CARD_BIZ">
                 법인 카드
-            </option><option" value="CELLPHONE">
+            </option><option value="CELLPHONE">
                 휴대폰 결제
             </option></select> <!----> <!----></section>
              <!-- 결제수단 완-->

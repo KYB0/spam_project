@@ -1,6 +1,7 @@
 ﻿<%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ include file="header.jsp" %>
+<%@ include file="bot.jsp" %>
 <%@ include file="footer.jsp" %>
 <html>
 

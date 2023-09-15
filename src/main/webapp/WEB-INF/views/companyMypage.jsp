@@ -104,6 +104,7 @@ height: 50px; /* 버튼 상자 높이 설정 */
 </head>
 <body>
     <%@ include file="header.jsp" %>
+    <%@ include file="bot.jsp" %>
     <section class="c_mypage">
         <h1>마이페이지</h1>
         <div class="c_like">
