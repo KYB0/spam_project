@@ -27,6 +27,7 @@ $('#btn_pay').on('click', function () {
     if (isAllAgreed) {
         console.log('결제가 완료되었습니다.');
         alert('결제가 완료되었습니다.');
+        window.location.href = '/spam/main'; // 메인 페이지로 리다이렉션
     } else {
         alert('모든 필수 동의 항목에 동의해주세요.');
     }
