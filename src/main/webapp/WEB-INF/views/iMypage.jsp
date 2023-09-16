@@ -10,27 +10,32 @@
     <title>마이 페이지</title>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="/spam/js/mypage.js"></script>
-    <link rel="stylesheet" href="/spam/css/mypage.css">
+    
     <!-- <script src="/spam/js/i_join.js"></script> -->
 </head>
 <style>
-    .footer_class {
+
+  
+.footer_class {
   margin-top: 400px !important;
   /* 원하는 여백 값으로 조정하세요 */
   padding: 10px;
   /* 패딩을 추가하려면 */
 }
+  
+
 .list-form {
   position: absolute;
   top: 18%; /* 원하는 아래쪽 여백 조정 */
   right: 38%; /* 원하는 오른쪽 여백 조정 */
-  font-size: 28px; /* 폰트 크기를 원하는 크기로 설정 */
+  font-size: 24px; /* 폰트 크기를 원하는 크기로 설정 */
     
 } 
 
 input[name^="customer"] {
   display: block;
 width: 100%;
+min-width: 100%;
 font-size: inherit; /* 폰트 크기를 상속받도록 수정 */
 line-height: inherit; /* 라인 높이를 상속받도록 수정 */
 font-family: inherit; /* 폰트 패밀리를 상속받도록 수정 */
@@ -40,7 +45,6 @@ margin-bottom: 10px; /* 마진을 추가하여 공백 생성 */
 border: none;
 border-bottom: 5px solid #AA7070;
 background: #AA7070; /* $form-bg 변수를 직접 값을 대입해 주세요 */
-min-width: 250px;
 padding-left: 5px;
 outline: none;
 color: white;
@@ -60,8 +64,6 @@ transition: background-color 5000s ease-in-out 0s;
 
 .button--nina {
   float: left;
-  min-width: 150px;
-  max-width: 250px;
   display: block;
   margin: 1em;
   padding: 1em 2em;
@@ -73,6 +75,7 @@ transition: background-color 5000s ease-in-out 0s;
   z-index: 1;
   -webkit-backface-visibility: hidden;
   -moz-osx-font-smoothing: grayscale;
+  border-radius: 20px;
 }
 .button--nina:focus {
   outline: none;
@@ -82,13 +85,17 @@ transition: background-color 5000s ease-in-out 0s;
 }
 
 .button--nina {
-  padding: 0 2em;
-  background: #7986cb;
-  color: #fff;
+  padding:0 1em !important;
+  background: #CA8A8B !important;
+  color: #fff !important;
   overflow: hidden;
   -webkit-transition: background-color 0.3s;
   transition: background-color 0.3s;
+  margin-right: 35px !important;
+  margin-left:  35px !important;
 }
+
+
 .button--nina.button--inverted {
   background: #fff;
   color: #7986cb;
@@ -119,7 +126,7 @@ transition: background-color 5000s ease-in-out 0s;
   transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
 }
 .button--nina:hover {
-  background-color: #3f51b5;
+  background-color: #926E6F !important;
 }
 .button--nina:hover::before {
   opacity: 0;
@@ -172,10 +179,7 @@ transition: background-color 5000s ease-in-out 0s;
   transition-delay: 0.45s;
 }
 
-.bg-1 {
-  background: #ECEFF1;
-  color: #37474f;
-}
+
 </style>
 <body>
 
@@ -222,8 +226,8 @@ transition: background-color 5000s ease-in-out 0s;
                         value="${customerMemberDto.customer_email}">
                 </div>
                 <div class="box bg-1">
-                <button type="submit" onclick="return resignAlert();" name="resignButton" class="button button--nina button--text-thick button--text-upper button--size-s" data-text="회원 수정"><span>회</span><span>원</span><span> </span><span>탈</span><span>퇴</span></button>
-                <button type="submit" onclick="return updateAlert();" name="updateButton" class="button button--nina button--text-thick button--text-upper button--size-s" data-text="수정 완료"><span>수</span><span>정</span><span> </span><span>완</span><span>료</span></button>
+                <button type="submit" onclick="return resignAlert();" name="resignButton" class="button button--nina button--text-thick button--text-upper button--size-s" data-text="회원탈퇴"><span>회</span><span>원</span><span> </span><span>탈</span><span>퇴</span></button>
+                <button type="submit" onclick="return updateAlert();" name="updateButton" class="button button--nina button--text-thick button--text-upper button--size-s" data-text="수정완료"><span>수</span><span>정</span><span> </span><span>완</span><span>료</span></button>
             </div>
         
         </form>
@@ -234,5 +238,5 @@ transition: background-color 5000s ease-in-out 0s;
         
     </footer>
 </body>
-
+<link rel="stylesheet" href="/spam/css/mypage.css">
 </html>

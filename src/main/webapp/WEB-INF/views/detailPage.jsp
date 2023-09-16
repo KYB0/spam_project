@@ -342,7 +342,7 @@
         <div class="invite">
             <h2>독서실 소개</h2>
             <div class="zzim">
-                <button id="zzim-button" class="zzim-button" data-customer-id="${customer_id}" data-room-id="${room_id}" onclick="toggleWishList(this)">
+                <button id="zzim-button" class="zzim-button" data-customer-id="${customer_id}" data-room-id="${room_id}">
                     <img src="image/like_2.png" alt="찜 버튼" id="zzim-image">
                 </button>
             </div><br>
@@ -460,13 +460,14 @@ $(document).ready(function () {
 
     // 찜하기 버튼 클릭 시 toggleWishList 함수 호출
     $("#zzim-button").click(function () {
+        // 중복 클릭 방지를 위해 버튼을 비활성화
+    $(this).prop("disabled", true);
         toggleWishList(this);
     });
 
 
 function toggleWishList(buttonElement){
-    var buttonElement = document.getElementById("zzim-button");
-    var imageElement = document.getElementById("zzim-image");
+    var imageElement = buttonElement.querySelector("img");
     const customer_id = buttonElement.getAttribute("data-customer-id");
     const room_id = buttonElement.getAttribute("data-room-id");
 
@@ -481,17 +482,20 @@ function toggleWishList(buttonElement){
                 //찜하기 추가됨 : 하트 아이콘 색상 변경
                 imageElement.src = "image/like_1.png"; // 찜 추가 이미지로 변경
 
-            
+                $(buttonElement).prop("disabled", false);
             }else if(data === "Removed from Wishlist"){
                 //찜하기 제거됨 : 하트 아이콘 색상 변경 해제
                 imageElement.src = "image/like_2.png"; // 찜 해제 이미지로 변경
+                $(buttonElement).prop("disabled", false);
             }else{
                 //로그인이 필요한 경우 또는 오류 발생
                 alert(data);
+                $(buttonElement).prop("disabled", false);
             }
         },
         error:function(){
             alert("로그인이 필요합니다.");
+            $(buttonElement).prop("disabled", false);
         }
     })
 }

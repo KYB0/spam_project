@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="/WEB-INF/views/header.jsp" />
+<jsp:include page="/WEB-INF/views/footer.jsp" />
 <!DOCTYPE html>
 <html>
 
@@ -7,19 +9,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글 작성</title>
-    <!-- <link rel="stylesheet" href="/spam/css/css.css"> -->
+    <link rel="stylesheet" href="/spam/css/qnaboard.css">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <!-- 추가한 스타일시트와 스크립트 파일의 경로를 정확하게 지정해주세요 -->
 </head>
 
 <body>
-    <header>
-        <jsp:include page="/WEB-INF/views/header.jsp" />
-    </header>
 
-    <h1>글 작성</h1>
+    <div class="container"  style="margin-left: 23%;">
 
-    <!-- 글 작성 폼 -->
     <form action="${pageContext.request.contextPath}/qna/write" method="post">
         <label for="board_title">제목:</label>
         <input type="text" id="board_title" name="board_title" required>
@@ -30,9 +28,7 @@
         <input type="submit" value="작성">
     </form>
 
-    <footer>
-        <!-- 푸터 내용을 추가하거나 수정하세요 -->
-    </footer>
+</div>
 </body>
 
 </html>

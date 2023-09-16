@@ -10,7 +10,33 @@
     <title>Document</title>
     <link rel="stylesheet" href="/spam/css/mypage.css">
 </head>
+<style>
+    .list-form {
+  position: absolute;
+  top: 29%; /* 원하는 아래쪽 여백 조정 */
+  right: 20%; /* 원하는 오른쪽 여백 조정 */
+  font-size: 18px; /* 폰트 크기를 원하는 크기로 설정 */
+  width: 50%;
+} 
 
+input[name^="customer"] {
+  display: block;
+width: 100%;
+font-size: inherit; /* 폰트 크기를 상속받도록 수정 */
+line-height: inherit; /* 라인 높이를 상속받도록 수정 */
+font-family: inherit; /* 폰트 패밀리를 상속받도록 수정 */
+margin-bottom: inherit; /* 마진을 상속받도록 수정 */
+border: none;
+margin-bottom: 10px; /* 마진을 추가하여 공백 생성 */
+border: none;
+border-bottom: 5px solid #AA7070;
+background: #AA7070; /* $form-bg 변수를 직접 값을 대입해 주세요 */
+padding-left: 5px;
+outline: none;
+color: white;
+}
+
+</style>
 <body>
 
     <section class="i_menu">
@@ -59,7 +85,7 @@
                 </c:choose>
 
                 <c:forEach begin="1" end="${totalPages}" var="pageNumber">
-                    <c:url var="pageUrl" value="${pageContext.request.contextPath}/i_mypage/list/like_list">
+                    <c:url var="pageUrl" value="/i_mypage/list/like_list">
                         <c:param name="page" value="${pageNumber}" />
                     </c:url>
                     <c:choose>

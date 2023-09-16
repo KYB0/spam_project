@@ -16,7 +16,54 @@
     
 
 </head>
+<style>
+     .list-form {
+  position: absolute;
+  top: 29%; /* 원하는 아래쪽 여백 조정 */
+  right: 20%; /* 원하는 오른쪽 여백 조정 */
+  font-size: 18px; /* 폰트 크기를 원하는 크기로 설정 */
+  width: 50%;
+} 
+.table-bordered>:not(caption)>*{
+    height: 50px;
+}
 
+input[name^="customer"] {
+  display: block;
+width: 100%;
+font-size: inherit; /* 폰트 크기를 상속받도록 수정 */
+line-height: inherit; /* 라인 높이를 상속받도록 수정 */
+font-family: inherit; /* 폰트 패밀리를 상속받도록 수정 */
+margin-bottom: inherit; /* 마진을 상속받도록 수정 */
+border: none;
+margin-bottom: 10px; /* 마진을 추가하여 공백 생성 */
+border: none;
+border-bottom: 5px solid #AA7070;
+background: #AA7070; /* $form-bg 변수를 직접 값을 대입해 주세요 */
+padding-left: 5px;
+outline: none;
+color: white;
+}
+
+button[type="submit"] {
+    border: 1px solid #6F4C5B; /* 테두리 없애기 */
+    background-color: transparent; /* 배경색 투명하게 만들기 */
+    color: #AA7070; /* 원하는 글자색 지정 */
+    cursor: pointer;
+    padding: 2px 3px; /* 내부 여백을 위아래 5px, 좌우 10px로 설정 (원하는 값으로 조정 가능) */
+    font-size: 18px; /* 기본 글자 크기 설정 */
+    transition: font-size 0.2s; /* 글자 크기 전환 효과 추가 */
+    transform-origin: center; /* 변환 중심을 가운데로 설정 */
+}
+
+button[type="submit"]:hover {
+    font-size: 16px; /* 호버 상태에서 작아질 글자 크기 설정 */
+    z-index: 1; /* 다른 요소 위에 나타나도록 설정 */
+}
+
+
+ 
+</style>
 <body>
 
     <section class="i_menu">
@@ -96,7 +143,7 @@
                 </c:choose>
 
                 <c:forEach begin="1" end="${totalPages}" var="pageNumber">
-                    <c:url var="pageUrl" value="${pageContext.request.contextPath}/i_mypage/list">
+                    <c:url var="pageUrl" value="/i_mypage/list">
                         <c:param name="page" value="${pageNumber}" />
                     </c:url>
                     <c:choose>

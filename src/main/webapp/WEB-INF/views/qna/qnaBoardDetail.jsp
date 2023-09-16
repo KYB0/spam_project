@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<jsp:include page="/WEB-INF/views/header.jsp" />
+<jsp:include page="/WEB-INF/views/footer.jsp" />
 <!DOCTYPE html>
 <html>
 
@@ -7,82 +9,191 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 상세보기</title>
+    <link rel="stylesheet" href="/spam/css/qnaboard.css">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
+<style>
+    .th {
+        font-weight: bold;
+        text-align: center;
+        /* 텍스트를 우측 정렬 */
+        width:100%;
+        /* 오른쪽 여백 추가 */
+    }
+
+    th,
+    tr {
+        border-color: inherit;
+        border-style: solid;
+        border-width: 2px;
+
+    }
+
+    .titi table {
+        border-collapse: collapse;
+        width: 57%;
+        /* 원하는 너비로 조정 */
+    }
+
+    .pu table{
+        width: 57%;
+        text-align: center;
+    }
+
+    .titi th,
+    .titi td {
+        border: 2px solid black;
+        /* 테두리 스타일 지정 */
+        padding: 8px;
+        /* 적절한 패딩 값으로 조정 */
+        text-align: left;
+    }
+
+    .wiwi table {
+        border-collapse: collapse;
+        width: 57%;
+        /* 원하는 너비로 조정 */
+    }
+
+    .wiwi th,
+    .wiwi td {
+        border: 2px solid black;
+        /* 테두리 스타일 지정 */
+        padding: 50px;
+        /* 적절한 패딩 값으로 조정 */
+        text-align: center;
+    }
+
+    .mimi{
+        text-align: right;
+        width: 57%;
+    }
+
+    .riri td{
+        text-align: center;
+        
+    }
+
+    .riri{
+        margin-bottom: 30px;
+        width: 57%;
+    }
+    
+    textarea {
+    height: 50px; /* 원하는 높이로 설정하세요. */
+    resize: vertical;
+    width: 57%;
+}
+
+.didi{
+    text-align: right;
+    width: 57%;
+}
+
+.mama{
+    text-align: center;
+    width: 57%;
+    margin-top: 50px;
+}
+
+a {
+    text-decoration: none;
+      color: #6D8B74; 
+}
+
+a:hover { color: #1A3C40}
+
+
+</style>
 
 <body>
-    <h1>게시글 상세보기</h1>
+    <div class="container" style="margin-left: 30%;">
 
-    <c:if test="${not empty board}">
-        <table>
-            <tr>
-                <td>게시글 번호:</td>
-                <td>${board.board_id}</td>
-            </tr>
-            <tr>
-                <td>작성자:</td>
-                <td>${board.user_id}</td>
-            </tr>
-            <tr>
-                <td>제목:</td>
-                <td>${board.board_title}</td>
-            </tr>
-            <tr>
-                <td>내용:</td>
-                <td>${board.board_content}</td>
-            </tr>
-            <tr>
-                <td>작성일:</td>
-                <td>${board.board_date}</td>
-            </tr>
+        <c:if test="${not empty board}">
+            <div class="pu">
+                <table>
+                    <tr>
+                        <th>게시글 번호: ${board.board_id}</th>
+
+                        <th>작성자: ${board.user_id}</th>
+
+                        <th>작성일: ${board.board_date}</th>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="titi">
+                <table>
+                    <tr>
+                        <th>제목: ${board.board_title}</th>
+
+                    </tr>
+                </table>
+
+            </div>
+            <div class="wiwi">
+                <table>
+                    <tr>
+                        <th>${board.board_content}</th>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <div class="mimi">
+                <table>
+                    <!-- Edit and Delete Buttons -->
+                    <c:if test="${loggedInUserId eq board.user_id}">
+                        <a href="${pageContext.request.contextPath}/qna/edit?board_id=${board.board_id}">수정</a>
+                        <a href="#" onclick="confirmDelete('${board.board_id}')">삭제</a>
+                    </c:if>
+                </table>
+            </div>
+        </c:if>
+
+        <!-- 댓글 표시 영역 -->
+        <h2>댓글</h2>
+        <table class="riri">
+            <thead>
+                <tr>
+                    <th>작성자</th>
+                    <th>내용</th>
+                    <th>작성일</th>
+                    <th>수정</th>
+                    <th>삭제</th>
+                </tr>
+            </thead>
+            <tbody id="comments">
+                <!-- 댓글이 여기에 동적으로 추가됩니다. -->
+            </tbody>
         </table>
 
-        <!-- Edit and Delete Buttons -->
-        <c:if test="${loggedInUserId eq board.user_id}">
-            <a href="${pageContext.request.contextPath}/qna/edit?board_id=${board.board_id}">수정</a>
-            <a href="#" onclick="confirmDelete('${board.board_id}')">삭제</a>
-        </c:if>
-    </c:if>
+        <!-- 댓글 입력 폼 -->
+        <h3>댓글 작성</h3>
+        <form id="commentForm">
+            <input type="hidden" name="board_id" value="${board.board_id}">
+            <!-- <label for="comment_content">댓글 내용:</label> -->
+            <textarea id="comment_content" name="comment_content" rows="4" cols="50"></textarea>
+            <br>
+            <div class="didi">
+            <input type="button" value="댓글 작성" onclick="addComment()">
+        </div>
+        </form>
 
-    <!-- 댓글 표시 영역 -->
-    <h2>댓글</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>작성자</th>
-                <th>내용</th>
-                <th>작성일</th>
-                <th>수정</th>
-                <th>삭제</th>
-            </tr>
-        </thead>
-        <tbody id="comments">
-            <!-- 댓글이 여기에 동적으로 추가됩니다. -->
-        </tbody>
-    </table>
-
-    <!-- 댓글 입력 폼 -->
-    <h3>댓글 작성</h3>
-    <form id="commentForm">
-        <input type="hidden" name="board_id" value="${board.board_id}">
-        <label for="comment_content">댓글 내용:</label>
-        <textarea id="comment_content" name="comment_content" rows="4" cols="50"></textarea>
-        <br>
-        <input type="button" value="댓글 작성" onclick="addComment()">
-    </form>
-
-    <!-- 댓글 수정 폼 -->
-    <h3>댓글 수정</h3>
-    <form id="editCommentForm" style="display: none;">
-        <input type="hidden" id="editCommentId" name="comment_id">
-        <label for="editCommentContent">댓글 내용:</label>
-        <textarea id="editCommentContent" name="comment_content" rows="4" cols="50"></textarea>
-        <br>
-        <input type="button" value="댓글 수정" onclick="editComment()">
-    </form>
-
-    <a href="${pageContext.request.contextPath}/qna/list">목록으로 돌아가기</a>
-
+        <!-- 댓글 수정 폼 -->
+        
+        <form id="editCommentForm" style="display: none;">
+            <input type="hidden" id="editCommentId" name="comment_id">
+            <label for="editCommentContent">댓글 내용:</label>
+            <textarea id="editCommentContent" name="comment_content" rows="4" cols="50"></textarea>
+            <br>
+            <input type="button" value="댓글 수정" onclick="editComment()">
+        </form>
+<div class="mama">
+        <a href="${pageContext.request.contextPath}/qna/list">목록으로 돌아가기</a>
+    </div>
+    </div>
     <script>
         // 특정 페이지의 댓글을 로드하는 JavaScript 함수
         function loadComments(page) {
@@ -246,6 +357,7 @@
             });
         }
     </script>
+
 </body>
 
 </html>

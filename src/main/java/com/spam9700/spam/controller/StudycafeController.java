@@ -102,10 +102,12 @@ public class StudycafeController {
        //중복 클릭 여부 확인(찜한 상태: 1, 찜 안한 상태: 0)
        int toggleResult = detailPageService.toggleWishlist(wishListDto);
        if(toggleResult == 0){
+        System.out.println("+++++++++++++++++++++++"+toggleResult+"+++++++++++++++++++++");
         return ResponseEntity.ok("Added to Wishlist");
        }else{
         return ResponseEntity.ok("Removed from Wishlist");
        }
+       
     }
 
 

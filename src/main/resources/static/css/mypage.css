@@ -181,3 +181,14 @@ body{
     transform: scale3d(0.8, 0.8, 1);
   }
 
+  a {
+    text-decoration: none;
+      color: #AA7070; 
+}
+
+a:hover { color: #DF5E5E; }
+
+th[scope="col"] {
+  color: #5E454B; /* 원하는 색상으로 변경 */
+  /* 추가적인 스타일을 여기에 지정할 수 있습니다. */
+}
