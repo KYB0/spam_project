@@ -408,7 +408,7 @@
      // 시간 선택 이벤트 처리
 timeList.on('click', 'li', function () {
     const selectedTime = $(this).text();
-    const selectedDate = $("#datepicker").datepicker("getDate").toISOString().slice(0, 10);
+    const selectedDate = $("#datepicker").val();
     const combinedDateTime = selectedDate + ' ' + selectedTime;
 
     // 클릭한 시간을 시작 시간과 종료 시간 입력란에 설정

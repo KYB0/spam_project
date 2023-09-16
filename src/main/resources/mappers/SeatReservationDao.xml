@@ -1,5 +1,6 @@
 <!-- SeatReservationMapper.xml -->
 
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spam9700.spam.dao.SeatReservationDao">
 
@@ -14,4 +15,10 @@
         VALUES (#{customer_id}, #{seat_number}, #{start_time}, #{end_time})
     </insert>
 
+    <!-- 예약 데이터 DB 삽입 -->
+    <insert id = "insertReservation" parameterType="com.spam9700.spam.dto.ReservationDto">
+    INSERT INTO seat_reservations (reservation_id, customer_id, seat_number, start_time, end_time, room_id, status) 
+    VALUES (#{reservation_id}, #{customer_id}, #{seat_number}, #{start_time}, #{end_time}, #{room_id}, 1)
+    </insert>
+    
 </mapper>

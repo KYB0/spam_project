@@ -27,10 +27,18 @@ $('#btn_pay').on('click', function () {
     if (isAllAgreed) {
         console.log('결제가 완료되었습니다.');
         alert('결제가 완료되었습니다.');
-        window.location.href = '/spam/main'; // 메인 페이지로 리다이렉션
+    
+        // 서버에 결제 완료 요청을 보내고, 성공하면 메인 페이지로 이동
+        $.post("/complete-payment", function() {
+            window.location.href = '/spam/main';
+        }).fail(function() {
+            alert('결제 완료 요청이 실패했습니다. 다시 시도해주세요.');
+        });
+    
     } else {
         alert('모든 필수 동의 항목에 동의해주세요.');
     }
+    
 });
 });
 
