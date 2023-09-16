@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.SeatDto;
-import com.spam9700.spam.dto.SeatReservationDto;
+import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.service.SeatReservationService;
 import com.spam9700.spam.service.StudycafeService;
 
@@ -142,4 +142,30 @@ public class ReservationController {
         // return "redirect:/" + roomName + "/reservation";
                 return "payment";
     }       
+
+    
+    
+    // 결제 완료 처리
+    @PostMapping("/completePayment")
+    public String completePayment(HttpSession session) {
+        // 세션에서 정보 가져오기
+        String customerId = (String) session.getAttribute("customer_id");
+        String seatNumber = (String) session.getAttribute("seatNumber");
+        LocalDateTime startTime = (LocalDateTime) session.getAttribute("startTime");
+        LocalDateTime endTime = (LocalDateTime) session.getAttribute("endTime");
+
+        // DTO 객체에 저장
+        ReservationDto reservationDto = new ReservationDto();
+        reservationDto.setCustomer_id(customerId);
+        reservationDto.setSeat_number(seatNumber);
+        reservationDto.setStart_time(startTime);
+        reservationDto.setEnd_time(endTime);
+        reservationDto.setStatus("1");  // 여기에서 status를 1로 설정
+
+       
+        // DB에 저장
+        seatReservationService.saveReservation(reservationDto);
+
+        return "redirect:/success"; // 결제가 성공적으로 완료되면 success 페이지로 리다이렉트
+    }
 }       

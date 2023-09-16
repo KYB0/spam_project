@@ -1,37 +1,22 @@
 package com.spam9700.spam.service;
-
-import java.util.List;
-
+import com.spam9700.spam.dao.SeatReservationDao;
+import com.spam9700.spam.dto.ReservationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.spam9700.spam.dao.SeatReservationDao;
-import com.spam9700.spam.dto.SeatReservationDto;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 public class SeatReservationService {
 
-    // 데이터베이스 연동을 위한 DAO 클래스를 주입받습니다.
     @Autowired
     private SeatReservationDao seatReservationDao;
 
-    public SeatReservationService(SeatReservationDao seatReservationDao) {
-        this.seatReservationDao = seatReservationDao;
+    public boolean saveReservation(ReservationDto reservationDto) {
+        return seatReservationDao.insertReservation(reservationDto);
     }
 
-    // 모든 좌석 예약 목록 조회
-    public List<SeatReservationDto> getAllSeatReservations() {
-        return seatReservationDao.getAllSeatReservations();
-    }
-
-    // 좌석 예약 생성
-    public void createSeatReservation(SeatReservationDto seatReservationDto) {
-        seatReservationDao.createSeatReservation(seatReservationDto);
-    }
-
-
-    
+    // public void saveReservation(ReservationDto reservationDto) {
+    //     // 필요한 로직이 있다면 여기에 추가
+    //     reservationDto.setStatus("1");
+    //     seatReservationDao.insertReservation(reservationDto);
+    // }
 }
-
