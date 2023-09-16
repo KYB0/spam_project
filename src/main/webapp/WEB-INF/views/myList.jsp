@@ -34,12 +34,12 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">예약 ID</th>
-                    <th scope="col">고객 ID</th>
-                    <th scope="col">좌석 번호</th>
+                    <!-- <th scope="col">예약 ID</th> -->
+                    <th scope="col">업체명</th>
                     <th scope="col">시작 시간</th>
                     <th scope="col">종료 시간</th>
-                    <th scope="col">예약 여부</th>
+                    <th scope="col">좌석 번호</th>
+                    <!-- <th scope="col">예약 여부</th> -->
                     <th scope="col">예약 상태</th>
                     <th scope="col"></th>
                 </tr>
@@ -47,12 +47,12 @@
             <tbody>
                 <c:forEach items="${reservationList}" var="reservation">
                     <tr>
-                        <td>${reservation.reservation_id}</td>
-                        <td>${reservation.customer_id}</td>
-                        <td>${reservation.seat_number}</td>
+                        <!-- <td>${reservation.reservation_id}</td> -->
+                        <td>${reservation.room_name}</td>
                         <td>${reservation.start_time}</td>
                         <td>${reservation.end_time}</td>
-                        <td>${reservation.status}</td>
+                        <td>${reservation.seat_number}</td>
+                        <!-- <td>${reservation.status}</td> -->
                         <td>
                             <script>
                                 var status = "${reservation.status}";
@@ -96,7 +96,7 @@
                 </c:choose>
 
                 <c:forEach begin="1" end="${totalPages}" var="pageNumber">
-                    <c:url var="pageUrl" value="${pageContext.request.contextPath}/i_mypage/list">
+                    <c:url var="pageUrl" value="/i_mypage/list">
                         <c:param name="page" value="${pageNumber}" />
                     </c:url>
                     <c:choose>

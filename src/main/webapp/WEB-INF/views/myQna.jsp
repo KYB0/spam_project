@@ -59,7 +59,7 @@
                 </c:choose>
 
                 <c:forEach begin="1" end="${totalPages}" var="pageNumber">
-                    <c:url var="pageUrl" value="${pageContext.request.contextPath}/i_mypage/myqna">
+                    <c:url var="pageUrl" value="/i_mypage/myqna">
                         <c:param name="page" value="${pageNumber}" />
                     </c:url>
                     <c:choose>

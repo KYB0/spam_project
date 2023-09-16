@@ -338,7 +338,7 @@
         <div class="invite">
             <h2>독서실 소개</h2>
             <div class="zzim">
-                <button id="zzim-button" class="zzim-button" data-customer-id="${customer_id}" data-room-id="${room_id}" onclick="toggleWishList(this)">
+                <button id="zzim-button" class="zzim-button" data-customer-id="${customer_id}" data-room-id="${room_id}">
                     <img src="image/like_2.png" alt="찜 버튼" id="zzim-image">
                 </button>
             </div><br>
@@ -409,6 +409,7 @@
                 <!--  리뷰 목록이 여기에 나타납니다. -->
             </div>
 
+            <div id="loadMore" class="btn btn-primary">더 보기</div>
 
     </section>
     <!-- 예약하기 버튼 -->
@@ -525,6 +526,8 @@ function toggleWishList(buttonElement){
         });
     });
 
+//--------------------------------------------------------------------------------------------//
+
     // 리뷰 작성 및 리뷰 불러오기 관련 스크립트
     $(document).ready(function () {
         // 리뷰 작성 버튼 클릭 시
@@ -601,6 +604,47 @@ function toggleWishList(buttonElement){
         // 페이지 로드 시 리뷰 목록 불러오기
         updateReviewList();
     });
+
+//--------------------------------------------------------------------------------------------//
+
+$(document).ready(function () {
+    let currentPage = 1; // 현재 페이지
+    const itemsPerPage = 5; // 한 페이지당 표시할 아이템 수
+
+    // 더 보기 버튼 클릭 이벤트
+    $("#loadMore").click(function () {
+        currentPage++; // 다음 페이지로 이동
+        loadReviews(currentPage);
+    });
+
+    // 리뷰 로드 함수
+    function loadReviews(page) {
+        $.ajax({
+            type: "GET",
+            url: "/spam/" + room_name + "/reviews?page=" + page + "&itemsPerPage=" + itemsPerPage,
+            success: function (data) {
+                // 새로 로드한 리뷰를 화면에 추가
+                for (let i = 0; i < data.length; i++) {
+                    let commentHtml = "<tr>" +
+                        "<td>" + data[i].customer_id + "</td>" +
+                        "<td>" + data[i].review_content + "</td>" +
+                        "<td>" + data[i].rating + "점</td>" +
+                        "<td>" + data[i].review_date + "</td>" +
+                        "</tr>";
+                    $("#reviewListContainer").append(commentHtml);
+                }
+
+                // 더 보기 버튼 숨기기
+                if (data.length < itemsPerPage) {
+                    $("#loadMore").hide();
+                }
+            },
+            error: function () {
+                alert("리뷰 목록을 불러오기 실패");
+            }
+        });
+    }
+});
 
 
     

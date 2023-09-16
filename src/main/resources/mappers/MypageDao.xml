@@ -9,11 +9,13 @@
 
     <!-- 예약 내역 불러오기 -->
     <select id="getReservationListByCustomerId" resultType="com.spam9700.spam.dto.ReservationDto">
-        SELECT *
-        FROM seat_reservations
-        WHERE customer_id = #{customer_id}
-        ORDER BY reservation_id DESC
+        SELECT sr.*, r.room_name
+        FROM seat_reservations sr
+        LEFT JOIN study_room r ON sr.room_id = r.room_id
+        WHERE sr.customer_id = #{customer_id}
+        ORDER BY sr.reservation_id DESC
         LIMIT #{pageSize} OFFSET #{offset}
+
 
     </select>
 
