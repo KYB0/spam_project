@@ -220,17 +220,20 @@
 
         /* 스타일링 비활성화된 시간대 */
         .past-time {
-            color: #777; /* 글자 색상을 회색으로 설정 */
-            background-color: #eee; /* 배경 색상을 연한 회색으로 설정 */
-            cursor: not-allowed; /* 클릭 이벤트 비활성화 */
+            color: #777;
+            /* 글자 색상을 회색으로 설정 */
+            background-color: #eee;
+            /* 배경 색상을 연한 회색으로 설정 */
+            cursor: not-allowed;
+            /* 클릭 이벤트 비활성화 */
         }
 
-        .time-list{
+        .time-list {
             display: none;
         }
 
         /* Time List Styling */
-/* .time-list {
+        /* .time-list {
     list-style: none;
     padding: 0;
     margin: 10px 0;
@@ -253,7 +256,6 @@
     border: 1px solid #eee;
     cursor: not-allowed;
 } */
-
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <!-- Add this to the head section of your HTML -->
@@ -373,7 +375,7 @@
         <div class="sbutton-container">
             <a href="#" class="myChooseButton">선택완료</a>
         </div>
-        
+
     </section>
     <div class="reservation-form">
         <form action="/spam/${room_name}/reservation" method="post">
@@ -395,6 +397,105 @@
 
 <script>
     $(document).ready(function () {
+        function checkDuplicateReservation() {
+            const reservationDto = {
+                room_id: $("#room_id").val(),
+                seat_number: $("#seat_number").val(),
+                start_time: $("#start-time").val(),
+                end_time: $("#end-time").val()
+            };
+
+            // 서버로 중복 예약 확인 요청을 보냅니다.
+            $.ajax({
+                type: "POST",
+                url: "/spam/api/checkDuplicateReservation", // 서버 측의 엔드포인트로 수정 필요
+                data: JSON.stringify(reservationDto),
+                contentType: "application/json",
+                success: function (response) {
+                    console.log("서버 응답:", response); // 서버 응답 로그 추가
+                    if (response.isDuplicate) {
+                        // 중복 예약이 있을 경우 처리
+                        console.log("중복 예약이 있습니다.");
+                        alert("선택한 시간에 이미 예약된 좌석입니다. 다른 시간 또는 좌석을 선택해 주세요.");
+                        // 예약 시간과 좌석 정보를 초기화
+                        $("#seat_number").val("");
+                        $("#start-time").val("");
+                        $("#end-time").val("");
+                    } else {
+                        // 중복 예약이 없을 경우 예약을 진행하거나 추가 로직을 수행할 수 있습니다.
+                        // 예약을 진행하는 로직을 추가하세요.
+                        // 예를 들어, 예약을 서버로 전송하거나 예약 정보를 화면에 표시하는 등의 작업을 수행할 수 있습니다.
+                        // 이 예제에서는 alert으로 메시지만 표시합니다.
+                        console.log("중복 예약이 없습니다. 예약을 진행하세요.");
+                        alert("중복 예약이 없습니다. 예약을 진행하세요.");
+                    }
+                },
+                error: function () {
+                    // 오류 발생 시 처리
+                    console.error("중복 예약 확인 중 오류가 발생했습니다."); // 오류 로그 추가
+                    alert("중복 예약 확인 중 오류가 발생했습니다. 다시 시도해 주세요.");
+                }
+            });
+        }
+        // "선택완료" 버튼 클릭 시 중복 예약 확인 함수 호출
+        $(".myChooseButton").click(function () {
+            if (selectedSeat !== null) {
+                // 좌석이 선택되었을 때 중복 예약 확인 함수 호출
+                checkDuplicateReservation();
+            } else {
+                console.log("좌석을 선택하지 않았습니다.");
+                alert("좌석을 선택해 주세요.");
+            }
+        });
+
+        // 예약된 시간 목록을 가져와서 비활성화
+        function disableReservedTimes(roomId, selectedDate) {
+            // 서버로 예약된 시간 목록 요청을 보냅니다.
+            $.ajax({
+                type: "GET",
+                url: `/spam/api/getReservedTimes`, // 서버 측의 엔드포인트로 수정 필요
+                success: function (reservedTimes) {
+                    console.log("예약된 시간 목록:", reservedTimes);
+
+                    // 예약된 시간 목록을 가져왔으면 시간 목록을 비활성화합니다.
+                    $(".time-list li").each(function () {
+                        const time = $(this).text();
+                        if (reservedTimes.includes(time)) {
+                            $(this).prop('disabled', true).addClass('past-time');
+                        } else {
+                            $(this).prop('disabled', false).removeClass('past-time');
+                        }
+                    });
+
+                    // 날짜 선택 시 .time-list 요소 표시
+                    $(".time-list").css("display", "block");
+                },
+                error: function () {
+                    console.error("예약된 시간 목록을 가져오는 중 오류가 발생했습니다.");
+                    alert("예약된 시간 목록을 가져오는 중 오류가 발생했습니다. 다시 시도해 주세요.");
+                }
+            });
+        }
+
+        // "선택완료" 버튼 클릭 시 예약 정보 가져오고 예약된 시간 비활성화
+        $(".myChooseButton").click(function () {
+            if (selectedSeat !== null) {
+                const roomId = $("#room_id").val();
+                const selectedDate = $("#datepicker").val();
+
+                if (roomId && selectedDate) {
+                    // 예약 정보를 가져오고 예약된 시간 비활성화
+                    disableReservedTimes(roomId, selectedDate);
+                } else {
+                    console.error("룸 아이디 또는 선택한 날짜가 유효하지 않습니다.");
+                    alert("룸 아이디 또는 선택한 날짜가 유효하지 않습니다.");
+                }
+            } else {
+                console.log("좌석을 선택하지 않았습니다.");
+                alert("좌석을 선택해 주세요.");
+            }
+        });
+
         // 시간 목록 생성
         const startTimeInput = $('#start-time');
         const endTimeInput = $('#end-time');
@@ -405,29 +506,29 @@
             timeList.append(li);
         }
 
-     // 시간 선택 이벤트 처리
-timeList.on('click', 'li', function () {
-    const selectedTime = $(this).text();
-    const selectedDate = $("#datepicker").datepicker("getDate").toISOString().slice(0, 10);
-    const combinedDateTime = selectedDate + ' ' + selectedTime;
-
-    // 클릭한 시간을 시작 시간과 종료 시간 입력란에 설정
-    if (startTimeInput.val() === '') {
-        startTimeInput.val(combinedDateTime);
-    } else if (endTimeInput.val() === '') {
-        // 종료 시간이 시작 시간보다 1시간 이상 늦어야 함
-        const startHour = parseInt(startTimeInput.val().split(' ')[1].split(':')[0]);
-        const endHour = parseInt(selectedTime.split(':')[0]);
-        if (endHour >= startHour + 1) {
-            endTimeInput.val(combinedDateTime);
-        } else {
-            startTimeInput.val(combinedDateTime);
-        }
-    } else {
-        startTimeInput.val(combinedDateTime);
-        endTimeInput.val('');
-    }
-});
+        // 시간 선택 이벤트 처리
+        timeList.on('click', 'li', function () {
+            const selectedTime = $(this).text();
+            const selectedDate = $("#datepicker").val();
+            const combinedDateTime = selectedDate + ' ' + selectedTime;
+            console.log("시간 : " + selectedDate);
+            // 클릭한 시간을 시작 시간과 종료 시간 입력란에 설정
+            if (startTimeInput.val() === '') {
+                startTimeInput.val(combinedDateTime);
+            } else if (endTimeInput.val() === '') {
+                // 종료 시간이 시작 시간보다 1시간 이상 늦어야 함
+                const startHour = parseInt(startTimeInput.val().split(' ')[1].split(':')[0]);
+                const endHour = parseInt(selectedTime.split(':')[0]);
+                if (endHour >= startHour + 1) {
+                    endTimeInput.val(combinedDateTime);
+                } else {
+                    startTimeInput.val(combinedDateTime);
+                }
+            } else {
+                startTimeInput.val(combinedDateTime);
+                endTimeInput.val('');
+            }
+        });
 
 
 
@@ -440,7 +541,7 @@ timeList.on('click', 'li', function () {
             seatNumbersList.push(i);
         }
 
-        const seatNumbers = ${seatNumbersList};
+        const seatNumbers = "${seatNumbersList}";
         console.log(seatNumbers);
 
         seats.forEach((s_seat) => {
@@ -461,11 +562,11 @@ timeList.on('click', 'li', function () {
                     s_seat.classList.add("selectedSeat");
                     selectedSeat = s_seat;
                     console.log(selectedSeat);
-            // 선택한 좌석을 숫자로 가져옵니다.
-const selectedSeatNumber = parseInt(selectedSeat.textContent);
+                    // 선택한 좌석을 숫자로 가져옵니다.
+                    const selectedSeatNumber = parseInt(selectedSeat.textContent);
 
-// 좌석 번호를 "seat_number" 입력 필드에 설정합니다.
-$("#seat_number").val(selectedSeatNumber);
+                    // 좌석 번호를 "seat_number" 입력 필드에 설정합니다.
+                    $("#seat_number").val(selectedSeatNumber);
 
                 }
             });
@@ -484,7 +585,9 @@ $("#seat_number").val(selectedSeatNumber);
                     locale: 'ko',
                     nextText: "다음",
                     prevText: "이전",
-                    monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+                    monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월",
+                        "11월", "12월"
+                    ],
                     dayNames: ["일", "월", "화", "수", "목", "금", "토", "일"],
                     dayNamesShort: ["일", "월", "화", "수", "목", "금", "토", "일"],
                     dayNamesMin: ["일", "월", "화", "수", "목", "금", "토", "일"],
@@ -505,15 +608,18 @@ $("#seat_number").val(selectedSeatNumber);
                         const currentDate = new Date(today);
                         if (selectedDate > currentDate) {
                             // 선택한 날짜가 현재 날짜보다 이후일 때 모든 시간 활성화
-                            $(".time-list li").prop('disabled', false).removeClass('past-time');
+                            $(".time-list li").prop('disabled', false).removeClass(
+                                'past-time');
                         } else {
                             // 선택한 날짜가 현재 날짜와 같거나 이전일 때 과거 시간 비활성화
                             $(".time-list li").each(function () {
                                 const time = parseInt($(this).text().split(':')[0]);
                                 if (time < currentTime) {
-                                    $(this).prop('disabled', true).addClass('past-time');
+                                    $(this).prop('disabled', true).addClass(
+                                        'past-time');
                                 } else {
-                                    $(this).prop('disabled', false).removeClass('past-time');
+                                    $(this).prop('disabled', false).removeClass(
+                                        'past-time');
                                 }
                             });
                         }
@@ -539,11 +645,10 @@ $("#seat_number").val(selectedSeatNumber);
             } else {
                 alert("좌석을 선택해 주세요.");
             }
-            
+
         });
-        
+
     });
-    
 </script>
 
 

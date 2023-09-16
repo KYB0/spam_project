@@ -1,5 +1,6 @@
 package com.spam9700.spam.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -10,12 +11,9 @@ import com.spam9700.spam.dto.SeatReservationDto;
 @Mapper
 public interface SeatReservationDao {
 
-    List<SeatReservationDto> getAllSeatReservations();
+    List<SeatReservationDto> findReservationsBySeatNumberAndTimeRange(int roomId, String seatNumber, LocalDateTime startTime,
+            LocalDateTime endTime);
 
-    void createSeatReservation(SeatReservationDto seatReservationDto);
-
-    List<ReservationDto> getAllReservations();
-
-    boolean createReservation(ReservationDto reservationDto);
+    List<String> findReservedTimesByRoomAndDate(Long roomId, String date);
 
 }

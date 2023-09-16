@@ -1,40 +1,52 @@
 package com.spam9700.spam.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.spam9700.spam.service.SeatReservationService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import com.spam9700.spam.dto.ReservationDto;
-import com.spam9700.spam.dto.SeatReservationDto;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @RestController
-@RequestMapping("/api/reservations")
+@RequestMapping("/api")
 public class ReservationRestController {
 
     @Autowired
     private SeatReservationService seatReservationService;
 
-    // 모든 좌석 예약을 가져오는 엔드포인트 정의
-    @GetMapping
-    public List<ReservationDto> getAllReservations() {
-        // seatReservationService를 사용하여 데이터베이스에서 예약 정보를 가져옵니다.
-        List<ReservationDto> reservations = seatReservationService.getAllReservations();
-        return reservations;
+    @PostMapping("/checkDuplicateReservation")
+    @ResponseBody
+    public Map<String, Object> checkDuplicateReservation(@RequestBody ReservationDto reservationDto) {
+        Map<String, Object> response = new HashMap<>();
+
+        boolean isDuplicate = seatReservationService.isDuplicateReservation(
+                reservationDto.getRoom_id(),
+                reservationDto.getSeat_number(),
+                reservationDto.getStart_time(),
+                reservationDto.getEnd_time()
+
+        );
+
+        response.put("isDuplicate", isDuplicate);
+        return response;
     }
 
-    // 새로운 좌석 예약을 생성하는 엔드포인트 정의
-    @PostMapping
-    public String createReservation(@RequestBody ReservationDto reservationDto) {
-        // seatReservationService를 사용하여 제공된 DTO를 기반으로 새로운 예약을 생성합니다.
-        boolean created = seatReservationService.createReservation(reservationDto);
-        if (created) {
-            return "예약이 성공적으로 생성되었습니다";
-        } else {
-            return "예약 생성에 실패했습니다";
-        }
+    @GetMapping("/getReservedTimes")
+    public List<String> getReservedTimes(
+            @RequestParam Long roomId,
+            @RequestParam String date) {
+        // 예약된 시간 목록을 가져오는 서비스 메서드를 호출합니다.
+        List<String> reservedTimes = seatReservationService.getReservedTimes(roomId, date);
+        log.info("reservedTimes: {}", reservedTimes);
+        // 클라이언트에게 예약된 시간 목록을 응답으로 반환합니다.
+        return reservedTimes;
     }
-
-    // 다른 엔드포인트를 정의하여 예약을 업데이트하거나 취소하는 등의 작업을 수행할 수 있습니다.
 
 }

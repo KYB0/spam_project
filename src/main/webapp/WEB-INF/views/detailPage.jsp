@@ -214,14 +214,14 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
 <script>
-      document.getElementById('zzim-button').addEventListener('click', function () {
+    document.getElementById('zzim-button').addEventListener('click', function () {
         const room_id = document.getElementById('room_id').value;
         const form = document.getElementById('zzim-form');
         form.action = `/spam/wishList/${room_id}`;
         form.submit();
     });
-
 </script>
+
 <body>
     <%@ include file="header.jsp" %>
 
@@ -235,19 +235,20 @@
             <h2>독서실 소개</h2>
             <div class="zzim">
                 <button id="zzim-button" class="zzim-button">
-                    <img src="<c:choose><c:when test='${roomFavorited}'>image/like_1.png</c:when><c:otherwise>image/like_2.png</c:otherwise></c:choose>" alt="찜 버튼" id="zzim-image">
+                    <img src="<c:choose><c:when test='${roomFavorited}'>image/like_1.png</c:when><c:otherwise>image/like_2.png</c:otherwise></c:choose>"
+                        alt="찜 버튼" id="zzim-image">
                 </button>
             </div><br>
             <div class="info">
                 <c:forEach items="${rnData}" var="rmd">
-                <h4 class="r-description">영업 시간 : ${rmd.room_description}</h4>
-                <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
-                <h4 class="r-time">가격  <p>
-                        <h5>시간당 : ${rmd.time_price} 원</h5>
-                        <h5>1일당 : ${rmd.day_price} 원</h5>
-                    </p>
-                </h4> <!-- jquery로 db에서 데이터를 가져온다-->
-            </c:forEach>
+                    <h4 class="r-description">영업 시간 : ${rmd.room_description}</h4>
+                    <!-- jquery로 db에서 영업시간(room_description)을 가져온다 (현재 오류남) -->
+                    <h4 class="r-time">가격 <p>
+                            <h5>시간당 : ${rmd.time_price} 원</h5>
+                            <h5>1일당 : ${rmd.day_price} 원</h5>
+                        </p>
+                    </h4> <!-- jquery로 db에서 데이터를 가져온다-->
+                </c:forEach>
             </div>
         </div>
         <h2>평점</h2>
@@ -313,61 +314,67 @@
     <%@ include file="footer.jsp" %>
 </body>
 <script>
-document.getElementById('zzim-button').addEventListener('click', function () {
-    const room_id = document.getElementById('room_id').value;
-    // AJAX 요청을 보냅니다.
-    fetch(`/spam/checkWishList/${room_id}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.exists) {
-                // 이미 찜한 경우, 찜 해제 요청
-                fetch(`/spam/wishList/${room_id}`, {
-                    method: 'DELETE'
-                })
-                    .then(response => response.text())
-                    .then(data => {
-                        alert(data); // 찜 해제 성공 메시지
-                        const zzimImage = document.getElementById('zzim-image');
-                        zzimImage.src = 'image/like_2.png'; // 찜 해제 이미지로 변경
-                    })
-                    .catch(error => {
-                        console.error('찜 해제 실패:', error);
-                    });
-            } else {
-                // 찜하지 않은 경우, 찜 추가 요청
-                fetch(`/spam/wishList/${room_id}`, {
-                    method: 'POST'
-                })
-                    .then(response => response.text())
-                    .then(data => {
-                        alert(data); // 찜 추가 성공 메시지
-                        const zzimImage = document.getElementById('zzim-image');
-                        zzimImage.src = 'image/like_1.png'; // 찜 추가 이미지로 변경
-                    })
-                    .catch(error => {
-                        console.error('찜 추가 실패:', error);
-                    });
-            }
-        })
-        .catch(error => {
-            console.error('찜 상태 확인 실패:', error);
-        });
-});
+    document.getElementById('zzim-button').addEventListener('click', function () {
+        const room_id = document.getElementById('room_id').value;
+        // AJAX 요청을 보냅니다.
+        fetch(`/spam/checkWishList/${room_id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.exists) {
+                    // 이미 찜한 경우, 찜 해제 요청
+                    fetch(`/spam/wishList/${room_id}`, {
+                            method: 'DELETE'
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            alert(data); // 찜 해제 성공 메시지
+                            const zzimImage = document.getElementById('zzim-image');
+                            zzimImage.src = 'image/like_2.png'; // 찜 해제 이미지로 변경
+                        })
+                        .catch(error => {
+                            console.error('찜 해제 실패:', error);
+                        });
+                } else {
+                    // 찜하지 않은 경우, 찜 추가 요청
+                    fetch(`/spam/wishList/${room_id}`, {
+                            method: 'POST'
+                        })
+                        .then(response => response.text())
+                        .then(data => {
+                            alert(data); // 찜 추가 성공 메시지
+                            const zzimImage = document.getElementById('zzim-image');
+                            zzimImage.src = 'image/like_1.png'; // 찜 추가 이미지로 변경
+                        })
+                        .catch(error => {
+                            console.error('찜 추가 실패:', error);
+                        });
+                }
+            })
+            .catch(error => {
+                console.error('찜 상태 확인 실패:', error);
+            });
+    });
 
 
-  
+
 
     // 예약하기 버튼 클릭 시 동작 정의
     $(document).ready(function () {
         $("#reservation-button").click(function () {
-            var room_name = "${room_name}"; // 방 이름을 동적으로 가져오거나 설정하세요.
-            var reservationURL = "/spam/" + room_name + "/reservation";
-            window.location.href = reservationURL;
+            const loginCheck = "${customer_id}";
+            if (loginCheck) {
+                let room_name = "${room_name}"; // 방 이름을 동적으로 가져오거나 설정하세요.
+                let reservationURL = "/spam/" + room_name + "/reservation";
+                window.location.href = reservationURL;
+            } else {
+                let loginURL = "/spam/member/i_login"
+                window.location.href = loginURL;
+            }
         });
     });
 
     // 서버에서 room_description 데이터를 가져오는 Ajax 요청
-    var room_name = "${room_name}";
+    let room_name = "${room_name}";
 
 
     //리뷰 작성 스크립트
@@ -459,10 +466,6 @@ document.getElementById('zzim-button').addEventListener('click', function () {
         // 페이지 로드 시 리뷰 목록 불러오기
         updateReviewList();
     });
-
-
-
-
 </script>
 
 </html>
