@@ -99,7 +99,7 @@ public class ReservationController {
     }
 
     // 예약 폼 제출 처리
-    @PostMapping("/reservation")
+    @GetMapping("/reservation/data")
     public String submitReservation(@PathVariable("room_name") String roomName,
             @RequestParam("seat_number") String seatNumber,
             @RequestParam("start_time") String startTimeStr,
@@ -107,18 +107,26 @@ public class ReservationController {
             HttpSession session) {
 
         // 여기서 폼 데이터를 이용하여 ReservationDto를 생성합니다.
-        ReservationDto reservationDto = new ReservationDto();
-        reservationDto.setCustomer_id(getCustomerIdFromSession(session)); // 세션에서 고객 ID 가져오도록 변경
-        reservationDto.setSeat_number(seatNumber);
-        reservationDto.setRoom_id(getRoomIdFromSession(session)); // 세션에서 방 ID 가져오도록 변경
-        reservationDto.setStatus("0"); // 상태 설정 (예: 'ACTIVE', 'CANCELLED' 등)
+        // ReservationDto reservationDto = new ReservationDto();
+        // reservationDto.setCustomer_id(getCustomerIdFromSession(session)); // 세션에서 고객
+        // ID 가져오도록 변경
+        // reservationDto.setSeat_number(seatNumber);
+        // reservationDto.setRoom_id(getRoomIdFromSession(session)); // 세션에서 방 ID 가져오도록
+        // 변경
+        // reservationDto.setStatus("0"); // 상태 설정 (예: 'ACTIVE', 'CANCELLED' 등)
+
+        session.setAttribute("seatNumber", seatNumber);
+        session.setAttribute("startTime", startTimeStr);
+        session.setAttribute("endTime", endTimeStr);
 
         // 문자열로 받은 날짜와 시간을 LocalDateTime으로 변환
         // 문자열로 받은 날짜와 시간을 LocalDateTime으로 변환
         LocalDateTime startTime = LocalDateTime.parse(startTimeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm"));
         LocalDateTime endTime = LocalDateTime.parse(endTimeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd H:mm"));
-        reservationDto.setStart_time(startTime);
-        reservationDto.setEnd_time(endTime);
+        // reservationDto.setStart_time(startTime);
+        // reservationDto.setEnd_time(endTime);
+        session.setAttribute("endTime", endTime);
+        session.setAttribute("startTime", startTime);
 
         log.info("Received reservation submission for room '{}'", roomName);
         log.info("Customer ID: {}", getCustomerIdFromSession(session)); // 세션에서 가져오도록 변경
@@ -131,6 +139,7 @@ public class ReservationController {
         // 예약 정보를 임시로 저장하고, 예약 목록 페이지로 리다이렉트 또는 다른 작업 수행
         // 저장 방법에 따라 예를 들면 데이터베이스에 저장하거나 세션에 저장할 수 있습니다.
 
-        return "redirect:/" + roomName + "/reservation";
+        // return "redirect:/" + roomName + "/reservation";
+        return "payment";
     }
 }

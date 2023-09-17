@@ -14,6 +14,8 @@ public interface SeatReservationDao {
     List<SeatReservationDto> findReservationsBySeatNumberAndTimeRange(int roomId, String seatNumber, LocalDateTime startTime,
             LocalDateTime endTime);
 
-    List<String> findReservedTimesByRoomAndDate(Long roomId, String date);
+    List<String> findReservedTimesByRoomAndDate(int roomId, String date);
+
+    List<ReservationDto> findReservedTimes(int roomId, String seatNumber, LocalDateTime startTime, LocalDateTime endTime);
 
 }
