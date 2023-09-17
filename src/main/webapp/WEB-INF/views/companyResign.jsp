@@ -147,13 +147,14 @@
         .c_resign button,
         .c_quit button {
             padding: 10px 20px;
-            background-color: #322A31;
-            color: #DCE682;
+            background-color: #E6E6FA;
+            color: #B19CD9;
             border: none;
             cursor: pointer;
             width: 120px;
             height: 50px;
             margin: 5px;
+            border-radius: 30px; /* 버튼 모서리를 더 둥글게 만듭니다. */
         }
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">

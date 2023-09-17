@@ -18,4 +18,6 @@ public interface MypageDao {
     List<ReviewDto> getReviewListByCustomerId(String customer_id);
 
     
+
+    
 }

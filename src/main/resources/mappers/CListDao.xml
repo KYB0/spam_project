@@ -4,7 +4,7 @@
 
 <mapper namespace = "com.spam9700.spam.dao.CListDao">
 
-<insert id="monthly" parameterType="com.spam9700.spam.dao.CListDao">
+<insert id="monthly">
     INSERT INTO monthly_usage (usage_id, company_id, year, month, user_count) 
     VALUES (#{usage_id}, #{company_id}, #{year}, #{month}, #{user_count})
 </insert>

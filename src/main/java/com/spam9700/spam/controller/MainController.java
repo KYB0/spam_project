@@ -25,18 +25,18 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("/search")
-    public String search() {
-        log.info("검색창");
-        return "searchList";
-    }
+    // @GetMapping("/search")
+    // public String search() {
+    //     log.info("검색창");
+    //     return "searchList";
+    // }
 
     @GetMapping("/qna_list")
     public String qnaboard() {
         return "qnaBoard";
     }
 
-    @GetMapping("/member/i_mypage")
+    @GetMapping("/i_mypage")
     public String iMypage(HttpSession session, Model model) {
         log.info("get 마이페이지");
         
@@ -50,21 +50,22 @@ public class MainController {
         return "iMypage";
     }
 
-    @PostMapping("/member/i_mypage")
+    @PostMapping("/i_mypage")
     public String updateMypage(CustomerMemberDto customerMemberDto, HttpSession session){
         log.info("customerMemberDto:{}", customerMemberDto);
 
         boolean result = memberService.updateMypage(customerMemberDto);
         if(result){
             log.info("업데이트 성공");
-            return "redirect:/member/i_mypage";
+            return "redirect:/i_mypage";
         }
         log.info("업데이트 실패");
-        return "redirect:/member/i_mypage";
+        return "redirect:/i_mypage";
     }
      @GetMapping("/res")
     public String resPage() {
         log.info("res 페이지");
         return "res";
     }
+    
 }

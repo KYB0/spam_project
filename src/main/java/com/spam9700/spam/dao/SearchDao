@@ -1,6 +1,0 @@
-﻿
-
-@Override
-public List<InspectionResultVO> getInspectionResultList(Search search) {
-    return sqlSession.selectList("inspectionMapper.getInspectionResultList", search);
-}

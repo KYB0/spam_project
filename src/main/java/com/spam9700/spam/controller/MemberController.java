@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spam9700.spam.dto.CompanyMemberDto;
 import com.spam9700.spam.dto.CustomerMemberDto;
 import com.spam9700.spam.service.MemberService;
 
@@ -97,21 +98,27 @@ public class MemberController {
 
     @PostMapping("/c_login")
     public String cLogin(@RequestParam String company_id, @RequestParam String company_pwd,
-            @RequestParam String company_businessnum, HttpSession session) {
-        log.info("기업로그인 처리");
-        log.info("id:{}, pwd:{}, businessnum:{}", company_id, company_pwd, company_businessnum);
+        @RequestParam String company_businessnum, HttpSession session) {
+    log.info("기업로그인 처리");
+    log.info("id:{}, pwd:{}, businessnum:{}", company_id, company_pwd, company_businessnum);
 
-        boolean result = memberService.cLogin(company_id, company_pwd, company_businessnum);
-        if (result) {
-            log.info("기업로그인 성공");
-            session.setAttribute("loggedInUserId", company_id);
-            session.setAttribute("company_id", company_id);
-            return "redirect:/main";
-        } else {
-            log.info("로그인 실패");
-            return "c_login";
-        }
+    boolean loginResult = memberService.cLogin(company_id, company_pwd, company_businessnum);
+    
+    if (loginResult) {
+        log.info("기업로그인 성공");
+
+        // 로그인 성공 시, 세션에 필요한 정보를 저장
+        session.setAttribute("company_id", company_id);
+        CompanyMemberDto companyMemberDto = new CompanyMemberDto();
+        companyMemberDto.setCompany_id(company_id);
+        session.setAttribute("loggedInUser", companyMemberDto); // 기업 회원 정보 세션에 추가
+
+        return "redirect:/main";
+    } else {
+        log.info("로그인 실패");
+        return "c_login";
     }
+}
 
     @GetMapping("/check/id")
     public ResponseEntity<String> checkId(@RequestParam String customer_id) {

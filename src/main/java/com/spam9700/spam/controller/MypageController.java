@@ -1,16 +1,33 @@
 package com.spam9700.spam.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.spam9700.spam.dto.CompanyMemberDto;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.spam9700.spam.dto.DetailPageDto;
 import com.spam9700.spam.dto.ReservationDto;
 import com.spam9700.spam.dto.ReviewDto;
+import com.spam9700.spam.dto.RoomPageDto;
+import com.spam9700.spam.dto.SeatDto;
 import com.spam9700.spam.service.StudycafeService;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,53 +52,140 @@ public class MypageController {
     }
 
     @GetMapping("/c_mypage/insert")
-    public String cMypageInsert() {
+    public String cMypageInsert(HttpSession session, Model model, @RequestParam(name="page", defaultValue = "1") int page) {
+        String company_id = (String)session.getAttribute("company_id");
+        //로그인 세션 가져오기
+        if (company_id == null) {
+            // 세션에 company_id가 없으면 처리할 로직 추가 (예: 로그인 페이지로 리다이렉트)
+            return "redirect:/member/c_login"; // 기업로그인 페이지로 리다이렉트 또는 다른 처리
+        }
+        
+        int pageSize = 5;
+       
+        List<DetailPageDto> paginatedRooms = studycafeService.getPaginatedRooms(page, pageSize, company_id);
+        int totalRoomsCount = studycafeService.getTotalRoomsCount(company_id);
+        // System.out.println("++++++++++++++++++++++++"+page+"+++++++++++++++++++++++++");
+        // System.out.println("--------------------------"+size+"----------------------------");
+    
+        model.addAttribute("roomDataPage", paginatedRooms);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", (totalRoomsCount + pageSize - 1) / pageSize);
+
+         List<DetailPageDto> roomDataList = studycafeService.getAllRoomsByCompanyId(company_id);
+
+        // for(DetailPageDto rd : roomDataList){
+        //     System.out.println(rd);
+        // } //roomDataList로 데이터값이 전달되는지 확인
+        model.addAttribute("roomDataList", roomDataList);
         return "companyInsert";
     }
+
+
+
+
+
+
+    
+    @PostMapping("/c_mypage/insert")
+        public String processStudyRoomInsert(@ModelAttribute DetailPageDto detailPageDto, RedirectAttributes redirectAttributes) {
+            // System.out.println("========================="+((String)s.getAttribute));
+            try {
+                // 스터디 룸 정보를 DB에 삽입
+                studycafeService.insertStudyRoom(detailPageDto);
+    
+                // 입력 성공 시 메시지 설정
+                redirectAttributes.addFlashAttribute("success", true);
+            } catch (Exception e) {
+                e.printStackTrace();
+                // 입력 실패 시 메시지 설정
+                redirectAttributes.addFlashAttribute("success", false);
+                log.error("스터디 룸 등록 실패: " + e.getMessage());
+            }
+            // 입력 결과에 관계없이 등록 페이지로 리다이렉트
+            return "redirect:/c_mypage/insert";
+        }
+    
+
+
+    @GetMapping("/c_mypage/insert/write")
+    public String showStudyRoomWritePage(HttpSession session, Model model) {
+        // 세션에서 로그인 정보를 가져옴
+        // CompanyMemberDto loggedInUser = (CompanyMemberDto) session.getAttribute("loggedInUser");
+        // DetailPageDto loggedInUser = (DetailPageDto)session.getAttribute("loggedInUser");
+
+        String company_id = (String)session.getAttribute("company_id");
+    
+        DetailPageDto  detailPageDto = studycafeService.getCompanyIdFromCompanyMember(company_id);
+        session.setAttribute("detailPageDto", detailPageDto);
+        model.addAttribute("detailPageDto", detailPageDto);
+
+        return "studyRoomWrite";
+    }
+
+    @PostMapping("/c_mypage/insert/write")
+    public String insertStudyRoomWritePage(@RequestParam("stdRName") String room_name, @RequestParam("stdRDescription") String room_description, @RequestParam("stdRTPrice") int time_price, @RequestParam("stdRDPrice") int day_price, @RequestParam("stdRRegion") String region, RedirectAttributes redirectAttributes, HttpSession session){
+        // DetailPageDto 객체 생성 및 company_id 설정
+        DetailPageDto detailPageDto = new DetailPageDto();
+       String company_id = (String)session.getAttribute("company_id");
+        detailPageDto.setCompany_id(company_id);
+        detailPageDto.setRoom_name(room_name);
+        detailPageDto.setRoom_description(room_description);
+        detailPageDto.setTime_price(time_price);
+        detailPageDto.setDay_price(day_price);
+        detailPageDto.setRegion(region);
+
+        // 서비스로 DetailPageDto 전달
+        int result = studycafeService.insertStudyRoom(detailPageDto);
+        System.out.println("++++++++++++++++"+result);
+        if(result > 0){
+            // 등록 성공 시 처리
+            return "redirect:/c_mypage/insert"; // 등록 페이지로 이동
+        }else{
+            redirectAttributes.addFlashAttribute("errorAlert", "등록에 실패했습니다.");
+            return "redirect:/spam/c_mypage/insert";
+        }
+    }
+
+    @GetMapping("/c_mypage/seatInsert")
+        public String seatInsert(Model model, @RequestParam("room_id") int room_id){
+            //room_id를 이용해 해당 방 정보를 가져옴
+            SeatDto seatDto = new SeatDto();
+            seatDto.setRoom_id(room_id);
+            log.info("room_id : "+room_id);
+           
+            List<SeatDto> seatsData = studycafeService.getAllSeats();
+            //좌석 등록 페이지로 해당 방 정보 전달
+            model.addAttribute("seatDto", seatDto);
+
+            return "seatChoice";
+        }
+
+        @PostMapping("/c_mypage/seatInsert")
+        public String insertSeats(@ModelAttribute("seatDto") SeatDto seatDto, Model model){
+            // seatDto에서 seat_number 값을 가져옵니다.
+            String seat_number = seatDto.getSeat_number();
+
+            // room_id 값을 가져오기 위해 이전 페이지에서 전달된 seatDto를 사용합니다.
+            int room_id = seatDto.getRoom_id();
+
+             // 이전에 저장된 해당 room_id의 데이터를 모두 삭제합니다.
+             studycafeService.deletePreviousSeatsByRoomId(room_id);
+             log.info("delete room_id : "+room_id);
+           
+            //room_id와 seat_number 정보를 이용하여 좌석 정보를 DB에 저장
+            studycafeService.saveSelectedSeats(room_id, seat_number);
+            log.info("save room_id : "+room_id);
+
+          
+             
+          return "redirect:/c_mypage/insert" ;
+        }
+    
 
     @GetMapping("/c_mypage/resign")
     public String cMypageResign() {
         return "companyResign";
     }
-
-    @GetMapping("/i_mypage/review")
-    public String reviewfrm(Model model, HttpSession session) {
-
-        Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
-
-        if (loggedIn != null && loggedIn) {
-            //로그인 상태인 경우 리뷰 작성폼으로 이동
-            log.info("이용 후기 페이지");
-            return "review";
-        } else {
-            //로그인되지 않은 경우 로그인 페이지로 리다이렉트 또는 에러 처리
-            return "redirect:member/i_login";
-        }
-    }
-
-    @PostMapping("/i_mypage/review")
-    public String review(ReviewDto reviewDto,
-                         Model model, HttpSession session) {
-        log.info("이용후기 작성란");
-        
-        //세션에서 customer_id 가져오기
-        String customer_id = (String) session.getAttribute("customer_id");
-
-        //ReviewDto에 customer_id 설정
-        reviewDto.setCustomer_id(customer_id);
-
-        // boolean reviewSubmitted = studycafeService.submitReview(reviewDto);/
-
-        try {
-            //리뷰가 성공적으로 저장되었을 경우의 처리
-            return "redirect:/member/i_mypage";
-        } catch (Exception e) {
-            //리뷰 저장에 실패한 경우의 처리
-            model.addAttribute("error", "리뷰 작성이 되지 않았습니다.");
-            return "review";
-        }
-    }
-
 
     @GetMapping("/i_mypage/list")
     public String myListfrm(Model model, HttpSession session) {
@@ -120,6 +224,12 @@ public class MypageController {
         log.info("reviewList", reviewList);
 
         return "show_review";
+    }
+
+    @GetMapping("/i_mypage/list/like_list")
+    public String likeList() { 
+        log.info("찜 목록 페이지");
+        return "likeList";
     }
 
     @PostMapping("/i_mypage/list/review_list")

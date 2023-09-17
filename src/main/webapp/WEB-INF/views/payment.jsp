@@ -19,10 +19,10 @@
         <div class="right">
                <!-- 인포 -->
             <section class="info">
-                <p class="name"><strong>스터디룸 이름</strong><br><%= roomName %></p>
-                <p><strong>좌석타입/기간</strong><br><%= seatTypeAndDuration %></p>
-                <p><strong>체크인</strong><%= checkInTime %></p>
-                <p><strong>체크아웃</strong><%= checkOutTime %></p>   <!--DB 변수이름 -->>
+                <p class="name"><strong>스터디룸 이름</strong><br><%= room_name %></p>
+                <p><strong>좌석타입/기간</strong><br><%= seat_number %></p>
+                <p><strong>체크인</strong><%= start_time %></p>
+                <p><strong>체크아웃</strong><%= end_time %></p>   <!--DB 변수이름 -->>
             </p></section>
              <section class="total_price_pc"><p><strong><b>총 결제 금액</b>(VAT포함)</strong>
                 <span class="in_price">495,000원</span></p> <ul><li>해당 가격은 세금, 봉사료가 포함된 금액입니다</li>

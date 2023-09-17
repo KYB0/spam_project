@@ -21,7 +21,7 @@
 <body>
     <section class="join-form">
         <h1>JOIN</h1>
-        <form action="/spam/member/i_login" method="post">
+        <form action="/spam/member/i_join" method="post">
             <div class="int-area">
                 <div class="id-check">
                     <input type="text" id="customer_id" name="customer_id" autocomplete="off" required>
