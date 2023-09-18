@@ -190,9 +190,11 @@ public class StudycafeController {
 
 
      @GetMapping("/{room_name}/reviews")
-  @ResponseBody
-  public List<ReviewDto> getReviews(@PathVariable("room_name") String room_name, Model model, HttpSession session,
-  @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int pageSize) {
+     @ResponseBody
+     public List<ReviewDto> getReviews(@PathVariable("room_name") String room_name,
+                                @RequestParam(defaultValue = "1") int page,
+                                    @RequestParam(defaultValue = "5") int pageSize,
+                                     Model model, HttpSession session){
       
       System.out.println("room_name:"+room_name);
       Integer room_id = (Integer) session.getAttribute("room_id");

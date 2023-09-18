@@ -54,23 +54,21 @@ color: white;
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th scope="col">리뷰 No.</th>
-                    <!-- <th scope="col">고객 ID</th> -->
-                    <th scope="col">리뷰 내용</th>
-                    <th scope="col">별점</th>
+                    <!-- <th scope="col">리뷰 No.</th> -->
                     <th scope="col">업체명</th>
-                    <th scope="col">업체 코드</th>
+                    <th scope="col">별점</th>
+                    <th scope="col">리뷰 내용</th>
+                    <!-- <th scope="col">업체 코드</th> -->
                 </tr>
             </thead>
             <tbody>
                 <c:forEach items="${reviewList}" var="review">
                     <tr>
-                        <td>${review.review_id}</td>
-                        <!-- <td>${review.customer_id}</td> -->
-                        <td>${review.review_content}</td>
-                        <td>${review.rating}</td>
+                        <!-- <td>${review.review_id}</td> -->
                         <td>${review.room_name}</td>
-                        <td>${review.room_id}</td>
+                        <td>${review.rating}점</td>
+                        <td>${review.review_content}</td>
+                        <!-- <td>${review.room_id}</td> -->
                     </tr>
                 </c:forEach>
             </tbody>
