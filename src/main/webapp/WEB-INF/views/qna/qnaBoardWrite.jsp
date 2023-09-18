@@ -16,7 +16,7 @@
 
 <body>
 
-    <div class="container"  style="margin-left: 23%;">
+    <div class="container"  style="margin-left: 40%; margin-top: 10%;">
 
     <form action="${pageContext.request.contextPath}/qna/write" method="post">
         <label for="board_title">제목:</label>

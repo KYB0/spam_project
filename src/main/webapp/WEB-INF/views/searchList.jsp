@@ -56,7 +56,7 @@
             <ul>
                 <c:forEach var="detailPageDto" items="${detailPageDtos}">
                     <li>
-                        <strong></strong> <img src="img/juksal.jpg" alt="독서실 이미지" width="150"> <br>
+                        <strong></strong> <img src="img/wyd.jpg" alt="독서실 이미지" width="150"> <br>
                         
                         <strong>독서실 이름:</strong> <a
                             href="/spam/${detailPageDto.room_name}">${detailPageDto.room_name}</a> <br>
