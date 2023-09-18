@@ -4,7 +4,7 @@
 <mapper namespace="com.spam9700.spam.dao.SeatReservationDao">
 
     <!-- insertReservation 매핑 -->
-    <insert id="insertReservation" parameterType="com.spam9700.spam.dto.ReservationDto">
+    <insert id="saveReservation" parameterType="com.spam9700.spam.dto.ReservationDto">
         INSERT INTO seat_reservations (
             customer_id,
             seat_number,
@@ -22,5 +22,12 @@
             #{end_time}
         )
     </insert>
+
+    <select id="getRoomNameByRoomId" resultType="String" parameterType="String">
+        SELECT sr2.room_name
+        FROM seat_reservations sr
+        INNER JOIN study_room sr2 ON sr.room_id = sr2.room_id
+        WHERE sr.room_id = #{room_id}
+    </select>
 
 </mapper>

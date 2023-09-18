@@ -1,4 +1,5 @@
-﻿<%@ page pageEncoding="UTF-8"%>
+﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +9,7 @@
     <title>결제 페이지</title>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-    <script src="/spam/js/payment.js"></script>
+    
     <link rel="stylesheet" href="/spam/css/payment.css">
 </head>
 
@@ -19,15 +20,25 @@
     <div id="content">
         <div class="right">
             <!-- 인포 -->
-            <section class="info">
-                <p class="name"><strong>스터디룸 이름</strong><br>${room_name}</p>
-                <form action="" method="post">
-                    <input type="text" name="room_id" value="${room_id}">
+            <form id="paymentForm" action="/spam/${room_name}/payment" method="post">
+                <section class="info">
+                    <p class="name"><strong>스터디룸 이름</strong><br>${room_name}</p>
+                    <!-- Hidden input fields to hold the data -->
+                    <input type="hidden" name="room_name" value="${room_name}">
+                    
+                    <p><strong>Room ID:</strong> ${room_id}</p>
+                    <input type="hidden" name="room_id" value="${room_id}">
+                    
                     <p><strong>좌석 번호</strong><br>${seatNumber}</p>
+                    <input type="hidden" name="seatNumber" value="${seatNumber}">
+                    
                     <p><strong>체크인</strong><br>${startTime}</p>
+                    <input type="hidden" name="startTime" value="${startTime}">
+                    
                     <p><strong>체크아웃</strong><br>${endTime}</p>
-                
-            </section>
+                    <input type="hidden" name="endTime" value="${endTime}">
+                </section>
+
             <section class="total_price_pc">
                 <p><strong><b>총 결제 금액</b>(VAT포함)</strong>
                     <span class="in_price">495,000원</span></p>
@@ -89,8 +100,51 @@
 
             <!-- 동의 버튼 완-->
             <!-- 결제버튼-->
-            <button type="button" id="btn_pay" class="btn_pay">결제하기</button>
+            <button type="submit"  id="btn_pay" class="btn_pay">결제하기</button>
             <!-- 결제버튼 완-->
+        </form>
+
+        <script>
+$(document).ready(function () {
+    $("#btn_pay").click(function () {
+        if ($("input[name='checkOne']:checked").length === 4) {
+            // 폼 데이터를 직접 가져오기
+            var formData = $("#paymentForm").serialize();
+            console.log(formData);
+
+            // AJAX를 사용하여 데이터베이스로 데이터 전송
+            $.ajax({
+                url: "/spam/payment", // 데이터 전송을 처리할 URL
+                type: "POST",
+                data: formData,
+                success: function (data) {
+                    // 데이터베이스 전송 성공 시 메인 페이지로 리다이렉트
+                    window.location.href = "/spam/main";
+                },
+                error: function () {
+                    // 데이터베이스 전송 실패 시 오류 메시지 표시
+                    alert("데이터베이스로의 전송에 실패했습니다. 다시 시도해주세요.");
+                }
+            });
+        } else {
+            alert("모든 동의 사항에 동의해야 합니다.");
+        }
+    });
+});
+
+// 전체 동의 체크박스 변경 시
+$('input[name="checkAll"]').on('change', function () {
+    $('input[name="checkOne"]').prop('checked', this.checked);
+});
+
+// 개별 동의 체크박스 변경 시
+$('input[name="checkOne"]').on('change', function () {
+    const allChecked = $('input[name="checkOne"]').toArray().every(input => input.checked);
+    $('input[name="checkAll"]').prop('checked', allChecked);
+});
+
+
+        </script>
         </div>
         <!-- 오른쪽  완료-->
 
