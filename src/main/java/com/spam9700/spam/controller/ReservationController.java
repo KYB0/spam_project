@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spam9700.spam.dto.SeatDto;
 import com.spam9700.spam.service.StudycafeService;
@@ -61,6 +62,13 @@ public class ReservationController {
         model.addAttribute("seatNumbersList", seatNumbersList);
 
         return "seat"; // 예약 페이지 템플릿 이름 또는 경로
+    }
+
+     @PostMapping("/cancel")
+    public String cancelReservation(@RequestParam("reservation_id") int reservation_id){
+        
+        studycafeService.cancelReservation(reservation_id);
+        return "redirect:/i_mypage/list";
     }
 
 }
