@@ -1,5 +1,7 @@
 server:
   port: 8000
+  jackson:
+    time-zone: Asia/Seoul
   servlet:
     context-path: /spam
     encoding:
@@ -9,7 +11,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://192.168.0.64:3306/spam?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://106.243.194.229:3100/spam?serverTimezone=Asia/Seoul
     username: icia97
     password: '1234'
     driver-class-name: com.mysql.cj.jdbc.Driver

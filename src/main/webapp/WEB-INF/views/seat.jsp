@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8"%>
+﻿<%@ page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -376,16 +376,16 @@
         
     </section>
     <div class="reservation-form">
-        <form action="/spam/${room_name}/reservation" method="post">
+        <form action="/spam/${room_name}/rsv" method="get">
             <input type="text" name="customer_id" id="customer_id" value="${customer_id}">
             <input type="text" name="room_id" value="${room_id}">
             <input type="text" name="seat_number" id="seat_number">
             <div id="datepicker"></div>
             <div class="time-selection">
-                <label for="start-time">시작 시간:</label>
-                <input type="text" id="start-time" name="start_time" class="timepicker">
-                <label for="end-time">종료 시간:</label>
-                <input type="text" id="end-time" name="end_time" class="timepicker">
+                <label for="start_time">시작 시간:</label>
+                <input type="text" id="start_time" name="start_time" class="timepicker">
+                <label for="end_time">종료 시간:</label>
+                <input type="text" id="end_time" name="end_time" class="timepicker">
                 <ul class="time-list"></ul>
             </div>
             <button type="submit">예약하기</button>
@@ -395,15 +395,17 @@
 
 <script>
     $(document).ready(function () {
-        // 시간 목록 생성
-        const startTimeInput = $('#start-time');
-        const endTimeInput = $('#end-time');
-        const timeList = $('.time-list');
+    // 시간 목록 생성
+    const startTimeInput = $('#start_time');
+    const endTimeInput = $('#end_time');
+    const timeList = $('.time-list');
 
-        for (let i = 0; i < 24; i++) {
-            const li = $('<li>').text(i + ':00');
-            timeList.append(li);
-        }
+    for (let i = 0; i < 24; i++) {
+        // 시간을 두 자리로 형식화
+        const formattedHour = i.toString().padStart(2, '0');
+        const li = $('<li>').text(formattedHour + ':00');
+        timeList.append(li);
+    }
 
      // 시간 선택 이벤트 처리
 timeList.on('click', 'li', function () {
@@ -494,7 +496,7 @@ $("#seat_number").val(selectedSeatNumber);
                         console.log("선택한 날짜: " + dateText);
 
                         // 이전에 선택된 시간 제거
-                        $("#start-time").val('');
+                        $("#start_time").val('');
                         $("#end-time").val('');
 
                         // 현재 시간 가져오기
@@ -522,8 +524,8 @@ $("#seat_number").val(selectedSeatNumber);
                         $(".time-list").css("display", "block"); // 시간 슬롯 표시
 
                         // 시간 슬롯 초기화
-                        const startTime = $("#start-time").val();
-                        const endTime = $("#end-time").val();
+                        const startTime = $("#start_time").val();
+                        const endTime = $("#end_time").val();
                         const timeList = document.querySelector('.time-list');
                     },
                 });

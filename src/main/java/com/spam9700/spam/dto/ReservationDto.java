@@ -13,9 +13,9 @@ public class ReservationDto {
     private String seat_number;
     private int room_id;
     private String status;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime start_time;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime end_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+private LocalDateTime start_time;
+@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+private LocalDateTime end_time;
 
 }

@@ -8,26 +8,42 @@
         INSERT INTO seat_reservations (
             customer_id,
             seat_number,
-            room_id,
-            status,
             start_time,
-            end_time
+            end_time,
+            room_id,
+            status
+            
         )
         VALUES (
             #{customer_id},
             #{seat_number},
+             #{start_time},
+            #{end_time},
             #{room_id},
-            '1',
-            #{start_time},
-            #{end_time}
+            '1'        
         )
     </insert>
 
-    <select id="getRoomNameByRoomId" resultType="String" parameterType="String">
-        SELECT sr2.room_name
-        FROM seat_reservations sr
-        INNER JOIN study_room sr2 ON sr.room_id = sr2.room_id
-        WHERE sr.room_id = #{room_id}
-    </select>
+//아이디 존재여부 확인
+<select id="checkCustomerIdExistence" resultType="int">
+    SELECT 1
+    FROM customer_member
+    WHERE customer_id = #{customer_id}
+</select>
+
+//좌석 존재여부 확인
+<select id="checkSeatNumberExistence" resultType="int">
+    SELECT 1
+    FROM seats
+    WHERE seat_number LIKE CONCAT('%', #{seat_number}, '%')
+</select>
+
+//스터디룸 존재여부 확인
+<select id="checkRoomIdExistence" resultType="int">
+    SELECT 1
+    FROM study_room
+    WHERE room_id = #{room_id}
+</select>
+
 
 </mapper>

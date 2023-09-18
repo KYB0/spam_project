@@ -29,14 +29,14 @@
                     <p><strong>Room ID:</strong> ${room_id}</p>
                     <input type="hidden" name="room_id" value="${room_id}">
                     
-                    <p><strong>좌석 번호</strong><br>${seatNumber}</p>
-                    <input type="hidden" name="seatNumber" value="${seatNumber}">
+                    <p><strong>좌석 번호</strong><br>${seat_number}</p>
+                    <input type="hidden" name="seat_number" value="${seat_number}">
                     
-                    <p><strong>체크인</strong><br>${startTime}</p>
-                    <input type="hidden" name="startTime" value="${startTime}">
+                    <p><strong>체크인</strong><br>${start_time}</p>
+                    <input type="hidden" name="start_time" value="${start_time}">
                     
-                    <p><strong>체크아웃</strong><br>${endTime}</p>
-                    <input type="hidden" name="endTime" value="${endTime}">
+                    <p><strong>체크아웃</strong><br>${end_time}</p>
+                    <input type="hidden" name="end_time" value="${end_time}">
                 </section>
 
             <section class="total_price_pc">
@@ -114,7 +114,7 @@ $(document).ready(function () {
 
             // AJAX를 사용하여 데이터베이스로 데이터 전송
             $.ajax({
-                url: "/spam/payment", // 데이터 전송을 처리할 URL
+                url: "/spam/${room_name}/payment", // 데이터 전송을 처리할 URL
                 type: "POST",
                 data: formData,
                 success: function (data) {
@@ -122,6 +122,7 @@ $(document).ready(function () {
                     window.location.href = "/spam/main";
                 },
                 error: function () {
+                    window.location.href = window.location.href; // 현재 페이지로 리다이렉트
                     // 데이터베이스 전송 실패 시 오류 메시지 표시
                     alert("데이터베이스로의 전송에 실패했습니다. 다시 시도해주세요.");
                 }
