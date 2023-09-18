@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spam9700.spam.dao.MemberDao">
-    
-    
+
+
     <!-- join -->
-    <insert id="join" parameterType="com.spam9700.spam.dto.CustomerMemberDto">
+    <insert id="iJoin" parameterType="com.spam9700.spam.dto.CustomerMemberDto">
         INSERT INTO customer_member (customer_id, customer_pwd, customer_name, customer_email, customer_birth, customer_phone)
         VALUES (#{customer_id}, #{customer_pwd}, #{customer_name}, #{customer_email}, #{customer_birth}, #{customer_phone})
+    </insert>
+
+    <insert id="cJoin" parameterType="com.spam9700.spam.dto.CompanyMemberDto">
+        INSERT INTO company_member (company_id, company_pwd, company_name, company_email, company_businessnum, company_phone)
+        VALUES (#{company_id}, #{company_pwd}, #{company_name}, #{company_email}, #{company_businessnum}, #{company_phone})
     </insert>
 
     <!-- login -->
@@ -23,10 +28,15 @@
 
     <!-- idCheck -->
 
-    <select id="idCheck" resultType="boolean">
+    <select id="iIdCheck" resultType="boolean">
         SELECT COUNT(*) 
         FROM customer_member
         WHERE customer_id = #{customer_id}
+    </select>
+    <select id="cIdCheck" resultType="boolean">
+      SELECT COUNT(*) 
+        FROM company_member
+        WHERE company_id = #{company_id}
     </select>
 
 
@@ -70,7 +80,7 @@
         WHERE customer_id = #{customer_id}
     </update>
 
-    <select id="getCustomerInfoById"  resultType="CustomerMemberDto">
+    <select id="getCustomerInfoById" resultType="CustomerMemberDto">
         SELECT * FROM customer_member 
         WHERE customer_id = #{customer_id}
     </select>
@@ -80,4 +90,20 @@
         WHERE customer_id = #{customer_id}
     </delete>
 
+    <!-- idCheck -->
+
+    <select id="idCheck" resultType="boolean">
+    SELECT COUNT(*) AS total_count
+FROM (
+    SELECT customer_id AS id
+    FROM customer_member
+    WHERE customer_id = #{customer_id}
+    
+    UNION ALL
+    
+    SELECT company_id AS id
+    FROM company_member
+    WHERE company_id = #{company_id}
+) AS id_union
+    </select>
 </mapper>

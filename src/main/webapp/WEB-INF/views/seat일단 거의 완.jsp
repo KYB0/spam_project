@@ -448,10 +448,6 @@
         }
 
 
-        // 이전에 선택한 날짜의 CSS 클래스를 초기화하는 함수
-        function clearPreviousDateStyles() {
-            $(".time-list li").removeClass("past-time reserved-time");
-        }
         // 시간 선택 이벤트 처리
         timeList.on('click', 'li', function () {
             const selectedTime = $(this).text();
@@ -546,6 +542,11 @@
                 console.log("room_id : ", room_id);
                 console.log("seat_number : ", seat_number);
 
+                // 이전에 표시된 달력을 숨깁니다.
+                $("#datepicker").datepicker("destroy");
+
+
+
                 const today = moment().format("YYYY-MM-DD");
 
                 // #datepicker div에 날짜 선택 달력을 표시합니다.
@@ -565,63 +566,55 @@
                     onSelect: function (dateText) {
                         console.log("선택한 날짜: " + dateText);
 
-                        // 이전에 선택한 날짜의 CSS 클래스 초기화
-                        clearPreviousDateStyles();
-
                         // 이전에 선택된 시간 제거
                         $("#start-time").val('');
                         $("#end-time").val('');
 
-                        // 예약된 시간 배열 (예시 데이터)
-                        const reservedTimes = [
-                            '2023-09-15T15:00', '2023-09-15T17:00',
-                            '2023-09-15T17:00', '2023-09-15T18:00', '2023-09-15T15:00',
-                            '2023-09-15T16:00', '2023-09-16T16:00', '2023-09-16T18:00',
-                            '2023-09-17T09:00', '2023-09-17T10:00', '2023-09-21T11:00',
-                            '2023-09-21T18:00', '2023-09-20T13:00', '2023-09-20T20:00'
-                        ];
-
-
-                        console.log("reservedTimes: ", reservedTimes);
-
-                        // 선택한 날짜를 기반으로 예약된 시간을 필터링하여 해당 날짜의 예약 시간대만 가져오기
-                        const selectedDate = moment(dateText);
-                        const currentDate = moment();
+                        // 현재 시간 가져오기
                         const currentTime = moment().format("HH");
 
-                        const selectedReservedTimes = reservedTimes.filter(function (
-                            reservedTime) {
-                            const reservationDate = moment(reservedTime);
-                            return selectedDate.isSame(reservationDate, 'day');
-                        });
-
-                        // 시간 슬롯 비활성화
-                        $(".time-list li").each(function () {
-                            const time = parseInt($(this).text().split(':')[0]);
-
-                            // 선택한 날짜가 현재 날짜보다 이후이거나,
-                            // 선택한 날짜가 현재 날짜와 같고 예약된 시간이 아닌 경우 활성화
-                            if (selectedDate > currentDate || (selectedDate.isSame(
-                                    currentDate, 'day') && time >= currentTime)) {
-                                $(this).prop('disabled', false).removeClass(
-                                    'past-time');
-                            } else {
-                                $(this).prop('disabled', true).addClass(
-                                    'past-time');
-                            }
-                        });
-
-                        // 예약된 시간대를 비활성화
-                        selectedReservedTimes.forEach(function (reservedTime) {
-                            const timeSlot = $(".time-list li:contains(" +
-                                reservedTime.split('T')[1].substring(0, 5) + ")"
-                            );
-                            timeSlot.prop('disabled', true).addClass(
-                                'reserved-time');
-                        });
+                        // 선택한 날짜와 현재 날짜를 비교하여 시간 목록을 활성화 또는 비활성화
+                        const selectedDate = moment(dateText);
+                        const currentDate = moment();
+                        if (selectedDate > currentDate) {
+                            // 선택한 날짜가 현재 날짜보다 이후일 때 모든 시간 활성화
+                            $(".time-list li").prop('disabled', false).removeClass(
+                                'past-time');
+                        } else {
+                            // 선택한 날짜가 현재 날짜와 같거나 이전일 때 과거 시간 비활성화
+                            $(".time-list li").each(function () {
+                                const time = parseInt($(this).text().split(':')[0]);
+                                if (time < currentTime) {
+                                    $(this).prop('disabled', true).addClass(
+                                        'past-time');
+                                } else {
+                                    $(this).prop('disabled', false).removeClass(
+                                        'past-time');
+                                }
+                            });
+                        }
 
                         // 날짜 선택 시 .time-list 요소 표시
                         $(".time-list").css("display", "block"); // 시간 슬롯 표시
+
+                        // 시간 슬롯 초기화
+                        const startTime = $("#start-time").val();
+                        const endTime = $("#end-time").val();
+                        const timeList = document.querySelector('.time-list');
+
+                        // 시작 시간과 종료 시간이 설정되어 있으면 해당 시간대의 시간 목록을 비활성화
+                        if (startTime !== '' && endTime !== '') {
+                            const startHour = parseInt(startTime.split(' ')[1].split(':')[
+                                0]);
+                            const endHour = parseInt(endTime.split(' ')[1].split(':')[0]);
+                            $(".time-list li").each(function () {
+                                const time = parseInt($(this).text().split(':')[0]);
+                                if (time >= startHour && time < endHour) {
+                                    $(this).prop('disabled', true).addClass(
+                                        'past-time');
+                                }
+                            });
+                        }
 
                         // AJAX 요청을 보내서 예약 세부 정보 가져오기
                         $.ajax({
@@ -641,12 +634,17 @@
                                 alert("예약 세부 정보를 가져오는 데 실패했습니다. 다시 시도하세요.");
                             }
                         });
-
                     },
                 });
+
                 // 달력 위치 설정 (조절 가능)
                 $("#datepicker").datepicker("show");
 
+                // 좌석 번호를 숨김
+                document.querySelector(".seat_contaner").style.display = "none";
+
+                // 선택 완료 버튼 숨김
+                document.querySelector(".myChooseButton").style.display = "none";
             } else {
                 alert("좌석을 선택해 주세요.");
             }

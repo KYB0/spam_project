@@ -38,7 +38,8 @@ public class SeatReservationService {
         LocalDateTime endTime = request.getEnd_time();
 
         // 해당 시간대에 예약된 시간 목록을 데이터베이스에서 가져오는 쿼리를 호출합니다.
-        List<ReservationDto> reservedTimes = seatReservationDao.findReservedTimes(roomId, seatNumber, startTime, endTime);
+        List<ReservationDto> reservedTimes = seatReservationDao.findReservedTimes(roomId, seatNumber, startTime,
+                endTime);
 
         // 가져온 시간 목록을 반환합니다.
         return reservedTimes;

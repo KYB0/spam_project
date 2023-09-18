@@ -34,11 +34,11 @@
     $("#id_check").click(function () {
         let customer_id = $("#customer_id").val();
         let idCheckMsg = $("#id_check_msg");
-
+        let company_id = $("#company_id").val();
         // 아이디 유효성 검사
         let idPattern = /^[a-z][a-z0-9]{4,11}$/;
 
-        if (!idPattern.test(customer_id)) {
+        if (!idPattern.test(customer_id, company_id)) {
             idCheckMsg.html(
                 "아이디는 영문 소문자로 시작하고, 영문 소문자와 숫자로만 구성되어야 합니다. 길이는 5자 이상 12자 이하여야 합니다."
             );
@@ -48,7 +48,8 @@
                 url: "/spam/member/check/id", // 아이디 중복 확인 주소로 변경
                 type: "GET",
                 data: {
-                    customer_id: customer_id
+                    customer_id: customer_id,
+                    company_id: company_id
                 },
                 success: function (response) {
                     if (response === "exists") {
