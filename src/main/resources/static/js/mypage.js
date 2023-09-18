@@ -44,6 +44,9 @@
 
         let updateSuccess = true; // 수정 완료 여부 (실제로는 서버 응답에 따라 설정)
 
+        const confirmUpdate = confirm("회원 정보를 수정하시겠습니까?");
+
+
         if (updateSuccess) {
             alert("회원 정보 수정 완료");
             document.getElementById("memberInfo").submit(); // 폼을 제출합니다.

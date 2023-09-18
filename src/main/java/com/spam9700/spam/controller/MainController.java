@@ -62,6 +62,7 @@ public class MainController {
         log.info("업데이트 실패");
         return "redirect:/i_mypage";
     }
+    
      @GetMapping("/res")
     public String resPage() {
         log.info("res 페이지");
