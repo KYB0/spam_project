@@ -326,6 +326,10 @@
     transform: scale3d(1, 1, 1);
   }
 }
+#rtable td {
+        text-align: center; /* 가운데 정렬 */
+        padding: 10px; /* 셀 내부 여백 설정 */
+    }
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
@@ -387,13 +391,16 @@
             <!-- 리뷰 목록 표시 -->
             <table style="width: 100%;" id="rtable">
                 <!-- 제목 테이블 -->
+                <thead>
                 <tr class="rtbl-head">
                     <td>WRITER</td>
                     <td>CONTENTS</td>
                     <td>RATE</td>
                     <td>DATE</td>
                 </tr>
+                </thead>
                 <!-- 리뷰 목록 반복 및 리뷰 표시 -->
+                
                 <c:forEach var="review" items="${reviewList}">
                     <tr>
                         <td class="p-20">${review.customer_id}</td>
@@ -406,12 +413,15 @@
                         </td>
                     </tr>
                 </c:forEach>
+                <tbody id="reviewListContainer">
+            
+                <!--  리뷰 목록이 여기에 나타납니다. -->
+            
+            </tbody>
             </table>
 
             
-            <div id="reviewListContainer">
-                <!--  리뷰 목록이 여기에 나타납니다. -->
-            </div>
+            
 
             <div id="loadMore" class="btn btn-primary">더 보기</div>
 
