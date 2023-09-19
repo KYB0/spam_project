@@ -52,11 +52,11 @@ public class MemberController {
     }
 
     @PostMapping("/i_join")
-    public String join(CustomerMemberDto customerMemberDto, Model model, RedirectAttributes rttr) {
+    public String iJoin(CustomerMemberDto customerMemberDto, Model model, RedirectAttributes rttr) {
         model.addAttribute("cusmb", customerMemberDto);
-        log.info("회원가입 처리");
+        log.info("개인 회원가입 처리");
         log.info("customerMemberDto:{}", customerMemberDto);
-        boolean result = memberService.join(customerMemberDto);
+        boolean result = memberService.iJoin(customerMemberDto);
         if (result) {
             model.addAttribute("msg", "가입성공");
             rttr.addFlashAttribute("msg", "가입성공");
@@ -64,6 +64,22 @@ public class MemberController {
         } else {
             model.addAttribute("msg", "가입실패");
             return "i_join";
+        }
+    }
+
+    @PostMapping("/c_join")
+    public String cJoin(CompanyMemberDto companyMemberDto, Model model, RedirectAttributes rttr) {
+        model.addAttribute("cusmb", companyMemberDto);
+        log.info("기업 회원가입 처리");
+        log.info("companyMemberDto:{}", companyMemberDto);
+        boolean result = memberService.cJoin(companyMemberDto);
+        if (result) {
+            model.addAttribute("msg", "가입성공");
+            rttr.addFlashAttribute("msg", "가입성공");
+            return "redirect:/member/c_login";
+        } else {
+            model.addAttribute("msg", "가입실패");
+            return "c_join";
         }
     }
 
@@ -98,31 +114,31 @@ public class MemberController {
 
     @PostMapping("/c_login")
     public String cLogin(@RequestParam String company_id, @RequestParam String company_pwd,
-        @RequestParam String company_businessnum, HttpSession session) {
-    log.info("기업로그인 처리");
-    log.info("id:{}, pwd:{}, businessnum:{}", company_id, company_pwd, company_businessnum);
+            @RequestParam String company_businessnum, HttpSession session) {
+        log.info("기업로그인 처리");
+        log.info("id:{}, pwd:{}, businessnum:{}", company_id, company_pwd, company_businessnum);
 
-    boolean loginResult = memberService.cLogin(company_id, company_pwd, company_businessnum);
-    
-    if (loginResult) {
-        log.info("기업로그인 성공");
+        boolean loginResult = memberService.cLogin(company_id, company_pwd, company_businessnum);
 
-        // 로그인 성공 시, 세션에 필요한 정보를 저장
-        session.setAttribute("company_id", company_id);
-        CompanyMemberDto companyMemberDto = new CompanyMemberDto();
-        companyMemberDto.setCompany_id(company_id);
-        session.setAttribute("loggedInUser", companyMemberDto); // 기업 회원 정보 세션에 추가
+        if (loginResult) {
+            log.info("기업로그인 성공");
 
-        return "redirect:/main";
-    } else {
-        log.info("로그인 실패");
-        return "c_login";
+            // 로그인 성공 시, 세션에 필요한 정보를 저장
+            session.setAttribute("company_id", company_id);
+            CompanyMemberDto companyMemberDto = new CompanyMemberDto();
+            companyMemberDto.setCompany_id(company_id);
+            session.setAttribute("loggedInUser", companyMemberDto); // 기업 회원 정보 세션에 추가
+
+            return "redirect:/main";
+        } else {
+            log.info("로그인 실패");
+            return "c_login";
+        }
     }
-}
 
     @GetMapping("/check/id")
-    public ResponseEntity<String> checkId(@RequestParam String customer_id) {
-        boolean idCheck = memberService.idCheck(customer_id);
+    public ResponseEntity<String> checkId(@RequestParam String customer_id, @RequestParam String company_id) {
+        boolean idCheck = memberService.idCheck(customer_id, company_id);
 
         if (idCheck) {
             return ResponseEntity.ok("exists");

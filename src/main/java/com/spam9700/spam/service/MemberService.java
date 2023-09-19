@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spam9700.spam.dao.MemberDao;
+import com.spam9700.spam.dto.CompanyMemberDto;
 import com.spam9700.spam.dto.CustomerMemberDto;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +18,14 @@ public class MemberService {
     @Autowired
     MemberDao memberDao;
 
-    public boolean join(CustomerMemberDto customerMemberDto) {
+    public boolean iJoin(CustomerMemberDto customerMemberDto) {
         // customerMemberDto.se
         // customerMemberDto.setCustomerBirth(LocalDate.of(Year, Month, Day));
-        return memberDao.join(customerMemberDto);
+        return memberDao.iJoin(customerMemberDto);
+    }
+
+    public boolean cJoin(CompanyMemberDto companyMemberDto) {
+        return memberDao.cJoin(companyMemberDto);
     }
 
     public boolean iLogin(String customer_id, String customer_pwd) {
@@ -31,8 +36,12 @@ public class MemberService {
         return memberDao.cLogin(company_id, company_pwd, company_businessnum);
     }
 
-    public boolean idCheck(String customer_id) {
-    return memberDao.idCheck(customer_id);
+    public boolean iIdCheck(String customer_id) {
+        return memberDao.iIdCheck(customer_id);
+    }
+
+    public boolean cIdCheck(String company_id) {
+        return memberDao.cIdCheck(company_id);
     }
 
     public List<String> findId(String customer_name, String customer_email) {
@@ -56,6 +65,7 @@ public class MemberService {
         memberDao.deleteMemberInfo(customer_id);
     }
 
+<<<<<<< HEAD
     public void deleteUserWithRooms(String company_id) {
         memberDao.deleteStudyRoomsByCompanyId(company_id);
         memberDao.deleteCMemberInfo(company_id);
@@ -70,4 +80,10 @@ public class MemberService {
     }
 
    
+=======
+    public boolean idCheck(String customer_id, String company_id) {
+        return memberDao.idCheck(customer_id, company_id);
+    }
+
+>>>>>>> yongbin
 }

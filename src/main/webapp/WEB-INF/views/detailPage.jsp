@@ -9,8 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPAM</title>
     <style>
-        body{
-            background-color: #f0e9e4 !important;  /* 밝은 베이지 */
+        body {
+            background-color: #f0e9e4 !important;
+            /* 밝은 베이지 */
         }
 
         .p-20 {
@@ -216,124 +217,143 @@
         }
 
         .button {
-  float: right;
-  position: fixed;
-  top: 500px;
+            float: right;
+            position: fixed;
+            top: 500px;
             /* 상단 여백 조절 */
             right: 200px;
             /* 오른쪽 여백 조절 */
             z-index: 999;
-  min-width: 150px;
-  max-width: 250px;
-  display: block;
-  /* margin: 1em;
+            min-width: 150px;
+            max-width: 250px;
+            display: block;
+            /* margin: 1em;
   padding: 1em 2em; */
-  border: none;
-  background: none;
-  color: inherit;
-  vertical-align: middle;
-  -webkit-backface-visibility: hidden;
-  -moz-osx-font-smoothing: grayscale;
-}
-.button:focus {
-  outline: none;
-}
-.button > span {
-  vertical-align: middle;
-}
+            border: none;
+            background: none;
+            color: inherit;
+            vertical-align: middle;
+            -webkit-backface-visibility: hidden;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-.button--moema {
-  padding: 1.0em 1.5em;
-  border-radius: 50px;
-  background: #ACB992;
-  color: #fff;
-  -webkit-transition: background-color 0.3s, color 0.3s;
-  transition: background-color 0.3s, color 0.3s;
-}
-.button--moema.button--inverted {
-  background: #ECEFF1;
-  color: #37474f;
-}
-.button--moema::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  bottom: -20px;
-  right: -20px;
-  background: inherit;
-  border-radius: 50px;
-  z-index: -1;
-  opacity: 0.4;
-  -webkit-transform: scale3d(0.8, 0.5, 1);
-  transform: scale3d(0.8, 0.5, 1);
-}
-.button--moema:hover {
-  -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-  transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
-  color: #ECEFF1;
-  background-color: #464E2E;
-  -webkit-animation: anim-moema-1 0.3s forwards;
-  animation: anim-moema-1 0.3s forwards;
-}
-.button--moema.button--inverted:hover {
-  color: #ECEFF1;
-  background-color: #ACB992;
-}
-.button--moema:hover::before {
-  -webkit-animation: anim-moema-2 0.3s 0.3s forwards;
-  animation: anim-moema-2 0.3s 0.3s forwards;
-}
-@-webkit-keyframes anim-moema-1 {
-  60% {
-    -webkit-transform: scale3d(0.8, 0.8, 1);
-    transform: scale3d(0.8, 0.8, 1);
-  }
-  85% {
-    -webkit-transform: scale3d(1.1, 1.1, 1);
-    transform: scale3d(1.1, 1.1, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@keyframes anim-moema-1 {
-  60% {
-    -webkit-transform: scale3d(0.8, 0.8, 1);
-    transform: scale3d(0.8, 0.8, 1);
-  }
-  85% {
-    -webkit-transform: scale3d(1.1, 1.1, 1);
-    transform: scale3d(1.1, 1.1, 1);
-  }
-  100% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@-webkit-keyframes anim-moema-2 {
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-@keyframes anim-moema-2 {
-  to {
-    opacity: 0;
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-}
-#rtable td {
-        text-align: center; /* 가운데 정렬 */
-        padding: 10px; /* 셀 내부 여백 설정 */
-    }
+        .button:focus {
+            outline: none;
+        }
+
+        .button>span {
+            vertical-align: middle;
+        }
+
+        .button--moema {
+            padding: 1.0em 1.5em;
+            border-radius: 50px;
+            background: #ACB992;
+            color: #fff;
+            -webkit-transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .button--moema.button--inverted {
+            background: #ECEFF1;
+            color: #37474f;
+        }
+
+        .button--moema::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            bottom: -20px;
+            right: -20px;
+            background: inherit;
+            border-radius: 50px;
+            z-index: -1;
+            opacity: 0.4;
+            -webkit-transform: scale3d(0.8, 0.5, 1);
+            transform: scale3d(0.8, 0.5, 1);
+        }
+
+        .button--moema:hover {
+            -webkit-transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+            transition: background-color 0.1s 0.3s, color 0.1s 0.3s;
+            color: #ECEFF1;
+            background-color: #464E2E;
+            -webkit-animation: anim-moema-1 0.3s forwards;
+            animation: anim-moema-1 0.3s forwards;
+        }
+
+        .button--moema.button--inverted:hover {
+            color: #ECEFF1;
+            background-color: #ACB992;
+        }
+
+        .button--moema:hover::before {
+            -webkit-animation: anim-moema-2 0.3s 0.3s forwards;
+            animation: anim-moema-2 0.3s 0.3s forwards;
+        }
+
+        @-webkit-keyframes anim-moema-1 {
+            60% {
+                -webkit-transform: scale3d(0.8, 0.8, 1);
+                transform: scale3d(0.8, 0.8, 1);
+            }
+
+            85% {
+                -webkit-transform: scale3d(1.1, 1.1, 1);
+                transform: scale3d(1.1, 1.1, 1);
+            }
+
+            100% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        @keyframes anim-moema-1 {
+            60% {
+                -webkit-transform: scale3d(0.8, 0.8, 1);
+                transform: scale3d(0.8, 0.8, 1);
+            }
+
+            85% {
+                -webkit-transform: scale3d(1.1, 1.1, 1);
+                transform: scale3d(1.1, 1.1, 1);
+            }
+
+            100% {
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        @-webkit-keyframes anim-moema-2 {
+            to {
+                opacity: 0;
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        @keyframes anim-moema-2 {
+            to {
+                opacity: 0;
+                -webkit-transform: scale3d(1, 1, 1);
+                transform: scale3d(1, 1, 1);
+            }
+        }
+
+        #rtable td {
+            text-align: center;
+            /* 가운데 정렬 */
+            padding: 10px;
+            /* 셀 내부 여백 설정 */
+        }
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
+
 <body>
     <%@ include file="header.jsp" %>
 
@@ -346,7 +366,8 @@
         <div class="invite">
             <h2>독서실 소개</h2>
             <div class="zzim">
-                <button id="zzim-button" class="zzim-button" data-customer-id="${customer_id}" data-room-id="${room_id}">
+                <button id="zzim-button" class="zzim-button" data-customer-id="${customer_id}"
+                    data-room-id="${room_id}">
                     <img src="image/like_2.png" alt="찜 버튼" id="zzim-image">
                 </button>
             </div><br>
@@ -392,15 +413,15 @@
             <table style="width: 100%;" id="rtable">
                 <!-- 제목 테이블 -->
                 <thead>
-                <tr class="rtbl-head">
-                    <td>WRITER</td>
-                    <td>CONTENTS</td>
-                    <td>RATE</td>
-                    <td>DATE</td>
-                </tr>
+                    <tr class="rtbl-head">
+                        <td>WRITER</td>
+                        <td>CONTENTS</td>
+                        <td>RATE</td>
+                        <td>DATE</td>
+                    </tr>
                 </thead>
                 <!-- 리뷰 목록 반복 및 리뷰 표시 -->
-                
+
                 <c:forEach var="review" items="${reviewList}">
                     <tr>
                         <td class="p-20">${review.customer_id}</td>
@@ -414,14 +435,14 @@
                     </tr>
                 </c:forEach>
                 <tbody id="reviewListContainer">
-            
-                <!--  리뷰 목록이 여기에 나타납니다. -->
-            
-            </tbody>
+
+                    <!--  리뷰 목록이 여기에 나타납니다. -->
+
+                </tbody>
             </table>
 
-            
-            
+
+
 
             <div id="loadMore" class="btn btn-primary">더 보기</div>
 
@@ -429,103 +450,115 @@
     <!-- 예약하기 버튼 -->
     <section class="content">
         <div class="box bg-1">
-            <button class="button button--moema button--text-thick button--text-upper button--size-s" id="reservation-button">예약하기</button>
-</div>
+            <button class="button button--moema button--text-thick button--text-upper button--size-s"
+                id="reservation-button">예약하기</button>
+        </div>
     </section>
 
 
     <%@ include file="footer.jsp" %>
 </body>
 <script>
+    $(document).ready(function () {
+        // 서버에서 "찜 상태" 정보를 가져옵니다.
+        var customer_id = "${customer_id}";
+        var room_id = "${room_id}";
 
-$(document).ready(function () {
-    // 서버에서 "찜 상태" 정보를 가져옵니다.
-    var customer_id = "${customer_id}";
-    var room_id = "${room_id}";
-
-    $.ajax({
-        type: "GET",
-        url: "/spam/wishlist/check",
-        data: { customer_id: customer_id, room_id: room_id },
-        success: function (data) {
-            if (data === "Added to Wishlist") {
-                // 찜 상태이면 초기 이미지를 꽉 찬 하트로 설정
-                $("#zzim-image").attr("src", "image/like_1.png");
-                console.log(data)
-            } else if (data === "Removed from Wishlist") {
-                // 찜 상태가 아니면 초기 이미지를 빈 하트로 설정
-                $("#zzim-image").attr("src", "image/like_2.png");
-            } else {
-                // 찜 상태 확인 실패 시 처리 (예: 기본 이미지로 설정)
+        $.ajax({
+            type: "GET",
+            url: "/spam/wishlist/check",
+            data: {
+                customer_id: customer_id,
+                room_id: room_id
+            },
+            success: function (data) {
+                if (data === "Added to Wishlist") {
+                    // 찜 상태이면 초기 이미지를 꽉 찬 하트로 설정
+                    $("#zzim-image").attr("src", "image/like_1.png");
+                    console.log(data)
+                } else if (data === "Removed from Wishlist") {
+                    // 찜 상태가 아니면 초기 이미지를 빈 하트로 설정
+                    $("#zzim-image").attr("src", "image/like_2.png");
+                } else {
+                    // 찜 상태 확인 실패 시 처리 (예: 기본 이미지로 설정)
+                    console.error("찜 상태 확인 실패");
+                }
+            },
+            error: function () {
+                // 에러 발생 시 처리 (예: 기본 이미지로 설정)
                 console.error("찜 상태 확인 실패");
             }
-        },
-        error: function () {
-            // 에러 발생 시 처리 (예: 기본 이미지로 설정)
-            console.error("찜 상태 확인 실패");
-        }
+        });
     });
-});
 
 
 
     // 찜하기 버튼 클릭 시 toggleWishList 함수 호출
     $("#zzim-button").click(function () {
         // 중복 클릭 방지를 위해 버튼을 비활성화
-    $(this).prop("disabled", true);
+        $(this).prop("disabled", true);
         toggleWishList(this);
     });
 
 
-function toggleWishList(buttonElement){
-    var imageElement = buttonElement.querySelector("img");
-    const customer_id = buttonElement.getAttribute("data-customer-id");
-    const room_id = buttonElement.getAttribute("data-room-id");
+    function toggleWishList(buttonElement) {
+        var imageElement = buttonElement.querySelector("img");
+        const customer_id = buttonElement.getAttribute("data-customer-id");
+        const room_id = buttonElement.getAttribute("data-room-id");
 
 
-    $.ajax({
-        type: "POST",
-        url: "/spam/wishlist/toggle",
-        data: JSON.stringify({customer_id:customer_id, room_id:room_id}),
-        contentType: "application/json",
-        success: function(data){
-            if(data === "Added to Wishlist"){
-                //찜하기 추가됨 : 하트 아이콘 색상 변경
-                imageElement.src = "image/like_1.png"; // 찜 추가 이미지로 변경
+        $.ajax({
+            type: "POST",
+            url: "/spam/wishlist/toggle",
+            data: JSON.stringify({
+                customer_id: customer_id,
+                room_id: room_id
+            }),
+            contentType: "application/json",
+            success: function (data) {
+                if (data === "Added to Wishlist") {
+                    //찜하기 추가됨 : 하트 아이콘 색상 변경
+                    imageElement.src = "image/like_1.png"; // 찜 추가 이미지로 변경
 
-                $(buttonElement).prop("disabled", false);
-            }else if(data === "Removed from Wishlist"){
-                //찜하기 제거됨 : 하트 아이콘 색상 변경 해제
-                imageElement.src = "image/like_2.png"; // 찜 해제 이미지로 변경
-                $(buttonElement).prop("disabled", false);
-            }else{
-                //로그인이 필요한 경우 또는 오류 발생
-                alert(data);
+                    $(buttonElement).prop("disabled", false);
+                } else if (data === "Removed from Wishlist") {
+                    //찜하기 제거됨 : 하트 아이콘 색상 변경 해제
+                    imageElement.src = "image/like_2.png"; // 찜 해제 이미지로 변경
+                    $(buttonElement).prop("disabled", false);
+                } else {
+                    //로그인이 필요한 경우 또는 오류 발생
+                    alert(data);
+                    $(buttonElement).prop("disabled", false);
+                }
+            },
+            error: function () {
+                alert("로그인이 필요합니다.");
                 $(buttonElement).prop("disabled", false);
             }
-        },
-        error:function(){
-            alert("로그인이 필요합니다.");
-            $(buttonElement).prop("disabled", false);
-        }
-    })
-}
+        })
+    }
 
 
 
-  //하은씨 힘내요
+    //하은씨 힘내요
 
     // 예약하기 버튼 클릭 시 동작 정의
     $(document).ready(function () {
         $("#reservation-button").click(function () {
-            var room_name = "${room_name}"; // 방 이름을 동적으로 가져오거나 설정하세요.
-            var reservationURL = "/spam/" + room_name + "/reservation";
-            window.location.href = reservationURL;
+            const loginCheck = "${customer_id}";
+            if (loginCheck) {
+                let room_name = "${room_name}"; // 방 이름을 동적으로 가져오거나 설정하세요.
+                let reservationURL = "/spam/" + room_name + "/reservation";
+                window.location.href = reservationURL;
+            } else {
+                let loginURL = "/spam/member/i_login"
+                window.location.href = loginURL;
+            }
         });
     });
 
     // 서버에서 room_description 데이터를 가져오는 Ajax 요청
-    var room_name = "${room_name}";
+    let room_name = "${room_name}";
 
 
     //리뷰 작성 스크립트
@@ -544,7 +577,7 @@ function toggleWishList(buttonElement){
         });
     });
 
-//--------------------------------------------------------------------------------------------//
+    //--------------------------------------------------------------------------------------------//
 
     // 리뷰 작성 및 리뷰 불러오기 관련 스크립트
     $(document).ready(function () {
@@ -562,7 +595,7 @@ function toggleWishList(buttonElement){
                 customer_id: customer_id
             };
 
-            
+
 
             $.ajax({
                 type: "POST",
@@ -623,49 +656,46 @@ function toggleWishList(buttonElement){
         updateReviewList();
     });
 
-//--------------------------------------------------------------------------------------------//
+    //--------------------------------------------------------------------------------------------//
 
-$(document).ready(function () {
-    let currentPage = 1; // 현재 페이지
-    const itemsPerPage = 5; // 한 페이지당 표시할 아이템 수
+    $(document).ready(function () {
+        let currentPage = 1; // 현재 페이지
+        const itemsPerPage = 5; // 한 페이지당 표시할 아이템 수
 
-    // 더 보기 버튼 클릭 이벤트
-    $("#loadMore").click(function () {
-        currentPage++; // 다음 페이지로 이동
-        loadReviews(currentPage);
-    });
-
-    // 리뷰 로드 함수
-    function loadReviews(page) {
-        $.ajax({
-            type: "GET",
-            url: "/spam/" + room_name + "/reviews?page=" + page + "&itemsPerPage=" + itemsPerPage,
-            success: function (data) {
-                // 새로 로드한 리뷰를 화면에 추가
-                for (let i = 0; i < data.length; i++) {
-                    let commentHtml = "<tr>" +
-                        "<td>" + data[i].customer_id + "</td>" +
-                        "<td>" + data[i].review_content + "</td>" +
-                        "<td>" + data[i].rating + "점</td>" +
-                        "<td>" + data[i].review_date + "</td>" +
-                        "</tr>";
-                    $("#reviewListContainer").append(commentHtml);
-                }
-
-                // 더 보기 버튼 숨기기
-                if (data.length < itemsPerPage) {
-                    $("#loadMore").hide();
-                }
-            },
-            error: function () {
-                alert("리뷰 목록을 불러오기 실패");
-            }
+        // 더 보기 버튼 클릭 이벤트
+        $("#loadMore").click(function () {
+            currentPage++; // 다음 페이지로 이동
+            loadReviews(currentPage);
         });
-    }
-});
 
+        // 리뷰 로드 함수
+        function loadReviews(page) {
+            $.ajax({
+                type: "GET",
+                url: "/spam/" + room_name + "/reviews?page=" + page + "&itemsPerPage=" + itemsPerPage,
+                success: function (data) {
+                    // 새로 로드한 리뷰를 화면에 추가
+                    for (let i = 0; i < data.length; i++) {
+                        let commentHtml = "<tr>" +
+                            "<td>" + data[i].customer_id + "</td>" +
+                            "<td>" + data[i].review_content + "</td>" +
+                            "<td>" + data[i].rating + "점</td>" +
+                            "<td>" + data[i].review_date + "</td>" +
+                            "</tr>";
+                        $("#reviewListContainer").append(commentHtml);
+                    }
 
-    
+                    // 더 보기 버튼 숨기기
+                    if (data.length < itemsPerPage) {
+                        $("#loadMore").hide();
+                    }
+                },
+                error: function () {
+                    alert("리뷰 목록을 불러오기 실패");
+                }
+            });
+        }
+    });
 </script>
 
 </html>

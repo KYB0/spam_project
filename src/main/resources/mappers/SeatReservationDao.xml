@@ -23,6 +23,32 @@
             '1'        
         )
     </insert>
+    <!-- 주어진 좌석 번호와 예약 시간 범위 내의 예약 정보를 검색하는 쿼리 정의 -->
+    <select id="findReservationsBySeatNumberAndTimeRange" resultType="com.spam9700.spam.dto.SeatReservationDto">
+        SELECT *
+        FROM seat_reservations
+        WHERE room_id = #{roomId} 
+        AND seat_number = #{seatNumber}
+        AND (start_time BETWEEN #{startTime} AND #{endTime} OR end_time BETWEEN #{startTime} AND #{endTime})
+    </select>
+
+    <!-- 주어진 룸과 날짜에 대한 예약된 시간 목록을 조회하는 쿼리 정의 -->
+    <select id="findReservedTimesByRoomAndDate" resultType="java.lang.String">
+        SELECT DISTINCT start_time, end_time
+        FROM seat_reservations
+        WHERE room_id = #{roomId} 
+        AND DATE(start_time) = #{date}
+    </select>
+
+    <!-- 해당 시간대에 예약된 시간 목록을 가져오는 쿼리 -->
+    <select id="findReservedTimes" resultType="com.spam9700.spam.dto.ReservationDto" parameterType="map">
+        SELECT DISTINCT start_time, end_time
+        FROM seat_reservations
+        WHERE room_id = #{roomId}
+        AND seat_number = #{seatNumber}
+        AND status = '1'
+    </select>
+
 
 
 

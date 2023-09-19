@@ -1,4 +1,5 @@
 package com.spam9700.spam.dao;
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -20,8 +21,8 @@ public interface SeatReservationDao {
 
     void insertReservations(ReservationDto reservationDto);
 
-     // 예약 조회 메서드 (고객 ID로 조회)
-     List<ReservationDto> selectReservationsByCustomerId(@Param("customer_id") String customer_id);
+    // 예약 조회 메서드 (고객 ID로 조회)
+    List<ReservationDto> selectReservationsByCustomerId(@Param("customer_id") String customer_id);
 
     boolean checkCustomerExistence(String customer_id);
 
