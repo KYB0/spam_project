@@ -5,9 +5,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -162,15 +164,12 @@ public class ReservationController {
     @PostMapping("/payment")
 public String processPayment(@PathVariable String room_name,
         @RequestParam("room_id") int room_id,
-        @RequestParam("seat_number") String seat_numbers,
+        @RequestParam("seat_number") String seat_number,
         @RequestParam("start_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime startTime,
         @RequestParam("end_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime endTime) {
 
-    // 콤마로 구분된 seat_numbers 문자열을 분리하여 리스트로 저장
-    List<String> seatNumberList = Arrays.asList(seat_numbers.split(","));
 
-    // 각 seat_number에 대한 예약 처리 수행
-    for (String seat_number : seatNumberList) {
+   
         ReservationDto reservationDto = new ReservationDto();
         reservationDto.setCustomer_id("customer_id"); // 고객 ID 설정 (세션에서 가져오거나 임시로 설정)
         reservationDto.setSeat_number(seat_number);
@@ -181,7 +180,7 @@ public String processPayment(@PathVariable String room_name,
 
         // 데이터베이스에 저장
         seatReservationService.saveReservation(reservationDto);
-    }
+    
 
     return "redirect:/main"; // 결제가 성공적으로 완료되면 메인 페이지로 리다이렉트
 }
@@ -224,7 +223,7 @@ public String getReservationPage(HttpSession session, @PathVariable("room_name")
 }
 
 
-@PostMapping("/makePayment")
+    @PostMapping("/makePayment")
     public String makePayment(@RequestBody ReservationDto reservationDto) {
         // paymentService를 사용하여 유효성 검사를 수행하고 결제를 처리합니다.
         boolean isValid = seatReservationService.validateAndProcessPayment(reservationDto);
@@ -238,5 +237,17 @@ public String getReservationPage(HttpSession session, @PathVariable("room_name")
         }
     }
 
+
+//    @PostMapping("/insertReservation")
+// public ResponseEntity<String> insertReservation(@RequestBody InsertReservationRequest request) {
+//     List<Integer> seatNumbers = Arrays.stream(request.getSeatNumber())
+//             .map(Integer::parseInt)
+//             .collect(Collectors.toList());
+
+//     // seatNumbers를 사용하여 정수로 변환된 seat_number 값을 데이터베이스에 INSERT
+//     seatReservationService.insertReservation(seatNumbers, request.getCustomerId(), request.getRoomId());
+    
+//     return ResponseEntity.ok("예약이 성공적으로 완료되었습니다.");
+// }
 
 }       

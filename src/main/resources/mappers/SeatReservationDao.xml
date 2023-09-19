@@ -24,21 +24,19 @@
         )
     </insert>
 
-//아이디 존재여부 확인
+<!-- //아이디 존재여부 확인 -->
 <select id="checkCustomerIdExistence" resultType="int">
     SELECT 1
     FROM customer_member
     WHERE customer_id = #{customer_id}
 </select>
 
-//좌석 존재여부 확인
-<select id="checkSeatNumberExistence" resultType="int">
-    SELECT 1
-    FROM seats
-    WHERE seat_number LIKE CONCAT('%', #{seat_number}, '%')
+<!-- 좌석 존재여부 확인 -->
+<select id="checkSeatNumberExistence" resultType="int" parameterType="String">
+    SELECT COUNT(*) FROM seats WHERE seat_number LIKE CONCAT('%', #{seatNumber}, '%') AND room_id = #{roomId}
 </select>
 
-//스터디룸 존재여부 확인
+<!-- //스터디룸 존재여부 확인 -->
 <select id="checkRoomIdExistence" resultType="int">
     SELECT 1
     FROM study_room
