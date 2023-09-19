@@ -62,5 +62,12 @@ public class MemberService {
         
     }
 
+    public boolean isCustomerExist(String customer_id) {
+       // DAO를 통해 데이터베이스에서 해당 customer_id가 존재하는지 확인
+       boolean isExist = memberDao.isCustomerExist(customer_id);
+
+       return isExist;
+    }
+
    
 }

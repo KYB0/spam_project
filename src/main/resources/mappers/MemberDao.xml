@@ -80,4 +80,10 @@
     WHERE company_id = #{company_id}
 </delete>
 
+<select id="isCustomerExist" resultType="Boolean">
+        SELECT COUNT(*) > 0
+        FROM customer_member
+        WHERE customer_id = #{customer_id}
+    </select>
+
 </mapper>

@@ -1,6 +1,5 @@
 ﻿package com.spam9700.spam.dto;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,12 +11,11 @@ public class ReservationDto {
     private int reservation_id;
     private String customer_id;
     private String seat_number;
-    private String room_name;
+    private int room_id;
     private String status;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime start_time;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime end_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+private LocalDateTime start_time;
+@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+private LocalDateTime end_time;
 
 }
