@@ -23,12 +23,17 @@
 
     <!-- getCommentsByBoardId -->
 
-<select id="getCommentsByBoardId" parameterType="map" resultType="com.spam9700.spam.dto.CommentDto">
-    SELECT * FROM comments
-    WHERE board_id = #{boardId}
-    ORDER BY comment_id DESC
-    LIMIT #{offset}, #{pageSize}
-</select>
+    <select id="getCommentsByBoardId" parameterType="map" resultType="com.spam9700.spam.dto.CommentDto">
+        SELECT * FROM comments
+        WHERE board_id = #{boardId}
+        ORDER BY comment_id DESC
+        LIMIT #{offset}, #{pageSize};
+    </select>
+
+    <select id="getTotalCommentCount" resultType="int">
+        SELECT COUNT(*) FROM comments
+        WHERE board_id =#{boardId};
+    </select>
 
 
 </mapper>
