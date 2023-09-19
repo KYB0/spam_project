@@ -36,5 +36,4 @@
     WHERE sr.room_name = #{room_name}
     </select>
 
-
 </mapper>

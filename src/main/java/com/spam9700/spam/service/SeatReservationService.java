@@ -1,37 +1,40 @@
 package com.spam9700.spam.service;
+import com.spam9700.spam.dao.SeatReservationDao;
+import com.spam9700.spam.dto.ReservationDto;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spam9700.spam.dao.SeatReservationDao;
-import com.spam9700.spam.dto.SeatReservationDto;
-
-import lombok.extern.slf4j.Slf4j;
-
 @Service
 public class SeatReservationService {
 
-    // 데이터베이스 연동을 위한 DAO 클래스를 주입받습니다.
     @Autowired
     private SeatReservationDao seatReservationDao;
 
-    public SeatReservationService(SeatReservationDao seatReservationDao) {
-        this.seatReservationDao = seatReservationDao;
-    }
-
-    // 모든 좌석 예약 목록 조회
-    public List<SeatReservationDto> getAllSeatReservations() {
-        return seatReservationDao.getAllSeatReservations();
-    }
-
-    // 좌석 예약 생성
-    public void createSeatReservation(SeatReservationDto seatReservationDto) {
-        seatReservationDao.createSeatReservation(seatReservationDto);
-    }
-
-
+    public void saveReservation(ReservationDto reservationDto) {
     
-}
+            seatReservationDao.saveReservation(reservationDto);
+        
+    }
 
+    public String getRoomNameByRoomId(String room_id) {
+        return seatReservationDao.getRoomNameByRoomId(room_id);
+    }
+
+    // 예약 생성 서비스 메서드
+    public void createReservation(ReservationDto reservationDto) {
+        // 여기에서 예약 관련 비즈니스 로직을 수행하고
+        // ReservationDao를 사용하여 데이터베이스에 예약 정보를 저장합니다.
+        seatReservationDao.insertReservation(reservationDto);
+    }
+
+    public void saveReservations(ReservationDto reservationDto) {
+        seatReservationDao.saveReservation(reservationDto);
+    }
+
+
+
+}

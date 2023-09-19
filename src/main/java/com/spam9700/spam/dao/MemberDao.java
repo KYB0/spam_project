@@ -3,6 +3,7 @@ package com.spam9700.spam.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import com.spam9700.spam.dto.CompanyMemberDto;
 import com.spam9700.spam.dto.CustomerMemberDto;
@@ -32,6 +33,8 @@ public interface MemberDao {
     void deleteStudyRoomsByCompanyId(String company_id);
 
     void deleteCMemberInfo(String company_id);
+
+    boolean isCustomerExist(@Param("customer_id") String customer_id);
 
 
 
