@@ -1,4 +1,4 @@
-﻿﻿package com.spam9700.spam.controller;
+﻿package com.spam9700.spam.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -50,20 +50,20 @@ public class ReservationController {
     public String reservationPage(HttpSession session, @PathVariable("room_name") String room_name, Model model) {
 
         // studycafeService를 이용하여 room_name을 기반으로 좌석 정보를 가져오는 service 메서드 호출
-        List < SeatDto > seats = studycafeService.getSeatsByRoomName(room_name);
+        List<SeatDto> seats = studycafeService.getSeatsByRoomName(room_name);
         // 모델에 좌석 정보를 추가하여 jsp 페이지로 전달
         // for(SeatDto sd : seats){
         // System.out.println(sd);
         // }
 
-        List < Integer > seatNumbersList = new ArrayList < > ();
+        List<Integer> seatNumbersList = new ArrayList<>();
         String seatNumber = null;
         String[] seatNumbers = null;
-        for (SeatDto seat: seats) {
+        for (SeatDto seat : seats) {
             seatNumber = seat.getSeat_number();
             seatNumbers = seatNumber.split(",");
 
-            for (String number: seatNumbers) {
+            for (String number : seatNumbers) {
                 try {
                     int parsedNumber = Integer.parseInt(number.trim());
                     seatNumbersList.add(parsedNumber);
@@ -107,15 +107,14 @@ public class ReservationController {
         return "default_customer_id"; // 기본값으로 "default_customer_id"를 반환합니다. 수정이 필요한 경우 예외 처리 등을 수행하세요.
     }
 
-
     // 결제 완료 처리
     @PostMapping("/payment")
     public String processPayment(@PathVariable String room_name,
-        @RequestParam("room_id") int room_id,
-        @RequestParam("seat_number") String seat_number,
-        @RequestParam("start_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime startTime,
-        @RequestParam("end_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime endTime,
-        HttpSession session) { // HttpSession을 파라미터로 받아 세션을 사용합니다.
+            @RequestParam("room_id") int room_id,
+            @RequestParam("seat_number") String seat_number,
+            @RequestParam("start_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime startTime,
+            @RequestParam("end_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime endTime,
+            HttpSession session) { // HttpSession을 파라미터로 받아 세션을 사용합니다.
 
         String customer_id = getCustomerIdFromSession(session); // 세션에서 고객 ID를 가져옵니다.
 
@@ -132,30 +131,16 @@ public class ReservationController {
 
         return "redirect:/main"; // 결제가 성공적으로 완료되면 메인 페이지로 리다이렉트
     }
-    // 이렇게 하면 콤마로 구분된 seat_number 목록에 대한 예약을 처리할 수 있으며, LocalDateTime 형식을 사용하여 "T"를 공백으로 대체하지 않습니다.
-
-
-
-
-
-
-
-    // @PostMapping("/save")
-    //     public String saveReservations(@RequestBody ReservationDto reservationDto) {
-    //         // 서비스 클래스를 호출하여 예약 데이터 저장
-    //         seatReservationService.saveReservations(reservationDto);
-
-    //         return "redirect:/main"; // 저장 성공 후 리다이렉트할 페이지
-    //     }
 
     @GetMapping("/rsv")
-    public String getReservationPage(HttpSession session, @PathVariable("room_name") String room_name, @RequestParam("start_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime start_time,
-        @RequestParam("end_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime end_time, @RequestParam("seat_number") String seat_number, Model model) {
+    public String getReservationPage(HttpSession session, @PathVariable("room_name") String room_name,
+            @RequestParam("start_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime start_time,
+            @RequestParam("end_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime end_time,
+            @RequestParam("seat_number") String seat_number, Model model) {
         String customer_id = getCustomerIdFromSession(session);
 
         ReservationDto reservationDto = new ReservationDto();
         reservationDto.setCustomer_id(customer_id);
-
 
         // start_timeStr와 end_timeStr에서 "T"를 공백으로 대체
         String start_timeStr = start_time.toString().replace("T", " ");
@@ -175,6 +160,11 @@ public class ReservationController {
         return "payment"; // 예약 페이지 템플릿 이름 또는 경로
     }
 
+    @PostMapping("/cancel")
+    public String cancelReservation(@RequestParam("reservation_id") int reservation_id) {
 
+        studycafeService.cancelReservation(reservation_id);
+        return "redirect:/i_mypage/list";
+    }
 
 }

@@ -32,15 +32,12 @@ public interface MemberDao {
     boolean updateMypage(CustomerMemberDto customerMemberDto);
 
     void deleteMemberInfo(String customer_id);
-       
-    
+
     void deleteStudyRoomsByCompanyId(String company_id);
 
     void deleteCMemberInfo(String company_id);
 
     boolean isCustomerExist(@Param("customer_id") String customer_id);
-
-
 
     boolean idCheck(String customer_id, String company_id);
 

@@ -27,23 +27,23 @@ public class ReservationRestController {
     @Autowired
     private SeatReservationService seatReservationService;
 
-    @PostMapping("/checkDuplicateReservation")
-    @ResponseBody
-    public Map<String, Object> checkDuplicateReservation(@RequestBody ReservationDto reservationDto) {
-        Map<String, Object> response = new HashMap<>();
+    // @PostMapping("/checkDuplicateReservation")
+    // @ResponseBody
+    // public Map<String, Object> checkDuplicateReservation(@RequestBody ReservationDto reservationDto) {
+    //     Map<String, Object> response = new HashMap<>();
 
-        boolean isDuplicate = seatReservationService.isDuplicateReservation(
-                reservationDto.getRoom_id(),
-                reservationDto.getSeat_number(),
-                reservationDto.getStart_time(),
-                reservationDto.getEnd_time()
+    //     boolean isDuplicate = seatReservationService.isDuplicateReservation(
+    //             reservationDto.getRoom_id(),
+    //             reservationDto.getSeat_number(),
+    //             reservationDto.getStart_time(),
+    //             reservationDto.getEnd_time()
 
-        );
+    //     );
 
-        log.info("reservationDto: {}", isDuplicate);
-        response.put("isDuplicate", isDuplicate);
-        return response;
-    }
+    //     log.info("reservationDto: {}", isDuplicate);
+    //     response.put("isDuplicate", isDuplicate);
+    //     return response;
+    // }
 
     // @PostMapping("/getReservationDetails")
     // public List<String> getReservedTimes(

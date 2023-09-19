@@ -65,25 +65,21 @@ public class MemberService {
         memberDao.deleteMemberInfo(customer_id);
     }
 
-<<<<<<< HEAD
     public void deleteUserWithRooms(String company_id) {
         memberDao.deleteStudyRoomsByCompanyId(company_id);
         memberDao.deleteCMemberInfo(company_id);
-        
+
     }
 
     public boolean isCustomerExist(String customer_id) {
-       // DAO를 통해 데이터베이스에서 해당 customer_id가 존재하는지 확인
-       boolean isExist = memberDao.isCustomerExist(customer_id);
+        // DAO를 통해 데이터베이스에서 해당 customer_id가 존재하는지 확인
+        boolean isExist = memberDao.isCustomerExist(customer_id);
 
-       return isExist;
+        return isExist;
     }
 
-   
-=======
     public boolean idCheck(String customer_id, String company_id) {
         return memberDao.idCheck(customer_id, company_id);
     }
 
->>>>>>> yongbin
 }

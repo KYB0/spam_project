@@ -202,7 +202,8 @@ public class MemberController {
     }
 
     @PostMapping("/c_mypage/resign")
-    public String deleteUser(@RequestParam("company_id") String company_id, HttpSession session, RedirectAttributes redirectAttributes) {
+    public String deleteUser(@RequestParam("company_id") String company_id, HttpSession session,
+            RedirectAttributes redirectAttributes) {
         // 현재 로그인된 company_id를 세션에서 가져옴
         String loggedInCompanyId = (String) session.getAttribute("company_id");
 

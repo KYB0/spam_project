@@ -58,13 +58,4 @@ public class SeatReservationService {
         return reservedTimes;
     }
 
-    // public List<String> getReservedTimes(int roomId, String date) {
-    // // roomId와 date를 이용하여 예약된 시간 목록을 데이터베이스에서 조회합니다.
-    // List<String> reservedTimes =
-    // seatReservationDao.findReservedTimesByRoomAndDate(roomId, date);
-
-    // // 조회된 예약된 시간 목록을 반환합니다.
-    // return reservedTimes;
-    // }
-
 }
