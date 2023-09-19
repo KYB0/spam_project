@@ -20,7 +20,7 @@
     <div id="content">
         <div class="right">
             <!-- 인포 -->
-            <form id="paymentForm" action="/spam/${room_name}/payment" method="post">
+            <form id="paymentForm" method="post">
                 <section class="info">
                     <p class="name"><strong>스터디룸 이름</strong><br>${room_name}</p>
                     <!-- Hidden input fields to hold the data -->
@@ -110,7 +110,7 @@ $(document).ready(function () {
         if ($("input[name='checkOne']:checked").length === 4) {
             // 폼 데이터를 직접 가져오기
             var formData = $("#paymentForm").serialize();
-            console.log(formData);
+            
 
             // AJAX를 사용하여 데이터베이스로 데이터 전송
             $.ajax({
@@ -119,6 +119,7 @@ $(document).ready(function () {
                 data: formData,
                 success: function (data) {
                     // 데이터베이스 전송 성공 시 메인 페이지로 리다이렉트
+                    console.log(data);
                     window.location.href = "/spam/main";
                 },
                 error: function () {

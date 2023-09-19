@@ -18,4 +18,6 @@ public interface SeatDao {
 
     List<SeatDto> getAllSeatsOfData();
     List<SeatDto> getAllSeats();
+
+
 }
