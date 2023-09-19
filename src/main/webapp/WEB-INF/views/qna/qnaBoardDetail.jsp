@@ -17,7 +17,7 @@
         font-weight: bold;
         text-align: center;
         /* 텍스트를 우측 정렬 */
-        width:100%;
+        width: 100%;
         /* 오른쪽 여백 추가 */
     }
 
@@ -35,7 +35,7 @@
         /* 원하는 너비로 조정 */
     }
 
-    .pu table{
+    .pu table {
         width: 57%;
         text-align: center;
     }
@@ -64,46 +64,47 @@
         text-align: center;
     }
 
-    .mimi{
+    .mimi {
         text-align: right;
         width: 57%;
     }
 
-    .riri td{
+    .riri td {
         text-align: center;
-        
+
     }
 
-    .riri{
+    .riri {
         margin-bottom: 30px;
         width: 57%;
     }
-    
+
     textarea {
-    height: 50px; /* 원하는 높이로 설정하세요. */
-    resize: vertical;
-    width: 57%;
-}
+        height: 50px;
+        /* 원하는 높이로 설정하세요. */
+        resize: vertical;
+        width: 57%;
+    }
 
-.didi{
-    text-align: right;
-    width: 57%;
-}
+    .didi {
+        text-align: right;
+        width: 57%;
+    }
 
-.mama{
-    text-align: center;
-    width: 57%;
-    margin-top: 50px;
-}
+    .mama {
+        text-align: center;
+        width: 57%;
+        margin-top: 50px;
+    }
 
-a {
-    text-decoration: none;
-      color: #6D8B74; 
-}
+    a {
+        text-decoration: none;
+        color: #6D8B74;
+    }
 
-a:hover { color: #1A3C40}
-
-
+    a:hover {
+        color: #1A3C40
+    }
 </style>
 
 <body>
@@ -155,7 +156,7 @@ a:hover { color: #1A3C40}
         <!-- 댓글 표시 영역 -->
         <h2>댓글</h2>
         <table class="riri">
-            <thead>
+            <thead style="text-align: center;">
                 <tr>
                     <th>작성자</th>
                     <th>내용</th>
@@ -168,6 +169,9 @@ a:hover { color: #1A3C40}
                 <!-- 댓글이 여기에 동적으로 추가됩니다. -->
             </tbody>
         </table>
+        <button id="loadMoreButton">더보기</button>
+        <p> </p>
+
 
         <!-- 댓글 입력 폼 -->
         <h3>댓글 작성</h3>
@@ -177,12 +181,12 @@ a:hover { color: #1A3C40}
             <textarea id="comment_content" name="comment_content" rows="4" cols="50"></textarea>
             <br>
             <div class="didi">
-            <input type="button" value="댓글 작성" onclick="addComment()">
-        </div>
+                <input type="button" value="댓글 작성" onclick="addComment()">
+            </div>
         </form>
 
         <!-- 댓글 수정 폼 -->
-        
+
         <form id="editCommentForm" style="display: none;">
             <input type="hidden" id="editCommentId" name="comment_id">
             <label for="editCommentContent">댓글 내용:</label>
@@ -190,9 +194,9 @@ a:hover { color: #1A3C40}
             <br>
             <input type="button" value="댓글 수정" onclick="editComment()">
         </form>
-<div class="mama">
-        <a href="${pageContext.request.contextPath}/qna/list">목록으로 돌아가기</a>
-    </div>
+        <div class="mama">
+            <a href="${pageContext.request.contextPath}/qna/list">목록으로 돌아가기</a>
+        </div>
     </div>
     <script>
         // 특정 페이지의 댓글을 로드하는 JavaScript 함수
@@ -227,16 +231,6 @@ a:hover { color: #1A3C40}
                 }
             });
         }
-
-        // 페이지 로드 시 초기 댓글 페이지를 로드합니다.
-        $(document).ready(function () {
-            loadComments(1);
-        });
-        // 페이지 로드 시 댓글 가져오기
-        $(document).ready(function () {
-            getComments();
-        });
-
         // JavaScript function to confirm deletion
         function confirmDelete(boardId) {
             if (confirm("게시글을 삭제하시겠습니까?")) {
@@ -255,32 +249,6 @@ a:hover { color: #1A3C40}
             $("#editCommentForm").show();
         }
 
-        // AJAX로 댓글 추가
-        function addComment() {
-            let boardId = "${board.board_id}";
-            let commentContent = $("#comment_content").val();
-
-            $.ajax({
-                type: "POST",
-                url: "${pageContext.request.contextPath}/comments/add",
-                data: JSON.stringify({
-                    board_id: boardId,
-                    comment_content: commentContent
-                }),
-                contentType: "application/json",
-                dataType: "json",
-                success: function (data) {
-                    // 댓글 추가 성공 시 화면에 댓글 추가
-                    getComments();
-                    // 입력 폼 초기화
-                    $("#comment_content").val("");
-                },
-                error: function () {
-                    location.href = "/spam/member/i_login";
-                    alert("댓글 추가 실패");
-                }
-            });
-        }
 
         // AJAX로 댓글 수정
         function editComment() {
@@ -323,20 +291,97 @@ a:hover { color: #1A3C40}
                 }
             });
         }
+        //---------------------------------------------------------------------------------------------
 
-        // AJAX로 댓글 가져오기
+        // // AJAX로 댓글 가져오기
+        // function getComments() {
+        //     let boardId = "${board.board_id}";
+
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "${pageContext.request.contextPath}/comments/getByBoardId/" + boardId,
+        //         contentType: "application/json",
+        //         dataType: "json",
+        //         success: function (data) {
+        //             // 댓글 목록을 초기화
+        //             $("#comments").empty();
+
+        //             // 서버에서 가져온 댓글을 화면에 추가
+        //             for (let i = 0; i < data.length; i++) {
+        //                 let commentHtml = "<tr>" +
+        //                     "<td>" + data[i].user_id + "</td>" +
+        //                     "<td>" + data[i].comment_content + "</td>" +
+        //                     "<td>" + data[i].comment_date + "</td>" +
+        //                     "<td><a href='#' onclick='openEditForm(" + data[i].comment_id + ", \"" + data[i]
+        //                     .comment_content + "\")'>수정</a></td>" +
+        //                     "<td><a href='#' onclick='deleteComment(" + data[i].comment_id +
+        //                     ")'>삭제</a></td>" +
+        //                     "</tr>";
+        //                 $("#comments").append(commentHtml);
+        //             }
+        //         },
+        //         error: function () {
+        //             alert("댓글 불러오기 실패");
+        //         }
+        //     });
+        // }
+        // //---------------------------------------------------------------------------------------------
+        // AJAX로 댓글 추가
+        // function addComment() {
+        //     let boardId = "${board.board_id}";
+        //     let commentContent = $("#comment_content").val();
+
+        //     $.ajax({
+        //         type: "POST",
+        //         url: "${pageContext.request.contextPath}/comments/add",
+        //         data: JSON.stringify({
+        //             board_id: boardId,
+        //             comment_content: commentContent
+        //         }),
+        //         contentType: "application/json",
+        //         dataType: "json",
+        //         success: function (data) {
+        //             // 댓글 추가 성공 시 화면에 댓글 추가
+        //             getComments();
+        //             // 입력 폼 초기화
+        //             $("#comment_content").val("");
+        //         },
+        //         error: function () {
+        //             location.href = "/spam/member/i_login";
+        //             alert("댓글 추가 실패");
+        //         }
+        //     });
+        // }
+        // //---------------------------------------------------------------------------------------------
+        //   // 페이지 로드 시 댓글 가져오기
+        $(document).ready(function () {
+            loadComments(1);
+        });
+
+        // $(document).ready(function () {
+        //     getComments();
+        // });
+
+        // 초기 페이지 번호와 페이지당 댓글 수 설정
+        let page = 1;
+        const pageSize = 5;
+        let boardId = "${board.board_id}";
+
+
+        // "더보기" 버튼 클릭 시 추가 댓글 가져오기
+        $("#loadMoreButton").click(function () {
+            page++; // 다음 페이지로 이동
+            getComments();
+        });
+
         function getComments() {
-            let boardId = "${board.board_id}";
-
             $.ajax({
                 type: "GET",
-                url: "${pageContext.request.contextPath}/comments/getByBoardId/" + boardId,
+                url: "${pageContext.request.contextPath}/comments/getByBoardId/" + boardId + "?page=" + page +
+                    "&pageSize=" + pageSize,
                 contentType: "application/json",
                 dataType: "json",
                 success: function (data) {
-                    // 댓글 목록을 초기화
-                    $("#comments").empty();
-
                     // 서버에서 가져온 댓글을 화면에 추가
                     for (let i = 0; i < data.length; i++) {
                         let commentHtml = "<tr>" +
@@ -350,9 +395,43 @@ a:hover { color: #1A3C40}
                             "</tr>";
                         $("#comments").append(commentHtml);
                     }
+
+                    // 가져온 댓글의 개수가 pageSize 미만이면 "더보기" 버튼을 숨김
+                    if (data.length < pageSize) {
+                        $("#loadMoreButton").hide();
+                    } else {
+                        $("#loadMoreButton").show(); // 댓글이 더 있을 경우 버튼 표시
+                    }
                 },
                 error: function () {
                     alert("댓글 불러오기 실패");
+                }
+            });
+        }
+
+        // AJAX로 댓글 추가
+        function addComment() {
+            let commentContent = $("#comment_content").val();
+
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/comments/add",
+                data: JSON.stringify({
+                    board_id: boardId,
+                    comment_content: commentContent
+                }),
+                contentType: "application/json",
+                dataType: "json",
+                success: function () {
+                    // 댓글 추가 성공 시 화면 갱신
+                    // 입력 폼 초기화
+                    $("#comment_content").val("");
+                    // 기존 댓글 목록 갱신
+                    loadComments(1);
+                },
+                error: function () {
+                    location.href = "/spam/member/i_login";
+                    alert("댓글 추가 실패");
                 }
             });
         }

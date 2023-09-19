@@ -19,4 +19,6 @@ public interface CommentDao {
 
     List<CommentDto> getCommentsByBoardId(int boardId, int offset, int pageSize);
 
+    int getTotalCommentCount(int boardId);
+
 }
