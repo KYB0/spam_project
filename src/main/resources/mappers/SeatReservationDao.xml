@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spam9700.spam.dao.SeatReservationDao">
-    
+
     <!-- 주어진 좌석 번호와 예약 시간 범위 내의 예약 정보를 검색하는 쿼리 정의 -->
     <select id="findReservationsBySeatNumberAndTimeRange" resultType="com.spam9700.spam.dto.SeatReservationDto">
         SELECT *
@@ -19,7 +19,7 @@
         AND DATE(start_time) = #{date}
     </select>
 
-     <!-- 해당 시간대에 예약된 시간 목록을 가져오는 쿼리 -->
+    <!-- 해당 시간대에 예약된 시간 목록을 가져오는 쿼리 -->
     <select id="findReservedTimes" resultType="com.spam9700.spam.dto.ReservationDto" parameterType="map">
         SELECT DISTINCT start_time, end_time
         FROM seat_reservations
@@ -27,5 +27,6 @@
         AND seat_number = #{seatNumber}
         AND status = '1'
     </select>
-    
+
+
 </mapper>

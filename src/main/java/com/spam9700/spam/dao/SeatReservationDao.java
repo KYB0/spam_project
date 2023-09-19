@@ -11,11 +11,13 @@ import com.spam9700.spam.dto.SeatReservationDto;
 @Mapper
 public interface SeatReservationDao {
 
-    List<SeatReservationDto> findReservationsBySeatNumberAndTimeRange(int roomId, String seatNumber, LocalDateTime startTime,
+    List<SeatReservationDto> findReservationsBySeatNumberAndTimeRange(int roomId, String seatNumber,
+            LocalDateTime startTime,
             LocalDateTime endTime);
 
     List<String> findReservedTimesByRoomAndDate(int roomId, String date);
 
-    List<ReservationDto> findReservedTimes(int roomId, String seatNumber, LocalDateTime startTime, LocalDateTime endTime);
+    List<ReservationDto> findReservedTimes(int roomId, String seatNumber, LocalDateTime startTime,
+            LocalDateTime endTime);
 
 }
