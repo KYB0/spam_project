@@ -156,7 +156,7 @@
         <!-- 댓글 표시 영역 -->
         <h2>댓글</h2>
         <table class="riri">
-            <thead>
+            <thead style="text-align: center;">
                 <tr>
                     <th>작성자</th>
                     <th>내용</th>
