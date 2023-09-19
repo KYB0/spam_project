@@ -38,4 +38,8 @@ public class CommentService {
         return commentDao.getCommentsByBoardId(boardId, offset, pageSize);
     }
 
+    public int getTotalCommentCount(int boardId) {
+        return commentDao.getTotalCommentCount(boardId);
+    }
+
 }
