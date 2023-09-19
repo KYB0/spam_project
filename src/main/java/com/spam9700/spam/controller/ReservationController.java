@@ -1,4 +1,4 @@
-﻿﻿package com.spam9700.spam.controller;
+﻿package com.spam9700.spam.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
