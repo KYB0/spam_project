@@ -16,8 +16,6 @@
         .footer_class {
             margin-top: 50px;
             /* 원하는 여백 값으로 조정하세요 */
-            background-color: #f0f0f0;
-            /* 배경색을 추가하려면 */
             padding: 10px;
             /* 패딩을 추가하려면 */
         }

@@ -557,29 +557,13 @@
         });
     });
 
-    // 서버에서 room_description 데이터를 가져오는 Ajax 요청
-    let room_name = "${room_name}";
 
-
-    //리뷰 작성 스크립트
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "/spam/" + room_name,
-            success: function (data) {
-                var room_description = data.room_description;
-                $(".r-description").text("영업 시간 " + room_description);
-                // console.log(data);
-            },
-            error: function () {
-                console.error("데이터 가져오기 실패");
-            }
-        });
-    });
+    
 
     //--------------------------------------------------------------------------------------------//
 
     // 리뷰 작성 및 리뷰 불러오기 관련 스크립트
+    let room_name = "${room_name}";
     $(document).ready(function () {
         // 리뷰 작성 버튼 클릭 시
         $("#reviewButton").click(function (event) {

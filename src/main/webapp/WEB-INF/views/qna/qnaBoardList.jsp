@@ -1,7 +1,7 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <jsp:include page="/WEB-INF/views/header.jsp" />
-<jsp:include page="/WEB-INF/views/footer.jsp" />
+
 <html>
 
 <head>
@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="/spam/css/qnaboard.css">
     <!-- head 부분 생략 -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <style>
+         .footer_class {
+            margin-top: 50px;
+            /* 원하는 여백 값으로 조정하세요 */
+            padding: 10px;
+            /* 패딩을 추가하려면 */
+        }
+    </style>
 </head>
 
 <body>
@@ -115,8 +123,9 @@
         </div>
     </div>
 
-                       
-
+    <footer id="footer_id" class="footer_class">                  
+    <jsp:include page="/WEB-INF/views/footer.jsp" />
+</footer>
 </body>
 
 </html>
