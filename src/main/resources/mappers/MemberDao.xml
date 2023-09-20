@@ -84,6 +84,12 @@
         WHERE company_id = #{company_id}
     </delete>
 
+<!-- company_id 회원 탈퇴시 study_room의 room_id에 등록된 모든 리뷰를 먼저 삭제 -->
+    <delete id="deleteReviewsByRoomId" parameterType="String">
+    DELETE FROM review
+    WHERE room_id IN (SELECT room_id FROM study_room WHERE company_id = #{company_id})
+</delete>
+
     <!-- // company_id 회원 탈퇴시 study_room에 등록된 데이터값 삭제 -->
     <delete id="deleteStudyRoomsByCompanyId" parameterType="String"> 
     DELETE FROM study_room
