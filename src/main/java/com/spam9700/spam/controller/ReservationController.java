@@ -43,8 +43,8 @@ public class ReservationController {
     private MemberService memberService;
 
     @Autowired
+    
     private SeatReservationService seatReservationService;
-
     // 기존의 상세 페이지 컨트롤러와 겹치지 않도록 별도의 URL을 사용
     @GetMapping("/reservation")
     public String reservationPage(HttpSession session, @PathVariable("room_name") String room_name, Model model) {
@@ -115,7 +115,7 @@ public class ReservationController {
         @RequestParam("seat_number") String seat_number,
         @RequestParam("start_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime startTime,
         @RequestParam("end_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime endTime,
-        HttpSession session) { // HttpSession을 파라미터로 받아 세션을 사용합니다.
+        HttpSession session, RedirectAttributes redirectAttributes) { // HttpSession을 파라미터로 받아 세션을 사용합니다.
 
         String customer_id = getCustomerIdFromSession(session); // 세션에서 고객 ID를 가져옵니다.
 
@@ -149,8 +149,10 @@ public class ReservationController {
     //     }
 
     @GetMapping("/rsv")
-    public String getReservationPage(HttpSession session, @PathVariable("room_name") String room_name, @RequestParam("start_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime start_time,
-        @RequestParam("end_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime end_time, @RequestParam("seat_number") String seat_number, Model model) {
+    public String getReservationPage(HttpSession session, @PathVariable("room_name") String room_name,
+        @RequestParam("start_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime start_time,
+        @RequestParam("end_time") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime end_time, 
+        @RequestParam("seat_number") String seat_number, Model model) {
         String customer_id = getCustomerIdFromSession(session);
 
         ReservationDto reservationDto = new ReservationDto();

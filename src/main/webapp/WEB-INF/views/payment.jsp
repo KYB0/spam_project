@@ -110,7 +110,6 @@ $(document).ready(function () {
         if ($("input[name='checkOne']:checked").length === 4) {
             // 폼 데이터를 직접 가져오기
             var formData = $("#paymentForm").serialize();
-            
 
             // AJAX를 사용하여 데이터베이스로 데이터 전송
             $.ajax({
@@ -118,12 +117,12 @@ $(document).ready(function () {
                 type: "POST",
                 data: formData,
                 success: function (data) {
-                    // 데이터베이스 전송 성공 시 메인 페이지로 리다이렉트
-                    console.log(data);
-                    window.location.href = "/spam/main";
+                    // 데이터베이스 전송 성공 시 메시지를 표시
+                    alert("데이터베이스로의 전송이 완료되었습니다.");
+
+                    // 여기에서 추가적인 클라이언트 측 동작을 수행할 수 있습니다.
                 },
                 error: function () {
-                    window.location.href = window.location.href; // 현재 페이지로 리다이렉트
                     // 데이터베이스 전송 실패 시 오류 메시지 표시
                     alert("데이터베이스로의 전송에 실패했습니다. 다시 시도해주세요.");
                 }
@@ -144,7 +143,6 @@ $('input[name="checkOne"]').on('change', function () {
     const allChecked = $('input[name="checkOne"]').toArray().every(input => input.checked);
     $('input[name="checkAll"]').prop('checked', allChecked);
 });
-
 
         </script>
         </div>
