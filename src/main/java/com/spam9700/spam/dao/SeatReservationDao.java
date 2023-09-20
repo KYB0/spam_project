@@ -1,4 +1,6 @@
 package com.spam9700.spam.dao;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -10,9 +12,13 @@ import com.spam9700.spam.dto.ReservationDto;
 public interface SeatReservationDao {
 
     boolean insertReservation(ReservationDto reservationDto);
-    // void insertReservation(ReservationDto reservationDto);
 
     void saveReservation(ReservationDto reservationDto);
+
+    List<String> findReservedTimesByRoomAndDate(int roomId, String date);
+
+    List<ReservationDto> findReservedTimes(int roomId, String seatNumber, LocalDateTime startTime,
+            LocalDateTime endTime);
 
     String getRoomNameByRoomId(String room_id);
 
@@ -20,8 +26,8 @@ public interface SeatReservationDao {
 
     void insertReservations(ReservationDto reservationDto);
 
-     // 예약 조회 메서드 (고객 ID로 조회)
-     List<ReservationDto> selectReservationsByCustomerId(@Param("customer_id") String customer_id);
+    // 예약 조회 메서드 (고객 ID로 조회)
+    List<ReservationDto> selectReservationsByCustomerId(@Param("customer_id") String customer_id);
 
     boolean checkCustomerExistence(String customer_id);
 

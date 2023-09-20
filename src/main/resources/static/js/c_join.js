@@ -4,21 +4,23 @@
     $("#id_check").click(function () {
         let company_id = $("#company_id").val();
         let idCheckMsg = $("#id_check_msg");
-
+        let customer_id = $("#company_id").val();
         // 아이디 유효성 검사
         let idPattern = /^[a-z][a-z0-9]{4,11}$/;
 
-        if (!idPattern.test(company_id)) {
+        if (!idPattern.test(company_id, customer_id)) {
             idCheckMsg.html(
                 "아이디는 영문 소문자로 시작하고, 영문 소문자와 숫자로만 구성되어야 합니다. 길이는 5자 이상 12자 이하여야 합니다."
             );
         } else {
+
             // 유효한 아이디인 경우, 중복 확인 AJAX 요청 보내기
             $.ajax({
                 url: "/spam/member/check/id", // 아이디 중복 확인 주소로 변경
                 type: "GET",
                 data: {
-                    company_id: company_id
+                    company_id: company_id,
+                    customer_id: customer_id
                 },
                 success: function (response) {
                     if (response === "exists") {
@@ -139,4 +141,3 @@
             .replace(/(\-{1,2})$/g, ""); // 끝에 있는 하이픈 제거
     };
 });
-

@@ -24,6 +24,7 @@
         <form action="/spam/member/i_join" method="post">
             <div class="int-area">
                 <div class="id-check">
+                    <input type="hidden" name="company_id" id="company_id">
                     <input type="text" id="customer_id" name="customer_id" autocomplete="off" required>
                     <label for="customer_id">아이디</label>
                     <input type="button" id="id_check" value="중복확인"></input>

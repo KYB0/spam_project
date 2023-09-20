@@ -24,6 +24,16 @@
         )
     </insert>
 
+    <!-- 해당 시간대에 예약된 시간 목록을 가져오는 쿼리 -->
+    <select id="findReservedTimes" resultType="com.spam9700.spam.dto.ReservationDto" parameterType="map">
+        SELECT DISTINCT start_time, end_time
+        FROM seat_reservations
+        WHERE room_id = #{roomId}
+        AND seat_number = #{seatNumber}
+        AND status = '1'
+    </select>
+
+
 
 
 </mapper>

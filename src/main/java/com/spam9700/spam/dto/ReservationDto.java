@@ -1,4 +1,4 @@
-﻿package com.spam9700.spam.dto;
+package com.spam9700.spam.dto;
 
 import java.time.LocalDateTime;
 
@@ -12,10 +12,11 @@ public class ReservationDto {
     private String customer_id;
     private String seat_number;
     private int room_id;
+    private String room_name;
     private String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-private LocalDateTime start_time;
-@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-private LocalDateTime end_time;
+    private LocalDateTime start_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime end_time;
 
 }

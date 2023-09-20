@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spam9700.spam.dao.SeatDao">
 
-       <!-- 좌석 정보 조회 -->
+    <!-- 좌석 정보 조회 -->
     <select id="getAllSeats" resultType="com.spam9700.spam.dto.SeatDto">
         SELECT * FROM seats
     </select>
-    
+
     <!-- 좌석 등록을 위한 room_id 조회 -->
     <select id="getRoomById" resultType="com.spam9700.spam.dto.SeatDto">
         SELECT  * FROM  study_room WHERE room_id = #{room_id}
