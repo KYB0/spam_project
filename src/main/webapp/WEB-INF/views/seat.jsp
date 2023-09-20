@@ -455,7 +455,6 @@
             const selectedDate = $("#datepicker").val();
             const combinedDateTime = selectedDate + ' ' + selectedTime;
             console.log("시간 : " + selectedDate + " " + selectedTime);
-
             // 클릭한 시간을 시작 시간과 종료 시간 입력란에 설정
             if (startTimeInput.val() === '') {
                 startTimeInput.val(combinedDateTime);

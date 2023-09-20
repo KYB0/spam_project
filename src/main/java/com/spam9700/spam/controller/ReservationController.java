@@ -129,7 +129,7 @@ public class ReservationController {
         // 데이터베이스에 저장
         seatReservationService.saveReservation(reservationDto);
         log.info("예약 성공");
-        return "redirect:/main"; // 결제가 성공적으로 완료되면 메인 페이지로 리다이렉트
+        return "redirect:/i_mypage/list"; // 결제가 성공적으로 완료되면 메인 페이지로 리다이렉트
     }
 
     @GetMapping("/rsv")
