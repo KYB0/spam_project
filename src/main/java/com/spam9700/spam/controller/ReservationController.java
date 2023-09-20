@@ -1,4 +1,4 @@
-﻿﻿package com.spam9700.spam.controller;
+﻿package com.spam9700.spam.controller;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -173,8 +173,14 @@ public class ReservationController {
         model.addAttribute("customer_id", customer_id);
 
         return "payment"; // 예약 페이지 템플릿 이름 또는 경로
+        
     }
 
+    @PostMapping("/cancel")
+    public String cancelReservation(@RequestParam("reservation_id") int reservation_id) {
 
+        studycafeService.cancelReservation(reservation_id);
+        return "redirect:/i_mypage/list";
+    }
 
 }
