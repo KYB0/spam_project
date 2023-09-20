@@ -174,13 +174,13 @@ $('input[name="checkOne"]').on('change', function () {
 
                             // AJAX를 사용하여 데이터베이스로 데이터 전송
                             $.ajax({
-                                url: "/spam/${room_name}/payment", // 데이터 전송을 처리할 URL
+                                url: "/spam/${room_name}/rsv", // 데이터 전송을 처리할 URL
                                 type: "POST",
                                 data: formData,
                                 success: function (data) {
                                     // 데이터베이스 전송 성공 시 메인 페이지로 리다이렉트
                                     console.log(data);
-                                    window.location.href = "/spam/main";
+                                    // window.location.href = "/spam/main";
                                 },
                                 error: function () {
                                     window.location.href = window.location
