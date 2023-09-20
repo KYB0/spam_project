@@ -264,6 +264,8 @@
             /* 다른 원하는 스타일을 추가하세요 */
         }
 
+        
+
 
         .footer_class {
             margin-top: 50px;

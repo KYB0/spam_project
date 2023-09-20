@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/header.jsp" />
-<jsp:include page="/WEB-INF/views/footer.jsp" />
+
 <!DOCTYPE html>
 <html>
 
@@ -13,6 +13,21 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
 </head>
 <style>
+    .footer_class {
+        margin-top: 50px;
+        /* 원하는 여백 값으로 조정하세요 */
+        padding: 10px;
+        /* 패딩을 추가하려면 */
+    }
+
+    .container {
+        max-width: 50%;
+        /* 원하는 최대 너비 설정 */
+        margin-top: 50px;
+        /* 가운데 정렬을 위한 왼쪽/오른쪽 마진 자동 설정 */
+        margin-bottom: 50px;
+    }
+
     .th {
         font-weight: bold;
         text-align: center;
@@ -103,12 +118,12 @@
     }
 
     a:hover {
-        color: #1A3C40
+        color: #1A3C40;
     }
 </style>
 
 <body>
-    <div class="container" style="margin-left: 30%;">
+    <div class="container" style="margin-left: 35%;">
 
         <c:if test="${not empty board}">
             <div class="pu">
@@ -436,7 +451,9 @@
             });
         }
     </script>
-
+    <footer id="footer_id" class="footer_class">
+        <jsp:include page="/WEB-INF/views/footer.jsp" />
+    </footer>
 </body>
 
 </html>

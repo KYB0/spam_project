@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SPAM</title>
     <link rel="stylesheet" href="/spam/css/findID.css">
+    <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
 </head>
 
 <body>
@@ -16,13 +17,15 @@
         <h1>비밀번호 찾기</h1>
         <form action="/spam/member/find/pwd" method="post">
             <div class="int-area">
+                <input type="text" id="customer_id" name="customer_id" autofocus autocomplete="off" required>
                 <label for="customer_name">아이디</label>
-                <input type="text" id="customer_id" name="customer_id" required>
+
             </div>
             <br>
             <div class="int-area">
-                <label for="customer_email">이메일</label>
                 <input type="email" id="customer_email" name="customer_email" required>
+                <label for="customer_email">이메일</label>
+
             </div>
             <br>
             <div class="btn-area">
