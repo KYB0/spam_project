@@ -20,7 +20,7 @@
     <div id="content">
         <div class="right">
             <!-- 인포 -->
-            <form id="paymentForm" method="post">
+            <form id="paymentForm" method="post" action="/spam/${room_name}/rsv">
                 <section class="info">
                     <p class="name"><strong>스터디룸 이름</strong><br>${room_name}</p>
                     <!-- Hidden input fields to hold the data -->
@@ -109,44 +109,33 @@
 
             <script>
                 $(document).ready(function () {
-                    $("#btn_pay").click(function () {
-                        if ($("input[name='checkOne']:checked").length === 4) {
-                            // 폼 데이터를 직접 가져오기
-                            var formData = $("#paymentForm").serialize();
+                    // 전체 동의 체크박스 변경 시
+                    $('input[name="checkAll"]').on('change', function () {
+                        $('input[name="checkOne"]').prop('checked', this.checked);
+                    });
 
+                    // 개별 동의 체크박스 변경 시
+                    $('input[name="checkOne"]').on('change', function () {
+                        const allChecked = $('input[name="checkOne"]').toArray().every(input => input
+                            .checked);
+                        $('input[name="checkAll"]').prop('checked', allChecked);
+                    });
 
-                            // AJAX를 사용하여 데이터베이스로 데이터 전송
-                            $.ajax({
-                                url: "/spam/${room_name}/rsv", // 데이터 전송을 처리할 URL
-                                type: "POST",
-                                data: formData,
-                                success: function (data) {
-                                    // 데이터베이스 전송 성공 시 메인 페이지로 리다이렉트
-                                    console.log(data);
-                                    // window.location.href = "/spam/main";
-                                },
-                                error: function () {
-                                    window.location.href = window.location
-                                        .href; // 현재 페이지로 리다이렉트
-                                    // 데이터베이스 전송 실패 시 오류 메시지 표시
-                                    alert("데이터베이스로의 전송에 실패했습니다. 다시 시도해주세요.");
-                                }
-                            });
+                    // "결제하기" 버튼에 이벤트 리스너를 추가합니다.
+                    $('#btn_pay').on('click', function (e) {
+                        e.preventDefault(); // 양식 제출을 방지합니다 (디모를 위해)
+
+                        // 확인 대화상자를 표시합니다.
+                        if (confirm("결제를 진행하시겠습니까?")) {
+                            // 사용자가 확인을 클릭한 경우, 여기에서 결제를 진행할 수 있습니다
+                            // 이 경고를 실제 결제 처리 코드로 대체하십시오
+                            $('#paymentForm').submit();
+                            alert("결제가 완료되었습니다.");
                         } else {
-                            alert("모든 동의 사항에 동의해야 합니다.");
+                            // 사용자가 취소를 클릭한 경우, 필요한 대로 처리하거나 아무 작업도 수행하지 않습니다.
+                            alert("결제가 취소되었습니다.");
                         }
                     });
-                });
-
-                // 전체 동의 체크박스 변경 시
-                $('input[name="checkAll"]').on('change', function () {
-                    $('input[name="checkOne"]').prop('checked', this.checked);
-                });
-
-                // 개별 동의 체크박스 변경 시
-                $('input[name="checkOne"]').on('change', function () {
-                    const allChecked = $('input[name="checkOne"]').toArray().every(input => input.checked);
-                    $('input[name="checkAll"]').prop('checked', allChecked);
                 });
             </script>
         </div>
