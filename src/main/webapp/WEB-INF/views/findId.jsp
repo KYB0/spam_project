@@ -29,11 +29,7 @@
             <br>
             <div class="btn-area">
             <button type="submit">아이디 찾기</button>
-<<<<<<< HEAD
             <a href="/spam/member/i_login">로그인 화면으로</a>
-=======
-        </div>
->>>>>>> f362d9e05f2cd58d4e63a6fe25ec9f391ad32c55
         </form>
     </section>
     <%@ include file="footer.jsp" %>

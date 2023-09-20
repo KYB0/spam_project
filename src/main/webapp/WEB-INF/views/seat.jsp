@@ -331,9 +331,16 @@ button[type="submit"]:hover {
     margin: 0; /* 목록의 외부 여백 제거 */
 }
 
-.time-list li:active{
-    color: #F78CA2; /* 원하는 색상으로 변경 */
+/* .time-list li:active{
+    color: #333; 
+    background: #ffc107;
+} */
+
+.time-list li.selected-time {
+    background-color: #ffc107; /* 원하는 배경색으로 변경 */
+    color: #333; /* 원하는 텍스트 색상으로 변경 */
 }
+
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <!-- Add this to the head section of your HTML -->
@@ -481,8 +488,8 @@ button[type="submit"]:hover {
 <script>
 
 document.addEventListener("DOMContentLoaded", function() {
-    var chooseButton = document.querySelector(".myChooseButton");
-    var reservationForm = document.querySelector(".reservation-form");
+    let chooseButton = document.querySelector(".myChooseButton");
+    let reservationForm = document.querySelector(".reservation-form");
 
     reservationForm.style.display = "none"; // 페이지 로드 시 숨기기
 
@@ -522,7 +529,8 @@ function handleTimeSelection() {
     // 현재 입력된 시작 시간과 종료 시간 가져오기
     const currentStartTime = startTimeInput.val();
     const currentEndTime = endTimeInput.val();
-
+    clearPreviousDateStyles();
+    $('.time-list li').not(this).removeClass('selected-time');
     if (currentStartTime === '') {
         // 시작 시간이 비어있는 경우 새로운 시작 시간 설정
         startTimeInput.val(combinedDateTime);
@@ -550,6 +558,11 @@ function handleTimeSelection() {
 
     // 시간을 선택한 후에도 시작 시간과 종료 시간 사이의 시간대를 강조
     emphasizeTimeSlots();
+
+    
+    // 선택한 시간 슬롯에 클래스 추가 및 제거
+    $(this).addClass('selected-time');
+    $('.time-list li').not(this).removeClass('selected-time');
 }
 
 
@@ -644,6 +657,8 @@ function handleTimeSelection() {
                         console.log("선택한 날짜: " + dateText);
 
                         // 이전에 선택한 날짜의 CSS 클래스 초기화
+
+                        $('.time-list li').not(this).removeClass('selected-time');
                         clearPreviousDateStyles();
 
                         startTimeInput.val('');
