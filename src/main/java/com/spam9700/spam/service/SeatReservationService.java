@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spam9700.spam.dao.SeatReservationDao;
 import com.spam9700.spam.dto.ReservationDto;
@@ -22,6 +23,7 @@ public class SeatReservationService {
     @Autowired
     private SeatReservationDao seatReservationDao;
 
+    @Transactional
     public void saveReservation(ReservationDto reservationDto) {
 
         seatReservationDao.saveReservation(reservationDto);
