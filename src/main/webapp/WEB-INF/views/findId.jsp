@@ -86,6 +86,7 @@
             <input type="email" id="customer_email" name="customer_email" required>
             <br>
             <button type="submit">아이디 찾기</button>
+            <a href="/spam/member/i_login">로그인 화면으로</a>
         </form>
     </section>
 </body>

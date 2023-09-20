@@ -447,33 +447,50 @@
 
         // 이전에 선택한 날짜의 CSS 클래스를 초기화하는 함수
         function clearPreviousDateStyles() {
-            $(".time-list li").removeClass("past-time reserved-time");
-        }
-        // 시간 선택 이벤트 처리 함수
-        function handleTimeSelection() {
-            const selectedTime = $(this).text();
-            const selectedDate = $("#datepicker").val();
-            const combinedDateTime = selectedDate + ' ' + selectedTime;
-            console.log("시간 : " + selectedDate + " " + selectedTime);
-            // 클릭한 시간을 시작 시간과 종료 시간 입력란에 설정
-            if (startTimeInput.val() === '') {
-                startTimeInput.val(combinedDateTime);
-            } else if (endTimeInput.val() === '') {
-                const startHour = parseInt(startTimeInput.val().split(' ')[1].split(':')[0]);
-                const endHour = parseInt(selectedTime.split(':')[0]);
-                if (endHour >= startHour + 1) {
-                    endTimeInput.val(combinedDateTime);
-                } else {
-                    startTimeInput.val(combinedDateTime);
-                }
-            } else {
-                startTimeInput.val(combinedDateTime);
-                endTimeInput.val('');
-            }
+    $(".time-list li").removeClass("past-time reserved-time emphasis");
+}
+// 시간 선택 이벤트 처리 함수
+function handleTimeSelection() {
+    const selectedTime = $(this).text();
+    const selectedDate = $("#datepicker").val();
+    const combinedDateTime = selectedDate + ' ' + selectedTime;
+    console.log("시간 : " + selectedDate + " " + selectedTime);
 
-            // 시간을 선택한 후에도 시작 시간과 종료 시간 사이의 시간대를 강조
-            emphasizeTimeSlots();
+    // 현재 입력된 시작 시간과 종료 시간 가져오기
+    const currentStartTime = startTimeInput.val();
+    const currentEndTime = endTimeInput.val();
+
+    if (currentStartTime === '') {
+        // 시작 시간이 비어있는 경우 새로운 시작 시간 설정
+        startTimeInput.val(combinedDateTime);
+    } else if (currentEndTime === '') {
+        // 시작 시간은 입력되어 있고 종료 시간이 비어있는 경우
+        const startHour = parseInt(currentStartTime.split(' ')[1].split(':')[0]);
+        const endHour = parseInt(selectedTime.split(':')[0]);
+        if (endHour >= startHour + 1) {
+            // 선택한 종료 시간이 시작 시간 이후인 경우 종료 시간 설정
+            endTimeInput.val(combinedDateTime);
+        } else {
+            // 선택한 시간이 시작 시간보다 이전이면 시작 시간만 업데이트
+            startTimeInput.val(combinedDateTime);
         }
+    } else {
+        // 시작 시간과 종료 시간 모두 입력된 경우
+        // 시작 시간을 새로 선택한 시간으로 설정하고 종료 시간 초기화
+        startTimeInput.val(combinedDateTime);
+        endTimeInput.val('');
+    }
+    
+    // 콘솔에 시작 시간과 종료 시간 출력
+    console.log("시작 시간 : ", startTimeInput.val());
+    console.log("종료 시간 : ", endTimeInput.val());
+
+    // 시간을 선택한 후에도 시작 시간과 종료 시간 사이의 시간대를 강조
+    emphasizeTimeSlots();
+}
+
+
+
 
 
 
@@ -566,9 +583,8 @@
                         // 이전에 선택한 날짜의 CSS 클래스 초기화
                         clearPreviousDateStyles();
 
-                        // 이전에 선택된 시간 제거
-                        $("#start_time").val('');
-                        $("#end_time").val('');
+                        startTimeInput.val('');
+        endTimeInput.val(''); // 종료 시간도 초기화
 
                         // AJAX 요청을 보내서 예약 세부 정보 가져오기
                         $.ajax({
@@ -660,8 +676,9 @@
 
                                 });
                                 // console.log(selectedReservedTimes);
-                                timeList.on('click', 'li', handleTimeSelection);
-
+                            // 시간 선택 이벤트 등록
+timeList.off('click', 'li'); // 기존 등록된 이벤트 제거
+timeList.on('click', 'li', handleTimeSelection); // 새로운 이벤트 등록
 
                             },
                             error: function () {
