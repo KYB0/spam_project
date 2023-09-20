@@ -1,5 +1,4 @@
-﻿<%@ include file="header.jsp" %>
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,6 +7,11 @@
     <title>SPAM</title>
     <link rel="stylesheet" href="/spam/css/findID.css">
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
+    <style>
+        .caption a{
+            font-size : 18px !important;
+        }
+            </style>
 </head>
 
 <body>
@@ -30,7 +34,10 @@
             <br>
             <div class="btn-area">
                 <button type="submit">비밀번호 찾기</button>
+                </div>
+                <div class="caption">
                 <a href="/spam/member/i_login">로그인 화면으로</a>
+            </div>
         </form>
     </section>
     <%@ include file="footer.jsp" %>

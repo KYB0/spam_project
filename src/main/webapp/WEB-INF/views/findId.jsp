@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="/spam/css/findID.css">
 
     <style>
-
+.caption a{
+    font-size : 18px !important;
+}
     </style>
 </head>
 
@@ -31,7 +33,11 @@
             <br>
             <div class="btn-area">
             <button type="submit">아이디 찾기</button>
+        </div>
+            <div class="caption">
             <a href="/spam/member/i_login">로그인 화면으로</a>
+        </div>
+            
         </form>
     </section>
     <%@ include file="footer.jsp" %>
