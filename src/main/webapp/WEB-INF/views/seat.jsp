@@ -265,30 +265,75 @@
         }
 
 
-        /* Time List Styling */
-        /* .time-list {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0;
-    display: flex;
-    flex-wrap: wrap;
+        .footer_class {
+            margin-top: 50px;
+            /* 원하는 여백 값으로 조정하세요 */
+            background-color: #f0f0f0;
+            /* 배경색을 추가하려면 */
+            padding: 10px;
+            /* 패딩을 추가하려면 */
+        }
+
+        body{
+    background-color: #f0e9e4 !important;  /* 밝은 베이지 */
 }
 
-.time-list li {
-    background-color: #6feaf6;
-    color: #333333;
-    border: 1px solid #000000;
-    padding: 5px 10px;
-    margin: 0px;
-    cursor: pointer;
+        .reservation-form {
+            text-align: center;
+    position: fixed;
+    top: 0; /* 요소의 위쪽 가장자리를 화면 상단에 맞춥니다. */
+    right: 0; /* 요소의 오른쪽 가장자리를 화면 오른쪽에 맞춥니다. */
+    width: 300px; /* 요소의 너비를 조절할 수 있습니다. */
+    height: 100%; /* 요소를 화면 높이에 맞춥니다. */
+    background-color: #fff; /* 원하는 배경색으로 설정하세요. */
+    z-index: 9999; /* 요소가 다른 요소 위에 나타나도록 설정합니다. */
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    display: none; /* 초기에는 숨김 상태로 설정합니다. */
 }
 
-.time-list li.past-time {
-    background-color: #eee;
-    color: #777;
-    border: 1px solid #eee;
-    cursor: not-allowed;
-} */
+button[type="submit"] {
+    font-size: 18px;
+    background-color: transparent; /* 배경색을 투명으로 설정 */
+    border: none; /* 테두리 제거 */
+    /* 추가적인 스타일링을 원하면 여기에 추가하세요 */
+    margin: 20px;
+    color: #9EB384;
+}
+
+button[type="submit"]:hover {
+    border: 1px solid #000; /* 마우스 오버 시 1px 두께의 테두리 추가 (원하는 스타일 및 색상으로 변경 가능) */
+    /* 추가적인 스타일링을 원하면 여기에 추가하세요 */
+    color: #435334;
+}
+
+.time-selection input {
+    width: 60%;
+    padding: 20px 10px 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #999;
+    font-size: 14px;
+    color: #000000;
+    outline: none;
+}
+
+.start-time label {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    font-size: 18px;
+    color: #999;
+    transition: all .5s ease;
+}
+.time-list {
+    list-style: none; /* 목록 스타일 제거 */
+    padding: 10px; /* 목록의 내부 여백 제거 */
+    margin: 0; /* 목록의 외부 여백 제거 */
+}
+
+.time-list li:active{
+    color: #F78CA2; /* 원하는 색상으로 변경 */
+}
     </style>
     <link rel="icon" href="https://img.icons8.com/color/48/spam-can.png" type="image/png">
     <!-- Add this to the head section of your HTML -->
@@ -413,23 +458,39 @@
     </section>
     <div class="reservation-form">
         <form action="/spam/${room_name}/rsv" method="get">
-            <input type="text" name="customer_id" id="customer_id" value="${customer_id}">
-            <input type="text" name="room_id" id="room_id" value="${room_id}">
-            <input type="text" name="seat_number" id="seat_number">
+            <input type="hidden" name="customer_id" id="customer_id" value="${customer_id}">
+            <input type="hidden" name="room_id" id="room_id" value="${room_id}">
+            <input type="hidden" name="seat_number" id="seat_number">
             <div id="datepicker"></div>
             <div class="time-selection">
-                <label for="start-time">시작 시간:</label>
+                <label for="start-time">시작 시간</label>
                 <input type="text" id="start_time" name="start_time" class="timepicker">
-                <label for="end-time">종료 시간:</label>
+                <label for="end-time">종료 시간</label>
                 <input type="text" id="end_time" name="end_time" class="timepicker">
                 <ul class="time-list"></ul>
             </div>
             <button type="submit">예약하기</button>
         </form>
     </div>
+    <footer id="footer_id" class="footer_class">
+        <%@ include file="footer.jsp" %>
+        
+    </footer>
 </body>
 
 <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    var chooseButton = document.querySelector(".myChooseButton");
+    var reservationForm = document.querySelector(".reservation-form");
+
+    reservationForm.style.display = "none"; // 페이지 로드 시 숨기기
+
+    chooseButton.addEventListener("click", function() {
+        reservationForm.style.display = "block"; // 나타내기
+    });
+});
+    
     $(document).ready(function () {
         let reservedTimes = [];
         // 시간 목록 생성
@@ -443,6 +504,8 @@
             const li = $('<li>').text(formattedHour + ':00');
             timeList.append(li);
         }
+
+        
 
 
         // 이전에 선택한 날짜의 CSS 클래스를 초기화하는 함수
@@ -706,35 +769,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // AJAX 요청 성공 콜백 함수
     function ajaxSuccessCallback(response) {
         console.log("예약 세부 정보:", response);
@@ -788,6 +822,7 @@
 
         console.log(selectedReservedTimes);
     }
+    
 </script>
 
 
