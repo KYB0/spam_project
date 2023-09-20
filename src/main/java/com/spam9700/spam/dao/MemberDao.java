@@ -41,4 +41,6 @@ public interface MemberDao {
 
     boolean idCheck(String customer_id, String company_id);
 
+    void deleteReviewsByRoomId(String company_id);
+
 }
