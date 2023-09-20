@@ -39,31 +39,17 @@
                     <input type="hidden" name="end_time" value="${end_time}">
                 </section>
 
-<<<<<<< HEAD
-            <section class="total_price_pc">
-                <p><strong><b>총 결제 금액</b>(VAT포함)</strong>
-                    <span class="in_price">495,000원</span></p>
-                <ul>
-                    <li>해당 가격은 세금, 봉사료가 포함된 금액입니다.</li>
-                    <li>결제완료 후 <span>예약자 이름</span>으로 바로
-                        <span>체크인</span> 하시면 됩니다
-                    </li>
-                </ul>
-            </section>
-            <!-- 인포 완-->
-=======
                 <section class="total_price_pc">
                     <p><strong><b>총 결제 금액</b>(VAT포함)</strong>
                         <span class="in_price">495,000원</span></p>
                     <ul>
-                        <li>해당 가격은 세금, 봉사료가 포함된 금액입니다</li>
+                        <li>해당 가격은 세금, 봉사료가 포함된 금액입니다.</li>
                         <li>결제완료 후 <span>예약자 이름</span>으로 바로
                             <span>체크인</span> 하시면 됩니다
                         </li>
                     </ul>
                 </section>
                 <!-- 인포 완-->
->>>>>>> 19d67c7ed813c9d58bc04093dc19031c2052cca2
 
                 <!-- 결제수단 -->
                 <section class="pay_select">
@@ -121,49 +107,6 @@
                 <!-- 결제버튼 완-->
             </form>
 
-<<<<<<< HEAD
-        <script>
-$(document).ready(function () {
-    $("#btn_pay").click(function () {
-        if ($("input[name='checkOne']:checked").length === 4) {
-            // 폼 데이터를 직접 가져오기
-            var formData = $("#paymentForm").serialize();
-
-            // AJAX를 사용하여 데이터베이스로 데이터 전송
-            $.ajax({
-                url: "/spam/${room_name}/payment", // 데이터 전송을 처리할 URL
-                type: "POST",
-                data: formData,
-                success: function (data) {
-                    // 데이터베이스 전송 성공 시 메시지를 표시
-                    alert("데이터베이스로의 전송이 완료되었습니다.");
-
-                    // 여기에서 추가적인 클라이언트 측 동작을 수행할 수 있습니다.
-                },
-                error: function () {
-                    // 데이터베이스 전송 실패 시 오류 메시지 표시
-                    alert("데이터베이스로의 전송에 실패했습니다. 다시 시도해주세요.");
-                }
-            });
-        } else {
-            alert("모든 동의 사항에 동의해야 합니다.");
-        }
-    });
-});
-
-// 전체 동의 체크박스 변경 시
-$('input[name="checkAll"]').on('change', function () {
-    $('input[name="checkOne"]').prop('checked', this.checked);
-});
-
-// 개별 동의 체크박스 변경 시
-$('input[name="checkOne"]').on('change', function () {
-    const allChecked = $('input[name="checkOne"]').toArray().every(input => input.checked);
-    $('input[name="checkAll"]').prop('checked', allChecked);
-});
-
-        </script>
-=======
             <script>
                 $(document).ready(function () {
                     $("#btn_pay").click(function () {
@@ -206,7 +149,6 @@ $('input[name="checkOne"]').on('change', function () {
                     $('input[name="checkAll"]').prop('checked', allChecked);
                 });
             </script>
->>>>>>> 19d67c7ed813c9d58bc04093dc19031c2052cca2
         </div>
         <!-- 오른쪽  완료-->
 
