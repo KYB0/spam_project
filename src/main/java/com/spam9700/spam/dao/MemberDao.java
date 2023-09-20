@@ -11,13 +11,17 @@ import com.spam9700.spam.dto.CustomerMemberDto;
 @Mapper
 public interface MemberDao {
 
-    boolean join(CustomerMemberDto customerMemberDto);
+    boolean iJoin(CustomerMemberDto customerMemberDto);
+
+    boolean cJoin(CompanyMemberDto companyMemberDto);
 
     boolean iLogin(String customer_id, String customer_pwd);
 
     boolean cLogin(String company_id, String company_pwd, String company_businessnum);
 
-    boolean idCheck(String customer_id);
+    boolean iIdCheck(String customer_id);
+
+    boolean cIdCheck(String company_id);
 
     List<String> findId(String customer_name, String customer_email);
 
@@ -28,16 +32,15 @@ public interface MemberDao {
     boolean updateMypage(CustomerMemberDto customerMemberDto);
 
     void deleteMemberInfo(String customer_id);
-       
-    
+
     void deleteStudyRoomsByCompanyId(String company_id);
 
     void deleteCMemberInfo(String company_id);
 
     boolean isCustomerExist(@Param("customer_id") String customer_id);
 
+    boolean idCheck(String customer_id, String company_id);
 
-
-
+    void deleteReviewsByRoomId(String company_id);
 
 }

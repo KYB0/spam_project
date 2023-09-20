@@ -1,4 +1,4 @@
-﻿<%@ page pageEncoding="UTF-8" %>
+<%@ page pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -333,8 +333,7 @@
 
             <div class="Ctable"></div>
             <div class="s_row">
-                <div class="s_row">
-                </div>
+
                 <span class="s_seat">1</span>
                 <span class="s_seat">2</span>
                 <span class="s_seat">3</span>
@@ -419,9 +418,9 @@
             <input type="text" name="seat_number" id="seat_number">
             <div id="datepicker"></div>
             <div class="time-selection">
-                <label for="start_time">시작 시간:</label>
+                <label for="start-time">시작 시간:</label>
                 <input type="text" id="start_time" name="start_time" class="timepicker">
-                <label for="end_time">종료 시간:</label>
+                <label for="end-time">종료 시간:</label>
                 <input type="text" id="end_time" name="end_time" class="timepicker">
                 <ul class="time-list"></ul>
             </div>
@@ -432,43 +431,71 @@
 
 <script>
     $(document).ready(function () {
-    // 시간 목록 생성
-    const startTimeInput = $('#start_time');
-    const endTimeInput = $('#end_time');
-    const timeList = $('.time-list');
+        let reservedTimes = [];
+        // 시간 목록 생성
+        const startTimeInput = $('#start_time');
+        const endTimeInput = $('#end_time');
+        const timeList = $('.time-list');
 
-    for (let i = 0; i < 24; i++) {
-        // 시간을 두 자리로 형식화
-        const formattedHour = i.toString().padStart(2, '0');
-        const li = $('<li>').text(formattedHour + ':00');
-        timeList.append(li);
-    }
-
-     // 시간 선택 이벤트 처리
-timeList.on('click', 'li', function () {
-    const selectedTime = $(this).text();
-    const selectedDate = $("#datepicker").val();
-    const combinedDateTime = selectedDate + ' ' + selectedTime;
-
-    // 클릭한 시간을 시작 시간과 종료 시간 입력란에 설정
-    if (startTimeInput.val() === '') {
-        startTimeInput.val(combinedDateTime);
-    } else if (endTimeInput.val() === '') {
-        // 종료 시간이 시작 시간보다 1시간 이상 늦어야 함
-        const startHour = parseInt(startTimeInput.val().split(' ')[1].split(':')[0]);
-        const endHour = parseInt(selectedTime.split(':')[0]);
-        if (endHour >= startHour + 1) {
-            endTimeInput.val(combinedDateTime);
-        } else {
-            startTimeInput.val(combinedDateTime);
+        for (let i = 0; i < 24; i++) {
+            // 시간을 두 자리로 형식화
+            const formattedHour = i.toString().padStart(2, '0');
+            const li = $('<li>').text(formattedHour + ':00');
+            timeList.append(li);
         }
-    } else {
-        startTimeInput.val(combinedDateTime);
-        endTimeInput.val('');
-    }
-});
 
 
+        // 이전에 선택한 날짜의 CSS 클래스를 초기화하는 함수
+        function clearPreviousDateStyles() {
+            $(".time-list li").removeClass("past-time reserved-time");
+        }
+        // 시간 선택 이벤트 처리 함수
+        function handleTimeSelection() {
+            const selectedTime = $(this).text();
+            const selectedDate = $("#datepicker").val();
+            const combinedDateTime = selectedDate + ' ' + selectedTime;
+            console.log("시간 : " + selectedDate + " " + selectedTime);
+            // 클릭한 시간을 시작 시간과 종료 시간 입력란에 설정
+            if (startTimeInput.val() === '') {
+                startTimeInput.val(combinedDateTime);
+            } else if (endTimeInput.val() === '') {
+                const startHour = parseInt(startTimeInput.val().split(' ')[1].split(':')[0]);
+                const endHour = parseInt(selectedTime.split(':')[0]);
+                if (endHour >= startHour + 1) {
+                    endTimeInput.val(combinedDateTime);
+                } else {
+                    startTimeInput.val(combinedDateTime);
+                }
+            } else {
+                startTimeInput.val(combinedDateTime);
+                endTimeInput.val('');
+            }
+
+            // 시간을 선택한 후에도 시작 시간과 종료 시간 사이의 시간대를 강조
+            emphasizeTimeSlots();
+        }
+
+
+
+        // 시작 시간과 종료 시간 사이의 시간대를 강조하는 함수
+        function emphasizeTimeSlots() {
+            const startTime = startTimeInput.val();
+            const endTime = endTimeInput.val();
+            if (startTime && endTime) {
+                const startHour = parseInt(startTime.split(' ')[1].split(':')[0]);
+                const endHour = parseInt(endTime.split(' ')[1].split(':')[0]);
+
+                // 시간 슬롯을 순회하면서 강조
+                $(".time-list li").each(function () {
+                    const time = parseInt($(this).text().split(':')[0]);
+                    if (time >= startHour && time <= endHour) {
+                        $(this).addClass('emphasis'); // 강조 클래스 추가
+                    } else {
+                        $(this).removeClass('emphasis'); // 강조 클래스 제거
+                    }
+                });
+            }
+        }
 
         const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
         let selectedSeat = null; // 선택된 좌석 저장 변수
@@ -500,22 +527,24 @@ timeList.on('click', 'li', function () {
                     s_seat.classList.add("selectedSeat");
                     selectedSeat = s_seat;
                     console.log(selectedSeat);
-            // 선택한 좌석을 숫자로 가져옵니다.
-const selectedSeatNumber = parseInt(selectedSeat.textContent);
 
-// 좌석 번호를 "seat_number" 입력 필드에 설정합니다.
-$("#seat_number").val(selectedSeatNumber);
+                    // 선택한 좌석을 숫자로 가져옵니다.
+                    const selectedSeatNumber = parseInt(selectedSeat.textContent);
 
+                    // 좌석 번호를 "seat_number" 입력 필드에 설정합니다.
+                    $("#seat_number").val(selectedSeatNumber);
                 }
             });
         });
 
         document.querySelector(".myChooseButton").addEventListener("click", function () {
             if (selectedSeat !== null) {
-                // 이전에 표시된 달력을 숨깁니다.
-                $("#datepicker").datepicker("destroy");
+                const room_id = $("#room_id").val(); // 입력 필드에서 room_id 가져오기
+                const seat_number = $("#seat_number").val(); // 입력 필드에서 seat_number 가져오기
+                console.log("room_id : ", room_id);
+                console.log("seat_number : ", seat_number);
 
-                const today = new Date().toISOString().slice(0, 10);
+                const today = moment().format("YYYY-MM-DD");
 
                 // #datepicker div에 날짜 선택 달력을 표시합니다.
                 // 달력 초기화
@@ -523,7 +552,9 @@ $("#seat_number").val(selectedSeatNumber);
                     locale: 'ko',
                     nextText: "다음",
                     prevText: "이전",
-                    monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+                    monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월",
+                        "11월", "12월"
+                    ],
                     dayNames: ["일", "월", "화", "수", "목", "금", "토", "일"],
                     dayNamesShort: ["일", "월", "화", "수", "목", "금", "토", "일"],
                     dayNamesMin: ["일", "월", "화", "수", "목", "금", "토", "일"],
@@ -532,57 +563,231 @@ $("#seat_number").val(selectedSeatNumber);
                     onSelect: function (dateText) {
                         console.log("선택한 날짜: " + dateText);
 
+                        // 이전에 선택한 날짜의 CSS 클래스 초기화
+                        clearPreviousDateStyles();
+
                         // 이전에 선택된 시간 제거
                         $("#start_time").val('');
-                        $("#end-time").val('');
+                        $("#end_time").val('');
 
-                        // 현재 시간 가져오기
-                        const currentTime = new Date().getHours();
+                        // AJAX 요청을 보내서 예약 세부 정보 가져오기
+                        $.ajax({
+                            type: "POST",
+                            url: "/spam/api/getReservationDetails",
+                            data: JSON.stringify({
+                                room_id,
+                                seat_number
+                            }),
+                            contentType: "application/json",
+                            success: function (response) {
+                                console.log("예약 세부 정보:", response);
 
-                        // 선택한 날짜와 현재 날짜를 비교하여 시간 목록을 활성화 또는 비활성화
-                        const selectedDate = new Date(dateText);
-                        const currentDate = new Date(today);
-                        if (selectedDate > currentDate) {
-                            // 선택한 날짜가 현재 날짜보다 이후일 때 모든 시간 활성화
-                            $(".time-list li").prop('disabled', false).removeClass('past-time');
-                        } else {
-                            // 선택한 날짜가 현재 날짜와 같거나 이전일 때 과거 시간 비활성화
-                            $(".time-list li").each(function () {
-                                const time = parseInt($(this).text().split(':')[0]);
-                                if (time < currentTime) {
-                                    $(this).prop('disabled', true).addClass('past-time');
-                                } else {
-                                    $(this).prop('disabled', false).removeClass('past-time');
+                                // 시작과 종료 시간 사이의 모든 시간대를 저장할 배열
+                                const allTimeSlots = [];
+
+                                // reservedTimes 배열을 순회하면서 시작과 종료 시간 사이의 시간대를 추출
+                                for (let i = 0; i < response.length - 1; i +=
+                                    2) {
+                                    const startTime = moment(response[i]);
+                                    const endTime = moment(response[i + 1]);
+
+                                    // 시작 시간부터 종료 시간까지 1시간씩 증가하면서 배열에 추가
+                                    while (startTime < endTime) {
+                                        allTimeSlots.push(startTime.format(
+                                            "YYYY-MM-DDTHH:mm"));
+                                        startTime.add(1, "hour"); // 1시간 증가
+                                    }
                                 }
-                            });
-                        }
 
+                                console.log("All Time Slots:", allTimeSlots);
+
+                                // 선택한 날짜를 기반으로 예약된 시간을 필터링하여 해당 날짜의 예약 시간대만 가져오기
+                                const selectedDate = moment(dateText);
+                                const currentDate = moment();
+                                const currentTime = moment().format("HH");
+
+                                const selectedReservedTimes = allTimeSlots
+                                    .filter(function (
+                                        allTimeSlots) {
+                                        const reservationDate = moment(
+                                            allTimeSlots);
+                                        return selectedDate.isSame(
+                                            reservationDate, 'day');
+                                    });
+
+                                // 시간 슬롯 비활성화
+                                $(".time-list li").each(function () {
+                                    const time = parseInt($(this).text()
+                                        .split(':')[0]);
+                                    // 선택한 날짜가 현재 날짜보다 이후이거나,
+                                    // 선택한 날짜가 현재 날짜와 같고 예약된 시간이 아닌 경우 활성화
+                                    if (selectedDate > currentDate || (
+                                            selectedDate.isSame(
+                                                currentDate, 'day') &&
+                                            time >= currentTime)) {
+                                        $(this).prop('disabled', false)
+                                            .removeClass(
+                                                'past-time');
+                                    } else {
+                                        $(this).prop('disabled', true)
+                                            .addClass(
+                                                'past-time');
+                                    }
+                                });
+
+                                const selectedStartTime = moment(
+                                    startTimeInput
+                                    .val());
+                                console.log("selectedStartTime",
+                                    selectedStartTime);
+                                // 시간 선택 이벤트 처리
+
+
+                                // 예약된 시간대를 비활성화
+                                selectedReservedTimes.forEach(function (
+                                    reservedTime) {
+                                    const timeSlot = $(
+                                        ".time-list li:contains(" +
+                                        reservedTime.split('T')[1]
+                                        .substring(0, 5) + ")"
+                                    );
+                                    // console.log("timeSlot", timeSlot);
+                                    timeSlot.prop('disabled', true)
+                                        .addClass(
+                                            'reserved-time');
+                                    console.log("reservedTime",
+                                        reservedTime);
+
+                                });
+                                // console.log(selectedReservedTimes);
+                                timeList.on('click', 'li', handleTimeSelection);
+
+
+                            },
+                            error: function () {
+                                console.error("예약 세부 정보 가져오기 실패.");
+                                alert(
+                                    "예약 세부 정보를 가져오는 데 실패했습니다. 다시 시도하세요.");
+                            }
+                        });
                         // 날짜 선택 시 .time-list 요소 표시
                         $(".time-list").css("display", "block"); // 시간 슬롯 표시
-
-                        // 시간 슬롯 초기화
-                        const startTime = $("#start_time").val();
-                        const endTime = $("#end_time").val();
-                        const timeList = document.querySelector('.time-list');
                     },
                 });
-
                 // 달력 위치 설정 (조절 가능)
                 $("#datepicker").datepicker("show");
 
-                // 좌석 번호를 숨김
-                document.querySelector(".seat_contaner").style.display = "none";
-
-                // 선택 완료 버튼 숨김
-                document.querySelector(".myChooseButton").style.display = "none";
             } else {
                 alert("좌석을 선택해 주세요.");
             }
-            
+
+            s_seat.addEventListener("click", function () {
+                if (s_seat.classList.contains("availableSeat")) {
+                    if (selectedSeat !== null) {
+                        selectedSeat.classList.remove("selectedSeat");
+                    }
+
+                    s_seat.classList.add("selectedSeat");
+                    selectedSeat = s_seat;
+                    console.log(selectedSeat);
+                    // 선택한 좌석을 숫자로 가져옵니다.
+                    const selectedSeatNumber = parseInt(selectedSeat.textContent);
+
+                    // 좌석 번호를 "seat_number" 입력 필드에 설정합니다.
+                    $("#seat_number").val(selectedSeatNumber);
+
+                }
+            });
         });
-        
+
+
+
     });
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // AJAX 요청 성공 콜백 함수
+    function ajaxSuccessCallback(response) {
+        console.log("예약 세부 정보:", response);
+
+        // 시작과 종료 시간 사이의 모든 시간대를 저장할 배열
+        const allTimeSlots = [];
+
+        // reservedTimes 배열을 순회하면서 시작과 종료 시간 사이의 시간대를 추출
+        for (let i = 0; i < response.length - 1; i += 2) {
+            const startTime = moment(response[i]);
+            const endTime = moment(response[i + 1]);
+
+            // 시작 시간부터 종료 시간까지 1시간씩 증가하면서 배열에 추가
+            while (startTime < endTime) {
+                allTimeSlots.push(startTime.format("YYYY-MM-DDTHH:mm"));
+                startTime.add(1, "hour"); // 1시간 증가
+            }
+        }
+
+        console.log("All Time Slots:", allTimeSlots);
+
+        // 선택한 날짜를 기반으로 예약된 시간을 필터링하여 해당 날짜의 예약 시간대만 가져오기
+        const selectedDate = moment($("#datepicker").val());
+        const currentDate = moment();
+        const currentTime = moment().format("HH");
+
+        const selectedReservedTimes = allTimeSlots.filter(function (allTimeSlot) {
+            const reservationDate = moment(allTimeSlot);
+            return selectedDate.isSame(reservationDate, 'day');
+        });
+
+        // 시간 슬롯 비활성화
+        $(".time-list li").each(function () {
+            const time = parseInt($(this).text().split(':')[0]);
+            // 선택한 날짜가 현재 날짜보다 이후이거나,
+            // 선택한 날짜가 현재 날짜와 같고 예약된 시간이 아닌 경우 활성화
+            if (selectedDate > currentDate || (selectedDate.isSame(currentDate, 'day') && time >=
+                    currentTime)) {
+                $(this).prop('disabled', false).removeClass('past-time');
+            } else {
+                $(this).prop('disabled', true).addClass('past-time');
+            }
+        });
+
+        // 예약된 시간대를 비활성화
+        selectedReservedTimes.forEach(function (reservedTime) {
+            const timeSlot = $(".time-list li:contains(" + reservedTime.split('T')[1].substring(0, 5) + ")");
+            timeSlot.prop('disabled', true).addClass('reserved-time');
+            console.log(reservedTime);
+        });
+
+        console.log(selectedReservedTimes);
+    }
 </script>
 
 
