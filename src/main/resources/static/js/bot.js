@@ -95,7 +95,7 @@ function showSubOptions(parentOption) {
     } else if (parentOption === '정보변경') {
         subOptions.push('회원 아이디, 비밀번호 변경', '휴대폰 번호, 이메일 주소 변경', '이름, 생년월일, 성별 변경', '개명 절차가 어떻게 되나요?');
     } else if (parentOption === '민원처리신청') {
-        subOptions.push('이용내역을 확인하려면 어떻게 하나요?', '예약내역을 삭제하고 싶습니다.', '작성한 게시글을 삭제하고 싶습니다.');
+        subOptions.push('작성한 리뷰를 확인하려면 어떻게 하나요?', '예약내역을 확인하고 싶습니다.', '내가 작성한 문의 내역을 확인하고 싶습니다.');
         //독서실
     } else if (parentOption === '예약상품 결제') {
         subOptions.push('결제안내/결제내역 확인', '예약변경/현금영수증', '결제취소/환불');
@@ -310,13 +310,13 @@ function handleOptionClick(option) {
 
         //--개인정보--민원처리 신청 시작-- //
 
-    }else if (option === '이용내역을 확인하려면 어떻게 하나요?') {    // option 선택 if문으로 감싸기 !  추가 코드 //
+    }else if (option === '작성한 리뷰를 확인하려면 어떻게 하나요?') {    // option 선택 if문으로 감싸기 !  추가 코드 //
        
-        responseMessage.textContent = '이용내역 확인방법은 로그인 후  "마이페이지" - "나의 이용내역" 페이지에서 확인 가능합니다.';
+        responseMessage.textContent = '작성한 리뷰 확인방법은 로그인 후  "마이페이지" - "예약 및 리뷰" 페이지에서 확인 가능합니다.';
         responseMessage.style.whiteSpace = 'pre-line';
 
         const link = document.createElement('a');
-        link.href = "/spam/member/i_mypage/list"; // 페이지 링크
+        link.href = "/spam/list/review_list"; // 페이지 링크
         link.textContent = '나의 이용내역 페이지로 바로가기';
         responseMessage.appendChild(document.createElement('br'));
         responseMessage.appendChild(link);
@@ -324,13 +324,13 @@ function handleOptionClick(option) {
         modalContent.appendChild(responseMessage);  
 
 
-}else if (option === '예약내역을 삭제하고 싶습니다.') {    
+}else if (option === '예약내역을 확인하고 싶습니다.') {    
   
-    responseMessage.textContent = '예약내역 삭제방법은 로그인 후  "마이페이지" - "나의 이용내역" 페이지에서 삭제 가능합니다.';
+    responseMessage.textContent = '예약내역 확인방법은 로그인 후  "마이페이지" - "예약 및 리뷰" 페이지에서 확인 가능합니다.';
     responseMessage.style.whiteSpace = 'pre-line';
 
     const link = document.createElement('a');
-    link.href = "spam/member/i_mypage"; // 페이지 링크
+    link.href = "spam/i_mypage/list"; // 페이지 링크
     link.textContent = '나의 이용내역 페이지로 바로가기';
     responseMessage.appendChild(document.createElement('br'));
     responseMessage.appendChild(link);
@@ -338,13 +338,13 @@ function handleOptionClick(option) {
     modalContent.appendChild(responseMessage);  
 
 
-}else if (option === '작성한 게시글을 삭제하고 싶습니다.') {    
+}else if (option === '내가 작성한 문의 내역을 확인하고 싶습니다.') {    
    
-    responseMessage.textContent = '개시글 삭제방법은 로그인 후  "마이페이지" - "내가 작성한 글 보기" 페이지에서 삭제 가능합니다.';
+    responseMessage.textContent = '작성한 문의 내역 확인은 로그인 후  "마이페이지" - "나의 문의 내역" 페이지에서 확인 가능합니다.';
     responseMessage.style.whiteSpace = 'pre-line';
 
     const link = document.createElement('a');
-    link.href = "spam/member/i_mypage"; // 페이지 링크
+    link.href = "spam/i_mypage/myqna"; // 페이지 링크
     link.textContent = '내가 작성한 글 보기 페이지로 바로가기';
     responseMessage.appendChild(document.createElement('br'));
     responseMessage.appendChild(link);
