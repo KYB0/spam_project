@@ -1,4 +1,5 @@
-﻿<%@ include file="header.jsp" %>
+﻿
+
 <!DOCTYPE html>
 <html lang="UTF-8">
 
@@ -17,7 +18,7 @@
 </head>
 
 <body>
-
+    <%@ include file="header.jsp" %>
     <section class="login-form">
         <h1>LOGIN</h1>
         <form action="/spam/member/i_login" method="post">
@@ -68,7 +69,7 @@
         })
     </script>
 
-
-</body>
 <%@ include file="footer.jsp" %>
+</body>
+
 </html>

@@ -82,4 +82,8 @@ public class MemberService {
         return memberDao.idCheck(customer_id, company_id);
     }
 
+    public void deleteReviewsByRoomId(String company_id) {
+        memberDao.deleteReviewsByRoomId(company_id);
+    }
+
 }
