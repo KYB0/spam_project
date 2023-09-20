@@ -262,7 +262,7 @@ function handleOptionClick(option) {
         responseMessage.style.whiteSpace = 'pre-line';
 
         const link = document.createElement('a');
-        link.href = "/spam/member/i_mypage"; // 페이지 링크
+        link.href = "i_mypage"; // 페이지 링크
         link.textContent = '마이페이지로 바로가기';
         responseMessage.appendChild(document.createElement('br'));
         responseMessage.appendChild(link);
@@ -274,7 +274,7 @@ function handleOptionClick(option) {
         responseMessage.style.whiteSpace = 'pre-line';
 
         const link = document.createElement('a');
-        link.href = "spam/member/i_mypage"; // 페이지 링크
+        link.href = "i_mypage"; // 페이지 링크
         link.textContent = '마이페이지로 바로가기';
         responseMessage.appendChild(document.createElement('br'));
         responseMessage.appendChild(link);
@@ -287,7 +287,7 @@ function handleOptionClick(option) {
         responseMessage.style.whiteSpace = 'pre-line';
 
         const link = document.createElement('a');
-        link.href = "spam/member/i_mypage"; // 페이지 링크
+        link.href = "i_mypage"; // 페이지 링크
         link.textContent = '마이페이지로 바로가기';
         responseMessage.appendChild(document.createElement('br'));
         responseMessage.appendChild(link);
@@ -316,7 +316,7 @@ function handleOptionClick(option) {
         responseMessage.style.whiteSpace = 'pre-line';
 
         const link = document.createElement('a');
-        link.href = "/spam/list/review_list"; // 페이지 링크
+        link.href = "i_mypage/list/review_list"; // 페이지 링크
         link.textContent = '나의 이용내역 페이지로 바로가기';
         responseMessage.appendChild(document.createElement('br'));
         responseMessage.appendChild(link);
@@ -330,7 +330,7 @@ function handleOptionClick(option) {
     responseMessage.style.whiteSpace = 'pre-line';
 
     const link = document.createElement('a');
-    link.href = "spam/i_mypage/list"; // 페이지 링크
+    link.href = "i_mypage/list"; // 페이지 링크
     link.textContent = '나의 이용내역 페이지로 바로가기';
     responseMessage.appendChild(document.createElement('br'));
     responseMessage.appendChild(link);
@@ -344,7 +344,7 @@ function handleOptionClick(option) {
     responseMessage.style.whiteSpace = 'pre-line';
 
     const link = document.createElement('a');
-    link.href = "spam/i_mypage/myqna"; // 페이지 링크
+    link.href = "i_mypage/myqna"; // 페이지 링크
     link.textContent = '내가 작성한 글 보기 페이지로 바로가기';
     responseMessage.appendChild(document.createElement('br'));
     responseMessage.appendChild(link);
