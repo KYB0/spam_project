@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="/spam/css/joinFrm.css">
+    <link rel="stylesheet" href="/spam/css/findID.css">
 <style>
          body{
             background-color: #f0e9e4 !important;  /* 밝은 베이지 */
@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <div id="content_nav">
+    <div id="content_nav" class="find-id-form">
         <div class="area">
             <section class="container">
                 <!-------------------- 본문 -------------------->
@@ -31,38 +31,12 @@
 
                         <div class="join_box">
                             <div class="type">
-                                <div class="personal">
-                                    <i class="split type_ico type_1"></i>
+                                <div class="caption">
                                     <a href="/spam/member/i_join">개인회원가입</a>
-                                    <dl>
-                                        <dt>개인회원을 위한<br>서비스</dt>
-                                        <dd>
-                                            <ul>
-                                                <li>1</li>
-                                                <li>2</li>
-                                                <li>3</li>
-                                            </ul>
-                                        </dd>
-                                    </dl>
                                 </div>
-                                <div class="business">
-                                    <i class="split type_ico type_2"></i>
+                                <div class="caption">
                                     <a href="/spam/member/c_join">기업회원가입</a>
-                                    <dl>
-                                        <dt>기업회원을 위한<br>서비스</dt>
-                                        <dd>
-                                            <ul>
-                                                <li>1</li>
-                                                <li>2</li>
-                                                <li>3</li>
-                                            </ul>
-                                        </dd>
-                                    </dl>
-                                    <br>
-                                    <p>
-                                        ※ 1<br>
-                                        2.
-                                    </p>
+                                </div>
                                 </div>
                             </div>
                         </div>

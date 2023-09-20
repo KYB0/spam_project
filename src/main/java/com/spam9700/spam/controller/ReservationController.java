@@ -164,7 +164,7 @@ public class ReservationController {
 
     @PostMapping("/cancel")
     public String cancelReservation(@RequestParam("reservation_id") int reservation_id) {
-
+        
         studycafeService.cancelReservation(reservation_id);
         return "redirect:/i_mypage/list";
     }
