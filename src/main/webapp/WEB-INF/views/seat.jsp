@@ -487,7 +487,9 @@ button[type="submit"]:hover {
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function() {
+
+// 함수로 코드 블록을 래핑합니다.
+function initializeReservationForm() {
     let chooseButton = document.querySelector(".myChooseButton");
     let reservationForm = document.querySelector(".reservation-form");
 
@@ -496,7 +498,8 @@ document.addEventListener("DOMContentLoaded", function() {
     chooseButton.addEventListener("click", function() {
         reservationForm.style.display = "block"; // 나타내기
     });
-});
+}
+initializeReservationForm();
     
     $(document).ready(function () {
         let reservedTimes = [];
@@ -529,7 +532,7 @@ function handleTimeSelection() {
     // 현재 입력된 시작 시간과 종료 시간 가져오기
     const currentStartTime = startTimeInput.val();
     const currentEndTime = endTimeInput.val();
-    clearPreviousDateStyles();
+    $('.time-list li').not(this).removeClass('emphasis');
     $('.time-list li').not(this).removeClass('selected-time');
     if (currentStartTime === '') {
         // 시작 시간이 비어있는 경우 새로운 시작 시간 설정
