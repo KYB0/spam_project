@@ -66,6 +66,12 @@ public class StudycafeController {
         model.addAttribute("roomDetail", roomDetail);
         log.info("roomDetail:{}", roomDetail);
         // test에 merge 시 이 코드로 변경 _ 
+
+        List<DetailPageDto> rnData = detailPageService.getRoomsByName(room_name);
+          for(DetailPageDto rnd : rnData){
+            System.out.println(rnd);
+        } //rnData 데이터값이 전달되는지 확인
+        model.addAttribute("rnData", rnData);
         
         if (roomDetail != null) {
             Integer room_id = roomDetail.getRoom_id(); // "room_id"를 직접 가져옵니다.
