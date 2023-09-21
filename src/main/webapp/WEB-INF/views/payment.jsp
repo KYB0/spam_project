@@ -41,7 +41,7 @@
 
                 <section class="total_price_pc">
                     <p><strong><b>총 결제 금액</b>(VAT포함)</strong>
-                        <span class="in_price">495,000원</span></p>
+                        <span class="in_price">8,000원</span></p>
                     <ul>
                         <li>해당 가격은 세금, 봉사료가 포함된 금액입니다.</li>
                         <li>결제완료 후 <span>예약자 이름</span>으로 바로
