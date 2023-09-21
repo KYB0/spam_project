@@ -29,7 +29,7 @@ public class QnABoardController {
 
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+            @RequestParam(value = "pageSize", defaultValue = "7") int pageSize,
             @RequestParam(value = "keyword", required = false) String keyword) {
         // 올바른 OFFSET 계산
         int offset = (page - 1) * pageSize;

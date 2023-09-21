@@ -489,7 +489,9 @@ button[type="submit"]:hover {
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function() {
+
+// 함수로 코드 블록을 래핑합니다.
+function initializeReservationForm() {
     let chooseButton = document.querySelector(".myChooseButton");
     let reservationForm = document.querySelector(".reservation-form");
 
@@ -498,7 +500,8 @@ document.addEventListener("DOMContentLoaded", function() {
     chooseButton.addEventListener("click", function() {
         reservationForm.style.display = "block"; // 나타내기
     });
-});
+}
+initializeReservationForm();
     
     $(document).ready(function () {
         let reservedTimes = [];
@@ -531,7 +534,7 @@ function handleTimeSelection() {
     // 현재 입력된 시작 시간과 종료 시간 가져오기
     const currentStartTime = startTimeInput.val();
     const currentEndTime = endTimeInput.val();
-    clearPreviousDateStyles();
+    $('.time-list li').not(this).removeClass('emphasis');
     $('.time-list li').not(this).removeClass('selected-time');
     if (currentStartTime === '') {
         // 시작 시간이 비어있는 경우 새로운 시작 시간 설정
@@ -572,25 +575,35 @@ function handleTimeSelection() {
 
 
 
-        // 시작 시간과 종료 시간 사이의 시간대를 강조하는 함수
-        function emphasizeTimeSlots() {
-            const startTime = startTimeInput.val();
-            const endTime = endTimeInput.val();
-            if (startTime && endTime) {
-                const startHour = parseInt(startTime.split(' ')[1].split(':')[0]);
-                const endHour = parseInt(endTime.split(' ')[1].split(':')[0]);
+   // 시작과 종료 시간 사이의 시간대를 강조하는 함수
+function emphasizeTimeSlots() {
+    const startTime = startTimeInput.val();
+    const endTime = endTimeInput.val();
+    if (startTime && endTime) {
+        const startHour = parseInt(startTime.split(' ')[1].split(':')[0]);
+        const endHour = parseInt(endTime.split(' ')[1].split(':')[0]);
 
-                // 시간 슬롯을 순회하면서 강조
-                $(".time-list li").each(function () {
-                    const time = parseInt($(this).text().split(':')[0]);
-                    if (time >= startHour && time <= endHour) {
-                        $(this).addClass('emphasis'); // 강조 클래스 추가
-                    } else {
-                        $(this).removeClass('emphasis'); // 강조 클래스 제거
-                    }
-                });
+        // 선택된 시간대 배열 초기화
+        selectedTimeRange = [];
+
+        // 시간 슬롯을 순회하면서 강조
+        $(".time-list li").each(function () {
+            const time = parseInt($(this).text().split(':')[0]);
+            if (time >= startHour && time <= endHour) {
+                $(this).addClass('emphasis'); // 강조 클래스 추가
+                // 선택된 시간대를 배열에 추가
+                selectedTimeRange.push(time);
+            } else {
+                $(this).removeClass('emphasis'); // 강조 클래스 제거
             }
-        }
+            
+        });
+        // 선택된 시간대의 목록을 얻기
+console.log("선택된 시간대:", selectedTimeRange);
+
+    }
+}
+
 
         const seats = document.querySelectorAll(".s_seat"); // 모든 좌석 요소 선택
         let selectedSeat = null; // 선택된 좌석 저장 변수

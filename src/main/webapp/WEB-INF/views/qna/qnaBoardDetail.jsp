@@ -280,7 +280,7 @@
                 dataType: "json",
                 success: function (data) {
                     // 댓글 수정 성공 시 화면 갱신
-                    getComments();
+                    loadComments(1);
                     // 폼 초기화 및 닫기
                     $("#editCommentId").val("");
                     $("#editCommentContent").val("");
@@ -299,7 +299,7 @@
                 url: "${pageContext.request.contextPath}/comments/" + commentId,
                 success: function () {
                     // 댓글 삭제 성공 시 화면 갱신
-                    getComments();
+                    loadComments(1);
                 },
                 error: function () {
                     alert("댓글 삭제 실패");
